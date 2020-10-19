@@ -4,7 +4,6 @@ import de.janbraunsdorff.ase.tech.repositories.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.TransactionEntity;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -131,9 +130,7 @@ class RepositoryTest {
         String path = this.basePath + "/src/test/resources/notFound.json";
         final CrudBankRepository repository = new Repository(path);
 
-        Assertions.assertThrows(NoSuchFileException.class, () -> {
-            repository.get("ID3");
-        });
+        Assertions.assertThrows(NoSuchFileException.class, () -> repository.get("ID3"));
     }
 
 
