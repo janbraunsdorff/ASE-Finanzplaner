@@ -18,8 +18,11 @@ public class Repository implements CrudBankRepository {
 
     @Override
     public BankEntity get(String id) {
-        Optional<BankEntity> first = reader.readBanks(bankRepoPath).stream().filter(s -> s.getId().equals(id)).findFirst();
-        return first.orElseGet(BankEntity::new);
+        return reader.readBanks(bankRepoPath)
+                .stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElseGet(BankEntity::new);
 
     }
 
