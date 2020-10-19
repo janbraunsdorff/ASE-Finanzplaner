@@ -9,11 +9,13 @@ import java.util.List;
 public class Repository implements CrudBankRepository {
 
     private final JsonReader reader;
+    private final JsonWriter writer;
     private final String bankRepoPath;
 
     public Repository(String bankRepoPath) {
         this.bankRepoPath = bankRepoPath;
         this.reader = new JsonReader();
+        this.writer = new JsonWriter(this.reader);
     }
 
     @Override
@@ -31,7 +33,9 @@ public class Repository implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity create(BankEntity bankEntity) {
+    public BankEntity create(BankEntity bankEntity) throws Exception {
+        this.writer.write(bankEntity, this.bankRepoPath);
+
         return null;
     }
 

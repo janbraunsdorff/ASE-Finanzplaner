@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -138,6 +141,15 @@ class RepositoryTest {
     public void Test_CreateBankEntity_FileNotExits() throws Exception {
         String path = this.basePath + "/src/test/resources/bank_createFile.json";
         CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity();
+        repository.create(bankEntity);
+
+        File f = new File(path);
+        assertThat(f.exists(), is(true));
+        assertThat(f.isDirectory(), is(false));
+
+        Files.delete(Paths.get(path));
 
     }
 }
