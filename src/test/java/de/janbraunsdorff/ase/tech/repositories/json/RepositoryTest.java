@@ -12,6 +12,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -147,6 +148,23 @@ class RepositoryTest {
         assertThat(f.isDirectory(), is(false));
 
         Files.delete(Paths.get(path));
+    }
 
+    @Test
+    public void Test_CreateBankEntity_AllInformationGiven() throws Exception {
+        String path = this.basePath + "/src/test/resources/bank_createBankAllInformation.json";
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("Id", "name", Collections.emptyList());
+        repository.create(bankEntity);
+
+        BankEntity got = new JsonReader().readBanks(path).get(0);
+
+        assertThat(got.getName(), is(bankEntity.getName()));
+        assertThat(got.getId(), is(bankEntity.getId()));
+        assertThat(got.getAccounts().size(), is(0));
+
+
+        Files.delete(Paths.get(path));
     }
 }
