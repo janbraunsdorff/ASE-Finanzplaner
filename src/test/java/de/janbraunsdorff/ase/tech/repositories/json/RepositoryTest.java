@@ -60,4 +60,28 @@ class RepositoryTest {
         assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().size(), is(0));
 
     }
+
+    @Test
+    public void Test_BankAccountAndTransactionCanBeReadFromFile(){
+        String path = this.basePath + "/src/test/resources/transaction.json";
+        CrudBankRepository repository = new Repository(path);
+
+        List<BankEntity> bankEntities = repository.get();
+
+        assertThat(bankEntities.size(), is(1));
+        assertThat(bankEntities.get(0).getAccounts().size(), is(1));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getName(), is("account name"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getId(), is("account id"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getNumber(), is("account number"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getOrder(), is(1));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().size(), is(1));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getCategory(), is("Miete"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getContract(), is(true));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getDate().getTime(), is(1535932800000L));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getForm(), is(""));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getTo(), is("Vermieter"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getId(), is("transaction id"));
+        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getValue(), is(-1_000_00));
+
+    }
 }

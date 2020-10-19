@@ -11,10 +11,10 @@ public class TransactionEntity {
     @SerializedName("value")
     private Integer value;
 
-    @SerializedName("data")
+    @SerializedName("date")
     private Date date;
 
-    @SerializedName("form")
+    @SerializedName("from")
     private String form;
 
     @SerializedName("to")

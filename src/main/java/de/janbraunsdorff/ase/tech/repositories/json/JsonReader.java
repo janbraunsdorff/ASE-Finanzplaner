@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.tech.repositories.json;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 
@@ -15,7 +16,7 @@ public class JsonReader {
     List<BankEntity> readBanks(String path){
         try {
             String json =  Files.readAllLines(Paths.get(path)).stream().reduce(" ", String::concat);
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             Type type = new TypeToken<List<BankEntity>>(){}.getType();
             return gson.fromJson(json, type);
 
