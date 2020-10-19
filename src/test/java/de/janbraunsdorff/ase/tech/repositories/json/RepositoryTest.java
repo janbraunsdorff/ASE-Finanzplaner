@@ -1,7 +1,9 @@
 package de.janbraunsdorff.ase.tech.repositories.json;
 
+import de.janbraunsdorff.ase.tech.repositories.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.tech.repositories.TransactionEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,9 +28,11 @@ class RepositoryTest {
         List<BankEntity> bankEntities = repository.get();
 
         assertThat(bankEntities.size(), is(1));
-        assertThat(bankEntities.get(0).getId(), is("ID"));
-        assertThat(bankEntities.get(0).getName(), is("Bank Name"));
-        assertThat(bankEntities.get(0).getAccounts().size(), is(0));
+
+        BankEntity bankEntity = bankEntities.get(0);
+        assertThat(bankEntity.getId(), is("ID"));
+        assertThat(bankEntity.getName(), is("Bank Name"));
+        assertThat(bankEntity.getAccounts().size(), is(0));
     }
 
     @Test
@@ -53,11 +57,13 @@ class RepositoryTest {
 
         assertThat(bankEntities.size(), is(1));
         assertThat(bankEntities.get(0).getAccounts().size(), is(1));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getName(), is("account name"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getId(), is("account id"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getNumber(), is("account number"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getOrder(), is(1));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().size(), is(0));
+
+        AccountEntity account = bankEntities.get(0).getAccounts().get(0);
+        assertThat(account.getName(), is("account name"));
+        assertThat(account.getId(), is("account id"));
+        assertThat(account.getNumber(), is("account number"));
+        assertThat(account.getOrder(), is(1));
+        assertThat(account.getTransactions().size(), is(0));
 
     }
 
@@ -70,18 +76,22 @@ class RepositoryTest {
 
         assertThat(bankEntities.size(), is(1));
         assertThat(bankEntities.get(0).getAccounts().size(), is(1));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getName(), is("account name"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getId(), is("account id"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getNumber(), is("account number"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getOrder(), is(1));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().size(), is(1));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getCategory(), is("Miete"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getContract(), is(true));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getDate().getTime(), is(1535932800000L));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getForm(), is(""));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getTo(), is("Vermieter"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getId(), is("transaction id"));
-        assertThat(bankEntities.get(0).getAccounts().get(0).getTransactions().get(0).getValue(), is(-1_000_00));
+
+        AccountEntity account = bankEntities.get(0).getAccounts().get(0);
+        assertThat(account.getName(), is("account name"));
+        assertThat(account.getId(), is("account id"));
+        assertThat(account.getNumber(), is("account number"));
+        assertThat(account.getOrder(), is(1));
+        assertThat(account.getTransactions().size(), is(1));
+
+        TransactionEntity transaction = account.getTransactions().get(0);
+        assertThat(transaction.getCategory(), is("Miete"));
+        assertThat(transaction.getContract(), is(true));
+        assertThat(transaction.getDate().getTime(), is(1535932800000L));
+        assertThat(transaction.getForm(), is(""));
+        assertThat(transaction.getTo(), is("Vermieter"));
+        assertThat(transaction.getId(), is("transaction id"));
+        assertThat(transaction.getValue(), is(-1_000_00));
 
     }
 }
