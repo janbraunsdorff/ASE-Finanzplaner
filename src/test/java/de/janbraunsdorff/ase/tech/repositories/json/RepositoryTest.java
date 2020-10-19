@@ -239,4 +239,64 @@ class RepositoryTest {
 
         Files.delete(Paths.get(path));
     }
+
+    @Test
+    public void Test_CreateBankEntity_UpdateExistingBank() throws Exception {
+        String baseFileContent = "[{\"id\": \"ID\", \"name\": \"Bank Name\", \"accounts\": []}]";
+        String path = this.basePath + "/src/test/resources/updateBank.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("ID", "updated name", Collections.emptyList());
+        repository.update(bankEntity);
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(1));
+        assertThat(bankEntities.get(0).getId(), is("ID"));
+        assertThat(bankEntities.get(0).getName(), is("updated name"));
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_UpdateExistingKeepOtherBank() throws Exception {
+        String baseFileContent =
+                "[" +
+                "  {" +
+                "    \"id\": \"ID1\"," +
+                "    \"name\": \"Bank Name1\"," +
+                "    \"accounts\": []" +
+                "  }," +
+                "  {" +
+                "    \"id\": \"ID2\"," +
+                "    \"name\": \"Bank Name2\"," +
+                "    \"accounts\": []" +
+                "  }" +
+                "]";
+        String path = this.basePath + "/src/test/resources/updateKeepOthersBank.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList());
+        repository.update(bankEntity);
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(2));
+        assertThat(bankEntities.get(0).getId(), is("ID2"));
+        assertThat(bankEntities.get(0).getName(), is("Bank Name2"));
+        assertThat(bankEntities.get(1).getId(), is("ID1"));
+        assertThat(bankEntities.get(1).getName(), is("updated name"));
+
+        Files.delete(Paths.get(path));
+    }
 }

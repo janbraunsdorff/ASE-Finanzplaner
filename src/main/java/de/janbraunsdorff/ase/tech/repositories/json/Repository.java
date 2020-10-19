@@ -5,6 +5,7 @@ import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Repository implements CrudBankRepository {
 
@@ -40,8 +41,16 @@ public class Repository implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity update(BankEntity bankEntity) {
-        return null;
+    public BankEntity update(BankEntity bankEntity) throws IOException {
+        List<BankEntity> banks = this.reader.readBanks(bankRepoPath)
+                .stream()
+                .filter(s -> !(s.getId().equals(bankEntity.getId())))
+                .collect(Collectors.toList());
+
+        banks.add(bankEntity);
+        this.writer.update(banks, bankRepoPath);
+        return  bankEntity;
+
     }
 
     @Override

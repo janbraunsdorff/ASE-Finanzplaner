@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class JsonWriter {
-    JsonReader reader;
+    private JsonReader reader;
 
     public JsonWriter(JsonReader reader) {
         this.reader = reader;
@@ -37,14 +37,17 @@ public class JsonWriter {
     private void createNew(BankEntity bankEntity, String path, File f) throws IOException {
         f.createNewFile();
         List<BankEntity> obj = Collections.singletonList(bankEntity);
-        Gson gson = new Gson();
-        Files.write(Paths.get(path), gson.toJson(obj).getBytes());
+        update(obj, path);
     }
 
     private void append(BankEntity bankEntity, String path) throws IOException {
-        Gson gson = new Gson();
         List<BankEntity> bankEntities = reader.readBanks(path);
         bankEntities.add(bankEntity);
-        Files.write(Paths.get(path), gson.toJson(bankEntities).getBytes());
+        update(bankEntities, path);
+    }
+
+    public void update(List<BankEntity> banks, String path) throws IOException {
+        Gson gson = new Gson();
+        Files.write(Paths.get(path), gson.toJson(banks).getBytes());
     }
 }
