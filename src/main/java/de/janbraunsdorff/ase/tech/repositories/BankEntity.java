@@ -11,7 +11,7 @@ public class BankEntity {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("account")
+    @SerializedName("accounts")
     private List<AccountEntity> accounts;
 
 
