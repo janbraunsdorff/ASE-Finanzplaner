@@ -14,10 +14,12 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.Mockito.when;
 
 class RepositoryTest {
     private String basePath;
@@ -164,6 +166,50 @@ class RepositoryTest {
         assertThat(got.getId(), is(bankEntity.getId()));
         assertThat(got.getAccounts().size(), is(0));
 
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_IdIsMissing() throws Exception {
+        String path = this.basePath + "/src/test/resources/bank_createBank_IdMissing.json";
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity(null, "name", Collections.emptyList());
+        repository.create(bankEntity);
+
+        BankEntity got = new JsonReader().readBanks(path).get(0);
+
+        assertThat(got.getName(), is(bankEntity.getName()));
+        assertThat(got.getAccounts().size(), is(0));
+
+        try{
+            UUID uuid = UUID.fromString(got.getId());
+        } catch (IllegalArgumentException exception){
+            assertThat(got.getId(), is(0));
+        }
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_IdIsEmpty() throws Exception {
+        String path = this.basePath + "/src/test/resources/bank_createBank_IdEmpty.json";
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList());
+        repository.create(bankEntity);
+
+        BankEntity got = new JsonReader().readBanks(path).get(0);
+
+        assertThat(got.getName(), is(bankEntity.getName()));
+        assertThat(got.getAccounts().size(), is(0));
+
+        try{
+            UUID uuid = UUID.fromString(got.getId());
+        } catch (IllegalArgumentException exception){
+            assertThat(got.getId(), is(0));
+        }
 
         Files.delete(Paths.get(path));
     }
