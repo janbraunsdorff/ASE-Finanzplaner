@@ -9,10 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 public class JsonWriter {
-    private JsonReader reader;
+    private final JsonReader reader;
 
     public JsonWriter(JsonReader reader) {
         this.reader = reader;
@@ -20,9 +19,6 @@ public class JsonWriter {
 
     public void write(BankEntity bankEntity, String path) throws IOException {
         File f = new File(path);
-        if (checkForMissingId(bankEntity)) {
-            bankEntity.setId(UUID.randomUUID().toString());
-        }
         if (!f.exists()) {
             createNew(bankEntity, path, f);
         }else {
@@ -30,9 +26,7 @@ public class JsonWriter {
         }
     }
 
-    private boolean checkForMissingId(BankEntity bankEntity) {
-        return bankEntity.getId() == null || bankEntity.getId().isEmpty();
-    }
+
 
     private void createNew(BankEntity bankEntity, String path, File f) throws IOException {
         f.createNewFile();

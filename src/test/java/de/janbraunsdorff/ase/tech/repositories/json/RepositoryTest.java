@@ -127,14 +127,13 @@ class RepositoryTest {
 
     }
 
-    @Test()
+    @Test
     public void Test_GetBankFileNotFound(){
         String path = this.basePath + "/src/test/resources/notFound.json";
         final CrudBankRepository repository = new Repository(path);
 
         Assertions.assertThrows(NoSuchFileException.class, () -> repository.get("ID3"));
     }
-
 
     @Test
     public void Test_CreateBankEntity_FileNotExits() throws Exception {
@@ -197,7 +196,7 @@ class RepositoryTest {
         CrudBankRepository repository = new Repository(path);
 
         BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList());
-        repository.create(bankEntity);
+        BankEntity result = repository.create(bankEntity);
 
         BankEntity got = new JsonReader().readBanks(path).get(0);
 
@@ -205,7 +204,8 @@ class RepositoryTest {
         assertThat(got.getAccounts().size(), is(0));
 
         try{
-            UUID uuid = UUID.fromString(got.getId());
+            UUID.fromString(got.getId());
+            UUID.fromString(result.getId());
         } catch (IllegalArgumentException exception){
             assertThat(got.getId(), is(0));
         }
@@ -296,6 +296,27 @@ class RepositoryTest {
         assertThat(bankEntities.get(0).getName(), is("Bank Name2"));
         assertThat(bankEntities.get(1).getId(), is("ID1"));
         assertThat(bankEntities.get(1).getName(), is("updated name"));
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_UpdateNOtExistingBank() throws Exception {
+        String baseFileContent = "[]";
+        String path = this.basePath + "/src/test/resources/updateNonExisting.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList());
+        repository.update(bankEntity);
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(0));
 
         Files.delete(Paths.get(path));
     }
