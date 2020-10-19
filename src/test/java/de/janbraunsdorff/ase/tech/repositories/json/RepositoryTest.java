@@ -5,7 +5,6 @@ import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -13,15 +12,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 
 class RepositoryTest {
+    private String basePath;
 
     @BeforeEach
     void setUp() {
+        this.basePath = System.getProperty("user.dir");
     }
 
     @Test
     public void Test_SingleBankCanBeReadFromFile(){
-        String currentPath = System.getProperty("user.dir");
-        String path = currentPath + "/src/test/resources/singleBank.json";
+        String path = this.basePath + "/src/test/resources/singleBank.json";
         CrudBankRepository repository = new Repository(path);
 
         List<BankEntity> bankEntities = repository.get();
