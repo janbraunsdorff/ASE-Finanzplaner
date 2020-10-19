@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 
 class RepositoryTest {
     private String basePath;
@@ -92,6 +93,30 @@ class RepositoryTest {
         assertThat(transaction.getTo(), is("Vermieter"));
         assertThat(transaction.getId(), is("transaction id"));
         assertThat(transaction.getValue(), is(-1_000_00));
+
+    }
+
+    @Test
+    public void Test_GetBankById(){
+        String path = this.basePath + "/src/test/resources/twoBank.json";
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = repository.get("ID1");
+
+        assertThat(bankEntity.getId(), is("ID1"));
+        assertThat(bankEntity.getName(), is("Bank Name1"));
+
+    }
+
+    @Test
+    public void Test_GetBankById_NotPresent(){
+        String path = this.basePath + "/src/test/resources/twoBank.json";
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = repository.get("ID3");
+
+        assertThat(bankEntity.getId(), nullValue());
+        assertThat(bankEntity.getName(), nullValue());
 
     }
 }
