@@ -20,16 +20,31 @@ public class JsonWriter {
 
     public void write(BankEntity bankEntity, String path) throws IOException {
         File f = new File(path);
-        if (!f.exists()) {
-            f.createNewFile();
-        }
-
-        if (bankEntity.getId() == null || bankEntity.getId().isEmpty()) {
+        if (checkForMissingId(bankEntity)) {
             bankEntity.setId(UUID.randomUUID().toString());
         }
+        if (!f.exists()) {
+            createNew(bankEntity, path, f);
+        }else {
+            append(bankEntity, path);
+        }
+    }
 
+    private boolean checkForMissingId(BankEntity bankEntity) {
+        return bankEntity.getId() == null || bankEntity.getId().isEmpty();
+    }
+
+    private void createNew(BankEntity bankEntity, String path, File f) throws IOException {
+        f.createNewFile();
         List<BankEntity> obj = Collections.singletonList(bankEntity);
         Gson gson = new Gson();
         Files.write(Paths.get(path), gson.toJson(obj).getBytes());
+    }
+
+    private void append(BankEntity bankEntity, String path) throws IOException {
+        Gson gson = new Gson();
+        List<BankEntity> bankEntities = reader.readBanks(path);
+        bankEntities.add(bankEntity);
+        Files.write(Paths.get(path), gson.toJson(bankEntities).getBytes());
     }
 }

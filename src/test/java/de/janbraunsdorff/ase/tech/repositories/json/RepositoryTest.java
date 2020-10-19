@@ -19,7 +19,6 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
-import static org.mockito.Mockito.when;
 
 class RepositoryTest {
     private String basePath;
@@ -209,6 +208,33 @@ class RepositoryTest {
             UUID uuid = UUID.fromString(got.getId());
         } catch (IllegalArgumentException exception){
             assertThat(got.getId(), is(0));
+        }
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_AppendToExistingFile() throws Exception {
+        String baseFileContent = "[{\"id\": \"ID\", \"name\": \"Bank Name\", \"accounts\": []}]";
+        String path = this.basePath + "/src/test/resources/addBank.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList());
+        repository.create(bankEntity);
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(2));
+        assertThat(bankEntities.get(0).getId(), is("ID"));
+        try{
+            UUID uuid = UUID.fromString(bankEntities.get(1).getId());
+        } catch (IllegalArgumentException exception){
+            assertThat(bankEntities.get(1).getId(), is(0));
         }
 
         Files.delete(Paths.get(path));
