@@ -3,8 +3,8 @@ package de.janbraunsdorff.ase.tech.repositories.json;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class Repository implements CrudBankRepository {
 
@@ -17,17 +17,16 @@ public class Repository implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity get(String id) {
+    public BankEntity get(String id) throws IOException {
         return reader.readBanks(bankRepoPath)
                 .stream()
                 .filter(s -> s.getId().equals(id))
                 .findFirst()
                 .orElseGet(BankEntity::new);
-
     }
 
     @Override
-    public List<BankEntity> get() {
+    public List<BankEntity> get() throws IOException {
         return reader.readBanks(this.bankRepoPath);
     }
 

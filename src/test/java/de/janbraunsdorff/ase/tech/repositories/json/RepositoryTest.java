@@ -4,9 +4,12 @@ import de.janbraunsdorff.ase.tech.repositories.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.TransactionEntity;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -22,7 +25,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_SingleBankCanBeReadFromFile(){
+    public void Test_SingleBankCanBeReadFromFile() throws Exception{
         String path = this.basePath + "/src/test/resources/singleBank.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -37,7 +40,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_TwoBanksCanBeReadFromFile(){
+    public void Test_TwoBanksCanBeReadFromFile() throws Exception{
         String path = this.basePath + "/src/test/resources/twoBank.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -50,7 +53,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_BankAndAccountCanBeReadFromFile(){
+    public void Test_BankAndAccountCanBeReadFromFile() throws Exception{
         String path = this.basePath + "/src/test/resources/account.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -69,7 +72,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_BankAccountAndTransactionCanBeReadFromFile(){
+    public void Test_BankAccountAndTransactionCanBeReadFromFile() throws Exception{
         String path = this.basePath + "/src/test/resources/transaction.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -97,7 +100,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_GetBankById(){
+    public void Test_GetBankById() throws Exception{
         String path = this.basePath + "/src/test/resources/twoBank.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -109,7 +112,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void Test_GetBankById_NotPresent(){
+    public void Test_GetBankById_NotPresent() throws Exception{
         String path = this.basePath + "/src/test/resources/twoBank.json";
         CrudBankRepository repository = new Repository(path);
 
@@ -117,6 +120,24 @@ class RepositoryTest {
 
         assertThat(bankEntity.getId(), nullValue());
         assertThat(bankEntity.getName(), nullValue());
+
+    }
+
+    @Test()
+    public void Test_GetBankFileNotFound(){
+        String path = this.basePath + "/src/test/resources/notFound.json";
+        final CrudBankRepository repository = new Repository(path);
+
+        Assertions.assertThrows(NoSuchFileException.class, () -> {
+            repository.get("ID3");
+        });
+    }
+
+
+    @Test
+    public void Test_CreateBankEntity_FileNotExits() throws Exception {
+        String path = this.basePath + "/src/test/resources/bank_createFile.json";
+        CrudBankRepository repository = new Repository(path);
 
     }
 }
