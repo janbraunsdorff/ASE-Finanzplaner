@@ -67,8 +67,8 @@ public class Repository implements CrudBankRepository {
 
     @Override
     public boolean delete(String bankId) throws IOException {
-        List<BankEntity> bankEntities = this.reader.readBanks(bankRepoPath);
-        bankEntities = bankEntities
+        List<BankEntity> bankEntities = this.reader
+                .readBanks(bankRepoPath)
                 .stream()
                 .filter(s -> !(s.getId().equals(bankId)))
                 .collect(Collectors.toList());
