@@ -3,26 +3,27 @@ package de.janbraunsdorff.ase.userinterface.console.curd;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.usecases.crud.CrudBank;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
-import de.janbraunsdorff.ase.userinterface.console.result.bank.BankNewResult;
+import de.janbraunsdorff.ase.userinterface.console.result.bank.BankUpdateResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 
 import java.util.Collections;
 
-public class BankAddAction implements Action{
+public class BankUpdateAction implements Action{
 
     private CrudBank crudBank;
 
-    public BankAddAction(CrudBank crudBank){
+    public BankUpdateAction(CrudBank crudBank){
         this.crudBank = crudBank;
     }
+
 
     @Override
     public Result act(String command) {
         String[] s = command.split(" ");
-        if (s.length < 3){
+        if (s.length < 4){
             return new BankHelpResult();
         }
-        BankEntity bankEntity = crudBank.create(new BankEntity(null, s[2], Collections.emptyList()));
-        return new BankNewResult(bankEntity);
+        crudBank.create(new BankEntity(s[2], s[3], Collections.emptyList()));
+        return new BankUpdateResult();
     }
 }

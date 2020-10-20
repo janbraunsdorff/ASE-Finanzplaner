@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.userinterface.console.curd;
 
+import de.janbraunsdorff.ase.userinterface.console.result.Result;
+
 public interface Action {
-    void act(String command);
+    Result act(String command);
 }

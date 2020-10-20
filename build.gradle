@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
+group 'de.janbraunsdorff'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -19,4 +19,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'de.janbraunsdorff.ase.App'
+        )
+    }
 }
