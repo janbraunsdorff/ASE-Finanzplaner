@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 class RepositoryTest {
@@ -317,6 +317,67 @@ class RepositoryTest {
 
         List<BankEntity> bankEntities = new JsonReader().readBanks(path);
         assertThat(bankEntities.size(), is(0));
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_DeleteExistingBank() throws Exception {
+        String baseFileContent =
+            "[" +
+            "  {" +
+            "    \"id\": \"ID1\"," +
+            "    \"name\": \"Bank Name1\"," +
+            "    \"accounts\": []" +
+            "  }" +
+            "]";
+        String path = this.basePath + "/src/test/resources/deleteExistingBank.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        repository.delete("ID1");
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(0));
+
+        Files.delete(Paths.get(path));
+    }
+
+    @Test
+    public void Test_CreateBankEntity_DeleteExistingBank_KeppOther() throws Exception {
+        String baseFileContent =
+                "[" +
+                        "  {" +
+                        "    \"id\": \"ID1\"," +
+                        "    \"name\": \"Bank Name1\"," +
+                        "    \"accounts\": []" +
+                        "  }," +
+                        "  {" +
+                        "    \"id\": \"ID2\"," +
+                        "    \"name\": \"Bank Name2\"," +
+                        "    \"accounts\": []" +
+                        "  }" +
+                        "]";
+        String path = this.basePath + "/src/test/resources/deleteKeepOthersBank.json";
+        File f = new File(path);
+        if (!f.exists()){
+            f.delete();
+        }
+        f.createNewFile();
+        Files.write(Paths.get(path), baseFileContent.getBytes());
+        CrudBankRepository repository = new Repository(path);
+
+        repository.delete("ID1");
+
+        List<BankEntity> bankEntities = new JsonReader().readBanks(path);
+        assertThat(bankEntities.size(), is(1));
+        assertThat(bankEntities.get(0).getId(), is("ID2"));
+        assertThat(bankEntities.get(0).getName(), is("Bank Name2"));
 
         Files.delete(Paths.get(path));
     }

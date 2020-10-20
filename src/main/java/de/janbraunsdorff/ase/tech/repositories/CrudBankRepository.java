@@ -8,5 +8,5 @@ public interface CrudBankRepository {
     List<BankEntity> get() throws IOException;
     BankEntity create(BankEntity bankEntity) throws Exception;
     BankEntity update(BankEntity bankEntity) throws IOException;
-    boolean delete(String bankId);
+    boolean delete(String bankId) throws IOException;
 }
