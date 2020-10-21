@@ -28,10 +28,34 @@ class BankAddActionTest {
     }
 
     @Test
-    public void Test_BankAddActionCommandWithOneWordName() {
+    public void Test_BankAddActionWithNoFlag(){
         CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
         BankAddAction action = new BankAddAction(crudBank);
         Result res = action.act("bank add testbank");
+        assertThat( res.getClass().getName(), is(BankHelpResult.class.getName()));
+    }
+
+    @Test
+    public void Test_BankAddActionWithWrongFlagA(){
+        CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
+        BankAddAction action = new BankAddAction(crudBank);
+        Result res = action.act("bank add -a testbank");
+        assertThat( res.getClass().getName(), is(BankHelpResult.class.getName()));
+    }
+
+    @Test
+    public void Test_BankAddActionWithWrongFlagB(){
+        CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
+        BankAddAction action = new BankAddAction(crudBank);
+        Result res = action.act("bank add -b testbank");
+        assertThat( res.getClass().getName(), is(BankHelpResult.class.getName()));
+    }
+
+    @Test
+    public void Test_BankAddActionCommandWithOneWordName() {
+        CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
+        BankAddAction action = new BankAddAction(crudBank);
+        Result res = action.act("bank add -n testbank");
 
         assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
         assertThat(crudBank.name, is("testbank"));
@@ -41,9 +65,9 @@ class BankAddActionTest {
     public void Test_BankAddActionCommandWithTwoWordsName() {
         CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
         BankAddAction action = new BankAddAction(crudBank);
-        Result res = action.act("bank add test bank");
+        Result res = action.act("bank add -n test bank");
 
         assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
-        assertThat(crudBank.name, is("testbank"));
+        assertThat(crudBank.name, is("test bank"));
     }
 }

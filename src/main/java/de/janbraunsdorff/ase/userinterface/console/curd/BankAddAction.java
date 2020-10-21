@@ -20,10 +20,10 @@ public class BankAddAction implements Action{
     @Override
     public Result act(String command) {
         String[] s = command.split(" ");
-        if (s.length < 3){
+        if (s.length < 4 || !s[2].equals("-n")){
             return new BankHelpResult();
         }
-        String name = Arrays.stream(Arrays.copyOfRange(s, 2, s.length)).reduce(String::concat).get();
+        String name = Arrays.stream(Arrays.copyOfRange(s, 3, s.length)).reduce((a, b) -> String.join(" ", a ,b)).get();
         BankEntity bankEntity = crudBank.create(new BankEntity(null, name, Collections.emptyList()));
         return new BankNewResult(bankEntity);
     }

@@ -17,9 +17,9 @@ public class BankHelpResult implements Result {
             add(newCommand);
             add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank all", "zeigt alle Banken an")));
             add(newCommand);
-            add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank add [name]", "legt eine neue Bank mit einem Name an")));
+            add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank add -n [name]", "legt eine neue Bank mit einem Name an")));
             add(newCommand);
-            add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank update [ID] [name]", "aktualiserit den Namen einer Bank")));
+            add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank update -id [ID] -n [name]", "aktualiserit den Namen einer Bank")));
             add(new SentencePiece(Color.BASE, "\n"));
         }};
     }
