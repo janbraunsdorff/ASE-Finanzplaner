@@ -36,4 +36,14 @@ class BankAddActionTest {
         assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
         assertThat(crudBank.name, is("testbank"));
     }
+
+    @Test
+    public void Test_BankAddActionCommandWithTwoWordsName() {
+        CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
+        BankAddAction action = new BankAddAction(crudBank);
+        Result res = action.act("bank add test bank");
+
+        assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
+        assertThat(crudBank.name, is("testbank"));
+    }
 }
