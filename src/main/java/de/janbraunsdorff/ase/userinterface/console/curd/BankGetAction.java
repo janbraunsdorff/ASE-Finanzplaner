@@ -1,13 +1,13 @@
 package de.janbraunsdorff.ase.userinterface.console.curd;
 
-import de.janbraunsdorff.ase.usecases.crud.CrudBank;
+import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankAllResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 
 public class BankGetAction implements Action{
-    private CrudBank crudBank;
+    private final ICrudBank crudBank;
 
-    public BankGetAction(CrudBank crudBank){
+    public BankGetAction(ICrudBank crudBank){
         this.crudBank = crudBank;
     }
 

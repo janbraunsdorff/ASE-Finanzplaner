@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.userinterface.console.curd;
 
-import de.janbraunsdorff.ase.usecases.crud.CrudBank;
+import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.Distributor;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
@@ -12,7 +12,7 @@ public class CrudBankDistributor implements Distributor {
 
     Map<String, Action> actions;
 
-    public CrudBankDistributor (CrudBank crudBank) {
+    public CrudBankDistributor (ICrudBank crudBank) {
         actions = new HashMap<String, Action>(){{
             put("all", new BankGetAction(crudBank));
             put("add", new BankAddAction(crudBank));

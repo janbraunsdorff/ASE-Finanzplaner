@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.userinterface.console.curd;
 
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
-import de.janbraunsdorff.ase.usecases.crud.CrudBank;
+import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankNewResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
@@ -10,9 +10,9 @@ import java.util.Collections;
 
 public class BankAddAction implements Action{
 
-    private CrudBank crudBank;
+    private final ICrudBank crudBank;
 
-    public BankAddAction(CrudBank crudBank){
+    public BankAddAction(ICrudBank crudBank){
         this.crudBank = crudBank;
     }
 

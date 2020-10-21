@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import java.util.Collections;
 import java.util.List;
 
-public class CrudBank {
+public class CrudBank implements ICrudBank {
 
     private final CrudBankRepository repo;
     private final BankEntity defaultEntity;
@@ -17,6 +17,7 @@ public class CrudBank {
 
     }
 
+    @Override
     public BankEntity get(String id) {
         try {
             return this.repo.get(id);
@@ -25,6 +26,7 @@ public class CrudBank {
         }
     }
 
+    @Override
     public List<BankEntity> get() {
         try {
             return this.repo.get();
@@ -33,6 +35,7 @@ public class CrudBank {
         }
     }
 
+    @Override
     public BankEntity create(BankEntity entity) {
         try {
             return this.repo.create(entity);
@@ -42,6 +45,7 @@ public class CrudBank {
     }
 
 
+    @Override
     public BankEntity update(BankEntity entity) {
         try {
             return this.repo.update(entity);
@@ -51,6 +55,7 @@ public class CrudBank {
     }
 
 
+    @Override
     public boolean delete(String id) {
         try {
             return this.repo.delete(id);
