@@ -25,7 +25,7 @@ public class CrudBankDistributor implements Distributor {
             return new BankHelpResult();
         }
         String action = s[1];
-        return  this.actions.getOrDefault(action, new DefaultAction()).act(command);
+        return this.actions.getOrDefault(action, new DefaultAction()).act(command);
     }
 
     protected void addAction(String command, Action action){

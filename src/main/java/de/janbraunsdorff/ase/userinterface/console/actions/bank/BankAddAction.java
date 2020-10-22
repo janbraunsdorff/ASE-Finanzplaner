@@ -20,17 +20,16 @@ public class BankAddAction implements Action {
 
     @Override
     public Result act(String command) {
-        String[] s = command.split(" ");
-        if (s.length < 2){
-            return new BankHelpResult();
-        }
-
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsPresent(tags, "-a", "-n")){
             return new BankHelpResult();
         }
 
-        BankEntity bankEntity = crudBank.create(new BankEntity(null, tags.get("-n"), Collections.emptyList(), tags.get("-a")));
-        return new BankNewResult(bankEntity);
+        String name = tags.get("-n");
+        String acronym = tags.get("-a");
+        BankEntity entity = new BankEntity(null, name, Collections.emptyList(), acronym);
+        entity = crudBank.create(entity);
+
+        return new BankNewResult(entity);
     }
 }
