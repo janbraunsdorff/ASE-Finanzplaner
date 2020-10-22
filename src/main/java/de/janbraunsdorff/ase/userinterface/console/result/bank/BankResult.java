@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.userinterface.console.result.Result;
 
 import java.util.List;
 
-public class BankAllResult implements Result {
+public class BankResult implements Result {
     private final List<BankEntity> result;
     private final SentencePiece table = new TableDivider("|");
     private final SentencePiece newLine = new NewLine();
@@ -18,7 +18,7 @@ public class BankAllResult implements Result {
     private final int length;
     private final int lengthAcronym;
 
-    public BankAllResult(List<BankEntity> result) {
+    public BankResult(List<BankEntity> result) {
         this.result = result;
         this.length = getLengthOfName();
         this.lengthAcronym = getLengthOfAcronym();

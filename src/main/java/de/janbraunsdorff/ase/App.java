@@ -7,7 +7,6 @@ import de.janbraunsdorff.ase.userinterface.console.ExitAction;
 import de.janbraunsdorff.ase.userinterface.console.UseCaseController;
 import de.janbraunsdorff.ase.userinterface.console.UseCaseControllerBuilder;
 import de.janbraunsdorff.ase.userinterface.console.actions.bank.*;
-import de.janbraunsdorff.ase.userinterface.console.result.bank.BankDeleteResult;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +19,8 @@ public class App {
         CrudBank crudBank = new CrudBank(repo);
 
         CrudBankDistributor crudBankDistributor = new CrudBankDistributorBuilder()
-                .addCommand("all", new BankGetAction(crudBank))
+                .addCommand("all", new BankAllAction(crudBank))
+                .addCommand("get", new BankGetAction(crudBank))
                 .addCommand("add", new BankAddAction(crudBank))
                 .addCommand("update", new BankUpdateAction(crudBank))
                 .addCommand("delete", new BankDeleteAction(crudBank))
