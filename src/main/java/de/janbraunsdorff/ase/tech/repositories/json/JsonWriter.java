@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.tech.repositories.json;
 
 import com.google.gson.Gson;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 
 import java.io.File;
 import java.io.IOException;

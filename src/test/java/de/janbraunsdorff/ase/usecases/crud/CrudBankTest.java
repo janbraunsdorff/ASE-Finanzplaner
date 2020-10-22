@@ -1,5 +1,5 @@
 package de.janbraunsdorff.ase.usecases.crud;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import org.junit.jupiter.api.Test;
 

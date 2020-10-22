@@ -4,7 +4,7 @@ import de.janbraunsdorff.ase.tech.printer.OutputBuilder;
 import de.janbraunsdorff.ase.tech.printer.SentencePiece;
 import de.janbraunsdorff.ase.tech.printer.part.NewLine;
 import de.janbraunsdorff.ase.tech.printer.part.TableDivider;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 
 import java.util.List;

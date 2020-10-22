@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.userinterface.console.result.bank;
 
 import de.janbraunsdorff.ase.tech.printer.OutputBuilder;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 
 public class BankNewResult implements Result {

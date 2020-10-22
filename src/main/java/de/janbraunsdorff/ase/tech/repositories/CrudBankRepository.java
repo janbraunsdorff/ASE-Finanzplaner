@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.tech.repositories;
 
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
+
 import java.util.List;
 
 public interface CrudBankRepository {

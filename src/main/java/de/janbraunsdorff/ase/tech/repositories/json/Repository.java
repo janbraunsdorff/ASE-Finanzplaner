@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.tech.repositories.json;
 
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 
 import java.io.IOException;

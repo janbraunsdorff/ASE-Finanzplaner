@@ -1,6 +1,7 @@
-package de.janbraunsdorff.ase.tech.repositories;
+package de.janbraunsdorff.ase.tech.repositories.entität;
 
 import com.google.gson.annotations.SerializedName;
+import de.janbraunsdorff.ase.tech.repositories.entität.TransactionEntity;
 
 import java.util.List;
 

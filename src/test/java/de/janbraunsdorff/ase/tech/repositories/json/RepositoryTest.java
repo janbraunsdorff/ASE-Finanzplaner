@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.tech.repositories.json;
 
-import de.janbraunsdorff.ase.tech.repositories.AccountEntity;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
-import de.janbraunsdorff.ase.tech.repositories.TransactionEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.TransactionEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

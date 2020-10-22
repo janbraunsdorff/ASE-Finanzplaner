@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.tech.repositories.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

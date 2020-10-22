@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.userinterface.console.actions.bank;
 
-import de.janbraunsdorff.ase.tech.repositories.BankEntity;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 
 import java.util.List;
