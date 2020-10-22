@@ -14,7 +14,7 @@ public interface Action {
     default Map<String, String> parseCommand(String command, int start){
         Map<String, String> parameter = new HashMap<>();
         String[] s = command.split(" ");
-        Pattern pattern = Pattern.compile("-[a-z]");
+        Pattern pattern = Pattern.compile("^(-[a-z])$");
 
         StringJoiner builder =  new StringJoiner(" ");
         String tag = "";

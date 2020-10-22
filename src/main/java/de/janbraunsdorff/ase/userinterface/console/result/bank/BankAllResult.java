@@ -28,16 +28,17 @@ public class BankAllResult implements Result {
     @Override
     public String print() {
         builder.addTableVerticalDivider()
-            .addText(String.format("%-37s", "ID"))
-            .addTableVerticalDivider()
-            .addText(String.format("%-" + length + "s", "Name"))
-            .addTableVerticalDivider()
-            .addText(String.format("%-" + lengthAcronym + "s", "Abkürzung"))
-            .addTableVerticalDivider()
-            .addText(String.format("%-10s", "Accounts"))
-            .addTableVerticalDivider()
-            .addNewLine()
-            .addTableHorizontal(37, length, lengthAcronym, 10);
+                .addText(String.format("%-37s", "ID"))
+                .addTableVerticalDivider()
+                .addText(String.format("%-" + length + "s", "Name"))
+                .addTableVerticalDivider()
+                .addText(String.format("%-" + lengthAcronym + "s", "Abkürzung"))
+                .addTableVerticalDivider()
+                .addText(String.format("%-10s", "Accounts"))
+                .addTableVerticalDivider()
+                .addNewLine()
+                .addTableHorizontal(37, length, lengthAcronym, 10)
+                .addNewLine();
 
         this.result.forEach(this::print);
 
@@ -46,15 +47,15 @@ public class BankAllResult implements Result {
 
     private void print(BankEntity r) {
         builder.addTableVerticalDivider()
-            .addText(String.format("%-37s", r.getId()))
-            .addTableVerticalDivider()
-            .addText(String.format("%-" + length + "s", r.getName()))
-            .addTableVerticalDivider()
-            .addText(String.format("%-" + lengthAcronym + "s", r.getAcronym()))
-            .addTableVerticalDivider()
-            .addText(String.format("%-10s", r.getAccounts().size()))
-            .addTableVerticalDivider()
-            .addNewLine();
+                .addText(String.format("%-37s", r.getId()))
+                .addTableVerticalDivider()
+                .addText(String.format("%-" + length + "s", r.getName()))
+                .addTableVerticalDivider()
+                .addText(String.format("%-" + lengthAcronym + "s", r.getAcronym()))
+                .addTableVerticalDivider()
+                .addText(String.format("%-10s", r.getAccounts().size()))
+                .addTableVerticalDivider()
+                .addNewLine();
 
     }
 

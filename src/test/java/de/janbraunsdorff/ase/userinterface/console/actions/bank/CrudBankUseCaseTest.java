@@ -9,6 +9,7 @@ public class CrudBankUseCaseTest implements ICrudBank {
 
     protected String name;
     protected String acronym;
+    protected String id;
 
     @Override
     public BankEntity get(String id) {
@@ -24,12 +25,16 @@ public class CrudBankUseCaseTest implements ICrudBank {
     public BankEntity create(BankEntity entity) {
         this.name = entity.getName();
         this.acronym = entity.getAcronym();
+        this.id = entity.getId();
         return entity;
     }
 
     @Override
     public BankEntity update(BankEntity entity) {
-        return null;
+        this.name = entity.getName();
+        this.acronym = entity.getAcronym();
+        this.id = entity.getId();
+        return entity;
     }
 
     @Override

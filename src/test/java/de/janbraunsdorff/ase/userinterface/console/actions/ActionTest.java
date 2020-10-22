@@ -76,6 +76,25 @@ class ActionTest {
         assertThat(res.get("-b"), is("meter 2"));
     }
 
+    @Test
+    public void Test_ActionCanParseParameterOneParameterWithPostDashInValue(){
+        Action action = command -> null;
+        Map<String, String> res = action.parseCommand("first second -a 5-f", 2);
+
+        assertThat(res.size(), is(1));
+        assertThat(res.get("-a"), is("5-f"));
+    }
+
+    @Test
+    public void Test_ActionCanParseParameterOneParameterWithPreDashInValue(){
+        Action action = command -> null;
+        Map<String, String> res = action.parseCommand("first second -a -ft", 2);
+
+        assertThat(res.size(), is(1));
+        assertThat(res.get("-a"), is("-ft"));
+    }
+
+
 
     @Test
     public void Test_CheckIfParameterIsOneTagPresent(){

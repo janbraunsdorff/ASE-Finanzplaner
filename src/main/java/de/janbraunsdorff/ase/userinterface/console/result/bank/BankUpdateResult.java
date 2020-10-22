@@ -16,7 +16,7 @@ public class BankUpdateResult implements Result {
     @Override
     public String print() {
         return new OutputBuilder()
-                .addText("Eine neune Bank wurde aktualisiert")
+                .addText("Eine Bank wurde aktualisiert")
                 .addNewLine()
                 .addInfoText(String.format("ID: %s | Name: %s | Abkürzung: %s | Accounts: %d", bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getAccounts().size()))
                 .addNewLine()

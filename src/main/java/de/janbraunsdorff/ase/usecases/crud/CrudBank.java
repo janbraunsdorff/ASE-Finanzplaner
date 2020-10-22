@@ -50,7 +50,7 @@ public class CrudBank implements ICrudBank {
         try {
             return this.repo.update(entity);
         } catch (Exception e) {
-            return defaultEntity;
+            return this.defaultEntity;
         }
     }
 

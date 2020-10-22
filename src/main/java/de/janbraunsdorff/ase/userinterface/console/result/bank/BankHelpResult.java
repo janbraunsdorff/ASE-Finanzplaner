@@ -19,7 +19,7 @@ public class BankHelpResult implements Result {
                 .addText(String.format("%-"+commandSize+"s\t%s", "bank add -n [name] -a [abkürzung]", "legt eine neue Bank mit einem Name und einer Abkürzung an"))
                 .addNewLine()
                 .addCommand()
-                .addText(String.format("%-"+commandSize+"s\t%s", "bank update -id [ID] -n [name] -a [abkürzung]", "aktualiserit den Namen einer Bank und die Abkürzung"))
+                .addText(String.format("%-"+commandSize+"s\t%s", "bank update -i [ID] -n [name] -a [abkürzung]", "aktualiserit den Namen einer Bank und die Abkürzung"))
                 .addNewLine()
                 .build();
     }

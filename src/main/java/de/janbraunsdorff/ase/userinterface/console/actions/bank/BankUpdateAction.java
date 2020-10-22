@@ -3,11 +3,13 @@ package de.janbraunsdorff.ase.userinterface.console.actions.bank;
 import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
+import de.janbraunsdorff.ase.userinterface.console.result.HelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankUpdateResult;
 
 import java.util.Collections;
+import java.util.Map;
 
 public class BankUpdateAction implements Action {
 
@@ -20,11 +22,16 @@ public class BankUpdateAction implements Action {
 
     @Override
     public Result act(String command) {
-        String[] s = command.split(" ");
-        if (s.length < 4){
+        Map<String, String> tags = parseCommand(command, 2);
+        if (!areTagsPresent(tags, "-i", "-n", "-a")){
             return new BankHelpResult();
         }
-        BankEntity updated = crudBank.update(new BankEntity(s[2], s[3], Collections.emptyList(), null));
+
+        String id = tags.get("-i");
+        String name = tags.get("-n");
+        String acronym = tags.get("-a");
+
+        BankEntity updated = crudBank.update(new BankEntity(id, name, Collections.emptyList(), acronym));
         return new BankUpdateResult(updated);
     }
 }
