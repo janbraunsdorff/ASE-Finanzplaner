@@ -50,8 +50,8 @@ class MemoryRepositoryTest {
     public void Test_GetAllBanks() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity1 = new BankEntity("ID1", "Name", Collections.emptyList(), "n");
-        BankEntity bankEntity2 = new BankEntity("ID2", "Name", Collections.emptyList(), "n");
+        BankEntity bankEntity1 = new BankEntity("ID1", "Name", Collections.emptyList(), "n1");
+        BankEntity bankEntity2 = new BankEntity("ID2", "Name", Collections.emptyList(), "n2");
         repo.create(bankEntity1);
         repo.create(bankEntity2);
 
@@ -102,4 +102,42 @@ class MemoryRepositoryTest {
         BankEntity got = repo.get("ID");
         assertThat(got, nullValue());
     }
+
+    @Test
+    public void Test_CreateBankWithExistingAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+
+        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
+        repo.create(bankEntity);
+
+        BankEntity sameId = new BankEntity("ID2", "new Name", Collections.emptyList(), "n");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> repo.create(sameId));
+    }
+
+    @Test
+    public void Test_CreateUpdateBankAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+
+        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "new");
+        repo.create(bankEntity);
+
+        BankEntity sameId = new BankEntity("ID", "new Name", Collections.emptyList(), "new");
+        BankEntity got = repo.update(sameId);
+        assertThat(got.getId(), is("ID"));
+        assertThat(got.getAcronym(), is("new"));
+    }
+
+    @Test
+    public void Test_CreateUpdateBankAcronymToExisting() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+
+        BankEntity bankEntity1 = new BankEntity("ID", "Name", Collections.emptyList(), "n");
+        BankEntity bankEntity2 = new BankEntity("ID2", "Name", Collections.emptyList(), "arc");
+        repo.create(bankEntity1);
+        repo.create(bankEntity2);
+
+        BankEntity sameId = new BankEntity("ID", "new Name", Collections.emptyList(), "arc");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> repo.update(sameId));
+    }
 }
+

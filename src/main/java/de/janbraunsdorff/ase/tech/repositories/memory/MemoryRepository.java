@@ -26,6 +26,11 @@ public class MemoryRepository implements CrudBankRepository {
             throw new IllegalArgumentException("Id already exists");
         }
 
+        Optional<BankEntity> first = memory.values().stream().filter(e -> e.getAcronym().equals(bankEntity.getAcronym())).findFirst();
+        if (first.isPresent()){
+            throw new IllegalArgumentException("Acronym already exists");
+        }
+
         if (checkForMissingId(bankEntity)){
             bankEntity.setId(UUID.randomUUID().toString());
         }
@@ -38,6 +43,12 @@ public class MemoryRepository implements CrudBankRepository {
         if (!memory.containsKey(bankEntity.getId())){
             throw new IllegalArgumentException();
         }
+
+        Optional<BankEntity> first = memory.values().stream().filter(e -> e.getAcronym().equals(bankEntity.getAcronym())).findFirst();
+        if (first.isPresent() && !first.get().getId().equals(bankEntity.getId())){
+            throw new IllegalArgumentException("Acronym already exists");
+        }
+
         memory.put(bankEntity.getId(), bankEntity);
         return bankEntity;
     }
