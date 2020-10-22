@@ -155,7 +155,7 @@ class RepositoryTest {
         String path = this.basePath + "/src/test/resources/bank_createBankAllInformation.json";
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("Id", "name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("Id", "name", Collections.emptyList(), "n");
         repository.create(bankEntity);
 
         BankEntity got = new JsonReader().readBanks(path).get(0);
@@ -173,7 +173,7 @@ class RepositoryTest {
         String path = this.basePath + "/src/test/resources/bank_createBank_IdMissing.json";
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity(null, "name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity(null, "name", Collections.emptyList(), "n");
         repository.create(bankEntity);
 
         BankEntity got = new JsonReader().readBanks(path).get(0);
@@ -195,7 +195,7 @@ class RepositoryTest {
         String path = this.basePath + "/src/test/resources/bank_createBank_IdEmpty.json";
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList(), "un");
         BankEntity result = repository.create(bankEntity);
 
         BankEntity got = new JsonReader().readBanks(path).get(0);
@@ -225,7 +225,7 @@ class RepositoryTest {
         Files.write(Paths.get(path), baseFileContent.getBytes());
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("", "name", Collections.emptyList(), "un");
         repository.create(bankEntity);
 
         List<BankEntity> bankEntities = new JsonReader().readBanks(path);
@@ -252,7 +252,7 @@ class RepositoryTest {
         Files.write(Paths.get(path), baseFileContent.getBytes());
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("ID", "updated name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID", "updated name", Collections.emptyList(), "un");
         repository.update(bankEntity);
 
         List<BankEntity> bankEntities = new JsonReader().readBanks(path);
@@ -287,7 +287,7 @@ class RepositoryTest {
         Files.write(Paths.get(path), baseFileContent.getBytes());
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList(), "un");
         repository.update(bankEntity);
 
         List<BankEntity> bankEntities = new JsonReader().readBanks(path);
@@ -312,7 +312,7 @@ class RepositoryTest {
         Files.write(Paths.get(path), baseFileContent.getBytes());
         CrudBankRepository repository = new Repository(path);
 
-        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID1", "updated name", Collections.emptyList(), "un");
         repository.update(bankEntity);
 
         List<BankEntity> bankEntities = new JsonReader().readBanks(path);

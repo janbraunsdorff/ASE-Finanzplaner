@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
 class MemoryRepositoryTest {
     @Test
     public void Test_CreateBankAndGet() throws Exception {
-        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
         MemoryRepository repo = new MemoryRepository();
         BankEntity got = repo.create(bankEntity);
         BankEntity get = repo.get("ID");
@@ -26,10 +26,10 @@ class MemoryRepositoryTest {
     public void Test_CreateBankWithExistingId() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
         repo.create(bankEntity);
 
-        BankEntity sameId = new BankEntity("ID", "new Name", Collections.emptyList());
+        BankEntity sameId = new BankEntity("ID", "new Name", Collections.emptyList(), "n");
         Assertions.assertThrows(IllegalArgumentException.class, () -> repo.create(sameId));
     }
 
@@ -37,7 +37,7 @@ class MemoryRepositoryTest {
     public void Test_CreateBankIdIsMissing() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity = new BankEntity(null, "Name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity(null, "Name", Collections.emptyList(), "n");
         BankEntity got = repo.create(bankEntity);
         BankEntity get = repo.get(got.getId());
 
@@ -50,8 +50,8 @@ class MemoryRepositoryTest {
     public void Test_GetAllBanks() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity1 = new BankEntity("ID1", "Name", Collections.emptyList());
-        BankEntity bankEntity2 = new BankEntity("ID2", "Name", Collections.emptyList());
+        BankEntity bankEntity1 = new BankEntity("ID1", "Name", Collections.emptyList(), "n");
+        BankEntity bankEntity2 = new BankEntity("ID2", "Name", Collections.emptyList(), "n");
         repo.create(bankEntity1);
         repo.create(bankEntity2);
 
@@ -64,10 +64,10 @@ class MemoryRepositoryTest {
     public void Test_UpdateExistingBank() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity = new BankEntity("ID1", "Name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID1", "Name", Collections.emptyList(), "n");
         repo.create(bankEntity);
 
-        BankEntity updated = new BankEntity("ID1", "Name updated", Collections.emptyList());
+        BankEntity updated = new BankEntity("ID1", "Name updated", Collections.emptyList(), "n");
         repo.update(updated);
 
         BankEntity got = repo.get("ID1");
@@ -79,7 +79,7 @@ class MemoryRepositoryTest {
     @Test
     public void Test_UpdateNonExistingBank() throws Exception {
         MemoryRepository repo = new MemoryRepository();
-        BankEntity updated = new BankEntity("ID1", "Name updated", Collections.emptyList());
+        BankEntity updated = new BankEntity("ID1", "Name updated", Collections.emptyList(), "n");
         Assertions.assertThrows(IllegalArgumentException.class, () -> repo.update(updated));
     }
 
@@ -87,7 +87,7 @@ class MemoryRepositoryTest {
     public void Test_DeleteExistingBank() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        BankEntity bankEntity = new BankEntity("ID1", "Name", Collections.emptyList());
+        BankEntity bankEntity = new BankEntity("ID1", "Name", Collections.emptyList(), "n");
         repo.create(bankEntity);
         repo.delete(bankEntity.getId());
 

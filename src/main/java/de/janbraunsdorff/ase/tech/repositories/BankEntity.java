@@ -14,11 +14,15 @@ public class BankEntity {
     @SerializedName("accounts")
     private List<AccountEntity> accounts;
 
+    @SerializedName("acr")
+    private String acronym;
 
-    public BankEntity(String id, String name, List<AccountEntity> accounts) {
+
+    public BankEntity(String id, String name, List<AccountEntity> accounts, String acronym) {
         this.id = id;
         this.name = name;
         this.accounts = accounts;
+        this.acronym = acronym;
     }
 
     public BankEntity() {
@@ -46,5 +50,13 @@ public class BankEntity {
 
     public void setAccounts(List<AccountEntity> accounts) {
         this.accounts = accounts;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
     }
 }

@@ -24,7 +24,7 @@ public class BankAddAction implements Action{
             return new BankHelpResult();
         }
         String name = Arrays.stream(Arrays.copyOfRange(s, 3, s.length)).reduce((a, b) -> String.join(" ", a ,b)).get();
-        BankEntity bankEntity = crudBank.create(new BankEntity(null, name, Collections.emptyList()));
+        BankEntity bankEntity = crudBank.create(new BankEntity(null, name, Collections.emptyList(), null));
         return new BankNewResult(bankEntity);
     }
 }
