@@ -14,12 +14,8 @@ public class CrudBankDistributor implements Distributor {
 
     Map<String, Action> actions;
 
-    public CrudBankDistributor (ICrudBank crudBank) {
-        actions = new HashMap<String, Action>(){{
-            put("all", new BankGetAction(crudBank));
-            put("add", new BankAddAction(crudBank));
-            put("update", new BankUpdateAction(crudBank));
-        }};
+    protected CrudBankDistributor () {
+        actions = new HashMap<>();
     }
 
     @Override
@@ -30,5 +26,9 @@ public class CrudBankDistributor implements Distributor {
         }
         String action = s[1];
         return  actions.getOrDefault(action, new DefaultAction()).act(command);
+    }
+
+    protected void addAction(String command, Action action){
+        this.actions.put(command, action);
     }
 }
