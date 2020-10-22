@@ -20,11 +20,31 @@ public class BankAddAction implements Action{
     @Override
     public Result act(String command) {
         String[] s = command.split(" ");
-        if (s.length < 4 || !s[2].equals("-n")){
+        if (s.length < 6 || !s[2].equals("-n")){
             return new BankHelpResult();
         }
-        String name = Arrays.stream(Arrays.copyOfRange(s, 3, s.length)).reduce((a, b) -> String.join(" ", a ,b)).get();
-        BankEntity bankEntity = crudBank.create(new BankEntity(null, name, Collections.emptyList(), null));
+
+        int acronymIndex = 0;
+        for (int i =0; i < s.length; i++){
+            if(s[i].equals("-a")){
+                acronymIndex = i;
+                break;
+            }
+        }
+
+        if (acronymIndex == 0){
+            return new BankHelpResult();
+        }
+
+
+        String name = Arrays
+                .stream(Arrays.copyOfRange(s, 3, acronymIndex))
+                .reduce((a, b) -> String.join(" ", a ,b))
+                .get();
+
+        String acronym = s[acronymIndex +1];
+
+        BankEntity bankEntity = crudBank.create(new BankEntity(null, name, Collections.emptyList(), acronym));
         return new BankNewResult(bankEntity);
     }
 }

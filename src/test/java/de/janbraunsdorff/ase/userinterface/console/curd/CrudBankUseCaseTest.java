@@ -8,6 +8,7 @@ import java.util.List;
 public class CrudBankUseCaseTest implements ICrudBank {
 
     protected String name;
+    protected String acronym;
 
     @Override
     public BankEntity get(String id) {
@@ -22,6 +23,7 @@ public class CrudBankUseCaseTest implements ICrudBank {
     @Override
     public BankEntity create(BankEntity entity) {
         this.name = entity.getName();
+        this.acronym = entity.getAcronym();
         return entity;
     }
 

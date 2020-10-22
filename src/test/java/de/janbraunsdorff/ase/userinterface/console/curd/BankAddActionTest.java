@@ -55,19 +55,30 @@ class BankAddActionTest {
     public void Test_BankAddActionCommandWithOneWordName() {
         CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
         BankAddAction action = new BankAddAction(crudBank);
-        Result res = action.act("bank add -n testbank");
+        Result res = action.act("bank add -n testbank -a tb");
 
         assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
         assertThat(crudBank.name, is("testbank"));
+        assertThat(crudBank.acronym, is("tb"));
     }
 
     @Test
     public void Test_BankAddActionCommandWithTwoWordsName() {
         CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
         BankAddAction action = new BankAddAction(crudBank);
-        Result res = action.act("bank add -n test bank");
+        Result res = action.act("bank add -n test bank -a tb");
 
         assertThat(res.getClass().getName(), is(BankNewResult.class.getName()));
         assertThat(crudBank.name, is("test bank"));
+        assertThat(crudBank.acronym, is("tb"));
+    }
+
+    @Test
+    public void Test_BankAddActionCommandWithTwoName() {
+        CrudBankUseCaseTest crudBank = new CrudBankUseCaseTest();
+        BankAddAction action = new BankAddAction(crudBank);
+        Result res = action.act("bank add -n test bank for the win");
+
+        assertThat( res.getClass().getName(), is(BankHelpResult.class.getName()));
     }
 }
