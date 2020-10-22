@@ -29,6 +29,7 @@ public class App {
                 .addUseCase("exit", new ExitAction())
                 .build();
 
+        // TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String name = reader.readLine();

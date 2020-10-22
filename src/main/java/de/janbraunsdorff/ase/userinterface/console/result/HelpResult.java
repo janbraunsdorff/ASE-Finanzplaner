@@ -9,8 +9,8 @@ import java.util.List;
 public class HelpResult implements  Result{
 
     @Override
-    public List<SentencePiece> print() {
-        return new ArrayList<SentencePiece>(){{
+    public String print() {
+        new ArrayList<SentencePiece>(){{
             add(new SentencePiece(Color.WHITE, "Hilfe :\n"));
             add(new SentencePiece(Color.CYAN, ">"));
             add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "bank", "alle optionen für Bank")));
@@ -18,5 +18,6 @@ public class HelpResult implements  Result{
             add(new SentencePiece(Color.WHITE, String.format("%-30s\t%s\n", "option", "alle Options um die Anwenung zu Konfigurieren")));
             add(new SentencePiece(Color.BASE, "\n"));
         }};
+        return "";
     }
 }
