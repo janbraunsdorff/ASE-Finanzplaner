@@ -20,7 +20,7 @@ public class BankHelpResult implements Result {
             add(newCommand);
             add(new SentencePiece(Color.WHITE, String.format("%-"+commandSize+"s\t%s\n", "bank add -n [name] -a [abkürzung]", "legt eine neue Bank mit einem Name und einer Abkürzung an")));
             add(newCommand);
-            add(new SentencePiece(Color.WHITE, String.format("%-"+commandSize+"s\t%s\n", "bank update -id [ID] -n [name]", "aktualiserit den Namen einer Bank")));
+            add(new SentencePiece(Color.WHITE, String.format("%-"+commandSize+"s\t%s\n", "bank update -id [ID] -n [name] -a [abkürzung]", "aktualiserit den Namen einer Bank und die Abkürzung")));
             add(new SentencePiece(Color.BASE, "\n"));
         }};
     }

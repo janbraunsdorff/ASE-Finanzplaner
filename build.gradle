@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.jetbrains:annotations:19.0.0'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
     testCompile 'org.junit.jupiter:junit-jupiter:5.4.2'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'

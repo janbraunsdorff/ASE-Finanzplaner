@@ -24,7 +24,7 @@ public class BankUpdateAction implements Action {
         if (s.length < 4){
             return new BankHelpResult();
         }
-        crudBank.create(new BankEntity(s[2], s[3], Collections.emptyList(), null));
-        return new BankUpdateResult();
+        BankEntity updated = crudBank.update(new BankEntity(s[2], s[3], Collections.emptyList(), null));
+        return new BankUpdateResult(updated);
     }
 }
