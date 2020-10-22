@@ -17,8 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 class RepositoryTest {
     private String basePath;
@@ -180,13 +179,7 @@ class RepositoryTest {
 
         assertThat(got.getName(), is(bankEntity.getName()));
         assertThat(got.getAccounts().size(), is(0));
-
-        try{
-            UUID uuid = UUID.fromString(got.getId());
-        } catch (IllegalArgumentException exception){
-            assertThat(got.getId(), is(0));
-        }
-
+        assertThat(got.getId(), notNullValue());
         Files.delete(Paths.get(path));
     }
 

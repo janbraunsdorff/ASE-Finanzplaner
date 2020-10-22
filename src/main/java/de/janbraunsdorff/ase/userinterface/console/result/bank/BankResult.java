@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.userinterface.console.result.bank;
 
 import de.janbraunsdorff.ase.tech.printer.OutputBuilder;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
-import de.janbraunsdorff.ase.userinterface.console.result.Result;
 import de.janbraunsdorff.ase.userinterface.console.result.TypedResult;
 
 import java.util.List;

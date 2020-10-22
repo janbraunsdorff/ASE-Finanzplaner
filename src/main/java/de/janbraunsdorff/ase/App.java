@@ -1,6 +1,5 @@
 package de.janbraunsdorff.ase;
 
-import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.memory.MemoryRepository;

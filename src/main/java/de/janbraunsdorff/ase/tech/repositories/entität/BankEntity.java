@@ -48,10 +48,6 @@ public class BankEntity {
         return accounts;
     }
 
-    public void setAccounts(List<AccountEntity> accounts) {
-        this.accounts = accounts;
-    }
-
     public String getAcronym() {
         return acronym;
     }

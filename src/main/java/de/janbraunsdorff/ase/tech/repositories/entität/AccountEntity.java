@@ -29,9 +29,6 @@ public class AccountEntity {
         this.transactions = transactions;
     }
 
-    public AccountEntity() {
-    }
-
     public String getId() {
         return id;
     }
@@ -44,31 +41,16 @@ public class AccountEntity {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getNumber() {
         return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public Integer getOrder() {
         return order;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
     public List<TransactionEntity> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<TransactionEntity> transactions) {
-        this.transactions = transactions;
-    }
 }

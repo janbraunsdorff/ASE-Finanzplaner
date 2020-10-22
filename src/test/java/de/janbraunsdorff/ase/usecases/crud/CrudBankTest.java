@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 class CrudBankTest {
-    static BankEntity defaultBankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
+    static final BankEntity defaultBankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
 
 
     private final String  defaultId = "----";

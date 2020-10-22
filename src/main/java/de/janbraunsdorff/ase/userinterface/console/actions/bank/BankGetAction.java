@@ -9,6 +9,7 @@ import de.janbraunsdorff.ase.userinterface.console.result.bank.BankResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 public class BankGetAction implements Action {
@@ -29,7 +30,7 @@ public class BankGetAction implements Action {
         String id = tags.get("-i");
         try {
             BankEntity entity = this.crudBank.get(id);
-            return new BankResult(Arrays.asList(entity));
+            return new BankResult(Collections.singletonList(entity));
         }catch (IllegalArgumentException ex){
             return new ErrorResult(ex.getMessage());
         }

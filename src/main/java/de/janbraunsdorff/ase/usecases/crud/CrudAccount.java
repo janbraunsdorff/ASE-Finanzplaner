@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.usecases.crud;
 
 import de.janbraunsdorff.ase.tech.repositories.CrudAccountRepository;
-import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 
 import java.util.Collections;

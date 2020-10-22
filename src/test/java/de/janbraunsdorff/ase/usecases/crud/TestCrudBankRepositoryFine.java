@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static de.janbraunsdorff.ase.usecases.crud.CrudBankTest.defaultBankEntity;
@@ -17,7 +18,7 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
 
     @Override
     public List<BankEntity> get() throws Exception {
-        return Arrays.asList(defaultBankEntity);
+        return Collections.singletonList(defaultBankEntity);
     }
 
     @Override
