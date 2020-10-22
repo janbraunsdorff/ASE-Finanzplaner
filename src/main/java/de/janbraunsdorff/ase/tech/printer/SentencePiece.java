@@ -2,8 +2,8 @@ package de.janbraunsdorff.ase.tech.printer;
 
 public class SentencePiece {
 
-    private Color color;
-    private String content;
+    private final Color color;
+    private final String content;
 
     public SentencePiece(Color color, String content){
 

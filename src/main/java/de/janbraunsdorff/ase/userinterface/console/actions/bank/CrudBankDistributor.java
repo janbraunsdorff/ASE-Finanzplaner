@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class CrudBankDistributor implements Distributor {
 
-    Map<String, Action> actions;
+    private final Map<String, Action> actions;
 
     protected CrudBankDistributor () {
-        actions = new HashMap<>();
+        this.actions = new HashMap<>();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class CrudBankDistributor implements Distributor {
             return new BankHelpResult();
         }
         String action = s[1];
-        return  actions.getOrDefault(action, new DefaultAction()).act(command);
+        return  this.actions.getOrDefault(action, new DefaultAction()).act(command);
     }
 
     protected void addAction(String command, Action action){

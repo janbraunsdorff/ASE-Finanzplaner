@@ -23,7 +23,7 @@ public class Repository implements CrudBankRepository {
 
     @Override
     public BankEntity get(String id) throws IOException {
-        return reader.readBanks(bankRepoPath)
+        return this.reader.readBanks(bankRepoPath)
                 .stream()
                 .filter(s -> s.getId().equals(id))
                 .findFirst()
@@ -32,7 +32,7 @@ public class Repository implements CrudBankRepository {
 
     @Override
     public List<BankEntity> get() throws IOException {
-        return reader.readBanks(this.bankRepoPath);
+        return this.reader.readBanks(this.bankRepoPath);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Repository implements CrudBankRepository {
 
     @Override
     public BankEntity update(BankEntity bankEntity) throws IOException {
-        List<BankEntity> bankEntities = this.reader.readBanks(bankRepoPath);
+        List<BankEntity> bankEntities = this.reader.readBanks(this.bankRepoPath);
         int len = bankEntities.size();
 
         List<BankEntity> banks = bankEntities
@@ -60,7 +60,7 @@ public class Repository implements CrudBankRepository {
         }
 
         banks.add(bankEntity);
-        this.writer.update(banks, bankRepoPath);
+        this.writer.update(banks, this.bankRepoPath);
         return  bankEntity;
 
     }
@@ -68,11 +68,11 @@ public class Repository implements CrudBankRepository {
     @Override
     public boolean delete(String bankId) throws IOException {
         List<BankEntity> bankEntities = this.reader
-                .readBanks(bankRepoPath)
+                .readBanks(this.bankRepoPath)
                 .stream()
                 .filter(s -> !(s.getId().equals(bankId)))
                 .collect(Collectors.toList());
-        this.writer.update(bankEntities, bankRepoPath);
+        this.writer.update(bankEntities, this.bankRepoPath);
         return true;
     }
 

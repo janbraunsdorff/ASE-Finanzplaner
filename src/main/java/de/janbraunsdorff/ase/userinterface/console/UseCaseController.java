@@ -7,18 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UseCaseController {
-    Map<String, Distributor> useCases;
-    Printer printer;
+    private final Map<String, Distributor> useCases;
+    private final Printer printer;
 
     protected  UseCaseController(){
-        printer = new Printer();
-        useCases = new HashMap<>();
+        this.printer = new Printer();
+        this.useCases = new HashMap<>();
     }
 
     public void answer(String command){
         String useCase = command.split(" ")[0];
-        Result res = useCases.getOrDefault(useCase, new DefaultDistributor()).distribute(command);
-        printer.print(res);
+        Result res = this.useCases.getOrDefault(useCase, new DefaultDistributor()).distribute(command);
+        this.printer.print(res);
     }
 
     protected void addUseCase(String command, Distributor distributor){
