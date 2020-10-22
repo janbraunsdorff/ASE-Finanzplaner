@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Repository implements CrudBankRepository {
-
+// TODO: Check, if acronym is present twice
     private final JsonReader reader;
     private final JsonWriter writer;
     private final String bankRepoPath;
