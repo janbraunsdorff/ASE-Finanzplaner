@@ -4,7 +4,6 @@ import de.janbraunsdorff.ase.tech.repositories.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MemoryRepository implements CrudBankRepository {
 

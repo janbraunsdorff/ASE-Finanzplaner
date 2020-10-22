@@ -4,8 +4,8 @@ import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.Distributor;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
 import de.janbraunsdorff.ase.userinterface.console.actions.DefaultAction;
-import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
+import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 
 import java.util.HashMap;
 import java.util.Map;
