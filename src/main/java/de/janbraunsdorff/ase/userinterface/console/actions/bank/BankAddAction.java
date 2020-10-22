@@ -8,7 +8,7 @@ import de.janbraunsdorff.ase.userinterface.console.result.Result;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankNewResult;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class BankAddAction implements Action {
@@ -28,7 +28,7 @@ public class BankAddAction implements Action {
 
         String name = tags.get("-n");
         String acronym = tags.get("-a");
-        BankEntity entity = new BankEntity(null, name, Collections.emptyList(), acronym);
+        BankEntity entity = new BankEntity(null, name, new ArrayList<>(), acronym);
         try {
             entity = this.crudBank.create(entity);
         }catch (IllegalArgumentException ex){

@@ -1,18 +1,14 @@
 package de.janbraunsdorff.ase.userinterface.console.result.bank;
 
 import de.janbraunsdorff.ase.tech.printer.OutputBuilder;
-import de.janbraunsdorff.ase.tech.printer.SentencePiece;
-import de.janbraunsdorff.ase.tech.printer.part.NewLine;
-import de.janbraunsdorff.ase.tech.printer.part.TableDivider;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
+import de.janbraunsdorff.ase.userinterface.console.result.TypedResult;
 
 import java.util.List;
 
-public class BankResult implements Result {
+public class BankResult implements TypedResult<BankEntity> {
     private final List<BankEntity> result;
-    private final SentencePiece table = new TableDivider("|");
-    private final SentencePiece newLine = new NewLine();
     private final OutputBuilder builder;
 
     private final int length;
@@ -20,8 +16,8 @@ public class BankResult implements Result {
 
     public BankResult(List<BankEntity> result) {
         this.result = result;
-        this.length = getLengthOfName();
-        this.lengthAcronym = getLengthOfAcronym();
+        this.length = getMax(v1 -> v1.getName().length(), result);
+        this.lengthAcronym = getMax(v -> v.getAcronym().length(), result);
         this.builder = new OutputBuilder();
     }
 
@@ -58,37 +54,5 @@ public class BankResult implements Result {
                 .addNewLine();
 
     }
-
-    private int getLengthOfAcronym() {
-        final int lengthAcronym;
-        if (!this.result.isEmpty()) {
-            lengthAcronym = Math.max(this.result
-                    .stream()
-                    .max((a, b) -> a.getAcronym().length() < b.getAcronym().length() ? 1 : 0)
-                    .get()
-                    .getAcronym()
-                    .length() + 2, 10);
-        } else {
-            lengthAcronym = 10;
-        }
-        return lengthAcronym;
-    }
-
-    private int getLengthOfName() {
-        final int length;
-        if (!this.result.isEmpty()) {
-            length = Math.max(this.result
-                    .stream()
-                    .max((a, b) -> a.getName().length() < b.getName().length() ? 1 : 0)
-                    .get()
-                    .getName()
-                    .length() + 2, 10);
-
-        } else {
-            length = 10;
-        }
-        return length;
-    }
-
 
 }

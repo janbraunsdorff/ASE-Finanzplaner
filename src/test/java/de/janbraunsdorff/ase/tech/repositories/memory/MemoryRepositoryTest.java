@@ -1,9 +1,11 @@
 package de.janbraunsdorff.ase.tech.repositories.memory;
 
+import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -138,6 +140,37 @@ class MemoryRepositoryTest {
 
         BankEntity sameId = new BankEntity("ID", "new Name", Collections.emptyList(), "arc");
         Assertions.assertThrows(IllegalArgumentException.class, () -> repo.update(sameId));
+    }
+
+    @Test
+    public void Test_CreateAccountWithCompleteDataAndExistingBankByBankId() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        BankEntity bankEntity = new BankEntity("ID2", "Name", new ArrayList<>(), "arc");
+        repo.create(bankEntity);
+
+        AccountEntity account = new AccountEntity("accountId", "AccountName", "AccountNumber", 0, new ArrayList<>());
+        AccountEntity accountEntity = repo.create(bankEntity.getId(), account);
+
+        assertThat(accountEntity.getId(), is("accountId"));
+        assertThat(accountEntity.getName(), is("AccountName"));
+        assertThat(accountEntity.getNumber(), is("AccountNumber"));
+        assertThat(accountEntity.getOrder(), is(0));
+
+        assertThat(repo.get(bankEntity.getId()).getAccounts().get(0).getId(), is("accountId"));
+
+    }
+
+    @Test
+    public void Test_CreateAccountWithMissingIDAndExistingBankByBankId() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        BankEntity bankEntity = new BankEntity("ID2", "Name", new ArrayList<>(), "arc");
+        repo.create(bankEntity);
+
+        AccountEntity account = new AccountEntity(null, "AccountName", "AccountNumber", 0, new ArrayList<>());
+        AccountEntity accountEntity = repo.create(bankEntity.getId(), account);
+
+        assertThat(accountEntity.getId(), notNullValue());
+
     }
 }
 

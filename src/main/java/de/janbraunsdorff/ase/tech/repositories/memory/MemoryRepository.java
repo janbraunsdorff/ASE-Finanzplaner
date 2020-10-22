@@ -1,11 +1,13 @@
 package de.janbraunsdorff.ase.tech.repositories.memory;
 
+import de.janbraunsdorff.ase.tech.repositories.CrudAccountRepository;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 
 import java.util.*;
 
-public class MemoryRepository implements CrudBankRepository {
+public class MemoryRepository implements CrudBankRepository, CrudAccountRepository {
 
     private final Map<String, BankEntity> memory = new HashMap<>();
 
@@ -34,9 +36,7 @@ public class MemoryRepository implements CrudBankRepository {
             throw new IllegalArgumentException("Acronym already exists");
         }
 
-        if (checkForMissingId(bankEntity)){
-            bankEntity.setId(UUID.randomUUID().toString());
-        }
+        bankEntity.setId(checkForMissingId(bankEntity.getId()));
         this.memory.put(bankEntity.getId(), bankEntity);
         return bankEntity;
     }
@@ -52,7 +52,11 @@ public class MemoryRepository implements CrudBankRepository {
             throw new IllegalArgumentException("Acronym already exists");
         }
 
-        this.memory.put(bankEntity.getId(), bankEntity);
+        BankEntity mem = this.memory.get(bankEntity.getId());
+        mem.setAcronym(bankEntity.getAcronym());
+        mem.setName(bankEntity.getName());
+
+        this.memory.put(mem.getId(), mem);
         return bankEntity;
     }
 
@@ -62,8 +66,29 @@ public class MemoryRepository implements CrudBankRepository {
        return true;
     }
 
-    private boolean checkForMissingId(BankEntity bankEntity) {
-        return bankEntity.getId() == null || bankEntity.getId().isEmpty();
+    private String checkForMissingId(String id) {
+        return (id == null ||id.isEmpty()) ? UUID.randomUUID().toString(): id;
     }
 
+    // --------------------------------
+    // Account Repo
+    // --------------------------------
+    @Override
+    public AccountEntity create(String bank, AccountEntity entity) throws Exception {
+        entity.setId(checkForMissingId(entity.getId()));
+        BankEntity bankEntity = this.memory.get(bank);
+        bankEntity.getAccounts().add(entity);
+        this.memory.put(bank, bankEntity);
+        return entity;
+    }
+
+    @Override
+    public List<AccountEntity> getAccountsOfBank(String bank) throws Exception {
+        return this.memory.get(bank).getAccounts();
+    }
+
+    @Override
+    public AccountEntity getAccountById(String Id) throws Exception {
+        return null;
+    }
 }

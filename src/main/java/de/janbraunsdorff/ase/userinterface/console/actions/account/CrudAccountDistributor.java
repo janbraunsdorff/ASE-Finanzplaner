@@ -1,18 +1,18 @@
-package de.janbraunsdorff.ase.userinterface.console.actions.bank;
+package de.janbraunsdorff.ase.userinterface.console.actions.account;
 
 import de.janbraunsdorff.ase.userinterface.console.Distributor;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
+import de.janbraunsdorff.ase.userinterface.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrudBankDistributor implements Distributor {
-
+public class CrudAccountDistributor implements Distributor {
     private final Map<String, Action> actions;
 
-    protected CrudBankDistributor () {
+    protected CrudAccountDistributor () {
         this.actions = new HashMap<>();
     }
 
@@ -20,10 +20,10 @@ public class CrudBankDistributor implements Distributor {
     public Result distribute(String command) {
         String[] s = command.split(" ");
         if (s.length <= 1){
-            return new BankHelpResult();
+            return new AccountHelpResult();
         }
         String action = s[1];
-        return this.actions.getOrDefault(action, new BankDefaultAction()).act(command);
+        return this.actions.getOrDefault(action, new AccountDefaultAction()).act(command);
     }
 
     protected void addAction(String command, Action action){
