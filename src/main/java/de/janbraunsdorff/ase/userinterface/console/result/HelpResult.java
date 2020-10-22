@@ -4,7 +4,6 @@ import de.janbraunsdorff.ase.tech.printer.Color;
 import de.janbraunsdorff.ase.tech.printer.SentencePiece;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HelpResult implements  Result{
 

@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.tech.repositories.memory;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 
 import java.util.*;
 

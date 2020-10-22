@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.userinterface.console.actions.bank;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
+import de.janbraunsdorff.ase.userinterface.console.result.ErrorResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.bank.BankNewResult;
@@ -28,7 +29,11 @@ public class BankAddAction implements Action {
         String name = tags.get("-n");
         String acronym = tags.get("-a");
         BankEntity entity = new BankEntity(null, name, Collections.emptyList(), acronym);
-        entity = crudBank.create(entity);
+        try {
+            entity = this.crudBank.create(entity);
+        }catch (IllegalArgumentException ex){
+            return new ErrorResult(ex.getMessage());
+        }
 
         return new BankNewResult(entity);
     }

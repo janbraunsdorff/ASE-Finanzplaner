@@ -1,6 +1,5 @@
 package de.janbraunsdorff.ase.userinterface.console.actions.bank;
 
-import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.Distributor;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
 import de.janbraunsdorff.ase.userinterface.console.actions.DefaultAction;

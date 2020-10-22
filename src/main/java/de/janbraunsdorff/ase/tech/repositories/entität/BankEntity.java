@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.tech.repositories.entität;
 
 import com.google.gson.annotations.SerializedName;
-import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 
 import java.util.List;
 

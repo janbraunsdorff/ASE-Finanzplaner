@@ -42,6 +42,11 @@ public class OutputBuilder {
         return this;
     }
 
+    public OutputBuilder addErrorText(String text) {
+        this.pieces.add(new SentencePiece(Color.RED, text));
+        return this;
+    }
+
     public OutputBuilder addNewLine() {
         this.pieces.add(new NewLine());
         return this;

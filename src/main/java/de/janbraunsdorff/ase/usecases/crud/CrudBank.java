@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.usecases.crud;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,11 @@ public class CrudBank implements ICrudBank {
     public BankEntity get(String id) {
         try {
             return this.repo.get(id);
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
             return this.defaultEntity;
         }
     }
@@ -30,7 +34,12 @@ public class CrudBank implements ICrudBank {
     public List<BankEntity> get() {
         try {
             return this.repo.get();
-        } catch (Exception e) {
+
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
             return Collections.emptyList();
         }
     }
@@ -39,7 +48,11 @@ public class CrudBank implements ICrudBank {
     public BankEntity create(BankEntity entity) {
         try {
             return this.repo.create(entity);
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
             return this.defaultEntity;
         }
     }
@@ -49,7 +62,11 @@ public class CrudBank implements ICrudBank {
     public BankEntity update(BankEntity entity) {
         try {
             return this.repo.update(entity);
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
             return this.defaultEntity;
         }
     }
@@ -59,7 +76,11 @@ public class CrudBank implements ICrudBank {
     public boolean delete(String id) {
         try {
             return this.repo.delete(id);
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
             return false;
         }
     }
