@@ -20,7 +20,7 @@ public class BankNewResult implements Result {
     public List<SentencePiece> print() {
         return new ArrayList<SentencePiece>() {{
             add(new SentencePiece(Color.WHITE, "Eine neune Bank wurde angelget\n"));
-            add(new SentencePiece(Color.CYAN, String.format("ID: %24s Name: %24s Accounts: %d\n", bankEntity.getId(), bankEntity.getName(), bankEntity.getAccounts().size())));
+            add(new SentencePiece(Color.CYAN, String.format("ID: %s | Name: %s | Abkürzung: %s | Accounts: %d\n", bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getAccounts().size())));
         }};
     }
 }
