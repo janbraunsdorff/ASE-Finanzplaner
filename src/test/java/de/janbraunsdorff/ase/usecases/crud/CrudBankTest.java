@@ -101,7 +101,7 @@ class CrudBankTest {
         CrudBankRepository repo = new TestCrudBankRepositoryException();
         CrudBank service = new CrudBank(repo);
 
-        boolean wasDeleted = service.delete("ID");
+        boolean wasDeleted = service.deleteById("ID");
         assertThat(wasDeleted, is(false));
     }
 
@@ -110,7 +110,7 @@ class CrudBankTest {
         CrudBankRepository repo = new TestCrudBankRepositoryFine();
         CrudBank service = new CrudBank(repo);
 
-        boolean wasDeleted = service.delete("ID");
+        boolean wasDeleted = service.deleteById("ID");
         assertThat(wasDeleted, is(true));
     }
 }

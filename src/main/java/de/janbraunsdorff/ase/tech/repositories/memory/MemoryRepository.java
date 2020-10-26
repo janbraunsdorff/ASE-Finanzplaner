@@ -22,6 +22,14 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
+    public BankEntity getByAcronym(String acronym) {
+        return this.memory.values().stream().
+                filter(s -> s.getAcronym().equals(acronym)).
+                findFirst().
+                orElseGet(BankEntity::new);
+    }
+
+    @Override
     public BankEntity create(BankEntity bankEntity) throws Exception {
         if (this.memory.containsKey(bankEntity.getId())){
             throw new IllegalArgumentException("Id already exists");

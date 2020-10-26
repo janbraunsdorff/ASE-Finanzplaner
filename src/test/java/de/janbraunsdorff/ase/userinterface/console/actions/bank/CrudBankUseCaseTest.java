@@ -38,7 +38,12 @@ public class CrudBankUseCaseTest implements ICrudBank {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean deleteByAcronym(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
         return false;
     }
 }

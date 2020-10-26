@@ -13,5 +13,7 @@ public interface ICrudBank {
 
     BankEntity update(BankEntity entity);
 
-    boolean delete(String id);
+    boolean deleteByAcronym(String id);
+
+    boolean deleteById(String id);
 }

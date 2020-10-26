@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.tech.repositories.json;
 
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Repository implements CrudBankRepository {
     @Override
     public List<BankEntity> get() throws IOException {
         return this.reader.readBanks(this.bankRepoPath);
+    }
+
+    @Override
+    public BankEntity getByAcronym(String acronym) {
+        throw new NotImplementedException();
     }
 
     @Override

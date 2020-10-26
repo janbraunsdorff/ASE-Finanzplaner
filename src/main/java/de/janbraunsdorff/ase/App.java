@@ -44,12 +44,6 @@ public class App {
         vb = new BankEntity(UUID.randomUUID().toString(), "Spaßkasse", accountEntities, "SK");
         repo.create(vb);
 
-
-
-
-
-
-
         ICrudBank crudBank = new CrudBank(repo);
         CrudBankDistributor crudBankDistributor = new CrudBankDistributorBuilder()
                 .addCommand("all", new BankAllAction(crudBank))

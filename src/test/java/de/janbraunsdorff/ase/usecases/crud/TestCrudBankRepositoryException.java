@@ -17,6 +17,11 @@ public class TestCrudBankRepositoryException implements CrudBankRepository {
     }
 
     @Override
+    public BankEntity getByAcronym(String acronym) {
+        return null;
+    }
+
+    @Override
     public BankEntity create(BankEntity bankEntity) throws Exception {
         throw new Exception();
     }

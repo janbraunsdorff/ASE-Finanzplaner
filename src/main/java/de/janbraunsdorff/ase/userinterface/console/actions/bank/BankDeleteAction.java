@@ -21,16 +21,34 @@ public class BankDeleteAction implements Action {
     @Override
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-i")){
-            return new BankHelpResult();
+
+
+
+        if (areTagsPresent(tags, "-i")){
+            try {
+                String id = tags.get("-i");
+                boolean delete = this.crudBank.deleteById(id);
+                return delete? new BankDeleteResult(id) : new ErrorResult("Bank konnte nicht gelöscht werden");
+            }catch (IllegalArgumentException ex){
+                return new ErrorResult(ex.getMessage());
+            }
+
         }
 
-        String id = tags.get("-i");
-        try {
-            boolean delete = this.crudBank.delete(id);
-            return delete? new BankDeleteResult(id) : new ErrorResult("Bank konnte nicht gelöscht werden");
-        }catch (IllegalArgumentException ex){
-            return new ErrorResult(ex.getMessage());
+        if (areTagsPresent(tags, "-a")){
+            try {
+                String id = tags.get("-a");
+                boolean delete = this.crudBank.deleteById(id);
+                return delete? new BankDeleteResult(id) : new ErrorResult("Bank konnte nicht gelöscht werden");
+            }catch (IllegalArgumentException ex){
+                return new ErrorResult(ex.getMessage());
+            }
+
         }
+
+
+        return new BankHelpResult();
     }
+
+
 }

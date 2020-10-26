@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.usecases.crud;
 
 import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,9 +72,14 @@ public class CrudBank implements ICrudBank {
         }
     }
 
+    @Override
+    public boolean deleteByAcronym(String id) {
+         return this.deleteById(this.repo.getByAcronym(id).getId());
+    }
+
 
     @Override
-    public boolean delete(String id) {
+    public boolean deleteById(String id) {
         try {
             return this.repo.delete(id);
         }

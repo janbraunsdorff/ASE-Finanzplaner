@@ -22,6 +22,11 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
     }
 
     @Override
+    public BankEntity getByAcronym(String acronym) {
+        return null;
+    }
+
+    @Override
     public BankEntity create(BankEntity bankEntity) throws Exception {
         return defaultBankEntity;
     }
