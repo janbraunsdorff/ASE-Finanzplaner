@@ -37,9 +37,9 @@ public class BankDeleteAction implements Action {
 
         if (areTagsPresent(tags, "-a")){
             try {
-                String id = tags.get("-a");
-                boolean delete = this.crudBank.deleteById(id);
-                return delete? new BankDeleteResult(id) : new ErrorResult("Bank konnte nicht gelöscht werden");
+                String acronym = tags.get("-a");
+                boolean delete = this.crudBank.deleteByAcronym(acronym);
+                return delete? new BankDeleteResult(acronym) : new ErrorResult("Bank konnte nicht gelöscht werden");
             }catch (IllegalArgumentException ex){
                 return new ErrorResult(ex.getMessage());
             }
@@ -49,6 +49,7 @@ public class BankDeleteAction implements Action {
 
         return new BankHelpResult();
     }
+
 
 
 }
