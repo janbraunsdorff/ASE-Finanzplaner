@@ -22,34 +22,31 @@ public class BankDeleteAction implements Action {
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
 
-
-
         if (areTagsPresent(tags, "-i")){
-            try {
-                String id = tags.get("-i");
-                boolean delete = this.crudBank.deleteById(id);
-                return delete? new BankDeleteResult(id) : new ErrorResult("Bank konnte nicht gelöscht werden");
-            }catch (IllegalArgumentException ex){
-                return new ErrorResult(ex.getMessage());
-            }
-
+            return delete(this.crudBank::deleteById, tags.get("-i"));
         }
 
         if (areTagsPresent(tags, "-a")){
-            try {
-                String acronym = tags.get("-a");
-                boolean delete = this.crudBank.deleteByAcronym(acronym);
-                return delete? new BankDeleteResult(acronym) : new ErrorResult("Bank konnte nicht gelöscht werden");
-            }catch (IllegalArgumentException ex){
-                return new ErrorResult(ex.getMessage());
-            }
-
+            return delete(this.crudBank::deleteByAcronym, tags.get("-a"));
         }
+
 
 
         return new BankHelpResult();
     }
 
+    private Result delete(DeleteRepo method, String value){
+        try {
+            boolean delete =  method.delete(value);
+            return delete? new BankDeleteResult(value) : new ErrorResult("Bank konnte nicht gelöscht werden");
+        }catch (IllegalArgumentException ex){
+            return new ErrorResult(ex.getMessage());
+        }
+    }
 
+
+    private interface DeleteRepo{
+        boolean delete(String s);
+    }
 
 }
