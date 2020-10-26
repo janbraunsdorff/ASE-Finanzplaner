@@ -30,8 +30,6 @@ public class BankDeleteAction implements Action {
             return delete(this.crudBank::deleteByAcronym, tags.get("-a"));
         }
 
-
-
         return new BankHelpResult();
     }
 

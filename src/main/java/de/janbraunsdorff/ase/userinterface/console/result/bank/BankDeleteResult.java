@@ -13,7 +13,7 @@ public class BankDeleteResult implements Result {
     @Override
     public String print() {
         return new OutputBuilder()
-                .addInfoText(String.format("Bank mit der Kennung:%s wurde gelöscht", this.id))
+                .addInfoText(String.format("Bank mit der Kennung: %s wurde gelöscht", this.id))
                 .build();
     }
 }
