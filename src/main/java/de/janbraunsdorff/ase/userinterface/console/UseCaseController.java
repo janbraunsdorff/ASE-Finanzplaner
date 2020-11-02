@@ -16,6 +16,7 @@ public class UseCaseController {
     }
 
     public void answer(String command){
+        command = command.trim();
         String useCase = command.split(" ")[0];
         Result res = this.useCases.getOrDefault(useCase, new DefaultDistributor()).distribute(command);
         this.printer.print(res);
