@@ -24,25 +24,26 @@ public class BankGetAction implements Action {
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
         if (areTagsPresent(tags, "-i")){
-            String id = tags.get("-i");
-            try {
-                BankEntity entity = this.crudBank.get(id);
-                return new BankResult(Collections.singletonList(entity));
-            }catch (IllegalArgumentException ex){
-                return new ErrorResult(ex.getMessage());
-            }
+            return getBankEntity(this.crudBank::get, tags.get("-i"));
         }
 
         if (areTagsPresent(tags, "-a")){
-            String id = tags.get("-a");
-            try {
-                BankEntity entity = this.crudBank.getByAcronym(id);
-                return new BankResult(Collections.singletonList(entity));
-            }catch (IllegalArgumentException ex){
-                return new ErrorResult(ex.getMessage());
-            }
+            return getBankEntity(this.crudBank::getByAcronym, tags.get("-a"));
         }
 
         return new BankHelpResult();
+    }
+
+    private Result getBankEntity(GetBank method, String value){
+        try {
+            BankEntity entity = method.get(value);
+            return new BankResult(Collections.singletonList(entity));
+        }catch (IllegalArgumentException ex){
+            return new ErrorResult(ex.getMessage());
+        }
+    }
+
+    private interface GetBank {
+        BankEntity get(String id);
     }
 }
