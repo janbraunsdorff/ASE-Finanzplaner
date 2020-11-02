@@ -25,7 +25,7 @@ public class BankHelpResult implements Result {
                 .addText(String.format("%-"+commandSize+"s%s", "bank delete -i [ID]", "Löscht Bank basierend auf der Id"))
                 .addNewLine()
                 .addCommand()
-                .addText(String.format("%-"+commandSize+"s%s", "bank update -a [abkürzung]", "Löscht Bank basierend auf der Abkürzung"))
+                .addText(String.format("%-"+commandSize+"s%s", "bank delete -a [abkürzung]", "Löscht Bank basierend auf der Abkürzung"))
                 .addNewLine()
                 .build();
     }
