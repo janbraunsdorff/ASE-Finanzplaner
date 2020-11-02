@@ -59,9 +59,7 @@ public class CrudAccount implements  ICrudAccount{
     @Override
     public AccountEntity createAccount(String id, AccountEntity account) {
         try {
-            BankEntity entity = this.bankRepository.get(id);
-            entity.getAccounts().add(account);
-            return account;
+            return this.repo.create(id, account);
         }catch (IllegalArgumentException ex){
             throw ex;
         }
@@ -73,9 +71,7 @@ public class CrudAccount implements  ICrudAccount{
     @Override
     public AccountEntity createAccountByAcronym(String acronym, AccountEntity account) {
         try {
-            BankEntity entity = this.bankRepository.getByAcronym(acronym);
-            entity.getAccounts().add(account);
-            return account;
+            return this.repo.createByAcronym(acronym, account);
         }catch (IllegalArgumentException ex){
             throw ex;
         }

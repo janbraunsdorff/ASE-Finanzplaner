@@ -83,6 +83,16 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // --------------------------------
     @Override
     public AccountEntity create(String bank, AccountEntity entity) throws Exception {
+        Optional<AccountEntity> first = this.memory.values()
+                .stream()
+                .flatMap(a -> a.getAccounts().stream())
+                .filter(a -> a.getAcronym().equals(entity.getAcronym()))
+                .findFirst();
+
+        if (first.isPresent()){
+            throw new IllegalArgumentException("Acronym already exists");
+        }
+
         entity.setId(checkForMissingId(entity.getId()));
         BankEntity bankEntity = this.memory.get(bank);
         bankEntity.getAccounts().add(entity);
@@ -108,5 +118,11 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         }
 
         return bank.get().getAccounts();
+    }
+
+    @Override
+    public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
+        String id = this.getByAcronym(acronym).getId();
+        return this.create(id, account);
     }
 }
