@@ -89,4 +89,17 @@ public class CrudBank implements ICrudBank {
             return false;
         }
     }
+
+    @Override
+    public BankEntity getByAcronym(String acronym) {
+        try {
+            return this.repo.getByAcronym(acronym);
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
+            return this.defaultEntity;
+        }
+    }
 }

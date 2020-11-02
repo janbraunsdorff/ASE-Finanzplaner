@@ -12,8 +12,10 @@ public class AccountHelpResult implements Result {
                 .addText("Hilfe (Account):")
                 .addNewLine()
                 .addCommand()
-                .addText(String.format("%-"+commandSize+"s\t%s", "account all -i [ID] ", "zeigt alle Konten einer Bank an"))
+                .addText(String.format("%-"+commandSize+"s\t%s", "account all -i [ID Bank] ", "zeigt alle Konten einer Bank an"))
                 .addNewLine()
+                .addCommand()
+                .addText(String.format("%-"+commandSize+"s\t%s", "account all -a [Abkürzung Bank] ", "zeigt alle Konten einer Bank an"))
                 .build();
     }
 }

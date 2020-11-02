@@ -16,4 +16,6 @@ public interface ICrudBank {
     boolean deleteByAcronym(String id);
 
     boolean deleteById(String id);
+
+    BankEntity getByAcronym(String acronym);
 }

@@ -23,16 +23,26 @@ public class BankGetAction implements Action {
     @Override
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-i")){
-            return new BankHelpResult();
+        if (areTagsPresent(tags, "-i")){
+            String id = tags.get("-i");
+            try {
+                BankEntity entity = this.crudBank.get(id);
+                return new BankResult(Collections.singletonList(entity));
+            }catch (IllegalArgumentException ex){
+                return new ErrorResult(ex.getMessage());
+            }
         }
 
-        String id = tags.get("-i");
-        try {
-            BankEntity entity = this.crudBank.get(id);
-            return new BankResult(Collections.singletonList(entity));
-        }catch (IllegalArgumentException ex){
-            return new ErrorResult(ex.getMessage());
+        if (areTagsPresent(tags, "-a")){
+            String id = tags.get("-a");
+            try {
+                BankEntity entity = this.crudBank.getByAcronym(id);
+                return new BankResult(Collections.singletonList(entity));
+            }catch (IllegalArgumentException ex){
+                return new ErrorResult(ex.getMessage());
+            }
         }
+
+        return new BankHelpResult();
     }
 }
