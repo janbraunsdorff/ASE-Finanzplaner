@@ -10,6 +10,7 @@ import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
 import de.janbraunsdorff.ase.userinterface.console.ExitAction;
 import de.janbraunsdorff.ase.userinterface.console.UseCaseController;
 import de.janbraunsdorff.ase.userinterface.console.UseCaseControllerBuilder;
+import de.janbraunsdorff.ase.userinterface.console.actions.account.AccountAddAction;
 import de.janbraunsdorff.ase.userinterface.console.actions.account.AccountAllAction;
 import de.janbraunsdorff.ase.userinterface.console.actions.account.CrudAccountDistributor;
 import de.janbraunsdorff.ase.userinterface.console.actions.account.CrudAccountDistributorBuilder;
@@ -53,9 +54,10 @@ public class App {
                 .addCommand("delete", new BankDeleteAction(crudBank))
                 .build();
 
-        ICrudAccount account = new CrudAccount(repo);
+        ICrudAccount account = new CrudAccount(repo, repo);
         CrudAccountDistributor crudAccountDistributor = new CrudAccountDistributorBuilder()
                 .addCommand("all", new AccountAllAction(account))
+                .addCommand("add", new AccountAddAction(account))
                 .build();
 
         UseCaseController controller = new UseCaseControllerBuilder()
