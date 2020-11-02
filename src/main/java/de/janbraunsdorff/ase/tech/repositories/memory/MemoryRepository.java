@@ -99,4 +99,14 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     public AccountEntity getAccountById(String Id) throws Exception {
         return null;
     }
+
+    @Override
+    public List<AccountEntity> getAccountsByAcronym(String acronym) {
+        Optional<BankEntity> bank = this.memory.values().stream().filter(s -> s.getAcronym().equals(acronym)).findFirst();
+        if (!bank.isPresent()){
+            throw new IllegalArgumentException("Bank don't exists");
+        }
+
+        return bank.get().getAccounts();
+    }
 }

@@ -38,4 +38,17 @@ public class CrudAccount implements  ICrudAccount{
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public List<AccountEntity> getAccountsOfBankByAcronym(String acronym) {
+        try {
+            return this.repo.getAccountsByAcronym(acronym);
+        }
+        catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
 }

@@ -4,8 +4,8 @@ import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.usecases.crud.ICrudAccount;
 import de.janbraunsdorff.ase.userinterface.console.actions.Action;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
+import de.janbraunsdorff.ase.userinterface.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.account.AccountResult;
-import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
 
 import java.util.List;
 import java.util.Map;
@@ -21,12 +21,18 @@ public class AccountAllAction implements Action {
     @Override
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-i")){
-            return new BankHelpResult();
+        if (areTagsPresent(tags, "-i")){
+            String id = tags.get("-i");
+            List<AccountEntity> accountsOfBank = service.getAccountsOfBank(id);
+            return new AccountResult(accountsOfBank);
         }
 
-        String id = tags.get("-i");
-        List<AccountEntity> accountsOfBank = service.getAccountsOfBank(id);
-        return new AccountResult(accountsOfBank);
+        if (areTagsPresent(tags, "-a")){
+            String id = tags.get("-a");
+            List<AccountEntity> accountsOfBank = service.getAccountsOfBankByAcronym(id);
+            return new AccountResult(accountsOfBank);
+        }
+
+        return new AccountHelpResult();
     }
 }

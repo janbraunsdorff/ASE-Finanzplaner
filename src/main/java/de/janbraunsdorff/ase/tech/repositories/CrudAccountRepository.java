@@ -8,4 +8,6 @@ public interface CrudAccountRepository {
     AccountEntity create(String bank, AccountEntity entity) throws Exception;
     List<AccountEntity> getAccountsOfBank(String bank) throws Exception;
     AccountEntity getAccountById(String Id) throws Exception;
+
+    List<AccountEntity> getAccountsByAcronym(String acronym);
 }
