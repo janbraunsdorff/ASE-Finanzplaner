@@ -29,10 +29,12 @@ public class AccountResult implements TypedResult<AccountEntity> {
             .addTableVerticalDivider()
             .addText(String.format("%-" + lengthNumber + "s", "Nummer"))
             .addTableVerticalDivider()
+            .addText(String.format("%-" + 10 + "s", "Abkürzung"))
+            .addTableVerticalDivider()
             .addText(String.format("%-" + 15 + "s", "Transactionen"))
             .addTableVerticalDivider()
             .addNewLine()
-            .addTableHorizontal(37, lengthName, lengthNumber, 15)
+            .addTableHorizontal(37, lengthName, lengthNumber, 10,  15)
             .addNewLine();
 
         this.result.forEach(this::print);
@@ -46,6 +48,8 @@ public class AccountResult implements TypedResult<AccountEntity> {
                 .addText(String.format("%-" + lengthName + "s", r.getName()))
                 .addTableVerticalDivider()
                 .addText(String.format("%-" + lengthNumber + "s", r.getNumber()))
+                .addTableVerticalDivider()
+                .addText(String.format("%-" + 10 + "s", r.getAcronym()))
                 .addTableVerticalDivider()
                 .addText(String.format("%-15s", r.getTransactions().size()))
                 .addTableVerticalDivider()

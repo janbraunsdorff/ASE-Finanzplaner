@@ -27,20 +27,20 @@ public class App {
     public static void main(String[] args) throws Exception {
         MemoryRepository repo = new MemoryRepository();
         List<AccountEntity> accountEntities = new ArrayList<AccountEntity>() {{
-            add(new AccountEntity(UUID.randomUUID().toString(), "Girokonto", "DE00 0000 0000 0000 0000 00", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Geschäftsanteile", "DE00 0000 0000 0000 0000 01", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Kreditkarte", "DE00 0000 0000 0000 0000 02", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Depot", "DE00 0000 0000 0000 0000 03", 0, new ArrayList<>()));
+            add(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00","VB-GK", 0, new ArrayList<>()));
+            add(new AccountEntity("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA",0, new ArrayList<>()));
+            add(new AccountEntity("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK", 0, new ArrayList<>()));
+            add(new AccountEntity("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT", 0, new ArrayList<>()));
         }};
         BankEntity vb = new BankEntity(UUID.randomUUID().toString(), "Volksbank Karlsruhe eG", accountEntities, "VB");
         repo.create(vb);
 
 
         accountEntities = new ArrayList<AccountEntity>() {{
-            add(new AccountEntity(UUID.randomUUID().toString(), "Aktien", "DE00 0000 0000 0000 0000 04", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Girokonto", "DE00 0000 0000 0000 0000 05", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", 0, new ArrayList<>()));
-            add(new AccountEntity(UUID.randomUUID().toString(), "Altersvorsorge", "DE00 0000 0000 0000 0000 07", 0, new ArrayList<>()));
+            add(new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK", 0, new ArrayList<>()));
+            add(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK", 0, new ArrayList<>()));
+            add(new AccountEntity("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL", 0, new ArrayList<>()));
+            add(new AccountEntity("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV", 0, new ArrayList<>()));
         }};
         vb = new BankEntity(UUID.randomUUID().toString(), "Spaßkasse", accountEntities, "SK");
         repo.create(vb);
