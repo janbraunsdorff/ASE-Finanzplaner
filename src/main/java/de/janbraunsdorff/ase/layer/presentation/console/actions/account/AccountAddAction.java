@@ -26,7 +26,7 @@ public class AccountAddAction implements Action {
             return new AccountHelpResult();
         }
 
-        AccountEntity account = new AccountEntity(tags.get("-na"), tags.get("-nr"), tags.get("-ac"), 0, Collections.emptyList());
+        AccountEntity account = new AccountEntity(tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
 
         if (areTagsPresent(tags, "-a")) {
             return addAccount(this.service::createAccountByAcronym, tags.get("-a"), account);

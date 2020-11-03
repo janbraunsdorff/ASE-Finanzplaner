@@ -16,7 +16,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class App {
 
@@ -24,17 +23,17 @@ public class App {
         MemoryRepository repo = new MemoryRepository();
 
         BankEntity vb = new BankEntity("Volksbank Karlsruhe eG","VB");
-        vb.addAccount(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00","VB-GK", 0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA",0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK", 0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT", 0, new ArrayList<>()));
+        vb.addAccount(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00","VB-GK"));
+        vb.addAccount(new AccountEntity("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA"));
+        vb.addAccount(new AccountEntity("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK"));
+        vb.addAccount(new AccountEntity("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT"));
         repo.create(vb);
 
         vb = new BankEntity("Spaßkasse", "SK");
-        vb.addAccount(new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK", 0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK", 0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL", 0, new ArrayList<>()));
-        vb.addAccount(new AccountEntity("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV", 0, new ArrayList<>()));
+        vb.addAccount(new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK"));
+        vb.addAccount(new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK"));
+        vb.addAccount(new AccountEntity("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL"));
+        vb.addAccount(new AccountEntity("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV"));
         repo.create(vb);
 
 

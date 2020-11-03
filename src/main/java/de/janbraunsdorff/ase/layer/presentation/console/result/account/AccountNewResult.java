@@ -18,7 +18,7 @@ public class AccountNewResult implements TypedResult<AccountEntity> {
         return  new OutputBuilder()
                 .addText("Ein neues Konto wurde eröffnet")
                 .addNewLine()
-                .addInfoText(String.format("ID: %s | Name: %s | Abkürzung: %s | Nummer: %s | Accounts: %d\n", account.getId(), account.getName(), account.getAcronym(), account.getNumber(), account.getTransactions().size()))
+                .addInfoText(String.format("ID: %s | Name: %s | Abkürzung: %s | Nummer: %s | Accounts: %d\n", account.getId(), account.getName(), account.getAcronym(), account.getNumber()))
                 .build();
     }
 }

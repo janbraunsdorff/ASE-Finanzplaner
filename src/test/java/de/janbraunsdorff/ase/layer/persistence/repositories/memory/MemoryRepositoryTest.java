@@ -147,12 +147,11 @@ class MemoryRepositoryTest {
         BankEntity bankEntity = new BankEntity("Name",  "arc");
         repo.create(bankEntity);
 
-        AccountEntity account = new AccountEntity("AccountName", "AccountNumber", "AN", 0, new ArrayList<>());
+        AccountEntity account = new AccountEntity("AccountName", "AccountNumber", "AN");
         AccountEntity accountEntity = repo.create(bankEntity.getId(), account);
 
         assertThat(accountEntity.getName(), is("AccountName"));
         assertThat(accountEntity.getNumber(), is("AccountNumber"));
-        assertThat(accountEntity.getOrder(), is(0));
 
     }
 
@@ -162,7 +161,7 @@ class MemoryRepositoryTest {
         BankEntity bankEntity = new BankEntity( "Name", "arc");
         repo.create(bankEntity);
 
-        AccountEntity account = new AccountEntity(null, "AccountName", "AccountNumber", 0, new ArrayList<>());
+        AccountEntity account = new AccountEntity(null, "AccountName", "AccountNumber");
         AccountEntity accountEntity = repo.create(bankEntity.getId(), account);
 
         assertThat(accountEntity.getId(), notNullValue());
