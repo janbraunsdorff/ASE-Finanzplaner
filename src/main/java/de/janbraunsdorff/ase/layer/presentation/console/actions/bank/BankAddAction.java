@@ -28,7 +28,7 @@ public class BankAddAction implements Action {
 
         String name = tags.get("-n");
         String acronym = tags.get("-a");
-        BankEntity entity = new BankEntity(null, name, new ArrayList<>(), acronym);
+        BankEntity entity = new BankEntity(name, acronym);
         try {
             entity = this.crudBank.create(entity);
         }catch (IllegalArgumentException ex){

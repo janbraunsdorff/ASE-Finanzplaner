@@ -24,10 +24,15 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public BankEntity getByAcronym(String acronym) {
-        return this.memory.values().stream().
+        Optional<BankEntity> first = this.memory.values().stream().
                 filter(s -> s.getAcronym().equals(acronym)).
-                findFirst().
-                orElseGet(BankEntity::new);
+                findFirst();
+
+        if (first.isPresent()){
+            return first.get();
+        }
+
+        throw new IllegalArgumentException("Bank konnte nicht gefunden werden");
     }
 
     @Override
@@ -45,7 +50,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new IllegalArgumentException("Acronym already exists");
         }
 
-        bankEntity.setId(checkForMissingId(bankEntity.getId()));
         this.memory.put(bankEntity.getId(), bankEntity);
         return bankEntity;
     }
@@ -95,15 +99,20 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         }
 
         entity.setId(checkForMissingId(entity.getId()));
+
+        if (!this.memory.containsKey(bank)){
+            throw new IllegalArgumentException("Bank not exists");
+        }
+
         BankEntity bankEntity = this.memory.get(bank);
-        bankEntity.getAccounts().add(entity);
-        this.memory.put(bank, bankEntity);
+        bankEntity.addAccount(entity);
+        this.memory.put(bankEntity.getId(), bankEntity);
         return entity;
     }
 
     @Override
     public List<AccountEntity> getAccountsOfBank(String bank) throws Exception {
-        return this.memory.get(bank).getAccounts();
+        return new ArrayList<>(this.memory.get(bank).getAccounts());
     }
 
     @Override
@@ -118,12 +127,42 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new IllegalArgumentException("Bank don't exists");
         }
 
-        return bank.get().getAccounts();
+        return new ArrayList<>(bank.get().getAccounts());
     }
 
     @Override
     public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
         String id = this.getByAcronym(acronym).getId();
         return this.create(id, account);
+    }
+
+    @Override
+    public boolean deleteAccountByAcronym(String acronym) {
+        this.memory.values().forEach(bank -> {
+            Optional<AccountEntity> first = bank.getAccounts()
+                    .stream()
+                    .filter(a -> a.getAcronym().equals(acronym))
+                    .findFirst();
+
+            first.ifPresent(entity -> {
+                bank.removeAccount(entity.getId());
+                this.memory.put(bank.getId(), bank);
+            });
+        });
+        return true;
+    }
+
+    @Override
+    public boolean deleteAccountById(String id) {
+        this.memory.values().forEach(bank -> {
+            Optional<AccountEntity> first = bank.getAccounts()
+                    .stream()
+                    .filter(a -> a.getId().equals(id))
+                    .findFirst();
+
+            first.ifPresent(entity -> bank.removeAccount(entity.getId()));
+        });
+
+        return false;
     }
 }

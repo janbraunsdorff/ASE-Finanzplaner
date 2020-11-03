@@ -2,19 +2,16 @@ package de.janbraunsdorff.ase.layer.domain.crud;
 
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CrudAccount implements  ICrudAccount{
+public class CrudAccount implements ICrudAccount{
     private final CrudAccountRepository repo;
-    private final CrudBankRepository bankRepository;
 
-    public CrudAccount(CrudAccountRepository repo, CrudBankRepository bankRepository) {
+    public CrudAccount(CrudAccountRepository repo) {
         this.repo = repo;
-        this.bankRepository = bankRepository;
     }
 
     @Override
@@ -77,6 +74,30 @@ public class CrudAccount implements  ICrudAccount{
         }
         catch (Exception e) {
             return new AccountEntity("----", "----", "----", 0, Collections.emptyList());
+        }
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        try {
+            return this.repo.deleteAccountById(id);
+        }catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteByAcronym(String acronym) {
+        try {
+            return this.repo.deleteAccountByAcronym(acronym);
+        }catch (IllegalArgumentException ex){
+            throw ex;
+        }
+        catch (Exception e) {
+            return false;
         }
     }
 }

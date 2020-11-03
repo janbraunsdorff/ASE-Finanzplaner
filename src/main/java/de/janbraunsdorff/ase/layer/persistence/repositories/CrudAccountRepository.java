@@ -13,4 +13,7 @@ public interface CrudAccountRepository {
     List<AccountEntity> getAccountsByAcronym(String acronym);
 
     AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception;
+
+    boolean deleteAccountByAcronym(String acronym);
+    boolean deleteAccountById(String id);
 }

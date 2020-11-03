@@ -14,7 +14,7 @@ public class CrudBank implements ICrudBank {
 
     public CrudBank(CrudBankRepository repo) {
         this.repo = repo;
-        this.defaultEntity = new BankEntity("----", "----", Collections.emptyList(), "--");
+        this.defaultEntity = new BankEntity("----", "----");
 
     }
 

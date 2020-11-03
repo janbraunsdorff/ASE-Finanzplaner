@@ -1,51 +1,31 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+import java.util.*;
 
 public class BankEntity {
-    @SerializedName("id")
     private String id;
-
-    @SerializedName("name")
     private String name;
-
-    @SerializedName("accounts")
-    private List<AccountEntity> accounts;
-
-    @SerializedName("acr")
+    private Map<String, AccountEntity> accounts;
     private String acronym;
 
 
-    public BankEntity(String id, String name, List<AccountEntity> accounts, String acronym) {
-        this.id = id;
+    public BankEntity(String name, String acronym) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
-        this.accounts = accounts;
+        this.accounts = new HashMap<>();
         this.acronym = acronym;
     }
 
-    public BankEntity() {
+    public void addAccount(AccountEntity entity){
+        this.accounts.put(entity.getId(), entity);
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<AccountEntity> getAccounts() {
-        return accounts;
     }
 
     public String getAcronym() {
@@ -54,5 +34,17 @@ public class BankEntity {
 
     public void setAcronym(String acronym) {
         this.acronym = acronym;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Collection<AccountEntity> getAccounts(){
+        return this.accounts.values();
+    }
+
+    public void removeAccount(String id) {
+        this.accounts.remove(id);
     }
 }

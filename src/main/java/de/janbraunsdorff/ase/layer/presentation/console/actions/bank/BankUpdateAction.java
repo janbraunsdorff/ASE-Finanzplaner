@@ -33,7 +33,7 @@ public class BankUpdateAction implements Action {
         String acronym = tags.get("-a");
 
         try {
-            BankEntity updated = crudBank.update(new BankEntity(id, name, Collections.emptyList(), acronym));
+            BankEntity updated = crudBank.update(new BankEntity(name, acronym));
             return new BankUpdateResult(updated);
         }catch (IllegalArgumentException ex){
             return new ErrorResult(ex.getMessage());
