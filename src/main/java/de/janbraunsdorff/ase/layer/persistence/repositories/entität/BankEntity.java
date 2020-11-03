@@ -16,6 +16,13 @@ public class BankEntity {
         this.acronym = acronym;
     }
 
+    public BankEntity(String id, String name, String acronym) {
+        this.id = id;
+        this.name = name;
+        this.accounts = new HashMap<>();
+        this.acronym = acronym;
+    }
+
     public void addAccount(AccountEntity entity){
         this.accounts.put(entity.getId(), entity);
     }

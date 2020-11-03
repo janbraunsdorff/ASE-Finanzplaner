@@ -10,19 +10,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 class CrudBankTest {
-    static final BankEntity defaultBankEntity = new BankEntity("ID", "Name", Collections.emptyList(), "n");
+    static final BankEntity defaultBankEntity = new BankEntity( "", "",  "");
 
-
-    private final String  defaultId = "----";
 
     @Test
     public void Test_CreateBank_ThrowsException(){
         CrudBankRepository repo = new TestCrudBankRepositoryException();
         CrudBank service = new CrudBank(repo);
 
-        BankEntity bankEntity = service.create(new BankEntity());
-        assertThat(bankEntity.getId(), is(defaultId));
-        assertThat(bankEntity.getName(), is(defaultId));
+        BankEntity bankEntity = service.create(new BankEntity("", ""));
+        assertThat(bankEntity.getId(), notNullValue());
     }
 
     @Test
@@ -30,9 +27,10 @@ class CrudBankTest {
         CrudBankRepository repo = new TestCrudBankRepositoryFine();
         CrudBank service = new CrudBank(repo);
 
-        BankEntity bankEntity = service.create(new BankEntity());
-        assertThat(bankEntity.getId(), is(defaultBankEntity.getId()));
+        BankEntity bankEntity = service.create(new BankEntity("", ""));
+        assertThat(bankEntity.getAcronym(), is(defaultBankEntity.getAcronym()));
         assertThat(bankEntity.getName(), is(defaultBankEntity.getName()));
+        assertThat(bankEntity.getId(), notNullValue());
     }
 
     @Test
@@ -41,6 +39,7 @@ class CrudBankTest {
         CrudBank service = new CrudBank(repo);
 
         BankEntity bankEntity = service.get("ID");
+        String defaultId = "----";
         assertThat(bankEntity.getId(), is(defaultId));
         assertThat(bankEntity.getName(), is(defaultId));
     }
@@ -80,9 +79,10 @@ class CrudBankTest {
         CrudBankRepository repo = new TestCrudBankRepositoryException();
         CrudBank service = new CrudBank(repo);
 
-        BankEntity bankEntity = service.update(new BankEntity());
-        assertThat(bankEntity.getId(), is(defaultId));
-        assertThat(bankEntity.getName(), is(defaultId));
+        BankEntity bankEntity = service.update(new BankEntity("", ""));
+        assertThat(bankEntity.getAcronym(), is("----"));
+        assertThat(bankEntity.getName(), is("----"));
+        assertThat(bankEntity.getId(), notNullValue());
     }
 
     @Test
@@ -90,10 +90,10 @@ class CrudBankTest {
         CrudBankRepository repo = new TestCrudBankRepositoryFine();
         CrudBank service = new CrudBank(repo);
 
-        BankEntity bankEntity = service.update(new BankEntity());
+        BankEntity bankEntity = service.update(new BankEntity("", ""));
+        assertThat(bankEntity.getAcronym(), is(defaultBankEntity.getAcronym()));
         assertThat(bankEntity.getName(), is(defaultBankEntity.getName()));
-        assertThat(bankEntity.getId(), is(defaultBankEntity.getId()));
-
+        assertThat(bankEntity.getId(), notNullValue());
     }
 
     @Test

@@ -18,7 +18,6 @@ class BankUpdateActionTest {
 
         assertThat(crud.name, is("updated bank"));
         assertThat(crud.acronym, is("ub"));
-        assertThat(crud.id, is("123"));
 
     }
 
