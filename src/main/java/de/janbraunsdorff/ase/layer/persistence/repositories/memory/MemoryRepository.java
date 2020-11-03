@@ -60,7 +60,11 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new IllegalArgumentException();
         }
 
-        Optional<BankEntity> first = this.memory.values().stream().filter(e -> e.getAcronym().equals(bankEntity.getAcronym())).findFirst();
+        Optional<BankEntity> first = this.memory.values()
+                .stream()
+                .filter(e -> e.getAcronym().equals(bankEntity.getAcronym()))
+                .findFirst();
+
         if (first.isPresent() && !first.get().getId().equals(bankEntity.getId())){
             throw new IllegalArgumentException("Acronym already exists");
         }
