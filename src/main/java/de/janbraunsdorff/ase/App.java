@@ -64,6 +64,9 @@ public class App {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String name = reader.readLine();
+            if (name == null){
+                System.exit(0);
+            }
             controller.answer(name);
         }
     }

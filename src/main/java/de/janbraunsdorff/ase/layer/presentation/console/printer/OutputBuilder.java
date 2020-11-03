@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.printer;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.part.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.part.NewLine;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.part.TableDivider;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OutputBuilder {
-    private final List<SentencePiece> pieces;
+    protected final List<SentencePiece> pieces;
 
     public OutputBuilder() {
         this.pieces = new ArrayList<>();
@@ -50,11 +49,6 @@ public class OutputBuilder {
 
     public OutputBuilder addNewLine() {
         this.pieces.add(new NewLine());
-        return this;
-    }
-
-    public OutputBuilder addCommand() {
-        this.pieces.add(new Command());
         return this;
     }
 

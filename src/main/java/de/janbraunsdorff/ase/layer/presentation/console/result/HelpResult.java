@@ -1,25 +1,17 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.OutputBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.printer.HelpOutputBuilder;
 
 public class HelpResult implements Result {
 
     @Override
     public String print() {
-        int commandSize = 50;
-        return new OutputBuilder()
-                .addText("Hilfe:")
-                .addNewLine()
-                .addCommand()
-                .addText(String.format("%-"+ commandSize +"s%s", "bank", "alle optionen für Bank"))
-                .addNewLine()
-                .addCommand()
-                .addText(String.format("%-"+ commandSize +"s%s", "account", "alle optionen für Account"))
-                .addNewLine()
-                .addCommand()
-                .addText(String.format("%-"+ commandSize +"s%s", "option", "alle Options um die Anwenung zu Konfigurieren"))
-                .addNewLine()
+        return new HelpOutputBuilder(50)
+                .addHeadline("Hilfe:")
+                .addCommand("bank", "alle Optionen für Bank")
+                .addCommand("account", "alle Optionen für Account")
+                .addCommand("option", "alle Optionen um die Anwendung zu Konfigurieren")
                 .build();
     }
 }

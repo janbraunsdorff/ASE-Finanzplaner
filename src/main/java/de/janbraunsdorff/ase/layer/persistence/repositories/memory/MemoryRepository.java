@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEnti
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class MemoryRepository implements CrudBankRepository, CrudAccountRepository {
 
@@ -142,31 +143,24 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public boolean deleteAccountByAcronym(String acronym) {
-        this.memory.values().forEach(bank -> {
-            Optional<AccountEntity> first = bank.getAccounts()
-                    .stream()
-                    .filter(a -> a.getAcronym().equals(acronym))
-                    .findFirst();
-
-            first.ifPresent(entity -> {
-                bank.removeAccount(entity.getId());
-                this.memory.put(bank.getId(), bank);
-            });
-        });
-        return true;
+        return deleteAccount(a -> a.getAcronym().equals(acronym));
     }
 
     @Override
     public boolean deleteAccountById(String id) {
+        return deleteAccount(a -> a.getId().equals(id));
+    }
+
+    private boolean deleteAccount(Predicate<AccountEntity> predicate){
         this.memory.values().forEach(bank -> {
             Optional<AccountEntity> first = bank.getAccounts()
                     .stream()
-                    .filter(a -> a.getId().equals(id))
+                    .filter(predicate)
                     .findFirst();
 
             first.ifPresent(entity -> bank.removeAccount(entity.getId()));
         });
 
-        return false;
+        return true;
     }
 }
