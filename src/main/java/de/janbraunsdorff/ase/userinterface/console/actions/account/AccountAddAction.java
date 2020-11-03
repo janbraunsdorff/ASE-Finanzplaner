@@ -7,7 +7,6 @@ import de.janbraunsdorff.ase.userinterface.console.result.ErrorResult;
 import de.janbraunsdorff.ase.userinterface.console.result.Result;
 import de.janbraunsdorff.ase.userinterface.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.userinterface.console.result.account.AccountNewResult;
-import de.janbraunsdorff.ase.userinterface.console.result.account.AccountResult;
 
 import java.util.Collections;
 import java.util.Map;
