@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.userinterface.console.actions;
+package de.janbraunsdorff.ase.layer.presentation.console.actions;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -90,8 +90,9 @@ class ActionTest {
         Action action = command -> null;
         Map<String, String> res = action.parseCommand("first second -a -ft", 2);
 
-        assertThat(res.size(), is(1));
-        assertThat(res.get("-a"), is("-ft"));
+        assertThat(res.size(), is(2));
+        assertThat(res.get("-a"), is(""));
+        assertThat(res.get("-ft"), is(""));
     }
 
 

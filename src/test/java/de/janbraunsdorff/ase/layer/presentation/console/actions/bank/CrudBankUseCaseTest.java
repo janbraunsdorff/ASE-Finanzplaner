@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.userinterface.console.actions.bank;
+package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
 import java.util.List;
 
@@ -45,5 +45,10 @@ public class CrudBankUseCaseTest implements ICrudBank {
     @Override
     public boolean deleteById(String id) {
         return false;
+    }
+
+    @Override
+    public BankEntity getByAcronym(String acronym) {
+        return null;
     }
 }

@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.tech.repositories.memory;
+package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -148,15 +148,12 @@ class MemoryRepositoryTest {
         BankEntity bankEntity = new BankEntity("ID2", "Name", new ArrayList<>(), "arc");
         repo.create(bankEntity);
 
-        AccountEntity account = new AccountEntity("accountId", "AccountName", "AccountNumber", 0, new ArrayList<>());
+        AccountEntity account = new AccountEntity("AccountName", "AccountNumber", "AN", 0, new ArrayList<>());
         AccountEntity accountEntity = repo.create(bankEntity.getId(), account);
 
-        assertThat(accountEntity.getId(), is("accountId"));
         assertThat(accountEntity.getName(), is("AccountName"));
         assertThat(accountEntity.getNumber(), is("AccountNumber"));
         assertThat(accountEntity.getOrder(), is(0));
-
-        assertThat(repo.get(bankEntity.getId()).getAccounts().get(0).getId(), is("accountId"));
 
     }
 

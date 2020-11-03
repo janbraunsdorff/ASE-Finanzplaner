@@ -1,7 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
-import de.janbraunsdorff.ase.tech.repositories.CrudBankRepository;
+
+import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
 import java.util.Collections;
 import java.util.List;

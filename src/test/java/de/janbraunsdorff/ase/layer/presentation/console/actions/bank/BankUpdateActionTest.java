@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.userinterface.console.actions.bank;
+package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.userinterface.console.result.Result;
-import de.janbraunsdorff.ase.userinterface.console.result.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
