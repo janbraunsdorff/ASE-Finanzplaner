@@ -32,8 +32,10 @@ public class BankResult implements TypedResult<BankEntity> {
                 .addTableVerticalDivider()
                 .addText(String.format("%-10s", "Accounts"))
                 .addTableVerticalDivider()
+                .addText(String.format("%-10s", "Guthaben"))
+                .addTableVerticalDivider()
                 .addNewLine()
-                .addTableHorizontal(37, length, lengthAcronym, 10)
+                .addTableHorizontal(37, length, lengthAcronym, 10, 10)
                 .addNewLine();
 
         this.result.forEach(this::print);
@@ -42,6 +44,8 @@ public class BankResult implements TypedResult<BankEntity> {
     }
 
     private void print(BankEntity r) {
+
+
         builder.addTableVerticalDivider()
                 .addText(String.format("%-37s", r.getId()))
                 .addTableVerticalDivider()
@@ -50,6 +54,8 @@ public class BankResult implements TypedResult<BankEntity> {
                 .addText(String.format("%-" + lengthAcronym + "s", r.getAcronym()))
                 .addTableVerticalDivider()
                 .addText(String.format("%-10s", r.getAccounts().size()))
+                .addTableVerticalDivider()
+                .addAmount(10, r.getAmountOfAccountsInCent())
                 .addTableVerticalDivider()
                 .addNewLine();
 

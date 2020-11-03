@@ -48,4 +48,11 @@ public class AccountEntity {
     public String getAcronym() {
         return this.acronym;
     }
+
+    public int getAmountOfAccountInCent(){
+        return this.transactions.values()
+                .stream()
+                .map(TransactionEntity::getValue)
+                .reduce(0, Integer::sum);
+    }
 }

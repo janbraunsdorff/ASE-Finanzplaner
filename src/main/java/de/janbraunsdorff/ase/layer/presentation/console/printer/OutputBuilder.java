@@ -75,4 +75,15 @@ public class OutputBuilder {
     }
 
 
+    public OutputBuilder addAmount(int i, int amount) {
+        String amountBuilder = amount / 100 + "." + amount % 100 + "€";
+        String text = String.format("%-"+i+"s", amountBuilder);
+        if (amount < 0){
+            this.pieces.add(new SentencePiece(Color.RED, text));
+        } else {
+            this.pieces.add(new SentencePiece(Color.GREEN, text));
+        }
+
+        return this;
+    }
 }
