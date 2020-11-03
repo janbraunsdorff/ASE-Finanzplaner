@@ -1,20 +1,21 @@
 package de.janbraunsdorff.ase;
 
-import de.janbraunsdorff.ase.tech.repositories.entität.AccountEntity;
-import de.janbraunsdorff.ase.tech.repositories.entität.BankEntity;
-import de.janbraunsdorff.ase.tech.repositories.memory.MemoryRepository;
-import de.janbraunsdorff.ase.usecases.crud.CrudAccount;
-import de.janbraunsdorff.ase.usecases.crud.CrudBank;
-import de.janbraunsdorff.ase.usecases.crud.ICrudAccount;
-import de.janbraunsdorff.ase.usecases.crud.ICrudBank;
-import de.janbraunsdorff.ase.userinterface.console.ExitAction;
-import de.janbraunsdorff.ase.userinterface.console.UseCaseController;
-import de.janbraunsdorff.ase.userinterface.console.UseCaseControllerBuilder;
-import de.janbraunsdorff.ase.userinterface.console.actions.account.AccountAddAction;
-import de.janbraunsdorff.ase.userinterface.console.actions.account.AccountAllAction;
-import de.janbraunsdorff.ase.userinterface.console.actions.account.CrudAccountDistributor;
-import de.janbraunsdorff.ase.userinterface.console.actions.account.CrudAccountDistributorBuilder;
-import de.janbraunsdorff.ase.userinterface.console.actions.bank.*;
+
+import de.janbraunsdorff.ase.layer.domain.crud.CrudAccount;
+import de.janbraunsdorff.ase.layer.domain.crud.CrudBank;
+import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
+import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
+import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
+import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
+import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.account.CrudAccountDistributor;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.account.CrudAccountDistributorBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
