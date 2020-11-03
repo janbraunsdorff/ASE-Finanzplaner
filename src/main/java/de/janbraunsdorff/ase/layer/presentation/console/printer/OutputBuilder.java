@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.presentation.console.printer;
 
 
 import de.janbraunsdorff.ase.layer.presentation.console.printer.part.NewLine;
-import de.janbraunsdorff.ase.layer.presentation.console.printer.part.TableDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +12,6 @@ public class OutputBuilder {
 
     public OutputBuilder() {
         this.pieces = new ArrayList<>();
-    }
-
-    public OutputBuilder addTableVerticalDivider() {
-        this.pieces.add(new TableDivider("|"));
-        return this;
-    }
-
-    public OutputBuilder addTableHorizontal(int... lengths) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("+");
-        for(int i : lengths){
-            builder.append(getDivider(i));
-            builder.append("+");
-        }
-
-        this.pieces.add(new TableDivider(builder.toString()));
-        return this;
     }
 
     public OutputBuilder addText(String text) {
@@ -57,27 +39,5 @@ public class OutputBuilder {
                 .stream()
                 .map(SentencePiece::getPiece)
                 .collect(Collectors.joining(""));
-    }
-
-
-    private String getDivider(int counter) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < counter; i++){
-            builder.append("-");
-        }
-        return builder.toString();
-    }
-
-
-    public OutputBuilder addAmount(int i, int amount) {
-        String amountBuilder = amount / 100 + "." + amount % 100 + "€";
-        String text = String.format("%-"+i+"s", amountBuilder);
-        if (amount < 0){
-            this.pieces.add(new SentencePiece(Color.RED, text));
-        } else {
-            this.pieces.add(new SentencePiece(Color.GREEN, text));
-        }
-
-        return this;
     }
 }
