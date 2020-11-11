@@ -8,21 +8,20 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankNewResult;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class BankAddAction implements Action {
 
     private final ICrudBank crudBank;
 
-    public BankAddAction(ICrudBank crudBank){
+    public BankAddAction(ICrudBank crudBank) {
         this.crudBank = crudBank;
     }
 
     @Override
     public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-a", "-n")){
+        if (!areTagsPresent(tags, "-a", "-n")) {
             return new BankHelpResult();
         }
 
@@ -31,7 +30,7 @@ public class BankAddAction implements Action {
         BankEntity entity = new BankEntity(name, acronym);
         try {
             entity = this.crudBank.create(entity);
-        }catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
         }
 

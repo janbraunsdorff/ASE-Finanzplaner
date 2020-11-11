@@ -5,7 +5,7 @@ public class SentencePiece {
     private final Color color;
     private final String content;
 
-    public SentencePiece(Color color, String content){
+    public SentencePiece(Color color, String content) {
 
         this.color = color;
         this.content = content;

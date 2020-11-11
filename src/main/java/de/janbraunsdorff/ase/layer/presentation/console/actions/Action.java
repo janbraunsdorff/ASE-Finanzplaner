@@ -12,25 +12,25 @@ import java.util.regex.Pattern;
 public interface Action {
     Result act(String command);
 
-    default Map<String, String> parseCommand(String command, int start){
+    default Map<String, String> parseCommand(String command, int start) {
         Map<String, String> parameter = new HashMap<>();
         String[] s = command.split(" ");
         Pattern pattern = Pattern.compile("^(-[a-z]+)$");
 
-        StringJoiner builder =  new StringJoiner(" ");
+        StringJoiner builder = new StringJoiner(" ");
         String tag = "";
 
-        for (; start < s.length; start++ ){
+        for (; start < s.length; start++) {
             Matcher m = pattern.matcher(s[start]);
 
-            if (m.find()){
-                if (!tag.isEmpty()){
+            if (m.find()) {
+                if (!tag.isEmpty()) {
                     parameter.put(tag, builder.toString());
                 }
 
                 builder = new StringJoiner(" ");
                 tag = m.group(0);
-            }else {
+            } else {
                 builder.add(s[start]);
             }
         }
@@ -42,9 +42,9 @@ public interface Action {
         return parameter;
     }
 
-    default boolean areTagsPresent( Map<String, String> map, String... tags){
-        for (String s : tags){
-            if (!map.containsKey(s)){
+    default boolean areTagsPresent(Map<String, String> map, String... tags) {
+        for (String s : tags) {
+            if (!map.containsKey(s)) {
                 return false;
             }
         }

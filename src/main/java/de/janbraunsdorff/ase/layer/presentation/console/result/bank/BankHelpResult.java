@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.presentation.console.result.bank;
 
 
 import de.janbraunsdorff.ase.layer.presentation.console.printer.HelpOutputBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.printer.OutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 
 public class BankHelpResult implements Result {

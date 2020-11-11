@@ -22,11 +22,9 @@ public class CrudBank implements ICrudBank {
     public BankEntity get(String id) {
         try {
             return this.repo.get(id);
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return this.defaultEntity;
         }
     }
@@ -36,11 +34,9 @@ public class CrudBank implements ICrudBank {
         try {
             return this.repo.get();
 
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return Collections.emptyList();
         }
     }
@@ -49,11 +45,9 @@ public class CrudBank implements ICrudBank {
     public BankEntity create(BankEntity entity) {
         try {
             return this.repo.create(entity);
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return this.defaultEntity;
         }
     }
@@ -63,18 +57,16 @@ public class CrudBank implements ICrudBank {
     public BankEntity update(BankEntity entity) {
         try {
             return this.repo.update(entity);
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return this.defaultEntity;
         }
     }
 
     @Override
     public boolean deleteByAcronym(String id) {
-         return this.deleteById(this.repo.getByAcronym(id).getId());
+        return this.deleteById(this.repo.getByAcronym(id).getId());
     }
 
 
@@ -82,11 +74,9 @@ public class CrudBank implements ICrudBank {
     public boolean deleteById(String id) {
         try {
             return this.repo.delete(id);
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -95,11 +85,9 @@ public class CrudBank implements ICrudBank {
     public BankEntity getByAcronym(String acronym) {
         try {
             return this.repo.getByAcronym(acronym);
-        }
-        catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             throw ex;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return this.defaultEntity;
         }
     }

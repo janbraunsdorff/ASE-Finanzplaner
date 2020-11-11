@@ -1,6 +1,9 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class BankEntity {
     private String id;
@@ -23,7 +26,7 @@ public class BankEntity {
         this.acronym = acronym;
     }
 
-    public void addAccount(AccountEntity entity){
+    public void addAccount(AccountEntity entity) {
         this.accounts.put(entity.getId(), entity);
     }
 
@@ -47,7 +50,7 @@ public class BankEntity {
         this.name = name;
     }
 
-    public Collection<AccountEntity> getAccounts(){
+    public Collection<AccountEntity> getAccounts() {
         return this.accounts.values();
     }
 
@@ -55,7 +58,7 @@ public class BankEntity {
         this.accounts.remove(id);
     }
 
-    public int getAmountOfAccountsInCent(){
+    public int getAmountOfAccountsInCent() {
         return this.accounts.values()
                 .stream()
                 .map(AccountEntity::getAmountOfAccountInCent)

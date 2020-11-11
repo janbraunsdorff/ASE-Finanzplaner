@@ -8,9 +8,10 @@ public class BankDeleteResult implements Result {
 
     private final String id;
 
-    public BankDeleteResult(String id){
+    public BankDeleteResult(String id) {
         this.id = id;
     }
+
     @Override
     public String print() {
         return new InformationOutputBuilder()

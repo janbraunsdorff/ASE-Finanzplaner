@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.printer;
 
 import de.janbraunsdorff.ase.layer.presentation.console.printer.part.Command;
 
-public class HelpOutputBuilder extends OutputBuilder{
+public class HelpOutputBuilder extends OutputBuilder {
 
     private final int commandSize;
 
@@ -11,15 +11,15 @@ public class HelpOutputBuilder extends OutputBuilder{
         this.commandSize = commandSize;
     }
 
-    public HelpOutputBuilder addHeadline(String text){
+    public HelpOutputBuilder addHeadline(String text) {
         this.addText(text);
         this.addNewLine();
         return this;
     }
 
-    public HelpOutputBuilder addCommand(String command, String description){
+    public HelpOutputBuilder addCommand(String command, String description) {
         this.addCommand();
-        this.addText(String.format("%-"+commandSize+"s\t%s", command, description));
+        this.addText(String.format("%-" + commandSize + "s\t%s", command, description));
         this.addNewLine();
         return this;
     }

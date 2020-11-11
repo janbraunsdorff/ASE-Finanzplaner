@@ -9,7 +9,7 @@ public class AccountNewResult implements TypedResult<AccountEntity> {
 
     private final AccountEntity account;
 
-    public AccountNewResult(AccountEntity account){
+    public AccountNewResult(AccountEntity account) {
         this.account = account;
     }
 

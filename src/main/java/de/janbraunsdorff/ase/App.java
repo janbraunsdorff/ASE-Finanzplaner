@@ -5,8 +5,6 @@ import de.janbraunsdorff.ase.layer.domain.crud.CrudAccount;
 import de.janbraunsdorff.ase.layer.domain.crud.CrudBank;
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
@@ -42,7 +40,6 @@ public class App {
         CrudTransactionDistributor crudTransactionDistributor = createTransactionDistributor(repo);
 
 
-
 //      composite distributor
         UseCaseController controller = new UseCaseControllerBuilder()
                 .addUseCase("bank", crudBankDistributor)
@@ -55,7 +52,7 @@ public class App {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String name = reader.readLine();
-            if (name == null){
+            if (name == null) {
                 System.exit(0);
             }
             controller.answer(name);
@@ -85,8 +82,8 @@ public class App {
                 .build();
     }
 
-    private static BankEntity createVolksbank(){
-        BankEntity vb = new BankEntity("Volksbank Karlsruhe eG","VB");
+    private static BankEntity createVolksbank() {
+        BankEntity vb = new BankEntity("Volksbank Karlsruhe eG", "VB");
 
         AccountEntity acc0 = new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
         acc0.addTransaction(new TransactionEntity(10000, "Jan Braunsdorff", "", "Start", false));
@@ -107,7 +104,7 @@ public class App {
         return vb;
     }
 
-    private static BankEntity createSparkasse(){
+    private static BankEntity createSparkasse() {
         BankEntity sk = new BankEntity("Spaßkasse", "SK");
 
         AccountEntity acc0 = new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK");

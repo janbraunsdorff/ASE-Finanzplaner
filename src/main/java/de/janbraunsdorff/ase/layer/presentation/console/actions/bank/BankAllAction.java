@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankResult;
 public class BankAllAction implements Action {
     private final ICrudBank crudBank;
 
-    public BankAllAction(ICrudBank crudBank){
+    public BankAllAction(ICrudBank crudBank) {
         this.crudBank = crudBank;
     }
 

@@ -29,7 +29,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
 
-        if (first.isPresent()){
+        if (first.isPresent()) {
             return first.get();
         }
 
@@ -38,7 +38,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public BankEntity create(BankEntity bankEntity) throws Exception {
-        if (this.memory.containsKey(bankEntity.getId())){
+        if (this.memory.containsKey(bankEntity.getId())) {
             throw new IllegalArgumentException("Id already exists");
         }
 
@@ -47,7 +47,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .filter(e -> e.getAcronym().equals(bankEntity.getAcronym()))
                 .findFirst();
 
-        if (first.isPresent()){
+        if (first.isPresent()) {
             throw new IllegalArgumentException("Acronym already exists");
         }
 
@@ -57,7 +57,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public BankEntity update(BankEntity bankEntity) throws Exception {
-        if (!this.memory.containsKey(bankEntity.getId())){
+        if (!this.memory.containsKey(bankEntity.getId())) {
             throw new IllegalArgumentException();
         }
 
@@ -66,7 +66,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .filter(e -> e.getAcronym().equals(bankEntity.getAcronym()))
                 .findFirst();
 
-        if (first.isPresent() && !first.get().getId().equals(bankEntity.getId())){
+        if (first.isPresent() && !first.get().getId().equals(bankEntity.getId())) {
             throw new IllegalArgumentException("Acronym already exists");
         }
 
@@ -80,12 +80,12 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public boolean delete(String bankId) throws Exception {
-       this.memory.remove(bankId);
-       return true;
+        this.memory.remove(bankId);
+        return true;
     }
 
     private String checkForMissingId(String id) {
-        return (id == null ||id.isEmpty()) ? UUID.randomUUID().toString(): id;
+        return (id == null || id.isEmpty()) ? UUID.randomUUID().toString() : id;
     }
 
     // --------------------------------
@@ -99,13 +99,13 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .filter(a -> a.getAcronym().equals(entity.getAcronym()))
                 .findFirst();
 
-        if (first.isPresent()){
+        if (first.isPresent()) {
             throw new IllegalArgumentException("Acronym already exists");
         }
 
         entity.setId(checkForMissingId(entity.getId()));
 
-        if (!this.memory.containsKey(bank)){
+        if (!this.memory.containsKey(bank)) {
             throw new IllegalArgumentException("Bank not exists");
         }
 
@@ -128,7 +128,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     @Override
     public List<AccountEntity> getAccountsByAcronym(String acronym) {
         Optional<BankEntity> bank = this.memory.values().stream().filter(s -> s.getAcronym().equals(acronym)).findFirst();
-        if (!bank.isPresent()){
+        if (!bank.isPresent()) {
             throw new IllegalArgumentException("Bank don't exists");
         }
 
@@ -151,7 +151,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         return deleteAccount(a -> a.getId().equals(id));
     }
 
-    private boolean deleteAccount(Predicate<AccountEntity> predicate){
+    private boolean deleteAccount(Predicate<AccountEntity> predicate) {
         this.memory.values().forEach(bank -> {
             Optional<AccountEntity> first = bank.getAccounts()
                     .stream()

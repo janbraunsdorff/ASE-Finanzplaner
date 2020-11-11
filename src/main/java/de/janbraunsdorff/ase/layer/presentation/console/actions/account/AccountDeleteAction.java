@@ -23,7 +23,7 @@ public class AccountDeleteAction implements Action {
             return deleteAccount(service::deleteById, tags.get("-i"));
         }
 
-        if (areTagsPresent(tags, "-a")){
+        if (areTagsPresent(tags, "-a")) {
             return deleteAccount(service::deleteByAcronym, tags.get("-a"));
         }
 
@@ -31,16 +31,16 @@ public class AccountDeleteAction implements Action {
 
     }
 
-    private Result deleteAccount(Delete method, String value){
+    private Result deleteAccount(Delete method, String value) {
         try {
             boolean delete = method.delete(value);
             return new AccountDeleteResult(value);
-        } catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
         }
     }
 
-    private interface Delete{
+    private interface Delete {
         boolean delete(String value);
     }
 }

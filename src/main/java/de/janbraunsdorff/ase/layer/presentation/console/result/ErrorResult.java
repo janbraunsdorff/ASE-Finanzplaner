@@ -7,7 +7,7 @@ public class ErrorResult implements Result {
 
     private final String errorText;
 
-    public ErrorResult(String errorText){
+    public ErrorResult(String errorText) {
         this.errorText = errorText;
     }
 

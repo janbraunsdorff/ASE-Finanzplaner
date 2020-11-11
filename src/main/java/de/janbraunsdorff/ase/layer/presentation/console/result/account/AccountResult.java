@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.presentation.console.result.account;
 
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
-import de.janbraunsdorff.ase.layer.presentation.console.printer.OutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 

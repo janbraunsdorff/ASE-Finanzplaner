@@ -29,7 +29,7 @@ public class AccountEntity {
         this.transactions = new HashMap<>();
     }
 
-    public void addTransaction(TransactionEntity entity){
+    public void addTransaction(TransactionEntity entity) {
         this.transactions.put(entity.getId(), entity);
     }
 
@@ -53,7 +53,7 @@ public class AccountEntity {
         return this.acronym;
     }
 
-    public int getAmountOfAccountInCent(){
+    public int getAmountOfAccountInCent() {
         return this.transactions.values()
                 .stream()
                 .map(TransactionEntity::getValue)

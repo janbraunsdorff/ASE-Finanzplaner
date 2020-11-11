@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.printer.part.TableDivide
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableOutputBuilder extends OutputBuilder{
+public class TableOutputBuilder extends OutputBuilder {
 
     private List<Integer> width;
     private int lastIndex;
@@ -18,24 +18,24 @@ public class TableOutputBuilder extends OutputBuilder{
         this.isFirstRow = true;
     }
 
-    public TableOutputBuilder addTableHeader(int width, String name){
+    public TableOutputBuilder addTableHeader(int width, String name) {
         this.addTableVerticalDivider();
-        this.addText(String.format("%-"+width+"s", name));
+        this.addText(String.format("%-" + width + "s", name));
         this.width.add(width);
         return this;
     }
 
-    public TableOutputBuilder finishFirstLine(){
+    public TableOutputBuilder finishFirstLine() {
         this.lastIndex = 0;
         this.isFirstRow = false;
         this.addNewLine();
         return this;
     }
 
-    public TableOutputBuilder addHorizontalLine(){
+    public TableOutputBuilder addHorizontalLine() {
         StringBuilder builder = new StringBuilder();
         builder.append("+");
-        for(Integer i : this.width){
+        for (Integer i : this.width) {
             builder.append(this.getDivider(i));
             builder.append("+");
         }
@@ -45,12 +45,12 @@ public class TableOutputBuilder extends OutputBuilder{
         return this;
     }
 
-    public TableOutputBuilder addLine(){
+    public TableOutputBuilder addLine() {
         return this.addTableVerticalDivider();
     }
 
-    public TableOutputBuilder addEntry(String text){
-        this.addText(String.format("%-" +getLength()+ "s", text));
+    public TableOutputBuilder addEntry(String text) {
+        this.addText(String.format("%-" + getLength() + "s", text));
         this.lastIndex++;
         this.addTableVerticalDivider();
         return this;
@@ -58,9 +58,9 @@ public class TableOutputBuilder extends OutputBuilder{
 
     public OutputBuilder addAmount(int amount) {
         String amountBuilder = amount / 100 + "." + amount % 100 + "€";
-        String text = String.format("%-"+getLength()+"s", amountBuilder);
+        String text = String.format("%-" + getLength() + "s", amountBuilder);
         this.lastIndex++;
-        if (amount < 0){
+        if (amount < 0) {
             this.pieces.add(new SentencePiece(Color.RED, text));
         } else {
             this.pieces.add(new SentencePiece(Color.GREEN, text));
@@ -69,13 +69,13 @@ public class TableOutputBuilder extends OutputBuilder{
         return this;
     }
 
-    private int getLength(){
+    private int getLength() {
         return this.width.get(this.lastIndex % this.width.size());
     }
 
     private String getDivider(int counter) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < counter; i++){
+        for (int i = 0; i < counter; i++) {
             builder.append("-");
         }
         return builder.toString();
