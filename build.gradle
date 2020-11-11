@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'de.janbraunsdorff'
 version '1.0-SNAPSHOT'
+mainClassName = 'de.janbraunsdorff.ase.App'
 
 repositories {
     mavenCentral()
@@ -28,4 +30,19 @@ jar {
                 'Main-Class': 'de.janbraunsdorff.ase.App'
         )
     }
+}
+
+ext {
+    javaMainClass = "de.janbraunsdorff.ase.App"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
+task runWithJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = javaMainClass
 }
