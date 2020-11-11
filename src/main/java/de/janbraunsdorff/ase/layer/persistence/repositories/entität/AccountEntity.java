@@ -29,6 +29,10 @@ public class AccountEntity {
         this.transactions = new HashMap<>();
     }
 
+    public void addTransaction(TransactionEntity entity){
+        this.transactions.put(entity.getId(), entity);
+    }
+
     public String getId() {
         return id;
     }
