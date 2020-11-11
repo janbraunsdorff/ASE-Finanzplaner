@@ -13,6 +13,8 @@ import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributor;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributorBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -54,9 +56,13 @@ public class App {
                 .addCommand("delete", new AccountDeleteAction(account))
                 .build();
 
+        CrudTransactionDistributor crudTransactionDistributor = new CrudTransactionDistributorBuilder()
+                .build();
+
         UseCaseController controller = new UseCaseControllerBuilder()
                 .addUseCase("bank", crudBankDistributor)
                 .addUseCase("account", crudAccountDistributor)
+                .addUseCase("transaction", crudTransactionDistributor)
                 .addUseCase("exit", new ExitAction())
                 .build();
 
