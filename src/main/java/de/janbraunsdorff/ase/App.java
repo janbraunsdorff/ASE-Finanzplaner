@@ -25,25 +25,25 @@ import java.io.InputStreamReader;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        // ++++ create Persistence layer ++++
+//      ++++ create Persistence layer ++++
         MemoryRepository repo = new MemoryRepository();
         repo.create(createVolksbank()); // Create Demo Data Volksbank
         repo.create(createSparkasse()); // Create Demo Data Spaßkasse
 
-        // ++++ create domain layer ++++
+//      ++++ create domain layer ++++
         ICrudAccount accountService = new CrudAccount(repo);
         ICrudBank bankService = new CrudBank(repo);
 
 
-        // ++++ create presentation / input layer +++
-        // build distributor
+//      ++++ create presentation / input layer +++
+//      build distributor
         CrudBankDistributor crudBankDistributor = buildBankDistributor(bankService);
         CrudAccountDistributor crudAccountDistributor = createAccountDistributor(accountService);
         CrudTransactionDistributor crudTransactionDistributor = createTransactionDistributor(repo);
 
 
 
-        // composite distributor
+//      composite distributor
         UseCaseController controller = new UseCaseControllerBuilder()
                 .addUseCase("bank", crudBankDistributor)
                 .addUseCase("account", crudAccountDistributor)
@@ -51,7 +51,7 @@ public class App {
                 .addUseCase("exit", new ExitAction())
                 .build();
 
-        // TODO: cleaner reader
+//      TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String name = reader.readLine();
