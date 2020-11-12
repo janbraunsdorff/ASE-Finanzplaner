@@ -19,6 +19,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.TransactionHelpResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -30,7 +31,7 @@ public class App {
 //      ++++ create Persistence layer ++++
         MemoryRepository repo = new MemoryRepository();
         repo.create(createVolksbank()); // Create Demo Data Volksbank
-        repo.create(createSparkasse()); // Create Demo Data Spaßkasse
+        repo.create(createSpasskasse()); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
         ICrudAccount accountService = new CrudAccount(repo);
@@ -65,7 +66,7 @@ public class App {
     }
 
     private static Distributor createTransactionDistributor(MemoryRepository repository) {
-        return new DistributorBuilder(null, new TransactionDefaultAction())
+        return new DistributorBuilder(new TransactionHelpResult(), new TransactionDefaultAction())
                 .build();
     }
 
@@ -91,8 +92,8 @@ public class App {
         BankEntity vb = new BankEntity("Volksbank Karlsruhe eG", "VB");
 
         AccountEntity acc0 = new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
-        acc0.addTransaction(new TransactionEntity(10000, "Jan Braunsdorff", "", "Start", false));
-        acc0.addTransaction(new TransactionEntity(-5000, "", "Aldi", "Einkaufen", false));
+        acc0.addTransaction(new TransactionEntity(10000, "Jan Braunsdorff", "Start", false));
+        acc0.addTransaction(new TransactionEntity(-5000, "Aldi", "Einkaufen", false));
         vb.addAccount(acc0);
 
 
@@ -109,7 +110,7 @@ public class App {
         return vb;
     }
 
-    private static BankEntity createSparkasse() {
+    private static BankEntity createSpasskasse() {
         BankEntity sk = new BankEntity("Spaßkasse", "SK");
 
         AccountEntity acc0 = new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK");
