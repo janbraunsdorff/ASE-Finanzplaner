@@ -9,6 +9,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEnti
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
+import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
@@ -36,9 +37,9 @@ public class App {
 
 //      ++++ create presentation / input layer +++
 //      build distributor
-        CrudBankDistributor crudBankDistributor = buildBankDistributor(bankService);
-        CrudAccountDistributor crudAccountDistributor = createAccountDistributor(accountService);
-        CrudTransactionDistributor crudTransactionDistributor = createTransactionDistributor(repo);
+        Distributor crudBankDistributor = buildBankDistributor(bankService);
+        Distributor crudAccountDistributor = createAccountDistributor(accountService);
+        Distributor crudTransactionDistributor = createTransactionDistributor(repo);
 
 
 //      composite distributor
