@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 public class App {
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Dein Finanzplaner wird aufgebaut");
 //      ++++ create Persistence layer ++++
         MemoryRepository repo = new MemoryRepository();
         repo.create(createVolksbank()); // Create Demo Data Volksbank
@@ -48,6 +49,7 @@ public class App {
                 .addUseCase("exit", new ExitAction())
                 .build();
 
+        System.out.println("Dein Planer steht zur benutzung bereit");
 //      TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
