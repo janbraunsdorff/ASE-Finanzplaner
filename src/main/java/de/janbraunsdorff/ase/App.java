@@ -13,7 +13,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.GenericDistributorBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.DistributorBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
@@ -65,12 +65,12 @@ public class App {
     }
 
     private static Distributor createTransactionDistributor(MemoryRepository repository) {
-        return new GenericDistributorBuilder(null, new TransactionDefaultAction())
+        return new DistributorBuilder(null, new TransactionDefaultAction())
                 .build();
     }
 
     private static Distributor createAccountDistributor(ICrudAccount accountService) {
-        return new GenericDistributorBuilder(new AccountHelpResult(), new AccountDefaultAction())
+        return new DistributorBuilder(new AccountHelpResult(), new AccountDefaultAction())
                 .addCommand("all", new AccountAllAction(accountService))
                 .addCommand("add", new AccountAddAction(accountService))
                 .addCommand("delete", new AccountDeleteAction(accountService))
@@ -78,7 +78,7 @@ public class App {
     }
 
     private static Distributor buildBankDistributor(ICrudBank bankService) {
-        return new GenericDistributorBuilder(new BankHelpResult(), new BankDefaultAction())
+        return new DistributorBuilder(new BankHelpResult(), new BankDefaultAction())
                 .addCommand("all", new BankAllAction(bankService))
                 .addCommand("get", new BankGetAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))

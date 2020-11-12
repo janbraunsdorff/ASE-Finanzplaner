@@ -3,14 +3,14 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions;
 
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 
-public class GenericDistributorBuilder {
+public class DistributorBuilder {
     private final GenericDistributor distributor;
 
-    public GenericDistributorBuilder(Result helpResult, Action defaultAction){
+    public DistributorBuilder(Result helpResult, Action defaultAction){
         this.distributor = new GenericDistributor(helpResult, defaultAction);
     }
 
-    public GenericDistributorBuilder addCommand(String command, Action action){
+    public DistributorBuilder addCommand(String command, Action action){
         this.distributor.addAction(command, action);
         return this;
     }
