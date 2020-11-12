@@ -13,12 +13,10 @@ import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.GenericDistributor;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.GenericDistributorBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributor;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributorBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 
@@ -66,8 +64,8 @@ public class App {
         }
     }
 
-    private static CrudTransactionDistributor createTransactionDistributor(MemoryRepository repository) {
-        return new CrudTransactionDistributorBuilder()
+    private static Distributor createTransactionDistributor(MemoryRepository repository) {
+        return new GenericDistributorBuilder(null, new TransactionDefaultAction())
                 .build();
     }
 
