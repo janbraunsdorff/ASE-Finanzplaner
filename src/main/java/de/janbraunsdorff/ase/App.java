@@ -13,10 +13,13 @@ import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.GenericDistributor;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.GenericDistributorBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributor;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributorBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -67,8 +70,8 @@ public class App {
                 .build();
     }
 
-    private static CrudAccountDistributor createAccountDistributor(ICrudAccount accountService) {
-        return new CrudAccountDistributorBuilder()
+    private static Distributor createAccountDistributor(ICrudAccount accountService) {
+        return new GenericDistributorBuilder(new AccountHelpResult(), new AccountDefaultAction())
                 .addCommand("all", new AccountAllAction(accountService))
                 .addCommand("add", new AccountAddAction(accountService))
                 .addCommand("delete", new AccountDeleteAction(accountService))
