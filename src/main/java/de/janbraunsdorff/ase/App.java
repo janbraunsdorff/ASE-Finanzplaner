@@ -20,6 +20,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributor;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.CrudTransactionDistributorBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -78,8 +79,8 @@ public class App {
                 .build();
     }
 
-    private static CrudBankDistributor buildBankDistributor(ICrudBank bankService) {
-        return new CrudBankDistributorBuilder()
+    private static Distributor buildBankDistributor(ICrudBank bankService) {
+        return new GenericDistributorBuilder(new BankHelpResult(), new BankDefaultAction())
                 .addCommand("all", new BankAllAction(bankService))
                 .addCommand("get", new BankGetAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))
