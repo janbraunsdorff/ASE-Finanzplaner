@@ -23,11 +23,11 @@ public class BankDeleteAction implements Action {
         Map<String, String> tags = parseCommand(command, 2);
 
         if (areTagsPresent(tags, "-i")) {
-            return delete(this.crudBank::deleteById, tags.get("-i"));
+            delete(this.crudBank::deleteById, tags.get("-i"));
         }
 
         if (areTagsPresent(tags, "-a")) {
-            return delete(this.crudBank::deleteByAcronym, tags.get("-a"));
+            delete(this.crudBank::deleteByAcronym, tags.get("-a"));
         }
 
         return new BankHelpResult();
@@ -35,8 +35,8 @@ public class BankDeleteAction implements Action {
 
     private Result delete(DeleteRepo method, String value) {
         try {
-            boolean delete = method.delete(value);
-            return delete ? new BankDeleteResult(value) : new ErrorResult("Bank konnte nicht gelöscht werden");
+            method.delete(value);
+            return new BankDeleteResult(value);
         } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
         }
@@ -44,7 +44,7 @@ public class BankDeleteAction implements Action {
 
 
     private interface DeleteRepo {
-        boolean delete(String s);
+        void delete(String s);
     }
 
 }

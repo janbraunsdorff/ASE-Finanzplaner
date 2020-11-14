@@ -12,5 +12,6 @@ public interface CrudBankRepository {
     BankEntity getBanks(String Id) throws BankNotFoundExecution;
 
     void createBank(BankEntity bankEntity) throws Exception;
-    boolean delete(String bankId) throws Exception;
+    void deleteBankById(String bankId);
+    void deleteBankByAcronym(String bankId);
 }

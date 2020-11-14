@@ -74,23 +74,4 @@ class CrudBankTest {
         assertThat(bankEntity.get(0).getId(), is(defaultBankEntity.getId()));
     }
 
-
-
-    @Test
-    public void Test_DeleteBank_ThrowsException(){
-        CrudBankRepository repo = new TestCrudBankRepositoryException();
-        CrudBank service = new CrudBank(repo);
-
-        boolean wasDeleted = service.deleteById("ID");
-        assertThat(wasDeleted, is(false));
-    }
-
-    @Test
-    public void Test_DeleteBank_Fine(){
-        CrudBankRepository repo = new TestCrudBankRepositoryFine();
-        CrudBank service = new CrudBank(repo);
-
-        boolean wasDeleted = service.deleteById("ID");
-        assertThat(wasDeleted, is(true));
-    }
 }

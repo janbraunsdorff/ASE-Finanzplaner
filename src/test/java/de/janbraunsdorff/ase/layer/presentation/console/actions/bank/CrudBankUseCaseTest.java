@@ -29,17 +29,16 @@ public class CrudBankUseCaseTest implements ICrudBank {
         return entity;
     }
 
-
-
     @Override
-    public boolean deleteByAcronym(String id) {
-        return false;
+    public void deleteByAcronym(String id) {
+
     }
 
     @Override
-    public boolean deleteById(String id) {
-        return false;
+    public void deleteById(String id) {
+
     }
+
 
     @Override
     public BankEntity getByAcronym(String acronym) {

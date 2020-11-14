@@ -57,24 +57,23 @@ public class CrudBank implements ICrudBank {
 
 
     @Override
-    public boolean deleteByAcronym(String id) {
+    public void deleteByAcronym(String id) {
         try {
-            return this.deleteById(this.repo.getBankByAcronym(id).getId());
+            this.deleteById(this.repo.getBankByAcronym(id).getId());
         } catch (BankNotFoundExecution bankNotFoundExecution) {
             bankNotFoundExecution.printStackTrace();
         }
-        return false;
     }
 
 
     @Override
-    public boolean deleteById(String id) {
+    public void deleteById(String id) {
         try {
-            return this.repo.delete(id);
+            this.repo.deleteBankById(id);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return false;
+            return;
         }
     }
 

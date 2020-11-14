@@ -137,5 +137,39 @@ class MemoryRepositoryBankTest {
 
         assertThat(actualMessage, is(expectedMessage));
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deleteBankById() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        memory.put("ID", entity);
+
+        repo.deleteBankById("ID");
+
+        assertThat(memory.values().size(), is(0));
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deleteBankByAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        memory.put("ID", entity);
+
+        repo.deleteBankByAcronym("acronym");
+
+        assertThat(memory.values().size(), is(0));
+
+    }
 }
 

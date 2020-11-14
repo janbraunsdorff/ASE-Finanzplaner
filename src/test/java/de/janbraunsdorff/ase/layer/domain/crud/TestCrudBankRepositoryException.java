@@ -31,7 +31,11 @@ public class TestCrudBankRepositoryException implements CrudBankRepository {
 
 
     @Override
-    public boolean delete(String bankId) throws Exception {
-        throw new Exception();
+    public void deleteBankById(String bankId) {
+    }
+
+    @Override
+    public void deleteBankByAcronym(String bankId) {
+
     }
 }

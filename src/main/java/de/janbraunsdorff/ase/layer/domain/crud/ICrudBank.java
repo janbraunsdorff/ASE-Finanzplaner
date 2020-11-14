@@ -12,9 +12,9 @@ public interface ICrudBank {
 
     BankEntity create(BankEntity entity);
 
-    boolean deleteByAcronym(String id);
+    void deleteByAcronym(String id);
 
-    boolean deleteById(String id);
+    void deleteById(String id);
 
     BankEntity getByAcronym(String acronym);
 }

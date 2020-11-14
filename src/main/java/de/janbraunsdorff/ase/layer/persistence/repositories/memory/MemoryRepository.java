@@ -56,13 +56,17 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public boolean delete(String bankId) throws Exception {
+    public void deleteBankById(String bankId){
         this.memory.remove(bankId);
-        return true;
     }
 
-    private String checkForMissingId(String id) {
-        return (id == null || id.isEmpty()) ? UUID.randomUUID().toString() : id;
+    @Override
+    public void deleteBankByAcronym(String acronym) {
+        Optional<BankEntity> entity = this.memory.values().stream()
+                .filter(s -> s.getAcronym().equals(acronym))
+                .findFirst();
+
+        entity.ifPresent(bankEntity -> this.deleteBankById(bankEntity.getId()));
     }
 
     // --------------------------------
@@ -80,7 +84,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new IllegalArgumentException("Acronym already exists");
         }
 
-        entity.setId(checkForMissingId(entity.getId()));
 
         if (!this.memory.containsKey(bank)) {
             throw new IllegalArgumentException("Bank not exists");
