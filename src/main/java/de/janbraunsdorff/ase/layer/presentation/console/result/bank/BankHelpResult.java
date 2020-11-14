@@ -11,7 +11,6 @@ public class BankHelpResult implements Result {
                 .addHeadline("Hilfe (Bank):")
                 .addCommand("bank all", "zeigt alle Banken an")
                 .addCommand("bank add -n [name] -a [abkürzung]", "legt eine neue Bank mit einem Name und einer Abkürzung an")
-                .addCommand("bank update -i [ID] -n [name] -a [abkürzung]", "aktualiserit den Namen einer Bank und die Abkürzung")
                 .addCommand("bank delete -i [ID]", "Löscht Bank basierend auf der Id")
                 .addCommand("bank delete -a [abkürzung]", "Löscht Bank basierend auf der Abkürzung")
                 .build();

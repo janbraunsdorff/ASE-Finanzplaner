@@ -85,7 +85,6 @@ public class App {
                 .addCommand("all", new BankAllAction(bankService))
                 .addCommand("get", new BankGetAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))
-                .addCommand("update", new BankUpdateAction(bankService))
                 .addCommand("delete", new BankDeleteAction(bankService))
                 .build();
     }

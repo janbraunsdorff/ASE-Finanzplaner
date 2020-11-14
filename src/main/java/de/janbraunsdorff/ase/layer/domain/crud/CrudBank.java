@@ -55,16 +55,6 @@ public class CrudBank implements ICrudBank {
     }
 
 
-    @Override
-    public BankEntity update(BankEntity entity) {
-        try {
-            return this.repo.update(entity);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return this.defaultEntity;
-        }
-    }
 
     @Override
     public boolean deleteByAcronym(String id) {

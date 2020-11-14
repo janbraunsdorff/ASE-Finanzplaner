@@ -28,10 +28,7 @@ public class TestCrudBankRepositoryException implements CrudBankRepository {
         throw new Exception();
     }
 
-    @Override
-    public BankEntity update(BankEntity bankEntity) throws Exception {
-        throw new Exception();
-    }
+
 
     @Override
     public boolean delete(String bankId) throws Exception {

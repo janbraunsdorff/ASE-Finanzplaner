@@ -29,13 +29,7 @@ public class CrudBankUseCaseTest implements ICrudBank {
         return entity;
     }
 
-    @Override
-    public BankEntity update(BankEntity entity) {
-        this.name = entity.getName();
-        this.acronym = entity.getAcronym();
-        this.id = entity.getId();
-        return entity;
-    }
+
 
     @Override
     public boolean deleteByAcronym(String id) {

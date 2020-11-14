@@ -56,29 +56,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public BankEntity update(BankEntity bankEntity) throws Exception {
-        if (!this.memory.containsKey(bankEntity.getId())) {
-            throw new IllegalArgumentException();
-        }
-
-        Optional<BankEntity> first = this.memory.values()
-                .stream()
-                .filter(e -> e.getAcronym().equals(bankEntity.getAcronym()))
-                .findFirst();
-
-        if (first.isPresent() && !first.get().getId().equals(bankEntity.getId())) {
-            throw new IllegalArgumentException("Acronym already exists");
-        }
-
-        BankEntity mem = this.memory.get(bankEntity.getId());
-        mem.setAcronym(bankEntity.getAcronym());
-        mem.setName(bankEntity.getName());
-
-        this.memory.put(mem.getId(), mem);
-        return bankEntity;
-    }
-
-    @Override
     public boolean delete(String bankId) throws Exception {
         this.memory.remove(bankId);
         return true;

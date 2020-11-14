@@ -31,10 +31,7 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
     public void createBank(BankEntity bankEntity) throws Exception {
     }
 
-    @Override
-    public BankEntity update(BankEntity bankEntity) throws Exception {
-        return defaultBankEntity;
-    }
+
 
     @Override
     public boolean delete(String bankId) throws Exception {

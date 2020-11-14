@@ -74,27 +74,7 @@ class CrudBankTest {
         assertThat(bankEntity.get(0).getId(), is(defaultBankEntity.getId()));
     }
 
-    @Test
-    public void Test_UpdateBank_ThrowsException(){
-        CrudBankRepository repo = new TestCrudBankRepositoryException();
-        CrudBank service = new CrudBank(repo);
 
-        BankEntity bankEntity = service.update(new BankEntity("", ""));
-        assertThat(bankEntity.getAcronym(), is("----"));
-        assertThat(bankEntity.getName(), is("----"));
-        assertThat(bankEntity.getId(), notNullValue());
-    }
-
-    @Test
-    public void Test_UpdateBank_Fine(){
-        CrudBankRepository repo = new TestCrudBankRepositoryFine();
-        CrudBank service = new CrudBank(repo);
-
-        BankEntity bankEntity = service.update(new BankEntity("", ""));
-        assertThat(bankEntity.getAcronym(), is(defaultBankEntity.getAcronym()));
-        assertThat(bankEntity.getName(), is(defaultBankEntity.getName()));
-        assertThat(bankEntity.getId(), notNullValue());
-    }
 
     @Test
     public void Test_DeleteBank_ThrowsException(){
