@@ -6,9 +6,9 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import java.util.List;
 
 public interface CrudBankRepository {
-    BankEntity get(String Id) throws Exception;
+    BankEntity getBankById(String Id) throws Exception;
 
-    List<BankEntity> get() throws Exception;
+    List<BankEntity> getBankById() throws Exception;
 
     BankEntity getByAcronym(String acronym);
 

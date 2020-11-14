@@ -1,25 +1,31 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.CrudTransactionRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
 
 import java.util.*;
 import java.util.function.Predicate;
 
-public class MemoryRepository implements CrudBankRepository, CrudAccountRepository {
+public class MemoryRepository implements CrudBankRepository, CrudAccountRepository, CrudTransactionRepository {
 
     private final Map<String, BankEntity> memory = new HashMap<>();
 
     @Override
-    public BankEntity get(String Id) throws Exception {
-        return this.memory.get(Id);
+    public BankEntity getBankById(String id) throws Exception {
+        if (!this.memory.containsKey(id)){
+            throw new BankNotFoundExecution(id);
+        }
+        return this.memory.get(id);
     }
 
     @Override
-    public List<BankEntity> get() throws Exception {
+    public List<BankEntity> getBankById() throws Exception {
         return new ArrayList<>(this.memory.values());
     }
 
@@ -162,5 +168,22 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         });
 
         return true;
+    }
+
+    // --------------------
+    // Transaction repo
+    @Override
+    public TransactionEntity createTransactionByAcronym(String id, TransactionEntity entity) {
+        Optional<AccountEntity> account = this.memory.values().stream()
+                .flatMap(b -> b.getAccounts().stream())
+                .filter(a -> a.getAcronym().equals(id))
+                .findFirst();
+
+        if (!account.isPresent()){
+            throw new IllegalArgumentException("Acronym already exists");
+        }
+
+        account.get().addTransaction(entity);
+        return entity;
     }
 }

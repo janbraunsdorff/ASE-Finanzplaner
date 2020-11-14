@@ -21,7 +21,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public BankEntity get(String id) {
         try {
-            return this.repo.get(id);
+            return this.repo.getBankById(id);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
@@ -32,7 +32,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public List<BankEntity> get() {
         try {
-            return this.repo.get();
+            return this.repo.getBankById();
 
         } catch (IllegalArgumentException ex) {
             throw ex;

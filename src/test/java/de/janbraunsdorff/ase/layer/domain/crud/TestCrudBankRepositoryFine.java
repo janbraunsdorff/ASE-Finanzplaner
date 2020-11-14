@@ -12,12 +12,12 @@ import static de.janbraunsdorff.ase.layer.domain.crud.CrudBankTest.defaultBankEn
 public class TestCrudBankRepositoryFine implements CrudBankRepository {
 
     @Override
-    public BankEntity get(String Id) throws Exception {
+    public BankEntity getBankById(String Id) throws Exception {
         return defaultBankEntity;
     }
 
     @Override
-    public List<BankEntity> get() throws Exception {
+    public List<BankEntity> getBankById() throws Exception {
         return Collections.singletonList(defaultBankEntity);
     }
 
