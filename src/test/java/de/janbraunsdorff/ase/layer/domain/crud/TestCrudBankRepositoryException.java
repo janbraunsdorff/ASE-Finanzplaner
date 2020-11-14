@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
@@ -8,12 +9,12 @@ import java.util.List;
 
 public class TestCrudBankRepositoryException implements CrudBankRepository {
     @Override
-    public BankEntity getBankById(String Id) throws Exception {
-        throw new Exception();
+    public BankEntity getBanks(String Id) throws BankNotFoundExecution {
+        throw new BankNotFoundExecution("");
     }
 
     @Override
-    public List<BankEntity> getBankById() throws Exception {
+    public List<BankEntity> getBanks() throws Exception {
         throw new Exception();
     }
 

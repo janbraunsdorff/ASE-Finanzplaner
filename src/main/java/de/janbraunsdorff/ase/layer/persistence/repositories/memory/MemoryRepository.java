@@ -17,14 +17,14 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     private final Map<String, BankEntity> memory = new HashMap<>();
 
     @Override
-    public BankEntity getBankById(String id) throws Exception {
+    public BankEntity getBanks(String id) throws BankNotFoundExecution {
         if (!this.memory.containsKey(id)){
             throw new BankNotFoundExecution(id);
         }
         return this.memory.get(id);
     }
 
-    public BankEntity getBankByAcronym(String acronym) {
+    public BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecution {
         Optional<BankEntity> first = this.memory.values().stream().
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
@@ -33,11 +33,12 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             return first.get();
         }
 
-        throw new IllegalArgumentException("Bank konnte nicht gefunden werden");
+        throw new BankNotFoundExecution(acronym);
+
     }
 
     @Override
-    public List<BankEntity> getBankById() throws Exception {
+    public List<BankEntity> getBanks() throws Exception {
         return new ArrayList<>(this.memory.values());
     }
 

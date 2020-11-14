@@ -25,7 +25,7 @@ class MemoryRepositoryBankTest {
         Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
         memory.put("ID", new BankEntity("ID", "name", "acronym"));
 
-        BankEntity bank = repo.getBankById("ID");
+        BankEntity bank = repo.getBanks("ID");
 
         assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
@@ -38,7 +38,39 @@ class MemoryRepositoryBankTest {
         MemoryRepository repo = new MemoryRepository();
 
         Exception exception = assertThrows(BankNotFoundExecution.class, () -> {
-            repo.getBankById("ID");
+            repo.getBanks("ID");
+        });
+
+        String expectedMessage = "Bank mit der ID oder der Abkürzung ID wurde nicht gefunden";
+        String actualMessage = exception.getMessage();
+
+        assertThat(actualMessage, is(expectedMessage));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void getExistingBankByGivenAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        memory.put("ID", new BankEntity("ID", "name", "acronym"));
+
+        BankEntity bank = repo.getBankByAcronym("acronym");
+
+        assertThat(bank.getId(), is("ID"));
+        assertThat(bank.getName(), is("name"));
+        assertThat(bank.getAcronym(), is("acronym"));
+
+    }
+
+    @Test()
+    public void getNoneExistingBankByGivenAcronym() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception exception = assertThrows(BankNotFoundExecution.class, () -> {
+            repo.getBankByAcronym("ID");
         });
 
         String expectedMessage = "Bank mit der ID oder der Abkürzung ID wurde nicht gefunden";

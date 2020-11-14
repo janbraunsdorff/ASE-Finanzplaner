@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
@@ -21,7 +22,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public BankEntity get(String id) {
         try {
-            return this.repo.getBankById(id);
+            return this.repo.getBanks(id);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
@@ -32,7 +33,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public List<BankEntity> get() {
         try {
-            return this.repo.getBankById();
+            return this.repo.getBanks();
 
         } catch (IllegalArgumentException ex) {
             throw ex;
@@ -66,7 +67,12 @@ public class CrudBank implements ICrudBank {
 
     @Override
     public boolean deleteByAcronym(String id) {
-        return this.deleteById(this.repo.getBankByAcronym(id).getId());
+        try {
+            return this.deleteById(this.repo.getBankByAcronym(id).getId());
+        } catch (BankNotFoundExecution bankNotFoundExecution) {
+            bankNotFoundExecution.printStackTrace();
+        }
+        return false;
     }
 
 
