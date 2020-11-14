@@ -16,6 +16,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder
 import de.janbraunsdorff.ase.layer.presentation.console.actions.DistributorBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
@@ -67,6 +68,7 @@ public class App {
 
     private static Distributor createTransactionDistributor(MemoryRepository repository) {
         return new DistributorBuilder(new TransactionHelpResult(), new TransactionDefaultAction())
+                .addCommand("all", new TransactionAllAction())
                 .build();
     }
 
