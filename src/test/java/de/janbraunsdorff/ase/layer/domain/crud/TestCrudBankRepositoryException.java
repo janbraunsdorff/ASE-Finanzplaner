@@ -14,8 +14,8 @@ public class TestCrudBankRepositoryException implements CrudBankRepository {
     }
 
     @Override
-    public List<BankEntity> getBanks() throws Exception {
-        throw new Exception();
+    public List<BankEntity> getBanks() {
+        return null;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class TestCrudBankRepositoryException implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity create(BankEntity bankEntity) throws Exception {
+    public void createBank(BankEntity bankEntity) throws Exception {
         throw new Exception();
     }
 

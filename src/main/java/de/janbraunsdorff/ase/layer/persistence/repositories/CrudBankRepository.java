@@ -10,9 +10,9 @@ public interface CrudBankRepository {
     BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecution;
 
 
-    List<BankEntity> getBanks() throws Exception;
+    List<BankEntity> getBanks();
 
-    BankEntity create(BankEntity bankEntity) throws Exception;
+    void createBank(BankEntity bankEntity) throws Exception;
 
     BankEntity update(BankEntity bankEntity) throws Exception;
 

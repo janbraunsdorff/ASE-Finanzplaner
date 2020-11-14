@@ -1,10 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudTransactionRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.*;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
@@ -29,23 +26,21 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
 
-        if (first.isPresent()) {
-            return first.get();
+        if (!first.isPresent()) {
+            throw new BankNotFoundExecution(acronym);
         }
-
-        throw new BankNotFoundExecution(acronym);
-
+        return first.get();
     }
 
     @Override
-    public List<BankEntity> getBanks() throws Exception {
+    public List<BankEntity> getBanks() {
         return new ArrayList<>(this.memory.values());
     }
 
     @Override
-    public BankEntity create(BankEntity bankEntity) throws Exception {
+    public void createBank(BankEntity bankEntity) throws Exception {
         if (this.memory.containsKey(bankEntity.getId())) {
-            throw new IllegalArgumentException("Id already exists");
+            throw new IdAlreadyExitsException(bankEntity.getId());
         }
 
         Optional<BankEntity> first = this.memory.values()
@@ -54,11 +49,10 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .findFirst();
 
         if (first.isPresent()) {
-            throw new IllegalArgumentException("Acronym already exists");
+            throw new AcronymAlreadyExistsException(bankEntity.getAcronym());
         }
 
         this.memory.put(bankEntity.getId(), bankEntity);
-        return bankEntity;
     }
 
     @Override

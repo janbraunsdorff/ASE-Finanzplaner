@@ -18,7 +18,7 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
     }
 
     @Override
-    public List<BankEntity> getBanks() throws Exception {
+    public List<BankEntity> getBanks() {
         return Collections.singletonList(defaultBankEntity);
     }
 
@@ -28,8 +28,7 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity create(BankEntity bankEntity) throws Exception {
-        return defaultBankEntity;
+    public void createBank(BankEntity bankEntity) throws Exception {
     }
 
     @Override

@@ -31,8 +31,8 @@ public class App {
         System.out.println("Dein Finanzplaner wird aufgebaut");
 //      ++++ create Persistence layer ++++
         MemoryRepository repo = new MemoryRepository();
-        repo.create(createVolksbank()); // Create Demo Data Volksbank
-        repo.create(createSpasskasse()); // Create Demo Data Spaßkasse
+        repo.createBank(createVolksbank()); // Create Demo Data Volksbank
+        repo.createBank(createSpasskasse()); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
         ICrudAccount accountService = new CrudAccount(repo);

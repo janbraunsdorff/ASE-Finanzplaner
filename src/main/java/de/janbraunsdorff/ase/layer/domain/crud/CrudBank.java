@@ -45,7 +45,8 @@ public class CrudBank implements ICrudBank {
     @Override
     public BankEntity create(BankEntity entity) {
         try {
-            return this.repo.create(entity);
+            this.repo.createBank(entity);
+            return entity;
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
