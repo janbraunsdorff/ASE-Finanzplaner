@@ -10,7 +10,7 @@ public interface CrudBankRepository {
 
     List<BankEntity> getBankById() throws Exception;
 
-    BankEntity getByAcronym(String acronym);
+    BankEntity getBankByAcronym(String acronym);
 
     BankEntity create(BankEntity bankEntity) throws Exception;
 

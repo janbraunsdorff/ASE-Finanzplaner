@@ -22,7 +22,7 @@ public class TestCrudBankRepositoryFine implements CrudBankRepository {
     }
 
     @Override
-    public BankEntity getByAcronym(String acronym) {
+    public BankEntity getBankByAcronym(String acronym) {
         return null;
     }
 

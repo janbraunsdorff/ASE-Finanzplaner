@@ -24,13 +24,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         return this.memory.get(id);
     }
 
-    @Override
-    public List<BankEntity> getBankById() throws Exception {
-        return new ArrayList<>(this.memory.values());
-    }
-
-    @Override
-    public BankEntity getByAcronym(String acronym) {
+    public BankEntity getBankByAcronym(String acronym) {
         Optional<BankEntity> first = this.memory.values().stream().
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
@@ -40,6 +34,11 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         }
 
         throw new IllegalArgumentException("Bank konnte nicht gefunden werden");
+    }
+
+    @Override
+    public List<BankEntity> getBankById() throws Exception {
+        return new ArrayList<>(this.memory.values());
     }
 
     @Override
@@ -143,7 +142,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
     @Override
     public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
-        String id = this.getByAcronym(acronym).getId();
+        String id = this.getBankByAcronym(acronym).getId();
         return this.create(id, account);
     }
 
