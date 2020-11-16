@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -51,6 +52,10 @@ public class AccountEntity {
 
     public String getAcronym() {
         return this.acronym;
+    }
+
+    public Collection<TransactionEntity> getTransactionEntities(){
+        return this.transactions.values();
     }
 
     public int getAmountOfAccountInCent() {

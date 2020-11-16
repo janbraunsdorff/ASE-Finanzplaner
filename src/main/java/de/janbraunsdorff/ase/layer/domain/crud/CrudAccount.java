@@ -50,7 +50,7 @@ public class CrudAccount implements ICrudAccount {
     @Override
     public AccountEntity createAccountByAcronym(String acronym, AccountEntity account) {
         try {
-            return this.repo.createByAcronym(acronym, account);
+            return this.repo.createAccountByBankAcronym(acronym, account);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
