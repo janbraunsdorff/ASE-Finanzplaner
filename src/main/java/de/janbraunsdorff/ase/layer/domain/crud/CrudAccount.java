@@ -39,7 +39,7 @@ public class CrudAccount implements ICrudAccount {
     @Override
     public List<AccountEntity> getAccountsOfBankByAcronym(String acronym) {
         try {
-            return this.repo.getAccountsByAcronym(acronym);
+            return this.repo.getAccountsOfBankByAcronym(acronym);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {

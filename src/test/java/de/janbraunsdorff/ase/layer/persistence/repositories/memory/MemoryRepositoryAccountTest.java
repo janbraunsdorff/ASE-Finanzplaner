@@ -118,5 +118,33 @@ class MemoryRepositoryAccountTest {
 
         assertThat(ex.getMessage(), is(expected));
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void getAllAccountsOfOneBankByAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity1 = new BankEntity("ID1", "name", "bank1");
+        entity1.addAccount(new AccountEntity("name", "123", "AC"));
+        memory.put("ID1", entity1);
+
+        List<AccountEntity> accounts = repo.getAccountsOfBankByAcronym("bank1");
+
+        assertThat(accounts.size(), is(1));
+    }
+
+    @Test
+    public void getAllAccountsOfOneBankByAcronymBankNotExists() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByAcronym("AC"));
+
+        String expected = "Bank mit der ID oder der Abkürzung AC wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
 }
 
