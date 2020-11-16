@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -90,5 +91,32 @@ class MemoryRepositoryAccountTest {
         assertThat(expected, is(exception.getMessage()));
     }
 
+    @SuppressWarnings("unchecked")
+    @Test
+    public void getAllAccountsOfOneBankById() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity1 = new BankEntity("ID1", "name", "bank1");
+        entity1.addAccount(new AccountEntity("name", "123", "AC"));
+        memory.put("ID1", entity1);
+
+        List<AccountEntity> accounts = repo.getAccountsOfBank("ID1");
+
+        assertThat(accounts.size(), is(1));
+    }
+
+    @Test
+    public void getAllAccountsOfOneBankByIdBankNotExists() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBank("ID1"));
+
+        String expected = "Bank mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
 }
 
