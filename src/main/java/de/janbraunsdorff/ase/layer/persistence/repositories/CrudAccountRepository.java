@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEnti
 import java.util.List;
 
 public interface CrudAccountRepository {
-    AccountEntity create(String bank, AccountEntity entity) throws Exception;
+    AccountEntity createAccountByBankId(String bank, AccountEntity entity) throws Exception;
 
     List<AccountEntity> getAccountsOfBank(String bank) throws Exception;
 

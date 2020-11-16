@@ -50,7 +50,7 @@ public class CrudAccount implements ICrudAccount {
     @Override
     public AccountEntity createAccount(String id, AccountEntity account) {
         try {
-            return this.repo.create(id, account);
+            return this.repo.createAccountByBankId(id, account);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {

@@ -73,9 +73,9 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // Account Repo
     // --------------------------------
     @Override
-    public AccountEntity create(String bank, AccountEntity entity) throws Exception {
-        if (!this.memory.containsKey(bank)) {
-            throw new BankNotFoundExecption(bank);
+    public AccountEntity createAccountByBankId(String bankId, AccountEntity entity) throws Exception {
+        if (!this.memory.containsKey(bankId)) {
+            throw new BankNotFoundExecption(bankId);
         }
 
         Optional<AccountEntity> first = this.memory.values()
@@ -91,7 +91,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
 
 
-        BankEntity bankEntity = this.memory.get(bank);
+        BankEntity bankEntity = this.memory.get(bankId);
         bankEntity.addAccount(entity);
         this.memory.put(bankEntity.getId(), bankEntity);
         return entity;
@@ -120,7 +120,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     @Override
     public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
         String id = this.getBankByAcronym(acronym).getId();
-        return this.create(id, account);
+        return this.createAccountByBankId(id, account);
     }
 
     @Override

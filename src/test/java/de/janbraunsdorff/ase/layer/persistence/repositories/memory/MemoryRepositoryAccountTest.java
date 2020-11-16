@@ -28,7 +28,7 @@ class MemoryRepositoryAccountTest {
         BankEntity entity = new BankEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
-        repo.create("ID", new AccountEntity("account", "123", "AC"));
+        repo.createAccountByBankId("ID", new AccountEntity("account", "123", "AC"));
 
         AccountEntity account = new ArrayList<>(memory.get("ID").getAccounts()).get(0);
 
@@ -41,7 +41,7 @@ class MemoryRepositoryAccountTest {
     public void createAccountBankNotExists(){
         MemoryRepository repo = new MemoryRepository();
 
-        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.create("ACC-ID", new AccountEntity("","","")));
+        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankId("ACC-ID", new AccountEntity("","","")));
         String expected = "Bank mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 
         assertThat(expected, is(exception.getMessage()));
