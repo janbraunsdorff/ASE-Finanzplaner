@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.IdAlreadyExitsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class MemoryRepositoryBankTest {
     public void getNoneExistingBankByGivenId() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception exception = assertThrows(BankNotFoundExecution.class, () -> repo.getBanks("ID"));
+        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBanks("ID"));
 
         String expectedMessage = "Bank mit der ID oder der Abkürzung ID wurde nicht gefunden";
         String actualMessage = exception.getMessage();
@@ -69,7 +69,7 @@ class MemoryRepositoryBankTest {
     public void getNoneExistingBankByGivenAcronym() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception exception = assertThrows(BankNotFoundExecution.class, () -> repo.getBankByAcronym("ID"));
+        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBankByAcronym("ID"));
 
         String expectedMessage = "Bank mit der ID oder der Abkürzung ID wurde nicht gefunden";
         String actualMessage = exception.getMessage();

@@ -14,20 +14,20 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     private final Map<String, BankEntity> memory = new HashMap<>();
 
     @Override
-    public BankEntity getBanks(String id) throws BankNotFoundExecution {
+    public BankEntity getBanks(String id) throws BankNotFoundExecption {
         if (!this.memory.containsKey(id)){
-            throw new BankNotFoundExecution(id);
+            throw new BankNotFoundExecption(id);
         }
         return this.memory.get(id);
     }
 
-    public BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecution {
+    public BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecption {
         Optional<BankEntity> first = this.memory.values().stream().
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
 
         if (!first.isPresent()) {
-            throw new BankNotFoundExecution(acronym);
+            throw new BankNotFoundExecption(acronym);
         }
         return first.get();
     }
@@ -74,6 +74,10 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // --------------------------------
     @Override
     public AccountEntity create(String bank, AccountEntity entity) throws Exception {
+        if (!this.memory.containsKey(bank)) {
+            throw new BankNotFoundExecption(bank);
+        }
+
         Optional<AccountEntity> first = this.memory.values()
                 .stream()
                 .flatMap(a -> a.getAccounts().stream())
@@ -85,9 +89,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         }
 
 
-        if (!this.memory.containsKey(bank)) {
-            throw new IllegalArgumentException("Bank not exists");
-        }
+
 
         BankEntity bankEntity = this.memory.get(bank);
         bankEntity.addAccount(entity);

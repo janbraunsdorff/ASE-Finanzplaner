@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
@@ -13,7 +13,7 @@ import static de.janbraunsdorff.ase.layer.domain.crud.CrudBankTest.defaultBankEn
 public class TestCrudBankRepositoryFine implements CrudBankRepository {
 
     @Override
-    public BankEntity getBanks(String Id) throws BankNotFoundExecution {
+    public BankEntity getBanks(String Id) throws BankNotFoundExecption {
         return defaultBankEntity;
     }
 

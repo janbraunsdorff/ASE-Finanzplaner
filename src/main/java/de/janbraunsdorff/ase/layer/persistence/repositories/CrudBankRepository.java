@@ -8,8 +8,8 @@ import java.util.List;
 public interface CrudBankRepository {
     List<BankEntity> getBanks();
 
-    BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecution;
-    BankEntity getBanks(String Id) throws BankNotFoundExecution;
+    BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecption;
+    BankEntity getBanks(String Id) throws BankNotFoundExecption;
 
     void createBank(BankEntity bankEntity) throws Exception;
     void deleteBankById(String bankId);

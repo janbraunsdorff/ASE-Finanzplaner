@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecution;
+import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 
@@ -60,7 +60,7 @@ public class CrudBank implements ICrudBank {
     public void deleteByAcronym(String id) {
         try {
             this.deleteById(this.repo.getBankByAcronym(id).getId());
-        } catch (BankNotFoundExecution bankNotFoundExecution) {
+        } catch (BankNotFoundExecption bankNotFoundExecution) {
             bankNotFoundExecution.printStackTrace();
         }
     }
