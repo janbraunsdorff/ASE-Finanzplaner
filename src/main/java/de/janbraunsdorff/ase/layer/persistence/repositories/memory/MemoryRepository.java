@@ -88,12 +88,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new AcronymAlreadyExistsException(entity.getAcronym());
         }
 
-
-
-
-        BankEntity bankEntity = this.memory.get(bankId);
-        bankEntity.addAccount(entity);
-        this.memory.put(bankEntity.getId(), bankEntity);
+        this.memory.get(bankId).addAccount(entity);
         return entity;
     }
 
