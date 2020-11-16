@@ -6,7 +6,6 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEnti
 import java.util.List;
 
 public interface ICrudAccount {
-    AccountEntity getAccountById(String id);
 
     List<AccountEntity> getAccountsOfBank(String bankId);
 

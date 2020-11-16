@@ -10,7 +10,6 @@ public interface CrudAccountRepository {
 
     List<AccountEntity> getAccountsOfBankById(String bank) throws Exception;
 
-    AccountEntity getAccountById(String Id) throws Exception;
 
     List<AccountEntity> getAccountsOfBankByAcronym(String acronym) throws Exception;
 

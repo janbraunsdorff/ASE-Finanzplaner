@@ -109,7 +109,7 @@ class MemoryRepositoryAccountTest {
     }
 
     @Test
-    public void getAllAccountsOfOneBankByIdBankNotExists() throws Exception {
+    public void getAllAccountsOfOneBankByIdBankNotExists() {
         MemoryRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankById("ID1"));
@@ -137,7 +137,7 @@ class MemoryRepositoryAccountTest {
     }
 
     @Test
-    public void getAllAccountsOfOneBankByAcronymBankNotExists() throws Exception {
+    public void getAllAccountsOfOneBankByAcronymBankNotExists(){
         MemoryRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByAcronym("AC"));
