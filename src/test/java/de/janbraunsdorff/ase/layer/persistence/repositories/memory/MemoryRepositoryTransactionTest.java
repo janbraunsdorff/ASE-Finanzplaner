@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,75 @@ class MemoryRepositoryTransactionTest {
 
         assertThat(ex.getMessage(), is(expected));
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void getTransactionById() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
+        account.addTransaction(new TransactionEntity("Trans-ID", 1, "", "", false));
+        entity.addAccount(account);
+        memory.put("ID", entity);
+
+        List<TransactionEntity> transactions = repo.getTransactionByAccountId("ACC-ID");
+
+        assertThat(transactions.size(), is(1));
+        assertThat(transactions.get(0).getId(), is("Trans-ID"));
+
+
+    }
+
+    @Test
+    public void getTransactionAccountNotExistsId() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountId("ACC-ID"));
+
+        String expected = "Account mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void getTransactionByAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
+        account.addTransaction(new TransactionEntity("Trans-ID", 1, "", "", false));
+        entity.addAccount(account);
+        memory.put("ID", entity);
+
+        List<TransactionEntity> transactions = repo.getTransactionByAccountAcronym("ac");
+
+        assertThat(transactions.size(), is(1));
+        assertThat(transactions.get(0).getId(), is("Trans-ID"));
+
+
+    }
+
+    @Test
+    public void getTransactionAccountNotExistsAcronym() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountAcronym("ACC-ac"));
+
+        String expected = "Account mit der ID oder der Abkürzung ACC-ac wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
+
+
+
 }
 
 

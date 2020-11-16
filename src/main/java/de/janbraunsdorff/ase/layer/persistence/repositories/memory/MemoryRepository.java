@@ -9,6 +9,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.Transaction
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MemoryRepository implements CrudBankRepository, CrudAccountRepository, CrudTransactionRepository {
 
@@ -160,6 +161,30 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     public TransactionEntity createTransactionByAccountId(String id, TransactionEntity entity) throws Exception {
         return createTransaction(id, entity, a -> a.getId().equals(id));
     }
+
+    @Override
+    public List<TransactionEntity> getTransactionByAccountId(String id) throws Exception{
+        return getTransactions(id, a -> a.getId().equals(id));
+    }
+
+    @Override
+    public List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws Exception{
+       return getTransactions(acronym, a -> a.getAcronym().equals(acronym));
+    }
+
+    private List<TransactionEntity> getTransactions(String key, Predicate<AccountEntity> predicate) throws AccountNotFoundException {
+        Optional<AccountEntity> account = this.memory.values()
+                .stream()
+                .flatMap(b -> b.getAccounts().stream())
+                .filter(predicate)
+                .findFirst();
+
+        if (!account.isPresent()){
+            throw new AccountNotFoundException(key);
+        }
+        return new ArrayList<>(account.get().getTransactionEntities());
+    }
+
 
     private TransactionEntity createTransaction(String key, TransactionEntity entity, Predicate<AccountEntity> predicate) throws Exception {
         Optional<AccountEntity> account = this.memory.values().stream()
