@@ -9,7 +9,6 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.Transaction
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class MemoryRepository implements CrudBankRepository, CrudAccountRepository, CrudTransactionRepository {
 
