@@ -8,7 +8,7 @@ import java.util.List;
 public interface CrudAccountRepository {
     AccountEntity createAccountByBankId(String bank, AccountEntity entity) throws Exception;
 
-    List<AccountEntity> getAccountsOfBank(String bank) throws Exception;
+    List<AccountEntity> getAccountsOfBankById(String bank) throws Exception;
 
     AccountEntity getAccountById(String Id) throws Exception;
 

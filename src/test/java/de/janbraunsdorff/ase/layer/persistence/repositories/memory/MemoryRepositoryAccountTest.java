@@ -103,7 +103,7 @@ class MemoryRepositoryAccountTest {
         entity1.addAccount(new AccountEntity("name", "123", "AC"));
         memory.put("ID1", entity1);
 
-        List<AccountEntity> accounts = repo.getAccountsOfBank("ID1");
+        List<AccountEntity> accounts = repo.getAccountsOfBankById("ID1");
 
         assertThat(accounts.size(), is(1));
     }
@@ -112,7 +112,7 @@ class MemoryRepositoryAccountTest {
     public void getAllAccountsOfOneBankByIdBankNotExists() throws Exception {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBank("ID1"));
+        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankById("ID1"));
 
         String expected = "Bank mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 

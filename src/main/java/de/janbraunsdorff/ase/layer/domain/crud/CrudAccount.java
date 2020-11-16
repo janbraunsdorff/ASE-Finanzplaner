@@ -28,7 +28,7 @@ public class CrudAccount implements ICrudAccount {
     @Override
     public List<AccountEntity> getAccountsOfBank(String bankId) {
         try {
-            return this.repo.getAccountsOfBank(bankId);
+            return this.repo.getAccountsOfBankById(bankId);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {

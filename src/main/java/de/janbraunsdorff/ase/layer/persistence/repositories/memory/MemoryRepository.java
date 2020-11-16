@@ -93,7 +93,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<AccountEntity> getAccountsOfBank(String bankId) throws Exception {
+    public List<AccountEntity> getAccountsOfBankById(String bankId) throws Exception {
         if (!this.memory.containsKey(bankId)){
             throw new BankNotFoundExecption(bankId);
         }
