@@ -33,7 +33,7 @@ public class AccountDeleteAction implements Action {
 
     private Result deleteAccount(Delete method, String value) {
         try {
-            boolean delete = method.delete(value);
+            method.delete(value);
             return new AccountDeleteResult(value);
         } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
@@ -41,6 +41,6 @@ public class AccountDeleteAction implements Action {
     }
 
     private interface Delete {
-        boolean delete(String value);
+        void delete(String value);
     }
 }

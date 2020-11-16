@@ -59,24 +59,24 @@ public class CrudAccount implements ICrudAccount {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public void deleteById(String id) {
         try {
-            return this.repo.deleteAccountById(id);
+             this.repo.deleteAccountById(id);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return false;
+            return;
         }
     }
 
     @Override
-    public boolean deleteByAcronym(String acronym) {
+    public void deleteByAcronym(String acronym) {
         try {
-            return this.repo.deleteAccountByAcronym(acronym);
+             this.repo.deleteAccountByAcronym(acronym);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return false;
+            return;
         }
     }
 }

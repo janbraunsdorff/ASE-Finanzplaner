@@ -117,16 +117,16 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public boolean deleteAccountByAcronym(String acronym) {
-        return deleteAccount(a -> a.getAcronym().equals(acronym));
+    public void deleteAccountByAcronym(String acronym) {
+        deleteAccount(a -> a.getAcronym().equals(acronym));
     }
 
     @Override
-    public boolean deleteAccountById(String id) {
-        return deleteAccount(a -> a.getId().equals(id));
+    public void deleteAccountById(String id) {
+        deleteAccount(a -> a.getId().equals(id));
     }
 
-    private boolean deleteAccount(Predicate<AccountEntity> predicate) {
+    private void deleteAccount(Predicate<AccountEntity> predicate) {
         this.memory.values().forEach(bank -> {
             Optional<AccountEntity> first = bank.getAccounts()
                     .stream()
@@ -136,7 +136,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             first.ifPresent(entity -> bank.removeAccount(entity.getId()));
         });
 
-        return true;
     }
 
     // --------------------

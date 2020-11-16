@@ -15,7 +15,7 @@ public interface ICrudAccount {
 
     AccountEntity createAccountByAcronym(String acronym, AccountEntity account);
 
-    boolean deleteById(String s);
+    void deleteById(String s);
 
-    boolean deleteByAcronym(String s);
+    void deleteByAcronym(String s);
 }
