@@ -93,6 +93,12 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
+    public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
+        String id = this.getBankByAcronym(acronym).getId();
+        return this.createAccountByBankId(id, account);
+    }
+
+    @Override
     public List<AccountEntity> getAccountsOfBankById(String bankId) throws Exception {
         if (!this.memory.containsKey(bankId)){
             throw new BankNotFoundExecption(bankId);
@@ -108,13 +114,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         }
 
         return new ArrayList<>(bank.get().getAccounts());
-    }
-
-
-    @Override
-    public AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception {
-        String id = this.getBankByAcronym(acronym).getId();
-        return this.createAccountByBankId(id, account);
     }
 
     @Override
