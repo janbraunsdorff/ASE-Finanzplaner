@@ -21,6 +21,14 @@ public class AccountEntity {
         this.transactions = new HashMap<>();
     }
 
+    public AccountEntity(String id, String name, String number, String acronym) {
+        this.id = id;
+        this.name = name;
+        this.number = number;
+        this.transactions = new HashMap<>();
+        this.acronym = acronym;
+    }
+
     public void addTransaction(TransactionEntity entity) {
         this.transactions.put(entity.getId(), entity);
     }

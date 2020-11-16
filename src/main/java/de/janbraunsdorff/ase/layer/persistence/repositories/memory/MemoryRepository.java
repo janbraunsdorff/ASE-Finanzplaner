@@ -85,7 +85,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .findFirst();
 
         if (first.isPresent()) {
-            throw new IllegalArgumentException("Acronym already exists");
+            throw new AcronymAlreadyExistsException(entity.getAcronym());
         }
 
 
