@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 
 public class MemoryRepository implements CrudBankRepository, CrudAccountRepository, CrudTransactionRepository {
@@ -99,7 +100,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<AccountEntity> getAccountsOfBankById(String bankId) throws Exception {
+    public List<AccountEntity> getAccountsOfBankByBankId(String bankId) throws Exception {
         if (!this.memory.containsKey(bankId)){
             throw new BankNotFoundExecption(bankId);
         }
@@ -107,7 +108,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<AccountEntity> getAccountsOfBankByAcronym(String bankAcronym) throws Exception {
+    public List<AccountEntity> getAccountsOfBankByBankAcronym(String bankAcronym) throws Exception {
         Optional<BankEntity> bank = this.memory.values().stream().filter(s -> s.getAcronym().equals(bankAcronym)).findFirst();
         if (!bank.isPresent()) {
             throw new BankNotFoundExecption(bankAcronym);
@@ -117,24 +118,35 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public void deleteAccountByAcronym(String acronym) {
-        deleteAccount(a -> a.getAcronym().equals(acronym));
+    public void deleteAccountByAcronym(String acronym) throws Exception{
+        deleteAccount(a -> a.getAcronym().equals(acronym), acronym);
     }
 
     @Override
-    public void deleteAccountById(String id) {
-        deleteAccount(a -> a.getId().equals(id));
+    public void deleteAccountById(String id) throws Exception {
+        deleteAccount(a -> a.getId().equals(id), id);
     }
 
-    private void deleteAccount(Predicate<AccountEntity> predicate) {
+    private void deleteAccount(Predicate<AccountEntity> predicate, String key) throws Exception{
+        AtomicBoolean found = new AtomicBoolean(false);
         this.memory.values().forEach(bank -> {
             Optional<AccountEntity> first = bank.getAccounts()
                     .stream()
                     .filter(predicate)
                     .findFirst();
 
-            first.ifPresent(entity -> bank.removeAccount(entity.getId()));
+
+            first.ifPresent(e -> {
+                bank.removeAccount(e.getId());
+                found.set(true);
+            });
         });
+
+        if (!found.get()){
+            throw new AccountNotFoundException(key);
+        }
+
+
 
     }
 

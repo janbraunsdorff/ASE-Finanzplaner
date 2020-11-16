@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
@@ -134,7 +135,7 @@ class MemoryRepositoryAccountTest {
         entity1.addAccount(new AccountEntity("name", "123", "AC"));
         memory.put("ID1", entity1);
 
-        List<AccountEntity> accounts = repo.getAccountsOfBankById("ID1");
+        List<AccountEntity> accounts = repo.getAccountsOfBankByBankId("ID1");
 
         assertThat(accounts.size(), is(1));
     }
@@ -143,7 +144,7 @@ class MemoryRepositoryAccountTest {
     public void getAllAccountsOfOneBankByIdBankNotExists() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankById("ID1"));
+        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByBankId("ID1"));
 
         String expected = "Bank mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 
@@ -162,7 +163,7 @@ class MemoryRepositoryAccountTest {
         entity1.addAccount(new AccountEntity("name", "123", "AC"));
         memory.put("ID1", entity1);
 
-        List<AccountEntity> accounts = repo.getAccountsOfBankByAcronym("bank1");
+        List<AccountEntity> accounts = repo.getAccountsOfBankByBankAcronym("bank1");
 
         assertThat(accounts.size(), is(1));
     }
@@ -171,11 +172,70 @@ class MemoryRepositoryAccountTest {
     public void getAllAccountsOfOneBankByAcronymBankNotExists(){
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByAcronym("AC"));
+        Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByBankAcronym("AC"));
 
         String expected = "Bank mit der ID oder der Abkürzung AC wurde nicht gefunden";
 
         assertThat(ex.getMessage(), is(expected));
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deleteAccountByAccountId() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity1 = new BankEntity("ID1", "name", "bank1");
+        entity1.addAccount(new AccountEntity("ACC-ID", "name", "123", "AC"));
+        memory.put("ID1", entity1);
+
+        repo.deleteAccountById("ACC-ID");
+
+        assertThat(memory.get("ID1").getAccounts().size(), is(0));
+    }
+
+
+    @Test
+    public void deleteAccountByNonExistingAccountId() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.deleteAccountById("ID1"));
+
+        String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deleteAccountByAccountAcronym() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity1 = new BankEntity("ID1", "name", "bank1");
+        entity1.addAccount(new AccountEntity("ACC-ID", "name", "123", "AC"));
+        memory.put("ID1", entity1);
+
+        repo.deleteAccountByAcronym("AC");
+
+        assertThat(memory.get("ID1").getAccounts().size(), is(0));
+    }
+
+
+    @Test
+    public void deleteAccountByNonExistingAccountAcronym() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.deleteAccountByAcronym("ID1"));
+
+        String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
 }
+
 

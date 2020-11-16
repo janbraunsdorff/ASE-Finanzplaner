@@ -8,14 +8,14 @@ import java.util.List;
 public interface CrudAccountRepository {
     AccountEntity createAccountByBankId(String bank, AccountEntity entity) throws Exception;
 
-    List<AccountEntity> getAccountsOfBankById(String bank) throws Exception;
+    List<AccountEntity> getAccountsOfBankByBankId(String bank) throws Exception;
 
 
-    List<AccountEntity> getAccountsOfBankByAcronym(String acronym) throws Exception;
+    List<AccountEntity> getAccountsOfBankByBankAcronym(String acronym) throws Exception;
 
     AccountEntity createByAcronym(String acronym, AccountEntity account) throws Exception;
 
-    void deleteAccountByAcronym(String acronym);
+    void deleteAccountByAcronym(String acronym) throws Exception;
 
-    void deleteAccountById(String id);
+    void deleteAccountById(String id) throws Exception;
 }
