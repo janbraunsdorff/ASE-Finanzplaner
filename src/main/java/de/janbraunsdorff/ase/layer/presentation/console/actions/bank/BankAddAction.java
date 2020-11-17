@@ -22,7 +22,7 @@ public class BankAddAction implements Action {
     @Override
     public Result act(String command) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-a", "-n")) {
+        if (!areTagsAndValuesPresent(tags, "-a", "-n")){
             return new BankHelpResult();
         }
 
