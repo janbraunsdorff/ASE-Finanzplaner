@@ -6,8 +6,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 public class AccountHelpResult implements Result {
     @Override
     public String print() {
-        final int commandSize = 80;
-
         return new HelpOutputBuilder(80)
                 .addHeadline("Hilfe (Account):")
                 .addCommand("account all -i [ID Bank]", "zeigt alle Konten einer Bank an")

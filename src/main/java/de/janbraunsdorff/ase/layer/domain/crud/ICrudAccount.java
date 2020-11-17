@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.domain.crud;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 
 import java.util.List;
 

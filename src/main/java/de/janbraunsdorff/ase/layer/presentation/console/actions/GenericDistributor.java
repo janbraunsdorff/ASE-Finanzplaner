@@ -1,9 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions;
 
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
-import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.TransactionHelpResult;
 
 import java.util.HashMap;
 import java.util.Map;
