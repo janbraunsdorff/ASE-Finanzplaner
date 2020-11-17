@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
 import de.janbraunsdorff.ase.layer.persistence.repositories.*;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
@@ -153,22 +154,22 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // --------------------
     // Transaction repo
     @Override
-    public TransactionMemoryEntity createTransactionByAccountAcronym(String acronym, TransactionMemoryEntity entity) throws AccountNotFoundException {
+    public Transaction createTransactionByAccountAcronym(String acronym, Transaction entity) throws AccountNotFoundException {
         return createTransaction(acronym, entity, a -> a.getAcronym().equals(acronym));
     }
 
     @Override
-    public TransactionMemoryEntity createTransactionByAccountId(String id, TransactionMemoryEntity entity) throws AccountNotFoundException {
+    public Transaction createTransactionByAccountId(String id, Transaction entity) throws AccountNotFoundException {
         return createTransaction(id, entity, a -> a.getId().equals(id));
     }
 
     @Override
-    public List<TransactionMemoryEntity> getTransactionByAccountId(String id) throws AccountNotFoundException {
+    public List<Transaction> getTransactionByAccountId(String id) throws AccountNotFoundException {
         return getTransactions(id, a -> a.getId().equals(id));
     }
 
     @Override
-    public List<TransactionMemoryEntity> getTransactionByAccountAcronym(String acronym) throws AccountNotFoundException {
+    public List<Transaction> getTransactionByAccountAcronym(String acronym) throws AccountNotFoundException {
         return getTransactions(acronym, a -> a.getAcronym().equals(acronym));
     }
 
@@ -200,7 +201,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
 
 
 
-    private List<TransactionMemoryEntity> getTransactions(String key, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
+    private List<Transaction> getTransactions(String key, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
         Optional<AccountMemoryEntity> account = this.memory.values()
                 .stream()
                 .flatMap(b -> b.getAccounts().stream())
@@ -210,11 +211,11 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         if (!account.isPresent()) {
             throw new AccountNotFoundException(key);
         }
-        return new ArrayList<>(account.get().getTransactionEntities());
+        return account.get().getTransactionEntities().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList());
     }
 
 
-    private TransactionMemoryEntity createTransaction(String key, TransactionMemoryEntity entity, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
+    private Transaction createTransaction(String key, Transaction entity, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
         Optional<AccountMemoryEntity> account = this.memory.values().stream()
                 .flatMap(b -> b.getAccounts().stream())
                 .filter(predicate)
@@ -224,7 +225,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new AccountNotFoundException(key);
         }
 
-        account.get().addTransaction(entity);
+        account.get().addTransaction(new TransactionMemoryEntity(entity));
         return entity;
     }
 

@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.crud.entitties;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,6 +16,15 @@ public class Transaction {
         this.id = id;
         this.value = value;
         this.date = date;
+        this.thirdParty = thirdParty;
+        this.category = category;
+        this.isContract = isContract;
+    }
+
+    public Transaction(String id, Integer value, String thirdParty, String category, Boolean isContract) {
+        this.id = id;
+        this.value = value;
+        this.date = Calendar.getInstance().getTime();
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;

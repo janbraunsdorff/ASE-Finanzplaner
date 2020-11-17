@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
@@ -9,10 +10,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.Tran
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -32,7 +30,7 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        TransactionMemoryEntity transaction = new TransactionMemoryEntity("ID-Trans", 12, "third", "cat", false);
+        Transaction transaction = new Transaction("ID-Trans", 12, "third", "cat", false);
         repo.createTransactionByAccountAcronym("ac", transaction);
 
 
@@ -48,7 +46,7 @@ class MemoryRepositoryTransactionTest {
     public void createTransactionAccountNotExists() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new TransactionMemoryEntity(1, "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
 
         String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 
@@ -68,7 +66,7 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        TransactionMemoryEntity transaction = new TransactionMemoryEntity("ID-Trans", 12, "third", "cat", false);
+        Transaction transaction = new Transaction("ID-Trans", 12, "third", "cat", false);
         repo.createTransactionByAccountId("ACC-ID", transaction);
 
 
@@ -84,7 +82,7 @@ class MemoryRepositoryTransactionTest {
     public void createTransactionAccountNotExistsId() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new TransactionMemoryEntity(1, "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 
@@ -105,7 +103,7 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(account);
         memory.put("ID", entity);
 
-        List<TransactionMemoryEntity> transactions = repo.getTransactionByAccountId("ACC-ID");
+        List<Transaction> transactions = repo.getTransactionByAccountId("ACC-ID");
 
         assertThat(transactions.size(), is(1));
         assertThat(transactions.get(0).getId(), is("Trans-ID"));
@@ -138,7 +136,7 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(account);
         memory.put("ID", entity);
 
-        List<TransactionMemoryEntity> transactions = repo.getTransactionByAccountAcronym("ac");
+        List<Transaction> transactions = repo.getTransactionByAccountAcronym("ac");
 
         assertThat(transactions.size(), is(1));
         assertThat(transactions.get(0).getId(), is("Trans-ID"));
