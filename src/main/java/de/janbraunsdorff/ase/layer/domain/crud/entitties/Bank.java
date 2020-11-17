@@ -1,7 +1,5 @@
 package de.janbraunsdorff.ase.layer.domain.crud.entitties;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +41,9 @@ public class Bank {
     }
 
     public int getAmountOfAccountsInCent() {
-        throw new NotImplementedException();
+        return this.accounts.stream()
+                .mapToInt(Account::getAmountOfAccountInCent)
+                .sum();
     }
 
     public void addAccount(Account acc) {
