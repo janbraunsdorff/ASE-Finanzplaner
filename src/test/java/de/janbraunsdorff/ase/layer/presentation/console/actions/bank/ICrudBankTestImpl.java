@@ -6,11 +6,13 @@ import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlre
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ICrudBankTestImpl implements ICrudBank {
+    protected String deleteAcronym;
     protected Bank createBank;
-
+    protected boolean isGetCalled;
     @Override
     public Bank get(String id) throws BankNotFoundExecption {
         return null;
@@ -18,7 +20,8 @@ public class ICrudBankTestImpl implements ICrudBank {
 
     @Override
     public List<Bank> get() throws BankNotFoundExecption {
-        return null;
+        this.isGetCalled = true;
+        return Collections.emptyList();
     }
 
     @Override
@@ -29,7 +32,7 @@ public class ICrudBankTestImpl implements ICrudBank {
 
     @Override
     public void deleteByAcronym(String id) throws BankNotFoundExecption {
-
+        this.deleteAcronym = id;
     }
 
     @Override

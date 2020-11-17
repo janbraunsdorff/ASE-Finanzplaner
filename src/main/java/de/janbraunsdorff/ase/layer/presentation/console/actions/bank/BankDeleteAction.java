@@ -22,25 +22,13 @@ public class BankDeleteAction implements Action {
     public Result act(String command) throws BankNotFoundExecption {
         Map<String, String> tags = parseCommand(command, 2);
 
-        if (areTagsPresent(tags, "-i")) {
-            delete(this.crudBank::deleteById, tags.get("-i"));
+        if (!areTagsAndValuesPresent(tags, "-a")) {
+            return new BankHelpResult();
+
         }
 
-        if (areTagsPresent(tags, "-a")) {
-            delete(this.crudBank::deleteByAcronym, tags.get("-a"));
-        }
-
-        return new BankHelpResult();
-    }
-
-    private Result delete(DeleteRepo method, String value) throws BankNotFoundExecption {
-        method.delete(value);
+        String value = tags.get("-a");
+        this.crudBank.deleteByAcronym(value);
         return new BankDeleteResult(value);
     }
-
-
-    private interface DeleteRepo {
-        void delete(String s) throws BankNotFoundExecption;
-    }
-
 }
