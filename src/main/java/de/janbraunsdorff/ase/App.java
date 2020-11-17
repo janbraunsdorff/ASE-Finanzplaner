@@ -5,9 +5,9 @@ import de.janbraunsdorff.ase.layer.domain.crud.CrudAccount;
 import de.janbraunsdorff.ase.layer.domain.crud.CrudBank;
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.TransactionMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
@@ -89,41 +89,41 @@ public class App {
                 .build();
     }
 
-    private static BankEntity createVolksbank() {
-        BankEntity vb = new BankEntity("Volksbank Karlsruhe eG", "VB");
+    private static BankMemoryEntity createVolksbank() {
+        BankMemoryEntity vb = new BankMemoryEntity("Volksbank Karlsruhe eG", "VB");
 
-        AccountEntity acc0 = new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
-        acc0.addTransaction(new TransactionEntity(10000, "Jan Braunsdorff", "Start", false));
-        acc0.addTransaction(new TransactionEntity(-5000, "Aldi", "Einkaufen", false));
+        AccountMemoryEntity acc0 = new AccountMemoryEntity("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
+        acc0.addTransaction(new TransactionMemoryEntity(10000, "Jan Braunsdorff", "Start", false));
+        acc0.addTransaction(new TransactionMemoryEntity(-5000, "Aldi", "Einkaufen", false));
         vb.addAccount(acc0);
 
 
-        AccountEntity acc1 = new AccountEntity("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA");
+        AccountMemoryEntity acc1 = new AccountMemoryEntity("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA");
         vb.addAccount(acc1);
 
 
-        AccountEntity acc2 = new AccountEntity("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK");
+        AccountMemoryEntity acc2 = new AccountMemoryEntity("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK");
         vb.addAccount(acc2);
 
-        AccountEntity acc3 = new AccountEntity("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT");
+        AccountMemoryEntity acc3 = new AccountMemoryEntity("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT");
         vb.addAccount(acc3);
 
         return vb;
     }
 
-    private static BankEntity createSpasskasse() {
-        BankEntity sk = new BankEntity("Spaßkasse", "SK");
+    private static BankMemoryEntity createSpasskasse() {
+        BankMemoryEntity sk = new BankMemoryEntity("Spaßkasse", "SK");
 
-        AccountEntity acc0 = new AccountEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK");
+        AccountMemoryEntity acc0 = new AccountMemoryEntity("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK");
         sk.addAccount(acc0);
 
-        AccountEntity acc1 = new AccountEntity("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK");
+        AccountMemoryEntity acc1 = new AccountMemoryEntity("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK");
         sk.addAccount(acc1);
 
-        AccountEntity acc2 = new AccountEntity("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL");
+        AccountMemoryEntity acc2 = new AccountMemoryEntity("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL");
         sk.addAccount(acc2);
 
-        AccountEntity acc3 = new AccountEntity("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV");
+        AccountMemoryEntity acc3 = new AccountMemoryEntity("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV");
         sk.addAccount(acc3);
 
         return sk;

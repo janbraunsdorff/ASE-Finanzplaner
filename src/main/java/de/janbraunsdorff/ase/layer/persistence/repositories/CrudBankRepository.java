@@ -1,17 +1,17 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.List;
 
 public interface CrudBankRepository {
-    List<BankEntity> getBanks() throws BankNotFoundExecption;
+    List<BankMemoryEntity> getBanks() throws BankNotFoundExecption;
 
-    BankEntity getBankByAcronym(String acronym) throws BankNotFoundExecption;
-    BankEntity getBanks(String Id) throws BankNotFoundExecption;
+    BankMemoryEntity getBankByAcronym(String acronym) throws BankNotFoundExecption;
+    BankMemoryEntity getBanks(String Id) throws BankNotFoundExecption;
 
-    void createBank(BankEntity bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException;
+    void createBank(BankMemoryEntity bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException;
 
     void deleteBankById(String bankId);
     void deleteBankByAcronym(String bankId);

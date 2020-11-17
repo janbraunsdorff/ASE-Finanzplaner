@@ -1,20 +1,20 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.List;
 
 public interface ICrudBank {
-    BankEntity get(String id);
+    BankMemoryEntity get(String id);
 
-    List<BankEntity> get();
+    List<BankMemoryEntity> get();
 
-    BankEntity create(BankEntity entity);
+    BankMemoryEntity create(BankMemoryEntity entity);
 
     void deleteByAcronym(String id);
 
     void deleteById(String id);
 
-    BankEntity getByAcronym(String acronym);
+    BankMemoryEntity getByAcronym(String acronym);
 }

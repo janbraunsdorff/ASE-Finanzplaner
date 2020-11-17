@@ -1,15 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.bank;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 
 public class BankNewResult implements Result {
 
-    private final BankEntity bankEntity;
+    private final BankMemoryEntity bankEntity;
 
-    public BankNewResult(BankEntity bankEntity) {
+    public BankNewResult(BankMemoryEntity bankEntity) {
         this.bankEntity = bankEntity;
     }
 

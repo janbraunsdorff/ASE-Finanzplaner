@@ -4,7 +4,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.IdAlreadyExitsException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -24,10 +24,10 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        memory.put("ID", new BankEntity("ID", "name", "acronym"));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
-        BankEntity bank = repo.getBanks("ID");
+        BankMemoryEntity bank = repo.getBanks("ID");
 
         assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
@@ -54,10 +54,10 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        memory.put("ID", new BankEntity("ID", "name", "acronym"));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
-        BankEntity bank = repo.getBankByAcronym("acronym");
+        BankMemoryEntity bank = repo.getBankByAcronym("acronym");
 
         assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
@@ -81,7 +81,7 @@ class MemoryRepositoryBankTest {
     @Test
     public void createBank() throws Exception {
         MemoryRepository repo = new MemoryRepository();
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
 
         repo.createBank(entity);
 
@@ -89,9 +89,9 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
 
-        BankEntity repoEntity = memory.get("ID");
+        BankMemoryEntity repoEntity = memory.get("ID");
 
         assertThat(repoEntity.getAcronym(), is(entity.getAcronym()));
         assertThat(repoEntity.getName(), is(entity.getName()));
@@ -105,8 +105,8 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
         Exception exception = assertThrows(IdAlreadyExitsException.class, () -> repo.createBank(entity));
@@ -125,8 +125,8 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("Key", entity);
 
         Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(entity));
@@ -145,8 +145,8 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
         repo.deleteBankById("ID");
@@ -162,8 +162,8 @@ class MemoryRepositoryBankTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
         repo.deleteBankByAcronym("acronym");

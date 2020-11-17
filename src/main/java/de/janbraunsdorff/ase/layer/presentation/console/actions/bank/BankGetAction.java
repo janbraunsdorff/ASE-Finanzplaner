@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
@@ -35,7 +35,7 @@ public class BankGetAction implements Action {
 
     private Result getBankEntity(GetBank method, String value) {
         try {
-            BankEntity entity = method.get(value);
+            BankMemoryEntity entity = method.get(value);
             return new BankResult(Collections.singletonList(entity));
         } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
@@ -43,6 +43,6 @@ public class BankGetAction implements Action {
     }
 
     private interface GetBank {
-        BankEntity get(String id);
+        BankMemoryEntity get(String id);
     }
 }

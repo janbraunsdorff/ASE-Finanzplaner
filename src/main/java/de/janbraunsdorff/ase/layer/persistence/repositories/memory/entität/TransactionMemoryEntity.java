@@ -1,10 +1,10 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
+package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class TransactionEntity {
+public class TransactionMemoryEntity {
     private final String id;
     private final Integer value;
     private final Date date;
@@ -14,7 +14,7 @@ public class TransactionEntity {
 
 
     // minimal with id
-    public TransactionEntity(String id, Integer value, String thirdParty, String category, Boolean isContract) {
+    public TransactionMemoryEntity(String id, Integer value, String thirdParty, String category, Boolean isContract) {
         this.id = id;
         this.date = Calendar.getInstance().getTime();
         this.value = value;
@@ -24,7 +24,7 @@ public class TransactionEntity {
     }
 
     // minimal
-    public TransactionEntity(Integer value, String thirdParty, String category, Boolean isContract) {
+    public TransactionMemoryEntity(Integer value, String thirdParty, String category, Boolean isContract) {
         this.id = UUID.randomUUID().toString();
         this.date = Calendar.getInstance().getTime();
         this.value = value;

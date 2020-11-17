@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
@@ -27,7 +27,7 @@ public class BankAddAction implements Action {
 
         String name = tags.get("-n");
         String acronym = tags.get("-a");
-        BankEntity entity = new BankEntity(name, acronym);
+        BankMemoryEntity entity = new BankMemoryEntity(name, acronym);
         try {
             entity = this.crudBank.create(entity);
         } catch (IllegalArgumentException ex) {

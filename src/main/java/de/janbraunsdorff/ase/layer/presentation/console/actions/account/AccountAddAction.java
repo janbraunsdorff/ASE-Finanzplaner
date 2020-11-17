@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
@@ -25,7 +25,7 @@ public class AccountAddAction implements Action {
             return new AccountHelpResult();
         }
 
-        AccountEntity account = new AccountEntity(tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
+        AccountMemoryEntity account = new AccountMemoryEntity(tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
 
         if (areTagsPresent(tags, "-a")) {
             return addAccount(this.service::createAccountByAcronym, tags.get("-a"), account);
@@ -38,9 +38,9 @@ public class AccountAddAction implements Action {
         return new AccountHelpResult();
     }
 
-    private Result addAccount(Add method, String value, AccountEntity entity) {
+    private Result addAccount(Add method, String value, AccountMemoryEntity entity) {
         try {
-            AccountEntity add = method.add(value, entity);
+            AccountMemoryEntity add = method.add(value, entity);
             return new AccountNewResult(add);
         } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
@@ -49,6 +49,6 @@ public class AccountAddAction implements Action {
     }
 
     private interface Add {
-        AccountEntity add(String value, AccountEntity entity);
+        AccountMemoryEntity add(String value, AccountMemoryEntity entity);
     }
 }

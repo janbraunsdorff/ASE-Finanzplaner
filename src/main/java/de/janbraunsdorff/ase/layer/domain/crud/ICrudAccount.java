@@ -1,19 +1,19 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 
 import java.util.List;
 
 public interface ICrudAccount {
 
-    List<AccountEntity> getAccountsOfBank(String bankId);
+    List<AccountMemoryEntity> getAccountsOfBank(String bankId);
 
-    List<AccountEntity> getAccountsOfBankByAcronym(String acronym);
+    List<AccountMemoryEntity> getAccountsOfBankByAcronym(String acronym);
 
-    AccountEntity createAccount(String id, AccountEntity account);
+    AccountMemoryEntity createAccount(String id, AccountMemoryEntity account);
 
-    AccountEntity createAccountByAcronym(String acronym, AccountEntity account);
+    AccountMemoryEntity createAccountByAcronym(String acronym, AccountMemoryEntity account);
 
     void deleteById(String s);
 

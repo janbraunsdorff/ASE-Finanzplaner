@@ -3,9 +3,9 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.TransactionNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.TransactionMemoryEntity;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -27,16 +27,16 @@ class MemoryRepositoryTransactionTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
-        entity.addAccount(new AccountEntity("ACC-ID", "name", "nr", "ac"));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        TransactionEntity transaction = new TransactionEntity("ID-Trans", 12, "third", "cat", false);
+        TransactionMemoryEntity transaction = new TransactionMemoryEntity("ID-Trans", 12, "third", "cat", false);
         repo.createTransactionByAccountAcronym("ac", transaction);
 
 
-        TransactionEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
+        TransactionMemoryEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
         assertThat(trans.getId(), is("ID-Trans"));
         assertThat(trans.getValue(), is(12));
         assertThat(trans.getThirdParty(), is("third"));
@@ -48,7 +48,7 @@ class MemoryRepositoryTransactionTest {
     public void createTransactionAccountNotExists() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new TransactionEntity(1, "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new TransactionMemoryEntity(1, "", "", false)));
 
         String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 
@@ -63,16 +63,16 @@ class MemoryRepositoryTransactionTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
-        entity.addAccount(new AccountEntity("ACC-ID", "name", "nr", "ac"));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        TransactionEntity transaction = new TransactionEntity("ID-Trans", 12, "third", "cat", false);
+        TransactionMemoryEntity transaction = new TransactionMemoryEntity("ID-Trans", 12, "third", "cat", false);
         repo.createTransactionByAccountId("ACC-ID", transaction);
 
 
-        TransactionEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
+        TransactionMemoryEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
         assertThat(trans.getId(), is("ID-Trans"));
         assertThat(trans.getValue(), is(12));
         assertThat(trans.getThirdParty(), is("third"));
@@ -84,7 +84,7 @@ class MemoryRepositoryTransactionTest {
     public void createTransactionAccountNotExistsId() {
         MemoryRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new TransactionEntity(1, "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new TransactionMemoryEntity(1, "", "", false)));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 
@@ -98,14 +98,14 @@ class MemoryRepositoryTransactionTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
-        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
-        account.addTransaction(new TransactionEntity("Trans-ID", 1, "", "", false));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
+        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false));
         entity.addAccount(account);
         memory.put("ID", entity);
 
-        List<TransactionEntity> transactions = repo.getTransactionByAccountId("ACC-ID");
+        List<TransactionMemoryEntity> transactions = repo.getTransactionByAccountId("ACC-ID");
 
         assertThat(transactions.size(), is(1));
         assertThat(transactions.get(0).getId(), is("Trans-ID"));
@@ -131,14 +131,14 @@ class MemoryRepositoryTransactionTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
-        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
-        account.addTransaction(new TransactionEntity("Trans-ID", 1, "", "", false));
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
+        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false));
         entity.addAccount(account);
         memory.put("ID", entity);
 
-        List<TransactionEntity> transactions = repo.getTransactionByAccountAcronym("ac");
+        List<TransactionMemoryEntity> transactions = repo.getTransactionByAccountAcronym("ac");
 
         assertThat(transactions.size(), is(1));
         assertThat(transactions.get(0).getId(), is("Trans-ID"));
@@ -165,10 +165,10 @@ class MemoryRepositoryTransactionTest {
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
-        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
-        BankEntity entity = new BankEntity("ID", "name", "acronym");
-        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
-        TransactionEntity transact = new TransactionEntity("Trans-ID", 1, "", "", false);
+        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
+        TransactionMemoryEntity transact = new TransactionMemoryEntity("Trans-ID", 1, "", "", false);
         account.addTransaction(transact);
         entity.addAccount(account);
         memory.put("ID", entity);

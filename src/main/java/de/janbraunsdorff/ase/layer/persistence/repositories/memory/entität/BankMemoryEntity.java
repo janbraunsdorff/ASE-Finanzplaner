@@ -1,32 +1,32 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
+package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class BankEntity {
+public class BankMemoryEntity {
     private final String id;
     private final String name;
-    private final Map<String, AccountEntity> accounts;
+    private final Map<String, AccountMemoryEntity> accounts;
     private final String acronym;
 
 
-    public BankEntity(String name, String acronym) {
+    public BankMemoryEntity(String name, String acronym) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.accounts = new HashMap<>();
         this.acronym = acronym;
     }
 
-    public BankEntity(String id, String name, String acronym) {
+    public BankMemoryEntity(String id, String name, String acronym) {
         this.id = id;
         this.name = name;
         this.accounts = new HashMap<>();
         this.acronym = acronym;
     }
 
-    public void addAccount(AccountEntity entity) {
+    public void addAccount(AccountMemoryEntity entity) {
         this.accounts.put(entity.getId(), entity);
     }
 
@@ -42,7 +42,7 @@ public class BankEntity {
         return acronym;
     }
 
-    public Collection<AccountEntity> getAccounts() {
+    public Collection<AccountMemoryEntity> getAccounts() {
         return this.accounts.values();
     }
 
@@ -53,7 +53,7 @@ public class BankEntity {
     public int getAmountOfAccountsInCent() {
         return this.accounts.values()
                 .stream()
-                .map(AccountEntity::getAmountOfAccountInCent)
+                .map(AccountMemoryEntity::getAmountOfAccountInCent)
                 .reduce(0, Integer::sum);
     }
 }

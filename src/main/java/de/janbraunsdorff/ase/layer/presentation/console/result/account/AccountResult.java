@@ -1,19 +1,19 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.account;
 
 
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 
 import java.util.List;
 
-public class AccountResult implements TypedResult<AccountEntity> {
-    private final List<AccountEntity> result;
+public class AccountResult implements TypedResult<AccountMemoryEntity> {
+    private final List<AccountMemoryEntity> result;
     private final TableOutputBuilder builder;
     private final int lengthName;
     private final int lengthNumber;
 
-    public AccountResult(List<AccountEntity> result) {
+    public AccountResult(List<AccountMemoryEntity> result) {
         this.result = result;
         this.builder = new TableOutputBuilder();
         this.lengthName = getMax(v -> v.getName().length(), result);
@@ -35,7 +35,7 @@ public class AccountResult implements TypedResult<AccountEntity> {
         return builder.build();
     }
 
-    private void print(AccountEntity r) {
+    private void print(AccountMemoryEntity r) {
         builder
                 .addLine()
                 .addEntry(r.getId())

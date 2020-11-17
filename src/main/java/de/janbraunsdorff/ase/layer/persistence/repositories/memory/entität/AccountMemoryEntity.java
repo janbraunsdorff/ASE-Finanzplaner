@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories.entität;
+package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 
 import java.util.Collection;
@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class AccountEntity {
+public class AccountMemoryEntity {
     private final String id;
     private final String name;
     private final String number;
-    private final Map<String, TransactionEntity> transactions;
+    private final Map<String, TransactionMemoryEntity> transactions;
     private final String acronym;
 
 
-    public AccountEntity(String name, String number, String acronym) {
+    public AccountMemoryEntity(String name, String number, String acronym) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.number = number;
@@ -22,7 +22,7 @@ public class AccountEntity {
         this.transactions = new HashMap<>();
     }
 
-    public AccountEntity(String id, String name, String number, String acronym) {
+    public AccountMemoryEntity(String id, String name, String number, String acronym) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -30,7 +30,7 @@ public class AccountEntity {
         this.acronym = acronym;
     }
 
-    public void addTransaction(TransactionEntity entity) {
+    public void addTransaction(TransactionMemoryEntity entity) {
         this.transactions.put(entity.getId(), entity);
     }
 
@@ -50,14 +50,14 @@ public class AccountEntity {
         return this.acronym;
     }
 
-    public Collection<TransactionEntity> getTransactionEntities(){
+    public Collection<TransactionMemoryEntity> getTransactionEntities(){
         return this.transactions.values();
     }
 
     public int getAmountOfAccountInCent() {
         return this.transactions.values()
                 .stream()
-                .map(TransactionEntity::getValue)
+                .map(TransactionMemoryEntity::getValue)
                 .reduce(0, Integer::sum);
     }
 

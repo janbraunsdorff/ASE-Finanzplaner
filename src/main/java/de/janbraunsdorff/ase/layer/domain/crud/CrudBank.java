@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.domain.crud;
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,16 +11,16 @@ import java.util.List;
 public class CrudBank implements ICrudBank {
 
     private final CrudBankRepository repo;
-    private final BankEntity defaultEntity;
+    private final BankMemoryEntity defaultEntity;
 
     public CrudBank(CrudBankRepository repo) {
         this.repo = repo;
-        this.defaultEntity = new BankEntity("----", "----", "----");
+        this.defaultEntity = new BankMemoryEntity("----", "----", "----");
 
     }
 
     @Override
-    public BankEntity get(String id) {
+    public BankMemoryEntity get(String id) {
         try {
             return this.repo.getBanks(id);
         } catch (IllegalArgumentException ex) {
@@ -31,7 +31,7 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public List<BankEntity> get() {
+    public List<BankMemoryEntity> get() {
         try {
             return this.repo.getBanks();
 
@@ -43,7 +43,7 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public BankEntity create(BankEntity entity) {
+    public BankMemoryEntity create(BankMemoryEntity entity) {
         try {
             this.repo.createBank(entity);
             return entity;
@@ -78,7 +78,7 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public BankEntity getByAcronym(String acronym) {
+    public BankMemoryEntity getByAcronym(String acronym) {
         try {
             return this.repo.getBankByAcronym(acronym);
         } catch (IllegalArgumentException ex) {
