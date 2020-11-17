@@ -19,24 +19,13 @@ public class AccountDeleteAction implements Action {
     @Override
     public Result act(String command) throws AccountNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
-        if (areTagsPresent(tags, "-i")) {
-            return deleteAccount(service::deleteById, tags.get("-i"));
+
+        if (!areTagsAndValuesPresent(tags, "-a")) {
+            return new AccountHelpResult();
         }
 
-        if (areTagsPresent(tags, "-a")) {
-            return deleteAccount(service::deleteByAcronym, tags.get("-a"));
-        }
-
-        return new AccountHelpResult();
-
-    }
-
-    private Result deleteAccount(Delete method, String value) throws AccountNotFoundException {
-        method.delete(value);
+        String value = tags.get("-a");
+        service.deleteByAcronym(value);
         return new AccountDeleteResult(value);
-    }
-
-    private interface Delete {
-        void delete(String value) throws AccountNotFoundException;
     }
 }

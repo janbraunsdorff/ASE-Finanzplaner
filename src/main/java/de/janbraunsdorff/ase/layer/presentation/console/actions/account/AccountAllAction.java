@@ -22,24 +22,12 @@ public class AccountAllAction implements Action {
     @Override
     public Result act(String command) throws BankNotFoundExecption {
         Map<String, String> tags = parseCommand(command, 2);
-        if (areTagsPresent(tags, "-i")) {
-            return get(service::getAccountsOfBank, tags.get("-i"));
+        if (!areTagsAndValuesPresent(tags, "-a")) {
+            return new AccountHelpResult();
         }
 
-        if (areTagsPresent(tags, "-a")) {
-            return get(service::getAccountsOfBankByAcronym, tags.get("-a"));
-        }
-
-        return new AccountHelpResult();
-    }
-
-    private Result get(Get method, String value) throws BankNotFoundExecption {
-        List<Account> get = method.get(value);
+        String acronym = tags.get("-a");
+        List<Account> get = service.getAccountsOfBankByAcronym(acronym);
         return new AccountResult(get);
-
-    }
-
-    private interface Get {
-        List<Account> get(String value) throws BankNotFoundExecption;
     }
 }

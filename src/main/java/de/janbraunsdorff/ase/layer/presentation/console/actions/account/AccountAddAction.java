@@ -22,30 +22,17 @@ public class AccountAddAction implements Action {
     @Override
     public Result act(String command) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsPresent(tags, "-na", "-nr", "-ac")) {
+        if (!areTagsAndValuesPresent(tags, "-na", "-nr", "-ac", "-a")) {
             return new AccountHelpResult();
         }
 
         Account account = new Account(tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
-
-        if (areTagsPresent(tags, "-a")) {
-            return addAccount(this.service::createAccountByAcronym, tags.get("-a"), account);
-        }
-
-        if (areTagsPresent(tags, "-i")) {
-            return addAccount(this.service::createAccount, tags.get("-i"), account);
-        }
-
-        return new AccountHelpResult();
-    }
-
-    private Result addAccount(Add method, String value, Account entity) throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        Account add = method.add(value, entity);
+        String acronym = tags.get("-a");
+        Account add = this.service.createAccountByAcronym(acronym, account);
         return new AccountNewResult(add);
 
+
+
     }
 
-    private interface Add {
-        Account add(String value, Account entity) throws BankNotFoundExecption, AcronymAlreadyExistsException;
-    }
 }
