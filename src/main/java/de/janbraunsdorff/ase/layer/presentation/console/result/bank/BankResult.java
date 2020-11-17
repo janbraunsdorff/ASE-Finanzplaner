@@ -24,7 +24,7 @@ public class BankResult implements TypedResult<Bank> {
     @Override
     public String print() {
         builder
-                .addTableHeader(37, "ID")
+                //.addTableHeader(37, "ID")
                 .addTableHeader(length, "Name")
                 .addTableHeader(lengthAcronym, "Abkürzung")
                 .addTableHeader(10, "Account")
@@ -40,7 +40,7 @@ public class BankResult implements TypedResult<Bank> {
     private void print(Bank r) {
         builder
                 .addLine()
-                .addEntry(r.getId())
+                //.addEntry(r.getId())
                 .addEntry(r.getName())
                 .addEntry(r.getAcronym())
                 .addEntry(String.valueOf(r.getAccounts().size()))

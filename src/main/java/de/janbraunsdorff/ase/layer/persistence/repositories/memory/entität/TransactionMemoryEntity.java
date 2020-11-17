@@ -13,11 +13,13 @@ public class TransactionMemoryEntity {
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
+    private final Integer index;
 
 
     // minimal with id
-    public TransactionMemoryEntity(String id, Integer value, String thirdParty, String category, Boolean isContract) {
+    public TransactionMemoryEntity(String id, Integer value, String thirdParty, String category, Boolean isContract, Integer index) {
         this.id = id;
+        this.index = index;
         this.date = Calendar.getInstance().getTime();
         this.value = value;
         this.thirdParty = thirdParty;
@@ -26,7 +28,8 @@ public class TransactionMemoryEntity {
     }
 
     // minimal
-    public TransactionMemoryEntity(Integer value, String thirdParty, String category, Boolean isContract) {
+    public TransactionMemoryEntity(Integer value, String thirdParty, String category, Boolean isContract, Integer index) {
+        this.index = index;
         this.id = UUID.randomUUID().toString();
         this.date = Calendar.getInstance().getTime();
         this.value = value;
@@ -35,8 +38,9 @@ public class TransactionMemoryEntity {
         this.isContract = isContract;
     }
 
-    public TransactionMemoryEntity(Transaction t) {
-        this.id = t.getId();
+    public TransactionMemoryEntity(Transaction t, Integer index) {
+        this.index = index;
+        this.id = UUID.randomUUID().toString();
         this.value = t.getValue();
         this.date = t.getDate();
         this.thirdParty = t.getThirdParty();
@@ -69,6 +73,10 @@ public class TransactionMemoryEntity {
     }
 
     public Transaction convertToDomain() {
-        return new Transaction(this.id, this.value, this.date, this.thirdParty, this.category, this.isContract);
+        return new Transaction(this.value, this.date, this.thirdParty, this.category, this.isContract, this.index);
+    }
+
+    public Integer getIndex() {
+        return this.index;
     }
 }

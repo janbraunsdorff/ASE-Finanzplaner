@@ -18,7 +18,7 @@ public class AccountNewResult implements TypedResult<AccountMemoryEntity> {
     public String print() {
         return new InformationOutputBuilder()
                 .addHeadline("Ein Account wurde erstellt")
-                .addInformation(String.format("ID: %s | Name: %s | Abkürzung: %s | Nummer: %s", account.getId(), account.getName(), account.getAcronym(), account.getNumber()))
+                .addInformation(String.format("ID: %s | Name: %s | Abkürzung: %s | Nummer: %s", account.getAcronym(), account.getName(), account.getAcronym(), account.getNumber()))
                 .build();
     }
 }

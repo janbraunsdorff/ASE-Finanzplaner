@@ -34,14 +34,4 @@ public class ICrudBankTestImpl implements ICrudBank {
     public void deleteByAcronym(String id) throws BankNotFoundExecption {
         this.deleteAcronym = id;
     }
-
-    @Override
-    public void deleteById(String id) {
-
-    }
-
-    @Override
-    public Bank getByAcronym(String acronym) throws BankNotFoundExecption {
-        return null;
-    }
 }

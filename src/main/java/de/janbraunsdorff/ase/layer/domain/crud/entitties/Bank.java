@@ -5,20 +5,17 @@ import java.util.List;
 import java.util.UUID;
 
 public class Bank {
-    private final String id;
     private final String name;
     private final List<Account> accounts;
     private final String acronym;
 
-    public Bank(String id, String name, List<Account> accounts, String acronym) {
-        this.id = id;
+    public Bank(String name, List<Account> accounts, String acronym) {
         this.name = name;
         this.accounts = accounts;
         this.acronym = acronym;
     }
 
     public Bank(String name, String acronym) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.acronym = acronym;
         this.accounts = new ArrayList<>();
@@ -30,10 +27,6 @@ public class Bank {
 
     public String getAcronym() {
         return this.acronym;
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     public List<Account> getAccounts() {

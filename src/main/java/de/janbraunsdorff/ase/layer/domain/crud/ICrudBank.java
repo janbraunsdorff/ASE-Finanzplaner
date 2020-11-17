@@ -17,7 +17,4 @@ public interface ICrudBank {
 
     void deleteByAcronym(String id) throws BankNotFoundExecption;
 
-    void deleteById(String id);
-
-    Bank getByAcronym(String acronym) throws BankNotFoundExecption;
 }

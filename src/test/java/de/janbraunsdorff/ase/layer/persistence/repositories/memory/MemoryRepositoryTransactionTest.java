@@ -31,23 +31,24 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        Transaction transaction = new Transaction("ID-Trans", 12, "third", "cat", false);
+        Transaction transaction = new Transaction( 12, "third", "cat", false, 1);
         repo.createTransactionByAccountAcronym("ac", transaction);
 
 
         TransactionMemoryEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
-        assertThat(trans.getId(), is("ID-Trans"));
         assertThat(trans.getValue(), is(12));
         assertThat(trans.getThirdParty(), is("third"));
         assertThat(trans.getCategory(), is("cat"));
         assertThat(trans.getContract(), is(false));
+        assertThat(trans.getIndex(), is(0));
+
     }
 
     @Test
     public void createTransactionAccountNotExists() {
         CrudTransactionRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
 
         String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 
@@ -67,23 +68,23 @@ class MemoryRepositoryTransactionTest {
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
 
-        Transaction transaction = new Transaction("ID-Trans", 12, "third", "cat", false);
+        Transaction transaction = new Transaction( 12, "third", "cat", false, 1);
         repo.createTransactionByAccountId("ACC-ID", transaction);
 
 
         TransactionMemoryEntity trans = new ArrayList<>(new ArrayList<>(memory.get("ID").getAccounts()).get(0).getTransactionEntities()).get(0);
-        assertThat(trans.getId(), is("ID-Trans"));
         assertThat(trans.getValue(), is(12));
         assertThat(trans.getThirdParty(), is("third"));
         assertThat(trans.getCategory(), is("cat"));
         assertThat(trans.getContract(), is(false));
+        assertThat(trans.getIndex(), is(0));
     }
 
     @Test
     public void createTransactionAccountNotExistsId() {
         CrudTransactionRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 
@@ -100,14 +101,14 @@ class MemoryRepositoryTransactionTest {
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
-        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false));
+        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1));
         entity.addAccount(account);
         memory.put("ID", entity);
 
         List<Transaction> transactions = repo.getTransactionByAccountId("ACC-ID");
 
         assertThat(transactions.size(), is(1));
-        assertThat(transactions.get(0).getId(), is("Trans-ID"));
+        assertThat(transactions.get(0).getIndex(), is(1));
 
 
     }
@@ -133,14 +134,14 @@ class MemoryRepositoryTransactionTest {
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
-        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false));
+        account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1));
         entity.addAccount(account);
         memory.put("ID", entity);
 
         List<Transaction> transactions = repo.getTransactionByAccountAcronym("ac");
 
         assertThat(transactions.size(), is(1));
-        assertThat(transactions.get(0).getId(), is("Trans-ID"));
+        assertThat(transactions.get(0).getIndex(), is(1));
 
 
     }
@@ -167,12 +168,12 @@ class MemoryRepositoryTransactionTest {
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
-        TransactionMemoryEntity transact = new TransactionMemoryEntity("Trans-ID", 1, "", "", false);
+        TransactionMemoryEntity transact = new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1);
         account.addTransaction(transact);
         entity.addAccount(account);
         memory.put("ID", entity);
 
-        repo.deleteTransactionById(transact.getId());
+        repo.deleteTransactionById(transact.getIndex());
 
         assertThat(account.getTransactionEntities().size(), is(0));
     }
@@ -181,9 +182,9 @@ class MemoryRepositoryTransactionTest {
     public void deleteTransactionAccountNotExistsId() {
         CrudTransactionRepository repo = new MemoryRepository();
 
-        Exception ex = assertThrows(TransactionNotFoundException.class, () -> repo.deleteTransactionById("ACC-ac"));
+        Exception ex = assertThrows(TransactionNotFoundException.class, () -> repo.deleteTransactionById(0));
 
-        String expected = "Transaktion mit der ID ACC-ac wurde nicht gefunden";
+        String expected = "Transaktion mit der ID 0 wurde nicht gefunden";
 
         assertThat(ex.getMessage(), is(expected));
     }

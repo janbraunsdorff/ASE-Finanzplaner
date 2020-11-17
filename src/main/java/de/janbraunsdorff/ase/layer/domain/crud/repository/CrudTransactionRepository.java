@@ -13,5 +13,5 @@ public interface CrudTransactionRepository {
     List<Transaction> getTransactionByAccountId(String id) throws AccountNotFoundException;
     List<Transaction> getTransactionByAccountAcronym(String acronym) throws AccountNotFoundException;
 
-    void deleteTransactionById(String acronym) throws TransactionNotFoundException;
+    void deleteTransactionById(Integer acronym) throws TransactionNotFoundException;
 }

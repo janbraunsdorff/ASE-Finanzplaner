@@ -11,7 +11,7 @@ public class AccountMemoryEntity {
     private final String id;
     private final String name;
     private final String number;
-    private final Map<String, TransactionMemoryEntity> transactions;
+    private final Map<Integer, TransactionMemoryEntity> transactions;
     private final String acronym;
 
 
@@ -32,16 +32,15 @@ public class AccountMemoryEntity {
     }
 
     public AccountMemoryEntity(Account a) {
-        this.id = a.getId();
+        this.id = UUID.randomUUID().toString();
         this.name = a.getName();
         this.number = a.getNumber();
         this.transactions = new HashMap<>();
-        a.getTransactions().forEach(t -> transactions.put(t.getId(), new TransactionMemoryEntity(t)));
         this.acronym = a.getAcronym();
     }
 
     public void addTransaction(TransactionMemoryEntity entity) {
-        this.transactions.put(entity.getId(), entity);
+        this.transactions.put(entity.getIndex(), entity);
     }
 
     public String getId() {
@@ -64,11 +63,11 @@ public class AccountMemoryEntity {
         return this.transactions.values();
     }
 
-    public void removeTransaction(String acronym) {
+    public void removeTransaction(Integer acronym) {
         this.transactions.remove(acronym);
     }
 
     public Account convertToDomain() {
-        return new Account(this.id, this.name, this.number, new ArrayList<Transaction>(this.transactions.values().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
+        return new Account(this.name, this.number, new ArrayList<Transaction>(this.transactions.values().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
     }
 }

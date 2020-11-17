@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,6 @@ class MemoryRepositoryBankTest {
 
         Bank bank = repo.getBanks("ID");
 
-        assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
         assertThat(bank.getAcronym(), is("acronym"));
 
@@ -62,7 +62,6 @@ class MemoryRepositoryBankTest {
 
         Bank bank = repo.getBankByAcronym("acronym");
 
-        assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
         assertThat(bank.getAcronym(), is("acronym"));
 
@@ -84,7 +83,7 @@ class MemoryRepositoryBankTest {
     @Test
     public void createBank() throws Exception {
         CrudBankRepository repo = new MemoryRepository();
-        Bank entity = new Bank("ID", "name", new ArrayList<>(), "acronym");
+        Bank entity = new Bank("name", new ArrayList<>(), "acronym");
 
         repo.createBank(entity);
 
@@ -94,11 +93,10 @@ class MemoryRepositoryBankTest {
         Object field = f.get(repo);
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
 
-        BankMemoryEntity repoEntity = memory.get("ID");
+        BankMemoryEntity repoEntity = memory.get("acronym");
 
         assertThat(repoEntity.getAcronym(), is(entity.getAcronym()));
         assertThat(repoEntity.getName(), is(entity.getName()));
-        assertThat(repoEntity.getId(), is(entity.getId()));
     }
 
     @SuppressWarnings("unchecked")
@@ -110,12 +108,12 @@ class MemoryRepositoryBankTest {
         Object field = f.get(repo);
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
-        memory.put("ID", entity);
+        memory.put("acronym", entity);
 
-        Exception exception = assertThrows(IdAlreadyExitsException.class, () -> repo.createBank(new Bank("ID", null, null, null)));
+        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(new Bank(null, Collections.emptyList(), "acronym")));
 
 
-        String expectedMessage = "Die ID ID existiert bereits im System";
+        String expectedMessage = "Die Abkürzung acronym existiert bereits im System";
         String actualMessage = exception.getMessage();
 
         assertThat(actualMessage, is(expectedMessage));
@@ -132,7 +130,7 @@ class MemoryRepositoryBankTest {
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("Key", entity);
 
-        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(new Bank(null, null, null, "acronym")));
+        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(new Bank(null, null, "acronym")));
 
 
         String expectedMessage = "Die Abkürzung acronym existiert bereits im System";

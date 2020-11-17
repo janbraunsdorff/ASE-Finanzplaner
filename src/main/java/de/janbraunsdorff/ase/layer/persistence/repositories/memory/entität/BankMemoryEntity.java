@@ -28,10 +28,9 @@ public class BankMemoryEntity {
     }
 
     public BankMemoryEntity(Bank bankEntity) {
-        this.id = bankEntity.getId();
+        this.id = UUID.randomUUID().toString();
         this.name = bankEntity.getName();
         this.accounts = new HashMap<>();
-        bankEntity.getAccounts().forEach(a -> accounts.put(a.getId(), new AccountMemoryEntity(a)));
         this.acronym = bankEntity.getAcronym();
     }
 
@@ -60,6 +59,6 @@ public class BankMemoryEntity {
     }
 
     public Bank convertToDomainEntity(){
-        return new Bank(this.id, this.name, new ArrayList<>(this.accounts.values().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
+        return new Bank(this.name, new ArrayList<>(this.accounts.values().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
     }
 }

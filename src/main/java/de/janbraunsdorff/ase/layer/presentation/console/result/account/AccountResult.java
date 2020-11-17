@@ -23,7 +23,7 @@ public class AccountResult implements TypedResult<Account> {
     @Override
     public String print() {
         this.builder
-                .addTableHeader(37, "ID")
+                //.addTableHeader(37, "ID")
                 .addTableHeader(lengthName, "Name")
                 .addTableHeader(lengthNumber, "Number")
                 .addTableHeader(10, "Abkürzung")
@@ -38,7 +38,7 @@ public class AccountResult implements TypedResult<Account> {
     private void print(Account r) {
         builder
                 .addLine()
-                .addEntry(r.getId())
+                //.addEntry(r.getId())
                 .addEntry(r.getName())
                 .addEntry(r.getNumber())
                 .addEntry(r.getAcronym())
