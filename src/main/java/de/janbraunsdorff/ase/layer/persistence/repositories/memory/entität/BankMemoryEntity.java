@@ -1,9 +1,12 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 public class BankMemoryEntity {
     private final String id;
@@ -55,5 +58,9 @@ public class BankMemoryEntity {
                 .stream()
                 .map(AccountMemoryEntity::getAmountOfAccountInCent)
                 .reduce(0, Integer::sum);
+    }
+
+    public Bank convertToDomainEntity(){
+        return new Bank(this.id, this.name, new ArrayList<>(this.accounts.values().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
     }
 }

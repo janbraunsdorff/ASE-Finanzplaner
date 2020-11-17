@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.*;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
@@ -9,6 +10,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.Tran
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MemoryRepository implements CrudBankRepository, CrudAccountRepository, CrudTransactionRepository {
 
@@ -34,8 +36,8 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<BankMemoryEntity> getBanks() {
-        return new ArrayList<>(this.memory.values());
+    public List<Bank> getBanks() {
+        return this.memory.values().stream().map(BankMemoryEntity::convertToDomainEntity).collect(Collectors.toList());
     }
 
     @Override

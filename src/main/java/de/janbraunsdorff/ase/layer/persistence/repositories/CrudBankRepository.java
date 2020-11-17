@@ -1,12 +1,13 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.List;
 
 public interface CrudBankRepository {
-    List<BankMemoryEntity> getBanks() throws BankNotFoundExecption;
+    List<Bank> getBanks() throws BankNotFoundExecption;
 
     BankMemoryEntity getBankByAcronym(String acronym) throws BankNotFoundExecption;
     BankMemoryEntity getBanks(String Id) throws BankNotFoundExecption;

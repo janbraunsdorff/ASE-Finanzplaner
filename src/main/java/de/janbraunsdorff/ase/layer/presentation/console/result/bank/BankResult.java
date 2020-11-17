@@ -1,20 +1,21 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.bank;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 
 import java.util.List;
 
-public class BankResult implements TypedResult<BankMemoryEntity> {
-    private final List<BankMemoryEntity> result;
+public class BankResult implements TypedResult<Bank> {
+    private final List<Bank> result;
     private final TableOutputBuilder builder;
 
     private final int length;
     private final int lengthAcronym;
 
-    public BankResult(List<BankMemoryEntity> result) {
+    public BankResult(List<Bank> result) {
         this.result = result;
         this.length = getMax(v1 -> v1.getName().length(), result);
         this.lengthAcronym = getMax(v -> v.getAcronym().length(), result);
@@ -37,7 +38,7 @@ public class BankResult implements TypedResult<BankMemoryEntity> {
         return builder.build();
     }
 
-    private void print(BankMemoryEntity r) {
+    private void print(Bank r) {
         builder
                 .addLine()
                 .addEntry(r.getId())

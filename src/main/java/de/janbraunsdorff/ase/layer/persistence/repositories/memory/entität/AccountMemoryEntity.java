@@ -1,6 +1,9 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,5 +66,9 @@ public class AccountMemoryEntity {
 
     public void removeTransaction(String acronym) {
         this.transactions.remove(acronym);
+    }
+
+    public  Account convertToDomain() {
+        return new Account();
     }
 }

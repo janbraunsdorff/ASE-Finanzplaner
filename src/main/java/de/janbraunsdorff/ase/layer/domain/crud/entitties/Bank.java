@@ -1,0 +1,39 @@
+package de.janbraunsdorff.ase.layer.domain.crud.entitties;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.List;
+
+public class Bank {
+    private final String id;
+    private final String name;
+    private final List<Account> accounts;
+    private final String acronym;
+
+    public Bank(String id, String name, List<Account> accounts, String acronym) {
+        this.id = id;
+        this.name = name;
+        this.accounts = accounts;
+        this.acronym = acronym;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getAcronym() {
+        return this.acronym;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public List<Account> getAccounts() {
+        return this.accounts;
+    }
+
+    public int getAmountOfAccountsInCent() {
+        throw new NotImplementedException();
+    }
+}

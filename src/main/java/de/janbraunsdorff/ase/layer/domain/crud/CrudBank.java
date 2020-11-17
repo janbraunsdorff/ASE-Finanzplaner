@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
@@ -20,18 +21,18 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public BankMemoryEntity get(String id) {
+    public Bank get(String id) {
         try {
-            return this.repo.getBanks(id);
+            return this.repo.getBanks(id).convertToDomainEntity();
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return this.defaultEntity;
+            return this.defaultEntity.convertToDomainEntity();
         }
     }
 
     @Override
-    public List<BankMemoryEntity> get() {
+    public List<Bank> get() {
         try {
             return this.repo.getBanks();
 
@@ -78,13 +79,13 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public BankMemoryEntity getByAcronym(String acronym) {
+    public Bank getByAcronym(String acronym) {
         try {
-            return this.repo.getBankByAcronym(acronym);
+            return this.repo.getBankByAcronym(acronym).convertToDomainEntity();
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return this.defaultEntity;
+            return this.defaultEntity.convertToDomainEntity();
         }
     }
 }

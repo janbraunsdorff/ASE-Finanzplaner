@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.List;
@@ -12,12 +13,12 @@ public class CrudBankUseCaseTest implements ICrudBank {
     protected String id;
 
     @Override
-    public BankMemoryEntity get(String id) {
+    public Bank get(String id) {
         return null;
     }
 
     @Override
-    public List<BankMemoryEntity> get() {
+    public List<Bank> get() {
         return null;
     }
 
@@ -41,7 +42,7 @@ public class CrudBankUseCaseTest implements ICrudBank {
 
 
     @Override
-    public BankMemoryEntity getByAcronym(String acronym) {
+    public Bank getByAcronym(String acronym) {
         return null;
     }
 }
