@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudAccountRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
@@ -24,7 +25,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createAccount() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -43,7 +44,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void createAccountBankNotExists(){
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankId("ACC-ID", new Account("","","")));
         String expected = "Bank mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
@@ -54,7 +55,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createAccountWithExistingAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -74,7 +75,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createAccountWithExistingAcronymMultipleBanks() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -96,7 +97,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createAccountByAcronymOfBank() throws Exception{
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -116,7 +117,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void createAccountByAcronymOfNonExistingBank(){
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankAcronym("acc", new Account("","","")));
         String expected = "Bank mit der ID oder der Abkürzung acc wurde nicht gefunden";
@@ -127,7 +128,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getAllAccountsOfOneBankById() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -143,7 +144,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void getAllAccountsOfOneBankByIdBankNotExists() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByBankId("ID1"));
 
@@ -155,7 +156,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getAllAccountsOfOneBankByAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -171,7 +172,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void getAllAccountsOfOneBankByAcronymBankNotExists(){
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(BankNotFoundExecption.class, () -> repo.getAccountsOfBankByBankAcronym("AC"));
 
@@ -183,7 +184,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteAccountByAccountId() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -200,7 +201,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void deleteAccountByNonExistingAccountId() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.deleteAccountById("ID1"));
 
@@ -212,7 +213,7 @@ class MemoryRepositoryAccountTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteAccountByAccountAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -229,7 +230,7 @@ class MemoryRepositoryAccountTest {
 
     @Test
     public void deleteAccountByNonExistingAccountAcronym() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudAccountRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.deleteAccountByAcronym("ID1"));
 

@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudTransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
@@ -21,7 +22,7 @@ class MemoryRepositoryTransactionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createTransaction() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -44,7 +45,7 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void createTransactionAccountNotExists() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
 
@@ -57,7 +58,7 @@ class MemoryRepositoryTransactionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createTransactionById() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -80,7 +81,7 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void createTransactionAccountNotExistsId() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false)));
 
@@ -92,7 +93,7 @@ class MemoryRepositoryTransactionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getTransactionById() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -113,7 +114,7 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void getTransactionAccountNotExistsId() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountId("ACC-ID"));
 
@@ -125,7 +126,7 @@ class MemoryRepositoryTransactionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getTransactionByAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -146,7 +147,7 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void getTransactionAccountNotExistsAcronym() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountAcronym("ACC-ac"));
 
@@ -159,7 +160,7 @@ class MemoryRepositoryTransactionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteTransactionById() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -178,7 +179,7 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void deleteTransactionAccountNotExistsId() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudTransactionRepository repo = new MemoryRepository();
 
         Exception ex = assertThrows(TransactionNotFoundException.class, () -> repo.deleteTransactionById("ACC-ac"));
 

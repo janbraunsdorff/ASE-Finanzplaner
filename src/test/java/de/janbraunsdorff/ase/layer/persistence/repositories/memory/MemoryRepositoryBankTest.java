@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
@@ -22,7 +23,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getExistingBankByGivenId() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -39,7 +40,7 @@ class MemoryRepositoryBankTest {
 
     @Test()
     public void getNoneExistingBankByGivenId() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBanks("ID"));
 
@@ -52,7 +53,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void getExistingBankByGivenAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -69,7 +70,7 @@ class MemoryRepositoryBankTest {
 
     @Test()
     public void getNoneExistingBankByGivenAcronym() {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBankByAcronym("ID"));
 
@@ -82,7 +83,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createBank() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Bank entity = new Bank("ID", "name", new ArrayList<>(), "acronym");
 
         repo.createBank(entity);
@@ -103,7 +104,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createBankWithExistingId() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -123,7 +124,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void createBankWithExistingAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -143,7 +144,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteBankById() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
@@ -160,7 +161,7 @@ class MemoryRepositoryBankTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteBankByAcronym() throws Exception {
-        MemoryRepository repo = new MemoryRepository();
+        CrudBankRepository repo = new MemoryRepository();
         Field f = repo.getClass().getDeclaredField("memory");
         f.setAccessible(true);
         Object field = f.get(repo);
