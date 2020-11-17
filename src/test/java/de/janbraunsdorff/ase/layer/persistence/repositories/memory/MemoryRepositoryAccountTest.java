@@ -2,9 +2,9 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import org.junit.jupiter.api.Test;

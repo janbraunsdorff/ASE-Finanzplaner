@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.crud;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudAccountRepository;
 
 import java.util.Collections;
 import java.util.List;

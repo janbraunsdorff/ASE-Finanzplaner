@@ -1,6 +1,8 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories;
+package de.janbraunsdorff.ase.layer.domain.crud.repository;
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.TransactionNotFoundException;
 
 import java.util.List;
 

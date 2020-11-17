@@ -1,7 +1,10 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories;
+package de.janbraunsdorff.ase.layer.domain.crud.repository;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 
 import java.util.List;
 

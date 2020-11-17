@@ -2,8 +2,8 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.repositories.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.TransactionMemoryEntity;

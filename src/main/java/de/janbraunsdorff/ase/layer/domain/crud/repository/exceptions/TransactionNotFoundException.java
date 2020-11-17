@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.persistence.repositories;
+package de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions;
 
 public class TransactionNotFoundException extends Exception{
 

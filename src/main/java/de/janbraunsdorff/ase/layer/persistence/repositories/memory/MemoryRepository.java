@@ -4,7 +4,10 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-import de.janbraunsdorff.ase.layer.persistence.repositories.*;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudAccountRepository;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudBankRepository;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudTransactionRepository;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.*;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.TransactionMemoryEntity;
@@ -174,7 +177,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public void deleteTransactionById(String acronym) throws TransactionNotFoundException{
+    public void deleteTransactionById(String acronym) throws TransactionNotFoundException {
         AtomicBoolean found = new AtomicBoolean(false);
         this.memory.values()
                 .stream()
