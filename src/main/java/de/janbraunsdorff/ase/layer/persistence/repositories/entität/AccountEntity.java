@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AccountEntity {
-    private String id;
-    private String name;
-    private String number;
-    private Map<String, TransactionEntity> transactions;
-    private String acronym;
+    private final String id;
+    private final String name;
+    private final String number;
+    private final Map<String, TransactionEntity> transactions;
+    private final String acronym;
 
 
     public AccountEntity(String name, String number, String acronym) {
@@ -36,10 +36,6 @@ public class AccountEntity {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

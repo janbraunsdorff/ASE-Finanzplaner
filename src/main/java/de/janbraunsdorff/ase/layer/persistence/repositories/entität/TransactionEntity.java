@@ -5,39 +5,19 @@ import java.util.Date;
 import java.util.UUID;
 
 public class TransactionEntity {
-    private String id;
-    private Integer value;
-    private Date date;
-    private String thirdParty;
-    private String category;
-    private Boolean isContract;
+    private final String id;
+    private final Integer value;
+    private final Date date;
+    private final String thirdParty;
+    private final String category;
+    private final Boolean isContract;
 
-
-    // date with id
-    public TransactionEntity(String id, Integer value, Date date, String thirdParty, String category, Boolean isContract) {
-        this.id = id;
-        this.value = value;
-        this.date = date;
-        this.thirdParty = thirdParty;
-        this.category = category;
-        this.isContract = isContract;
-    }
 
     // minimal with id
     public TransactionEntity(String id, Integer value, String thirdParty, String category, Boolean isContract) {
         this.id = id;
         this.date = Calendar.getInstance().getTime();
         this.value = value;
-        this.thirdParty = thirdParty;
-        this.category = category;
-        this.isContract = isContract;
-    }
-
-    // with date
-    public TransactionEntity(Integer value, Date date, String thirdParty, String category, Boolean isContract) {
-        this.id = UUID.randomUUID().toString();
-        this.value = value;
-        this.date = date;
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;

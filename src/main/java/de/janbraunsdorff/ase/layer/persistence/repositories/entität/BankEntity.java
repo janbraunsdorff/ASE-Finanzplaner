@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BankEntity {
-    private String id;
-    private String name;
-    private Map<String, AccountEntity> accounts;
-    private String acronym;
+    private final String id;
+    private final String name;
+    private final Map<String, AccountEntity> accounts;
+    private final String acronym;
 
 
     public BankEntity(String name, String acronym) {
@@ -40,14 +40,6 @@ public class BankEntity {
 
     public String getAcronym() {
         return acronym;
-    }
-
-    public void setAcronym(String acronym) {
-        this.acronym = acronym;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Collection<AccountEntity> getAccounts() {
