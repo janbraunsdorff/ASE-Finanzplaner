@@ -3,8 +3,10 @@ package de.janbraunsdorff.ase.layer.domain.crud;
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudAccountRepository;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CrudAccount implements ICrudAccount {
@@ -15,68 +17,32 @@ public class CrudAccount implements ICrudAccount {
     }
 
     @Override
-    public List<Account> getAccountsOfBank(String bankId) {
-        try {
-            return this.repo.getAccountsOfBankByBankId(bankId);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return Collections.emptyList();
-        }
+    public List<Account> getAccountsOfBank(String bankId) throws BankNotFoundExecption {
+        return this.repo.getAccountsOfBankByBankId(bankId);
     }
 
     @Override
-    public List<Account> getAccountsOfBankByAcronym(String acronym) {
-        try {
-            return this.repo.getAccountsOfBankByBankAcronym(acronym);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return Collections.emptyList();
-        }
+    public List<Account> getAccountsOfBankByAcronym(String acronym) throws BankNotFoundExecption {
+        return this.repo.getAccountsOfBankByBankAcronym(acronym);
     }
 
     @Override
-    public Account createAccount(String id, Account account) {
-        try {
-            return this.repo.createAccountByBankId(id, account);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return new Account("----", "----", "----");
-        }
+    public Account createAccount(String id, Account account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
+        return this.repo.createAccountByBankId(id, account);
     }
 
     @Override
-    public Account createAccountByAcronym(String acronym, Account account) {
-        try {
-            return this.repo.createAccountByBankAcronym(acronym, account);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return new Account("----", "----", "----");
-        }
+    public Account createAccountByAcronym(String acronym, Account account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
+        return this.repo.createAccountByBankAcronym(acronym, account);
     }
 
     @Override
-    public void deleteById(String id) {
-        try {
-             this.repo.deleteAccountById(id);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return;
-        }
+    public void deleteById(String id) throws AccountNotFoundException {
+        this.repo.deleteAccountById(id);
     }
 
     @Override
-    public void deleteByAcronym(String acronym) {
-        try {
-             this.repo.deleteAccountByAcronym(acronym);
-        } catch (IllegalArgumentException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return;
-        }
+    public void deleteByAcronym(String acronym) throws AccountNotFoundException {
+        this.repo.deleteAccountByAcronym(acronym);
     }
 }

@@ -2,8 +2,8 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
-import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountResult;
@@ -20,7 +20,7 @@ public class AccountAllAction implements Action {
     }
 
     @Override
-    public Result act(String command) {
+    public Result act(String command) throws BankNotFoundExecption {
         Map<String, String> tags = parseCommand(command, 2);
         if (areTagsPresent(tags, "-i")) {
             return get(service::getAccountsOfBank, tags.get("-i"));
@@ -33,17 +33,13 @@ public class AccountAllAction implements Action {
         return new AccountHelpResult();
     }
 
-    private Result get(Get method, String value) {
-        try {
-            List<Account> get = method.get(value);
-            return new AccountResult(get);
-        } catch (IllegalArgumentException ex) {
-            return new ErrorResult(ex.getMessage());
-        }
+    private Result get(Get method, String value) throws BankNotFoundExecption {
+        List<Account> get = method.get(value);
+        return new AccountResult(get);
 
     }
 
     private interface Get {
-        List<Account> get(String value);
+        List<Account> get(String value) throws BankNotFoundExecption;
     }
 }

@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
-import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountDeleteResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
@@ -17,7 +17,7 @@ public class AccountDeleteAction implements Action {
     }
 
     @Override
-    public Result act(String command) {
+    public Result act(String command) throws AccountNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
         if (areTagsPresent(tags, "-i")) {
             return deleteAccount(service::deleteById, tags.get("-i"));
@@ -31,16 +31,12 @@ public class AccountDeleteAction implements Action {
 
     }
 
-    private Result deleteAccount(Delete method, String value) {
-        try {
-            method.delete(value);
-            return new AccountDeleteResult(value);
-        } catch (IllegalArgumentException ex) {
-            return new ErrorResult(ex.getMessage());
-        }
+    private Result deleteAccount(Delete method, String value) throws AccountNotFoundException {
+        method.delete(value);
+        return new AccountDeleteResult(value);
     }
 
     private interface Delete {
-        void delete(String value);
+        void delete(String value) throws AccountNotFoundException;
     }
 }

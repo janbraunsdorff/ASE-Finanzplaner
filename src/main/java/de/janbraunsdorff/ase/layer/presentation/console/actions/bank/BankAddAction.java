@@ -2,8 +2,9 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
-import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankNewResult;
@@ -19,7 +20,7 @@ public class BankAddAction implements Action {
     }
 
     @Override
-    public Result act(String command) {
+    public Result act(String command) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsPresent(tags, "-a", "-n")) {
             return new BankHelpResult();
@@ -28,11 +29,7 @@ public class BankAddAction implements Action {
         String name = tags.get("-n");
         String acronym = tags.get("-a");
         Bank entity = new Bank(name, acronym);
-        try {
-            entity = this.crudBank.create(entity);
-        } catch (IllegalArgumentException ex) {
-            return new ErrorResult(ex.getMessage());
-        }
+        entity = this.crudBank.create(entity);
 
         return new BankNewResult(entity);
     }

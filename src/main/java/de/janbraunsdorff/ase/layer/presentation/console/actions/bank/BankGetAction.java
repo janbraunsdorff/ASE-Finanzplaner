@@ -2,8 +2,8 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
-import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankResult;
@@ -20,7 +20,7 @@ public class BankGetAction implements Action {
     }
 
     @Override
-    public Result act(String command) {
+    public Result act(String command) throws BankNotFoundExecption {
         Map<String, String> tags = parseCommand(command, 2);
         if (areTagsPresent(tags, "-i")) {
             return getBankEntity(this.crudBank::get, tags.get("-i"));
@@ -33,16 +33,12 @@ public class BankGetAction implements Action {
         return new BankHelpResult();
     }
 
-    private Result getBankEntity(GetBank method, String value) {
-        try {
-            Bank entity = method.get(value);
-            return new BankResult(Collections.singletonList(entity));
-        } catch (IllegalArgumentException ex) {
-            return new ErrorResult(ex.getMessage());
-        }
+    private Result getBankEntity(GetBank method, String value) throws BankNotFoundExecption {
+        Bank entity = method.get(value);
+        return new BankResult(Collections.singletonList(entity));
     }
 
     private interface GetBank {
-        Bank get(String id);
+        Bank get(String id) throws BankNotFoundExecption;
     }
 }

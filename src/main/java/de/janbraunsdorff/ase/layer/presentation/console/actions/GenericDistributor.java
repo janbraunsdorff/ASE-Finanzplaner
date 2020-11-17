@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions;
 
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
+import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 
 import java.util.HashMap;
@@ -25,7 +26,11 @@ public class GenericDistributor  implements Distributor {
             return this.helpResult;
         }
         String action = s[1];
-        return this.actions.getOrDefault(action, this.defaultAction).act(command);
+        try {
+            return this.actions.getOrDefault(action, this.defaultAction).act(command);
+        } catch (Exception e) {
+            return new ErrorResult(e.getMessage());
+        }
     }
 
     protected void addAction(String command, Action action) {

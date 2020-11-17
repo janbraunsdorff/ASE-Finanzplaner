@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface Action {
-    Result act(String command);
+    Result act(String command) throws Exception;
 
     default Map<String, String> parseCommand(String command, int start) {
         Map<String, String> parameter = new HashMap<>();
