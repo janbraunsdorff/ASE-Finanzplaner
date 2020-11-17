@@ -39,7 +39,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public void createBank(BankEntity bankEntity) throws Exception {
+    public void createBank(BankEntity bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
         if (this.memory.containsKey(bankEntity.getId())) {
             throw new IdAlreadyExitsException(bankEntity.getId());
         }
@@ -74,7 +74,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // Account Repo
     // --------------------------------
     @Override
-    public AccountEntity createAccountByBankId(String bankId, AccountEntity entity) throws Exception {
+    public AccountEntity createAccountByBankId(String bankId, AccountEntity entity) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         if (!this.memory.containsKey(bankId)) {
             throw new BankNotFoundExecption(bankId);
         }
@@ -94,13 +94,13 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public AccountEntity createAccountByBankAcronym(String acronym, AccountEntity account) throws Exception {
+    public AccountEntity createAccountByBankAcronym(String acronym, AccountEntity account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         String id = this.getBankByAcronym(acronym).getId();
         return this.createAccountByBankId(id, account);
     }
 
     @Override
-    public List<AccountEntity> getAccountsOfBankByBankId(String bankId) throws Exception {
+    public List<AccountEntity> getAccountsOfBankByBankId(String bankId) throws BankNotFoundExecption {
         if (!this.memory.containsKey(bankId)) {
             throw new BankNotFoundExecption(bankId);
         }
@@ -108,7 +108,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<AccountEntity> getAccountsOfBankByBankAcronym(String bankAcronym) throws Exception {
+    public List<AccountEntity> getAccountsOfBankByBankAcronym(String bankAcronym) throws BankNotFoundExecption {
         Optional<BankEntity> bank = this.memory.values().stream().filter(s -> s.getAcronym().equals(bankAcronym)).findFirst();
         if (!bank.isPresent()) {
             throw new BankNotFoundExecption(bankAcronym);
@@ -118,16 +118,16 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public void deleteAccountByAcronym(String acronym) throws Exception {
+    public void deleteAccountByAcronym(String acronym) throws AccountNotFoundException {
         deleteAccount(a -> a.getAcronym().equals(acronym), acronym);
     }
 
     @Override
-    public void deleteAccountById(String id) throws Exception {
+    public void deleteAccountById(String id) throws AccountNotFoundException {
         deleteAccount(a -> a.getId().equals(id), id);
     }
 
-    private void deleteAccount(Predicate<AccountEntity> predicate, String key) throws Exception {
+    private void deleteAccount(Predicate<AccountEntity> predicate, String key) throws AccountNotFoundException {
         AtomicBoolean found = new AtomicBoolean(false);
         this.memory.values().forEach(bank -> {
             Optional<AccountEntity> first = bank.getAccounts()
@@ -150,25 +150,26 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // --------------------
     // Transaction repo
     @Override
-    public TransactionEntity createTransactionByAccountAcronym(String acronym, TransactionEntity entity) throws Exception {
+    public TransactionEntity createTransactionByAccountAcronym(String acronym, TransactionEntity entity) throws AccountNotFoundException {
         return createTransaction(acronym, entity, a -> a.getAcronym().equals(acronym));
     }
 
     @Override
-    public TransactionEntity createTransactionByAccountId(String id, TransactionEntity entity) throws Exception {
+    public TransactionEntity createTransactionByAccountId(String id, TransactionEntity entity) throws AccountNotFoundException {
         return createTransaction(id, entity, a -> a.getId().equals(id));
     }
 
     @Override
-    public List<TransactionEntity> getTransactionByAccountId(String id) throws Exception {
+    public List<TransactionEntity> getTransactionByAccountId(String id) throws AccountNotFoundException {
         return getTransactions(id, a -> a.getId().equals(id));
     }
 
     @Override
-    public List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws Exception {
+    public List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws AccountNotFoundException {
         return getTransactions(acronym, a -> a.getAcronym().equals(acronym));
     }
 
+    @Override
     public void deleteTransactionById(String acronym) throws TransactionNotFoundException{
         AtomicBoolean found = new AtomicBoolean(false);
         this.memory.values()
@@ -210,7 +211,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
 
-    private TransactionEntity createTransaction(String key, TransactionEntity entity, Predicate<AccountEntity> predicate) throws Exception {
+    private TransactionEntity createTransaction(String key, TransactionEntity entity, Predicate<AccountEntity> predicate) throws AccountNotFoundException {
         Optional<AccountEntity> account = this.memory.values().stream()
                 .flatMap(b -> b.getAccounts().stream())
                 .filter(predicate)

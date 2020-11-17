@@ -5,9 +5,11 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.entität.Transaction
 import java.util.List;
 
 public interface CrudTransactionRepository {
-    TransactionEntity createTransactionByAccountAcronym(String id, TransactionEntity entity) throws Exception;
-    TransactionEntity createTransactionByAccountId(String id, TransactionEntity entity) throws Exception;
+    TransactionEntity createTransactionByAccountAcronym(String id, TransactionEntity entity) throws AccountNotFoundException;
+    TransactionEntity createTransactionByAccountId(String id, TransactionEntity entity) throws AccountNotFoundException;
 
-    List<TransactionEntity> getTransactionByAccountId(String id) throws Exception;
-    List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws Exception;
+    List<TransactionEntity> getTransactionByAccountId(String id) throws AccountNotFoundException;
+    List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws AccountNotFoundException;
+
+    void deleteTransactionById(String acronym) throws TransactionNotFoundException;
 }
