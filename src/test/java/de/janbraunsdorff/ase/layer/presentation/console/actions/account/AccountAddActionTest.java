@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.is;
 public class AccountAddActionTest {
     @Test
     public void createAccountWithAllTags() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr number -ac acronym -a bank");
@@ -27,7 +27,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingBank() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr number -ac acronym");
@@ -37,7 +37,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingAcronym() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr number -a bank");
@@ -47,7 +47,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingNumber() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -ac acronym -a bank");
@@ -57,7 +57,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingName() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -nr number -ac acronym -a bank");
@@ -67,7 +67,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingBankValue() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr number -ac acronym -a");
@@ -77,7 +77,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingAcronymValue() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr number -ac -a bank");
@@ -87,7 +87,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingNumberValue() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na name -nr -ac acronym -a bank");
@@ -97,7 +97,7 @@ public class AccountAddActionTest {
 
     @Test
     public void createAccountWithMissingNameValue() throws BankNotFoundExecption, AcronymAlreadyExistsException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAddAction service = new AccountAddAction(repo);
 
         Result act = service.act("bank add -na -nr number -ac acronym -a bank");

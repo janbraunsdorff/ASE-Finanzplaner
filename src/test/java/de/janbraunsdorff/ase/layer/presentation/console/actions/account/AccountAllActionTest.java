@@ -14,7 +14,7 @@ public class AccountAllActionTest {
 
     @Test
     public void getAccountWithAllTags() throws BankNotFoundExecption {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAllAction service = new AccountAllAction(repo);
 
         Result act = service.act("account get -a acronym");
@@ -25,7 +25,7 @@ public class AccountAllActionTest {
 
     @Test
     public void getAccountWithValueMissing() throws BankNotFoundExecption {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAllAction service = new AccountAllAction(repo);
 
         Result act = service.act("account get -a");
@@ -35,7 +35,7 @@ public class AccountAllActionTest {
 
     @Test
     public void getAccountWithMissingTag() throws BankNotFoundExecption {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountAllAction service = new AccountAllAction(repo);
 
         Result act = service.act("account get");

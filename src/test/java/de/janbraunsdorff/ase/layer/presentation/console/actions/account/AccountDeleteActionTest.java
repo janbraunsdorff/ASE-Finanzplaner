@@ -14,7 +14,7 @@ public class AccountDeleteActionTest {
 
     @Test
     public void deleteAccountByAllGivenTags() throws AccountNotFoundException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountDeleteAction service = new AccountDeleteAction(repo);
 
         Result act = service.act("bank delete -a acronym");
@@ -25,7 +25,7 @@ public class AccountDeleteActionTest {
 
     @Test
     public void deleteAccountMissingTags() throws AccountNotFoundException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountDeleteAction service = new AccountDeleteAction(repo);
 
         Result act = service.act("bank delete");
@@ -35,7 +35,7 @@ public class AccountDeleteActionTest {
 
     @Test
     public void deleteAccountByMissingValueOfAcronym() throws AccountNotFoundException {
-        ICurdAccountTestImpl repo = new ICurdAccountTestImpl();
+        ICrudAccountTestImpl repo = new ICrudAccountTestImpl();
         AccountDeleteAction service = new AccountDeleteAction(repo);
 
         Result act = service.act("bank delete -a");

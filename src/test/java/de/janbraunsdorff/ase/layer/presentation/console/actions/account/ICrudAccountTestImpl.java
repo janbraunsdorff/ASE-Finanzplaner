@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoun
 import java.util.Collections;
 import java.util.List;
 
-public class ICurdAccountTestImpl implements ICrudAccount {
+public class ICrudAccountTestImpl implements ICrudAccount {
     protected String deleteAcronym;
     protected String getAcronym;
 
