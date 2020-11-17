@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
@@ -31,7 +32,7 @@ class MemoryRepositoryAccountTest {
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
-        repo.createAccountByBankId("ID", new AccountMemoryEntity("account", "123", "AC"));
+        repo.createAccountByBankId("ID", new Account("account", "123", "AC"));
 
         AccountMemoryEntity account = new ArrayList<>(memory.get("ID").getAccounts()).get(0);
 
@@ -44,7 +45,7 @@ class MemoryRepositoryAccountTest {
     public void createAccountBankNotExists(){
         MemoryRepository repo = new MemoryRepository();
 
-        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankId("ACC-ID", new AccountMemoryEntity("","","")));
+        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankId("ACC-ID", new Account("","","")));
         String expected = "Bank mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 
         assertThat(expected, is(exception.getMessage()));
@@ -63,7 +64,7 @@ class MemoryRepositoryAccountTest {
         memory.put("ID", entity);
 
 
-        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createAccountByBankId("ID", new AccountMemoryEntity("","","AC")));
+        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createAccountByBankId("ID", new Account("","","AC")));
         String expected = "Die Abkürzung AC existiert bereits im System";
 
         assertThat(expected, is(exception.getMessage()));
@@ -86,7 +87,7 @@ class MemoryRepositoryAccountTest {
         memory.put("ID2", entity2);
 
 
-        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createAccountByBankId("ID2", new AccountMemoryEntity("","","AC")));
+        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createAccountByBankId("ID2", new Account("","","AC")));
         String expected = "Die Abkürzung AC existiert bereits im System";
 
         assertThat(expected, is(exception.getMessage()));
@@ -104,7 +105,7 @@ class MemoryRepositoryAccountTest {
         memory.put("ID1", entity);
 
 
-        repo.createAccountByBankAcronym("bank1", new AccountMemoryEntity("name", "nr", "ac"));
+        repo.createAccountByBankAcronym("bank1", new Account("name", "nr", "ac"));
 
         AccountMemoryEntity account = new ArrayList<>(memory.get("ID1").getAccounts()).get(0);
         assertThat(account.getName(), is("name"));
@@ -117,7 +118,7 @@ class MemoryRepositoryAccountTest {
     public void createAccountByAcronymOfNonExistingBank(){
         MemoryRepository repo = new MemoryRepository();
 
-        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankAcronym("acc", new AccountMemoryEntity("","","")));
+        Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.createAccountByBankAcronym("acc", new Account("","","")));
         String expected = "Bank mit der ID oder der Abkürzung acc wurde nicht gefunden";
 
         assertThat(expected, is(exception.getMessage()));
@@ -135,7 +136,7 @@ class MemoryRepositoryAccountTest {
         entity1.addAccount(new AccountMemoryEntity("name", "123", "AC"));
         memory.put("ID1", entity1);
 
-        List<AccountMemoryEntity> accounts = repo.getAccountsOfBankByBankId("ID1");
+        List<Account> accounts = repo.getAccountsOfBankByBankId("ID1");
 
         assertThat(accounts.size(), is(1));
     }
@@ -163,7 +164,7 @@ class MemoryRepositoryAccountTest {
         entity1.addAccount(new AccountMemoryEntity("name", "123", "AC"));
         memory.put("ID1", entity1);
 
-        List<AccountMemoryEntity> accounts = repo.getAccountsOfBankByBankAcronym("bank1");
+        List<Account> accounts = repo.getAccountsOfBankByBankAcronym("bank1");
 
         assertThat(accounts.size(), is(1));
     }

@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.*;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
@@ -76,7 +77,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     // Account Repo
     // --------------------------------
     @Override
-    public AccountMemoryEntity createAccountByBankId(String bankId, AccountMemoryEntity entity) throws BankNotFoundExecption, AcronymAlreadyExistsException {
+    public Account createAccountByBankId(String bankId, Account entity) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         if (!this.memory.containsKey(bankId)) {
             throw new BankNotFoundExecption(bankId);
         }
@@ -91,32 +92,32 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new AcronymAlreadyExistsException(entity.getAcronym());
         }
 
-        this.memory.get(bankId).addAccount(entity);
+        this.memory.get(bankId).addAccount(new AccountMemoryEntity(entity));
         return entity;
     }
 
     @Override
-    public AccountMemoryEntity createAccountByBankAcronym(String acronym, AccountMemoryEntity account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
+    public Account createAccountByBankAcronym(String acronym, Account account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         String id = this.getBankByAcronym(acronym).getId();
         return this.createAccountByBankId(id, account);
     }
 
     @Override
-    public List<AccountMemoryEntity> getAccountsOfBankByBankId(String bankId) throws BankNotFoundExecption {
+    public List<Account> getAccountsOfBankByBankId(String bankId) throws BankNotFoundExecption {
         if (!this.memory.containsKey(bankId)) {
             throw new BankNotFoundExecption(bankId);
         }
-        return new ArrayList<>(this.memory.get(bankId).getAccounts());
+        return this.memory.get(bankId).getAccounts().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList());
     }
 
     @Override
-    public List<AccountMemoryEntity> getAccountsOfBankByBankAcronym(String bankAcronym) throws BankNotFoundExecption {
+    public List<Account> getAccountsOfBankByBankAcronym(String bankAcronym) throws BankNotFoundExecption {
         Optional<BankMemoryEntity> bank = this.memory.values().stream().filter(s -> s.getAcronym().equals(bankAcronym)).findFirst();
         if (!bank.isPresent()) {
             throw new BankNotFoundExecption(bankAcronym);
         }
 
-        return new ArrayList<>(bank.get().getAccounts());
+        return bank.get().getAccounts().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList());
     }
 
     @Override

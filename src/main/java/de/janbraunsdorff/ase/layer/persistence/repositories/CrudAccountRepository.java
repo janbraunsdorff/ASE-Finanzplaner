@@ -1,16 +1,17 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 
 import java.util.List;
 
 public interface CrudAccountRepository {
-    AccountMemoryEntity createAccountByBankAcronym(String acronym, AccountMemoryEntity account) throws BankNotFoundExecption, AcronymAlreadyExistsException;
-    AccountMemoryEntity createAccountByBankId(String bank, AccountMemoryEntity entity) throws BankNotFoundExecption, AcronymAlreadyExistsException;
+    Account createAccountByBankAcronym(String acronym, Account account) throws BankNotFoundExecption, AcronymAlreadyExistsException;
+    Account createAccountByBankId(String bank, Account entity) throws BankNotFoundExecption, AcronymAlreadyExistsException;
 
-    List<AccountMemoryEntity> getAccountsOfBankByBankId(String bank) throws BankNotFoundExecption;
-    List<AccountMemoryEntity> getAccountsOfBankByBankAcronym(String acronym) throws BankNotFoundExecption;
+    List<Account> getAccountsOfBankByBankId(String bank) throws BankNotFoundExecption;
+    List<Account> getAccountsOfBankByBankAcronym(String acronym) throws BankNotFoundExecption;
 
     void deleteAccountByAcronym(String acronym) throws AccountNotFoundException;
     void deleteAccountById(String id) throws AccountNotFoundException;

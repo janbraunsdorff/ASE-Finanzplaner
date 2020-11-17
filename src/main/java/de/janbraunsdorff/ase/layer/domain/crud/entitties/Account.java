@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.crud.entitties;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,5 +51,9 @@ public class Account {
 
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
+    }
+
+    public int getAmountOfAccountInCent() {
+        throw new NotImplementedException();
     }
 }

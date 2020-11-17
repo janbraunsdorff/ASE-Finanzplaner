@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
 import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.ErrorResult;
@@ -35,7 +36,7 @@ public class AccountAllAction implements Action {
 
     private Result get(Get method, String value) {
         try {
-            List<AccountMemoryEntity> get = method.get(value);
+            List<Account> get = method.get(value);
             return new AccountResult(get);
         } catch (IllegalArgumentException ex) {
             return new ErrorResult(ex.getMessage());
@@ -44,6 +45,6 @@ public class AccountAllAction implements Action {
     }
 
     private interface Get {
-        List<AccountMemoryEntity> get(String value);
+        List<Account> get(String value);
     }
 }

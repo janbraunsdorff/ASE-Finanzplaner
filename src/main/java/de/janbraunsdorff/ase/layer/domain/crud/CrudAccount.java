@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain.crud;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.persistence.repositories.CrudAccountRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ public class CrudAccount implements ICrudAccount {
     }
 
     @Override
-    public List<AccountMemoryEntity> getAccountsOfBank(String bankId) {
+    public List<Account> getAccountsOfBank(String bankId) {
         try {
             return this.repo.getAccountsOfBankByBankId(bankId);
         } catch (IllegalArgumentException ex) {
@@ -26,7 +26,7 @@ public class CrudAccount implements ICrudAccount {
     }
 
     @Override
-    public List<AccountMemoryEntity> getAccountsOfBankByAcronym(String acronym) {
+    public List<Account> getAccountsOfBankByAcronym(String acronym) {
         try {
             return this.repo.getAccountsOfBankByBankAcronym(acronym);
         } catch (IllegalArgumentException ex) {
@@ -37,24 +37,24 @@ public class CrudAccount implements ICrudAccount {
     }
 
     @Override
-    public AccountMemoryEntity createAccount(String id, AccountMemoryEntity account) {
+    public Account createAccount(String id, Account account) {
         try {
             return this.repo.createAccountByBankId(id, account);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return new AccountMemoryEntity("----", "----", "----");
+            return new Account("----", "----", "----");
         }
     }
 
     @Override
-    public AccountMemoryEntity createAccountByAcronym(String acronym, AccountMemoryEntity account) {
+    public Account createAccountByAcronym(String acronym, Account account) {
         try {
             return this.repo.createAccountByBankAcronym(acronym, account);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return new AccountMemoryEntity("----", "----", "----");
+            return new Account("----", "----", "----");
         }
     }
 

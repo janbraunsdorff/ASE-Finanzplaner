@@ -1,15 +1,16 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.account;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 
 public class AccountNewResult implements TypedResult<AccountMemoryEntity> {
 
-    private final AccountMemoryEntity account;
+    private final Account account;
 
-    public AccountNewResult(AccountMemoryEntity account) {
+    public AccountNewResult(Account account) {
         this.account = account;
     }
 
