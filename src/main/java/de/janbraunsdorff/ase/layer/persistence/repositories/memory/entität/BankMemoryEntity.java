@@ -59,13 +59,6 @@ public class BankMemoryEntity {
         this.accounts.remove(id);
     }
 
-    public int getAmountOfAccountsInCent() {
-        return this.accounts.values()
-                .stream()
-                .map(AccountMemoryEntity::getAmountOfAccountInCent)
-                .reduce(0, Integer::sum);
-    }
-
     public Bank convertToDomainEntity(){
         return new Bank(this.id, this.name, new ArrayList<>(this.accounts.values().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
     }

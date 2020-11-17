@@ -64,13 +64,6 @@ public class AccountMemoryEntity {
         return this.transactions.values();
     }
 
-    public int getAmountOfAccountInCent() {
-        return this.transactions.values()
-                .stream()
-                .map(TransactionMemoryEntity::getValue)
-                .reduce(0, Integer::sum);
-    }
-
     public void removeTransaction(String acronym) {
         this.transactions.remove(acronym);
     }
