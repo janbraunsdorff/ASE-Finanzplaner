@@ -87,7 +87,6 @@ public class App {
     private static Distributor buildBankDistributor(ICrudBank bankService) {
         return new DistributorBuilder(new BankHelpResult(), new BankDefaultAction())
                 .addCommand("all", new BankAllAction(bankService))
-                .addCommand("get", new BankGetAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))
                 .addCommand("delete", new BankDeleteAction(bankService))
                 .build();
