@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -33,6 +35,15 @@ public class TransactionMemoryEntity {
         this.isContract = isContract;
     }
 
+    public TransactionMemoryEntity(Transaction t) {
+        this.id = t.getId();
+        this.value = t.getValue();
+        this.date = t.getDate();
+        this.thirdParty = t.getThirdParty();
+        this.category = t.getCategory();
+        this.isContract = t.getContract();
+    }
+
     public String getId() {
         return id;
     }
@@ -55,5 +66,9 @@ public class TransactionMemoryEntity {
 
     public Boolean getContract() {
         return isContract;
+    }
+
+    public Transaction convertToDomain() {
+        return new Transaction(this.id, this.value, this.date, this.thirdParty, this.category, this.isContract);
     }
 }

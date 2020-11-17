@@ -2,7 +2,9 @@ package de.janbraunsdorff.ase.layer.domain.crud.entitties;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Bank {
     private final String id;
@@ -15,6 +17,13 @@ public class Bank {
         this.name = name;
         this.accounts = accounts;
         this.acronym = acronym;
+    }
+
+    public Bank(String name, String acronym) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.acronym = acronym;
+        this.accounts = new ArrayList<>();
     }
 
     public String getName() {
@@ -35,5 +44,9 @@ public class Bank {
 
     public int getAmountOfAccountsInCent() {
         throw new NotImplementedException();
+    }
+
+    public void addAccount(Account acc) {
+        this.accounts.add(acc);
     }
 }

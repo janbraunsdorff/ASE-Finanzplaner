@@ -23,7 +23,7 @@ public class CrudBankUseCaseTest implements ICrudBank {
     }
 
     @Override
-    public BankMemoryEntity create(BankMemoryEntity entity) {
+    public Bank create(Bank entity) {
         this.name = entity.getName();
         this.acronym = entity.getAcronym();
         this.id = entity.getId();

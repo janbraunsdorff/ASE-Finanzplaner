@@ -23,7 +23,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public Bank get(String id) {
         try {
-            return this.repo.getBanks(id).convertToDomainEntity();
+            return this.repo.getBanks(id);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
@@ -44,14 +44,14 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public BankMemoryEntity create(BankMemoryEntity entity) {
+    public Bank create(Bank entity) {
         try {
             this.repo.createBank(entity);
             return entity;
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {
-            return this.defaultEntity;
+            return this.defaultEntity.convertToDomainEntity();
         }
     }
 
@@ -81,7 +81,7 @@ public class CrudBank implements ICrudBank {
     @Override
     public Bank getByAcronym(String acronym) {
         try {
-            return this.repo.getBankByAcronym(acronym).convertToDomainEntity();
+            return this.repo.getBankByAcronym(acronym);
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception e) {

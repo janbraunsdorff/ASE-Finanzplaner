@@ -2,12 +2,10 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AccountMemoryEntity {
     private final String id;
@@ -33,6 +31,15 @@ public class AccountMemoryEntity {
         this.acronym = acronym;
     }
 
+    public AccountMemoryEntity(Account a) {
+        this.id = a.getId();
+        this.name = a.getName();
+        this.number = a.getNumber();
+        this.transactions = new HashMap<>();
+        a.getTransactions().forEach(t -> transactions.put(t.getId(), new TransactionMemoryEntity(t)));
+        this.acronym = a.getAcronym();
+    }
+
     public void addTransaction(TransactionMemoryEntity entity) {
         this.transactions.put(entity.getId(), entity);
     }
@@ -53,7 +60,7 @@ public class AccountMemoryEntity {
         return this.acronym;
     }
 
-    public Collection<TransactionMemoryEntity> getTransactionEntities(){
+    public Collection<TransactionMemoryEntity> getTransactionEntities() {
         return this.transactions.values();
     }
 
@@ -68,7 +75,7 @@ public class AccountMemoryEntity {
         this.transactions.remove(acronym);
     }
 
-    public  Account convertToDomain() {
-        return new Account();
+    public Account convertToDomain() {
+        return new Account(this.id, this.name, this.number, new ArrayList<Transaction>(this.transactions.values().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
     }
 }

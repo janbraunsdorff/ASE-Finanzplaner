@@ -11,7 +11,7 @@ public interface ICrudBank {
 
     List<Bank> get();
 
-    BankMemoryEntity create(BankMemoryEntity entity);
+    Bank create(Bank entity);
 
     void deleteByAcronym(String id);
 

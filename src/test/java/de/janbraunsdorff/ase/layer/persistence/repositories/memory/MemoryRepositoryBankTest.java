@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
+import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.persistence.repositories.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.repositories.IdAlreadyExitsException;
@@ -8,6 +9,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.Bank
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ class MemoryRepositoryBankTest {
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
-        BankMemoryEntity bank = repo.getBanks("ID");
+        Bank bank = repo.getBanks("ID");
 
         assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
@@ -57,7 +59,7 @@ class MemoryRepositoryBankTest {
         Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
         memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
-        BankMemoryEntity bank = repo.getBankByAcronym("acronym");
+        Bank bank = repo.getBankByAcronym("acronym");
 
         assertThat(bank.getId(), is("ID"));
         assertThat(bank.getName(), is("name"));
@@ -81,7 +83,7 @@ class MemoryRepositoryBankTest {
     @Test
     public void createBank() throws Exception {
         MemoryRepository repo = new MemoryRepository();
-        BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
+        Bank entity = new Bank("ID", "name", new ArrayList<>(), "acronym");
 
         repo.createBank(entity);
 
@@ -109,7 +111,7 @@ class MemoryRepositoryBankTest {
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
-        Exception exception = assertThrows(IdAlreadyExitsException.class, () -> repo.createBank(entity));
+        Exception exception = assertThrows(IdAlreadyExitsException.class, () -> repo.createBank(new Bank("ID", null, null, null)));
 
 
         String expectedMessage = "Die ID ID existiert bereits im System";
@@ -129,7 +131,7 @@ class MemoryRepositoryBankTest {
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("Key", entity);
 
-        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(entity));
+        Exception exception = assertThrows(AcronymAlreadyExistsException.class, () -> repo.createBank(new Bank(null, null, null, "acronym")));
 
 
         String expectedMessage = "Die Abkürzung acronym existiert bereits im System";

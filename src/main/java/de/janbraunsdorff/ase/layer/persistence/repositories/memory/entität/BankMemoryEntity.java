@@ -6,7 +6,6 @@ import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toCollection;
 
 public class BankMemoryEntity {
     private final String id;
@@ -27,6 +26,14 @@ public class BankMemoryEntity {
         this.name = name;
         this.accounts = new HashMap<>();
         this.acronym = acronym;
+    }
+
+    public BankMemoryEntity(Bank bankEntity) {
+        this.id = bankEntity.getId();
+        this.name = bankEntity.getName();
+        this.accounts = new HashMap<>();
+        bankEntity.getAccounts().forEach(a -> accounts.put(a.getId(), new AccountMemoryEntity(a)));
+        this.acronym = bankEntity.getAcronym();
     }
 
     public void addAccount(AccountMemoryEntity entity) {

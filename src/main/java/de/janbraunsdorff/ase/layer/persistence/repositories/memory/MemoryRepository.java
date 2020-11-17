@@ -17,14 +17,14 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     private final Map<String, BankMemoryEntity> memory = new HashMap<>();
 
     @Override
-    public BankMemoryEntity getBanks(String id) throws BankNotFoundExecption {
+    public Bank getBanks(String id) throws BankNotFoundExecption {
         if (!this.memory.containsKey(id)) {
             throw new BankNotFoundExecption(id);
         }
-        return this.memory.get(id);
+        return this.memory.get(id).convertToDomainEntity();
     }
 
-    public BankMemoryEntity getBankByAcronym(String acronym) throws BankNotFoundExecption {
+    public Bank getBankByAcronym(String acronym) throws BankNotFoundExecption {
         Optional<BankMemoryEntity> first = this.memory.values().stream().
                 filter(s -> s.getAcronym().equals(acronym)).
                 findFirst();
@@ -32,7 +32,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         if (!first.isPresent()) {
             throw new BankNotFoundExecption(acronym);
         }
-        return first.get();
+        return first.get().convertToDomainEntity();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public void createBank(BankMemoryEntity bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
         if (this.memory.containsKey(bankEntity.getId())) {
             throw new IdAlreadyExitsException(bankEntity.getId());
         }
@@ -55,7 +55,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
             throw new AcronymAlreadyExistsException(bankEntity.getAcronym());
         }
 
-        this.memory.put(bankEntity.getId(), bankEntity);
+        this.memory.put(bankEntity.getId(), new BankMemoryEntity(bankEntity));
     }
 
     @Override
