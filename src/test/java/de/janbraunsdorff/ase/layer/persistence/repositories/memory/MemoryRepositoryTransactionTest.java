@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.persistence.repositories.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.persistence.repositories.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.AccountEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.BankEntity;
 import de.janbraunsdorff.ase.layer.persistence.repositories.entität.TransactionEntity;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -153,6 +153,38 @@ class MemoryRepositoryTransactionTest {
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountAcronym("ACC-ac"));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ac wurde nicht gefunden";
+
+        assertThat(ex.getMessage(), is(expected));
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deleteTransactionById() throws Exception {
+        MemoryRepository repo = new MemoryRepository();
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        Map<String, BankEntity> memory = (HashMap<String, BankEntity>) field;
+        BankEntity entity = new BankEntity("ID", "name", "acronym");
+        AccountEntity account = new AccountEntity("ACC-ID", "name", "nr", "ac");
+        TransactionEntity transact = new TransactionEntity("Trans-ID", 1, "", "", false);
+        account.addTransaction(transact);
+        entity.addAccount(account);
+        memory.put("ID", entity);
+
+        repo.deleteTransactionById(transact.getId());
+
+        assertThat(account.getTransactionEntities().size(), is(0));
+    }
+
+    @Test
+    public void deleteTransactionAccountNotExistsId() {
+        MemoryRepository repo = new MemoryRepository();
+
+        Exception ex = assertThrows(TransactionNotFoundException.class, () -> repo.deleteTransactionById("ACC-ac"));
+
+        String expected = "Transaktion mit der ID ACC-ac wurde nicht gefunden";
 
         assertThat(ex.getMessage(), is(expected));
     }

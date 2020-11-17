@@ -64,4 +64,8 @@ public class AccountEntity {
                 .map(TransactionEntity::getValue)
                 .reduce(0, Integer::sum);
     }
+
+    public void removeTransaction(String acronym) {
+        this.transactions.remove(acronym);
+    }
 }

@@ -145,8 +145,6 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         if (!found.get()) {
             throw new AccountNotFoundException(key);
         }
-
-
     }
 
     // --------------------
@@ -162,14 +160,41 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
     }
 
     @Override
-    public List<TransactionEntity> getTransactionByAccountId(String id) throws Exception{
+    public List<TransactionEntity> getTransactionByAccountId(String id) throws Exception {
         return getTransactions(id, a -> a.getId().equals(id));
     }
 
     @Override
-    public List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws Exception{
-       return getTransactions(acronym, a -> a.getAcronym().equals(acronym));
+    public List<TransactionEntity> getTransactionByAccountAcronym(String acronym) throws Exception {
+        return getTransactions(acronym, a -> a.getAcronym().equals(acronym));
     }
+
+    public void deleteTransactionById(String acronym) throws TransactionNotFoundException{
+        AtomicBoolean found = new AtomicBoolean(false);
+        this.memory.values()
+                .stream()
+                .flatMap(a -> a.getAccounts().stream())
+                .forEach(acc -> {
+                    Optional<TransactionEntity> first = acc.getTransactionEntities()
+                            .stream()
+                            .filter(a -> a.getId().equals(acronym))
+                            .findFirst();
+
+                    first.ifPresent( e -> {
+                        acc.removeTransaction(acronym);
+                        found.set(true);
+                    });
+                });
+
+        if (!found.get()){
+            throw new TransactionNotFoundException(acronym);
+        }
+
+
+
+    }
+
+
 
     private List<TransactionEntity> getTransactions(String key, Predicate<AccountEntity> predicate) throws AccountNotFoundException {
         Optional<AccountEntity> account = this.memory.values()
@@ -178,7 +203,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
                 .filter(predicate)
                 .findFirst();
 
-        if (!account.isPresent()){
+        if (!account.isPresent()) {
             throw new AccountNotFoundException(key);
         }
         return new ArrayList<>(account.get().getTransactionEntities());
@@ -198,6 +223,7 @@ public class MemoryRepository implements CrudBankRepository, CrudAccountReposito
         account.get().addTransaction(entity);
         return entity;
     }
+
 
 
 }
