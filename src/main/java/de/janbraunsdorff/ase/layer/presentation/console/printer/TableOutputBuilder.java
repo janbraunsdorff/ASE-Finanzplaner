@@ -20,6 +20,7 @@ public class TableOutputBuilder extends OutputBuilder {
 
     public TableOutputBuilder addTableHeader(int width, String name) {
         this.addTableVerticalDivider();
+        width = Math.max(width, name.length());
         this.addText(String.format("%-" + width + "s", name));
         this.width.add(width);
         return this;
