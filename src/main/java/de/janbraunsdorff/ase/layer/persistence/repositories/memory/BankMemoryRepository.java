@@ -4,7 +4,6 @@ import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class BankMemoryRepository implements CrudBankRepository {
     }
 
     @Override
-    public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException {
         if (this.repo.memory.containsKey(bankEntity.getAcronym())){
             throw new AcronymAlreadyExistsException(bankEntity.getAcronym());
         }

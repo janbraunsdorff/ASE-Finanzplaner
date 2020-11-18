@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankNewResult;
@@ -13,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 
 public class BankAddActionTest {
     @Test
-    public void bankCreateIfAllTagsArePresent() throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void bankCreateIfAllTagsArePresent() throws AcronymAlreadyExistsException {
         ICrudBankTestImpl service = new ICrudBankTestImpl();
         BankAddAction action = new BankAddAction(service);
 
@@ -25,7 +24,7 @@ public class BankAddActionTest {
     }
 
     @Test
-    public void bankCreateIfTagAcronymIsMissing() throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void bankCreateIfTagAcronymIsMissing() throws AcronymAlreadyExistsException {
         ICrudBankTestImpl service = new ICrudBankTestImpl();
         BankAddAction action = new BankAddAction(service);
 
@@ -35,7 +34,7 @@ public class BankAddActionTest {
     }
 
     @Test
-    public void bankCreateIfTagNameIsMissing() throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void bankCreateIfTagNameIsMissing() throws AcronymAlreadyExistsException {
         ICrudBankTestImpl service = new ICrudBankTestImpl();
         BankAddAction action = new BankAddAction(service);
 
@@ -45,7 +44,7 @@ public class BankAddActionTest {
     }
 
     @Test
-    public void bankCreateIfValueOfTagNameIsMissing() throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void bankCreateIfValueOfTagNameIsMissing() throws AcronymAlreadyExistsException {
         ICrudBankTestImpl service = new ICrudBankTestImpl();
         BankAddAction action = new BankAddAction(service);
 
@@ -55,7 +54,7 @@ public class BankAddActionTest {
     }
 
     @Test
-    public void bankCreateIfValueOfAcronymIsMissing() throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public void bankCreateIfValueOfAcronymIsMissing() throws AcronymAlreadyExistsException {
         ICrudBankTestImpl service = new ICrudBankTestImpl();
         BankAddAction action = new BankAddAction(service);
 

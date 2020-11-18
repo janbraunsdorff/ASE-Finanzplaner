@@ -5,7 +5,6 @@ import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class CrudBank implements ICrudBank {
     }
 
     @Override
-    public Bank create(Bank entity) throws AcronymAlreadyExistsException, IdAlreadyExitsException {
+    public Bank create(Bank entity) throws AcronymAlreadyExistsException {
         this.repo.createBank(entity);
         return entity;
     }
