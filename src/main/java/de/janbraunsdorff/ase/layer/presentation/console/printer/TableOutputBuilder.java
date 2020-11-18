@@ -27,6 +27,7 @@ public class TableOutputBuilder extends OutputBuilder {
     }
 
     public TableOutputBuilder finishFirstLine() {
+        this.addTableVerticalDivider();
         this.lastIndex = 0;
         this.isFirstRow = false;
         this.addNewLine();
