@@ -17,7 +17,6 @@ public class TransactionMemoryRepository implements CrudTransactionRepository {
     private final MemoryRepository repo;
     private Integer lastIndex = 0;
 
-
     public TransactionMemoryRepository(MemoryRepository repo) {
         this.repo = repo;
     }
@@ -63,12 +62,7 @@ public class TransactionMemoryRepository implements CrudTransactionRepository {
         if (!found.get()){
             throw new TransactionNotFoundException(acronym.toString());
         }
-
-
-
     }
-
-
 
     private List<Transaction> getTransactions(String key, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
         Optional<AccountMemoryEntity> account = this.repo.memory.values()
@@ -82,7 +76,6 @@ public class TransactionMemoryRepository implements CrudTransactionRepository {
         }
         return account.get().getTransactionEntities().stream().map(repo::convertToDomain).collect(Collectors.toList());
     }
-
 
     private Transaction createTransaction(String key, Transaction entity, Predicate<AccountMemoryEntity> predicate) throws AccountNotFoundException {
         Optional<AccountMemoryEntity> account = this.repo.memory.values().stream()

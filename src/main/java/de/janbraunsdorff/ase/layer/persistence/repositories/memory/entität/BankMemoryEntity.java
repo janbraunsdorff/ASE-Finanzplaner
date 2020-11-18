@@ -38,6 +38,4 @@ public class BankMemoryEntity {
     public void removeAccount(String id) {
         this.accounts.remove(id);
     }
-
-
 }

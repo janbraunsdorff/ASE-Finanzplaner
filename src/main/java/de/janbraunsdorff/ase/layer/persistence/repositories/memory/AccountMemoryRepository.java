@@ -110,6 +110,4 @@ public class AccountMemoryRepository implements CrudAccountRepository {
             throw new AccountNotFoundException(key);
         }
     }
-
-
 }

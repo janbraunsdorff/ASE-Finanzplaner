@@ -53,5 +53,4 @@ public class AccountMemoryEntity {
     public void removeTransaction(Integer acronym) {
         this.transactions.remove(acronym);
     }
-
 }
