@@ -1,11 +1,6 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
-
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AccountMemoryEntity {
     private final String id;
@@ -29,14 +24,6 @@ public class AccountMemoryEntity {
         this.number = number;
         this.transactions = new HashMap<>();
         this.acronym = acronym;
-    }
-
-    public AccountMemoryEntity(Account a) {
-        this.id = UUID.randomUUID().toString();
-        this.name = a.getName();
-        this.number = a.getNumber();
-        this.transactions = new HashMap<>();
-        this.acronym = a.getAcronym();
     }
 
     public void addTransaction(TransactionMemoryEntity entity) {
@@ -67,7 +54,4 @@ public class AccountMemoryEntity {
         this.transactions.remove(acronym);
     }
 
-    public Account convertToDomain() {
-        return new Account(this.name, this.number, new ArrayList<Transaction>(this.transactions.values().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList())), this.acronym);
-    }
 }

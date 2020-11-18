@@ -80,7 +80,7 @@ public class TransactionMemoryRepository implements CrudTransactionRepository {
         if (!account.isPresent()) {
             throw new AccountNotFoundException(key);
         }
-        return account.get().getTransactionEntities().stream().map(TransactionMemoryEntity::convertToDomain).collect(Collectors.toList());
+        return account.get().getTransactionEntities().stream().map(repo::convertToDomain).collect(Collectors.toList());
     }
 
 
@@ -94,7 +94,7 @@ public class TransactionMemoryRepository implements CrudTransactionRepository {
             throw new AccountNotFoundException(key);
         }
 
-        account.get().addTransaction(new TransactionMemoryEntity(entity, lastIndex++));
+        account.get().addTransaction(repo.convertToEntity(entity, lastIndex++));
         return entity;
     }
 }

@@ -37,7 +37,7 @@ public class AccountMemoryRepository implements CrudAccountRepository {
             throw new AcronymAlreadyExistsException(entity.getAcronym());
         }
 
-        this.repo.memory.get(bankId).addAccount(new AccountMemoryEntity(entity));
+        this.repo.memory.get(bankId).addAccount(repo.convertToEntity(entity));
         return entity;
     }
 
@@ -45,7 +45,7 @@ public class AccountMemoryRepository implements CrudAccountRepository {
     public Account createAccountByBankAcronym(String acronym, Account account) throws BankNotFoundExecption, AcronymAlreadyExistsException {
         Optional<BankMemoryEntity> first = this.repo.memory.values().stream().filter(b -> b.getAcronym().equals(acronym)).findFirst();
 
-        if (!first.isPresent()){
+        if (!first.isPresent()) {
             throw new BankNotFoundExecption(acronym);
         }
 
@@ -59,7 +59,7 @@ public class AccountMemoryRepository implements CrudAccountRepository {
             throw new AcronymAlreadyExistsException(account.getAcronym());
         }
 
-        first.get().addAccount(new AccountMemoryEntity(account));
+        first.get().addAccount(repo.convertToEntity(account));
         return account;
     }
 
@@ -68,7 +68,7 @@ public class AccountMemoryRepository implements CrudAccountRepository {
         if (!this.repo.memory.containsKey(bankId)) {
             throw new BankNotFoundExecption(bankId);
         }
-        return this.repo.memory.get(bankId).getAccounts().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList());
+        return this.repo.memory.get(bankId).getAccounts().stream().map(repo::convertToDomain).collect(Collectors.toList());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AccountMemoryRepository implements CrudAccountRepository {
             throw new BankNotFoundExecption(bankAcronym);
         }
 
-        return bank.get().getAccounts().stream().map(AccountMemoryEntity::convertToDomain).collect(Collectors.toList());
+        return bank.get().getAccounts().stream().map(repo::convertToDomain).collect(Collectors.toList());
     }
 
     @Override
@@ -110,4 +110,6 @@ public class AccountMemoryRepository implements CrudAccountRepository {
             throw new AccountNotFoundException(key);
         }
     }
+
+
 }

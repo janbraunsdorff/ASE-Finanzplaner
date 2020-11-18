@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BankMemoryRepository implements CrudBankRepository {
-    private MemoryRepository repo;
+    private final MemoryRepository repo;
 
     public BankMemoryRepository(MemoryRepository repo) {
         this.repo = repo;
@@ -23,7 +23,7 @@ public class BankMemoryRepository implements CrudBankRepository {
         if (!this.repo.memory.containsKey(id)) {
             throw new BankNotFoundExecption(id);
         }
-        return this.repo.memory.get(id).convertToDomainEntity();
+        return repo.convertToDomain(this.repo.memory.get(id));
     }
 
     public Bank getBankByAcronym(String acronym) throws BankNotFoundExecption {
@@ -34,12 +34,12 @@ public class BankMemoryRepository implements CrudBankRepository {
         if (!first.isPresent()) {
             throw new BankNotFoundExecption(acronym);
         }
-        return first.get().convertToDomainEntity();
+        return repo.convertToDomain(first.get());
     }
 
     @Override
     public List<Bank> getBanks() {
-        return this.repo.memory.values().stream().map(BankMemoryEntity::convertToDomainEntity).collect(Collectors.toList());
+        return this.repo.memory.values().stream().map(repo::convertToDomain).collect(Collectors.toList());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class BankMemoryRepository implements CrudBankRepository {
             throw new AcronymAlreadyExistsException(bankEntity.getAcronym());
         }
 
-        this.repo.memory.put(bankEntity.getAcronym(), new BankMemoryEntity(bankEntity));
+        this.repo.memory.put(bankEntity.getAcronym(), repo.convertToEntity(bankEntity));
     }
 
     @Override
