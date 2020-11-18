@@ -8,7 +8,11 @@ import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.AccountMemoryRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.BankMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.TransactionMemoryRepository;
+import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
@@ -35,12 +39,17 @@ public class App {
         System.out.println("Dein Finanzplaner wird aufgebaut");
 //      ++++ create Persistence layer ++++
         MemoryRepository repo = new MemoryRepository();
-        repo.createBank(createVolksbank()); // Create Demo Data Volksbank
-        repo.createBank(createSpasskasse()); // Create Demo Data Spaßkasse
+        BankMemoryRepository bankRepo = new BankMemoryRepository(repo);
+        AccountMemoryRepository accountRepo = new AccountMemoryRepository(repo);
+        TransactionMemoryRepository transactionRepo = new TransactionMemoryRepository(repo);
+        
+
+        bankRepo.createBank(createVolksbank()); // Create Demo Data Volksbank
+        bankRepo.createBank(createSpasskasse()); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
-        ICrudAccount accountService = new CrudAccount(repo);
-        ICrudBank bankService = new CrudBank(repo);
+        ICrudAccount accountService = new CrudAccount(accountRepo);
+        ICrudBank bankService = new CrudBank(bankRepo);
 
 
 //      ++++ create presentation / input layer +++

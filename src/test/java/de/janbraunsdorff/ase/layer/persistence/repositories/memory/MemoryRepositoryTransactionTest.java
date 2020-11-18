@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudTransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
@@ -19,14 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MemoryRepositoryTransactionTest {
 
-    @SuppressWarnings("unchecked")
     @Test
     public void createTransaction() throws Exception {
-        CrudTransactionRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
@@ -46,7 +42,8 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void createTransactionAccountNotExists() {
-        CrudTransactionRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
 
@@ -56,14 +53,11 @@ class MemoryRepositoryTransactionTest {
     }
 
 
-    @SuppressWarnings("unchecked")
     @Test
     public void createTransactionById() throws Exception {
-        CrudTransactionRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         entity.addAccount(new AccountMemoryEntity("ACC-ID", "name", "nr", "ac"));
         memory.put("ID", entity);
@@ -82,7 +76,8 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void createTransactionAccountNotExistsId() {
-        CrudTransactionRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
 
@@ -91,14 +86,11 @@ class MemoryRepositoryTransactionTest {
         assertThat(ex.getMessage(), is(expected));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void getTransactionById() throws Exception {
-        CrudTransactionRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
         account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1));
@@ -115,7 +107,8 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void getTransactionAccountNotExistsId() {
-        CrudTransactionRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountId("ACC-ID"));
 
@@ -124,14 +117,11 @@ class MemoryRepositoryTransactionTest {
         assertThat(ex.getMessage(), is(expected));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void getTransactionByAcronym() throws Exception {
-        CrudTransactionRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
         account.addTransaction(new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1));
@@ -148,8 +138,8 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void getTransactionAccountNotExistsAcronym() {
-        CrudTransactionRepository repo = new MemoryRepository();
-
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
         Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.getTransactionByAccountAcronym("ACC-ac"));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ac wurde nicht gefunden";
@@ -158,14 +148,11 @@ class MemoryRepositoryTransactionTest {
     }
 
 
-    @SuppressWarnings("unchecked")
     @Test
     public void deleteTransactionById() throws Exception {
-        CrudTransactionRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         AccountMemoryEntity account = new AccountMemoryEntity("ACC-ID", "name", "nr", "ac");
         TransactionMemoryEntity transact = new TransactionMemoryEntity("Trans-ID", 1, "", "", false, 1);
@@ -180,7 +167,8 @@ class MemoryRepositoryTransactionTest {
 
     @Test
     public void deleteTransactionAccountNotExistsId() {
-        CrudTransactionRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
         Exception ex = assertThrows(TransactionNotFoundException.class, () -> repo.deleteTransactionById(0));
 
@@ -189,7 +177,13 @@ class MemoryRepositoryTransactionTest {
         assertThat(ex.getMessage(), is(expected));
     }
 
-
+    @SuppressWarnings("unchecked")
+    private Map<String, BankMemoryEntity> getMemory(MemoryRepository repo) throws NoSuchFieldException, IllegalAccessException {
+        Field f = repo.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(repo);
+        return (Map<String, BankMemoryEntity>)  field;
+    }
 
 }
 

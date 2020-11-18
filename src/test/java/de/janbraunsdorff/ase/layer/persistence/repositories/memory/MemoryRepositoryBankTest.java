@@ -2,10 +2,8 @@ package de.janbraunsdorff.ase.layer.persistence.repositories.memory;
 
 
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.CrudBankRepository;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.IdAlreadyExitsException;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.BankMemoryEntity;
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MemoryRepositoryBankTest {
 
-    @SuppressWarnings("unchecked")
+
     @Test
     public void getExistingBankByGivenId() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
         Bank bank = repo.getBanks("ID");
@@ -38,9 +34,18 @@ class MemoryRepositoryBankTest {
 
     }
 
+    @SuppressWarnings("unchecked")
+    private Map<String, BankMemoryEntity> getMemory(MemoryRepository base) throws NoSuchFieldException, IllegalAccessException {
+        Field f = base.getClass().getDeclaredField("memory");
+        f.setAccessible(true);
+        Object field = f.get(base);
+        return (Map<String, BankMemoryEntity>) field;
+    }
+
     @Test()
     public void getNoneExistingBankByGivenId() {
-        CrudBankRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBanks("ID"));
 
@@ -50,14 +55,11 @@ class MemoryRepositoryBankTest {
         assertThat(actualMessage, is(expectedMessage));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void getExistingBankByGivenAcronym() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         memory.put("ID", new BankMemoryEntity("ID", "name", "acronym"));
 
         Bank bank = repo.getBankByAcronym("acronym");
@@ -67,9 +69,10 @@ class MemoryRepositoryBankTest {
 
     }
 
-    @Test()
+    @Test
     public void getNoneExistingBankByGivenAcronym() {
-        CrudBankRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
 
         Exception exception = assertThrows(BankNotFoundExecption.class, () -> repo.getBankByAcronym("ID"));
 
@@ -79,19 +82,16 @@ class MemoryRepositoryBankTest {
         assertThat(actualMessage, is(expectedMessage));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void createBank() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
         Bank entity = new Bank("name", new ArrayList<>(), "acronym");
 
         repo.createBank(entity);
 
 
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        Map<String, BankMemoryEntity> memory = getMemory(base);
 
         BankMemoryEntity repoEntity = memory.get("acronym");
 
@@ -99,14 +99,11 @@ class MemoryRepositoryBankTest {
         assertThat(repoEntity.getName(), is(entity.getName()));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void createBankWithExistingId() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("acronym", entity);
 
@@ -119,14 +116,11 @@ class MemoryRepositoryBankTest {
         assertThat(actualMessage, is(expectedMessage));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void createBankWithExistingAcronym() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("Key", entity);
 
@@ -139,14 +133,11 @@ class MemoryRepositoryBankTest {
         assertThat(actualMessage, is(expectedMessage));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void deleteBankById() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
@@ -156,14 +147,11 @@ class MemoryRepositoryBankTest {
 
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void deleteBankByAcronym() throws Exception {
-        CrudBankRepository repo = new MemoryRepository();
-        Field f = repo.getClass().getDeclaredField("memory");
-        f.setAccessible(true);
-        Object field = f.get(repo);
-        Map<String, BankMemoryEntity> memory = (HashMap<String, BankMemoryEntity>) field;
+        MemoryRepository base = new MemoryRepository();
+        BankMemoryRepository repo = new BankMemoryRepository(base);
+        Map<String, BankMemoryEntity> memory = getMemory(base);
         BankMemoryEntity entity = new BankMemoryEntity("ID", "name", "acronym");
         memory.put("ID", entity);
 
