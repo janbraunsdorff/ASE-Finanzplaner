@@ -1,14 +1,19 @@
 package de.janbraunsdorff.ase;
 
 
-import de.janbraunsdorff.ase.layer.domain.crud.*;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.AccountMemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.BankMemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.TransactionMemoryRepository;
+import de.janbraunsdorff.ase.layer.domain.bank.BankService;
+import de.janbraunsdorff.ase.layer.domain.account.AccountService;
+import de.janbraunsdorff.ase.layer.domain.transaction.*;
+import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.bank.Bank;
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.persistence.memory.AccountMemoryRepository;
+import de.janbraunsdorff.ase.layer.persistence.memory.BankMemoryRepository;
+import de.janbraunsdorff.ase.layer.persistence.memory.TransactionMemoryRepository;
+import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
+import de.janbraunsdorff.ase.layer.presentation.BankApplication;
+import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
@@ -28,26 +33,24 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.Trans
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
         System.out.println("Dein Finanzplaner wird aufgebaut");
 //      ++++ create Persistence layer ++++
-        MemoryRepository repo = new MemoryRepository();
-        BankMemoryRepository bankRepo = new BankMemoryRepository(repo);
-        AccountMemoryRepository accountRepo = new AccountMemoryRepository(repo);
-        TransactionMemoryRepository transactionRepo = new TransactionMemoryRepository(repo);
+        BankMemoryRepository bankRepo = new BankMemoryRepository();
+        AccountMemoryRepository accountRepo = new AccountMemoryRepository();
+        TransactionMemoryRepository transactionRepo = new TransactionMemoryRepository();
         
 
-        bankRepo.createBank(createVolksbank()); // Create Demo Data Volksbank
-        bankRepo.createBank(createSpasskasse()); // Create Demo Data Spaßkasse
+        createVolksbank(bankRepo, accountRepo, transactionRepo); // Create Demo Data Volksbank
+        createSpasskasse(bankRepo, accountRepo); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
-        ICrudAccount accountService = new CrudAccount(accountRepo);
-        ICrudBank bankService = new CrudBank(bankRepo);
-        ICrudTransaction transactionService = new CrudTransaction(transactionRepo);
+        AccountService accountService = new AccountService(accountRepo, bankRepo, transactionRepo);
+        BankService bankService = new BankService(bankRepo, accountRepo, transactionRepo);
+        TransactionService transactionService = new TransactionService(transactionRepo, accountRepo);
 
 
 //      ++++ create presentation / input layer +++
@@ -77,13 +80,13 @@ public class App {
         }
     }
 
-    private static Distributor createTransactionDistributor(ICrudTransaction service) {
+    private static Distributor createTransactionDistributor(TransactionApplication service) {
         return new DistributorBuilder(new TransactionHelpResult(), new TransactionDefaultAction())
                 .addCommand("all", new TransactionAllAction(service))
                 .build();
     }
 
-    private static Distributor createAccountDistributor(ICrudAccount accountService) {
+    private static Distributor createAccountDistributor(AccountApplication accountService) {
         return new DistributorBuilder(new AccountHelpResult(), new AccountDefaultAction())
                 .addCommand("all", new AccountAllAction(accountService))
                 .addCommand("add", new AccountAddAction(accountService))
@@ -91,7 +94,7 @@ public class App {
                 .build();
     }
 
-    private static Distributor buildBankDistributor(ICrudBank bankService) {
+    private static Distributor buildBankDistributor(BankApplication bankService) {
         return new DistributorBuilder(new BankHelpResult(), new BankDefaultAction())
                 .addCommand("all", new BankAllAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))
@@ -99,42 +102,31 @@ public class App {
                 .build();
     }
 
-    private static Bank createVolksbank() {
+    private static void createVolksbank(BankMemoryRepository bankRepo, AccountMemoryRepository accountRepo, TransactionMemoryRepository transactionRepo) throws AcronymAlreadyExistsException {
         Bank vb = new Bank("Volksbank Karlsruhe eG", "VB");
+        bankRepo.createBank(vb);
 
-        Account acc0 = new Account("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
-        acc0.addTransaction(new Transaction(10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false, 1));
-        acc0.addTransaction(new Transaction(-5000, LocalDate.now(), "Aldi", "Einkaufen", false, 2));
-        vb.addAccount(acc0);
+        Account acc0 = new Account(vb.getId(), "Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
+        accountRepo.createAccount(acc0);
 
+        transactionRepo.createTransaction(new Transaction(acc0.getId(), 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false, 1));
+        transactionRepo.createTransaction(new Transaction(acc0.getId(), -5000, LocalDate.now(), "Aldi", "Einkaufen", false, 2));
 
-        Account acc1 = new Account("Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA");
-        vb.addAccount(acc1);
+        accountRepo.createAccount(new Account(vb.getId(), "Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA"));
+        accountRepo.createAccount(new Account(vb.getId(), "Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK"));
+        accountRepo.createAccount(new Account(vb.getId(), "Depot", "DE00 0000 0000 0000 0000 03", "VB-DT"));
 
-
-        Account acc2 = new Account("Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK");
-        vb.addAccount(acc2);
-
-        Account acc3 = new Account("Depot", "DE00 0000 0000 0000 0000 03", "VB-DT");
-        vb.addAccount(acc3);
-
-        return vb;
     }
 
-    private static Bank createSpasskasse() {
+    private static Bank createSpasskasse(BankMemoryRepository bankRepo, AccountMemoryRepository accountRepo) throws AcronymAlreadyExistsException {
         Bank sk = new Bank("Spaßkasse", "SK");
+        bankRepo.createBank(sk);
 
-        Account acc0 = new Account("Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK");
-        sk.addAccount(acc0);
 
-        Account acc1 = new Account("Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK");
-        sk.addAccount(acc1);
-
-        Account acc2 = new Account("Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL");
-        sk.addAccount(acc2);
-
-        Account acc3 = new Account("Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV");
-        sk.addAccount(acc3);
+        accountRepo.createAccount(new Account(sk.getId(), "Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK"));
+        accountRepo.createAccount(new Account(sk.getId(), "Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK"));
+        accountRepo.createAccount(new Account(sk.getId(), "Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL"));
+        accountRepo.createAccount(new Account(sk.getId(), "Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV"));
 
         return sk;
     }

@@ -1,7 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankDeleteResult;
@@ -11,10 +12,10 @@ import java.util.Map;
 
 public class BankDeleteAction implements Action {
 
-    private final ICrudBank crudBank;
+    private final BankApplication service;
 
-    public BankDeleteAction(ICrudBank crudBank) {
-        this.crudBank = crudBank;
+    public BankDeleteAction(BankApplication service) {
+        this.service = service;
     }
 
 
@@ -28,7 +29,9 @@ public class BankDeleteAction implements Action {
         }
 
         String value = tags.get("-a");
-        this.crudBank.deleteByAcronym(value);
+
+        this.service.deleteByAcronym(new BankDeleteCommand(value));
+
         return new BankDeleteResult(value);
     }
 }

@@ -1,8 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.domain.account.AccountGetQuery;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
@@ -13,21 +15,20 @@ import java.util.Map;
 
 public class AccountAllAction implements Action {
 
-    private final ICrudAccount service;
+    private final AccountApplication service;
 
-    public AccountAllAction(ICrudAccount service) {
+    public AccountAllAction(AccountApplication service) {
         this.service = service;
     }
 
     @Override
-    public Result act(String command) throws BankNotFoundExecption {
+    public Result act(String command) throws BankNotFoundExecption, AccountNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsAndValuesPresent(tags, "-a")) {
             return new AccountHelpResult();
         }
 
-        String acronym = tags.get("-a");
-        List<Account> get = service.getAccountsOfBankByAcronym(acronym);
-        return new AccountResult(get);
+        List<AccountDTO> accountsOfBank = service.getAccountsOfBank(new AccountGetQuery(tags.get("-a")));
+        return new AccountResult(accountsOfBank);
     }
 }

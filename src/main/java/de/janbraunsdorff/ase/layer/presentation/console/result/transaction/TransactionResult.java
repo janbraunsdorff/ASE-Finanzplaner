@@ -1,20 +1,20 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TransactionResult implements TypedResult<Transaction> {
-    private final List<Transaction> transactions;
+public class TransactionResult implements TypedResult<TransactionDTO> {
+    private final List<TransactionDTO> transactions;
     private final TableOutputBuilder builder;
     private final int lengthThirdParty;
     private final int lengthCategory;
     private final DateTimeFormatter dtFormatter;
 
-    public TransactionResult(List<Transaction> transactions) {
+    public TransactionResult(List<TransactionDTO> transactions) {
         this.transactions = transactions;
         this.builder = new TableOutputBuilder();
         this.lengthThirdParty = getMax(v -> v.getThirdParty().length(), transactions);
@@ -37,7 +37,7 @@ public class TransactionResult implements TypedResult<Transaction> {
         return builder.build();
     }
 
-    private void print(Transaction t){
+    private void print(TransactionDTO t){
         builder.addLine()
                 .addEntry(t.getThirdParty())
                 .addEntry(this.dtFormatter.format(t.getDate()))

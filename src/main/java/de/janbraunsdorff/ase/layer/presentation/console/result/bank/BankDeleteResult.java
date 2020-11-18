@@ -1,6 +1,5 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.bank;
 
-
 import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 

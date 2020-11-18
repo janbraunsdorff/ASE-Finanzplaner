@@ -1,8 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
+import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
@@ -12,10 +13,10 @@ import java.util.Map;
 
 public class BankAddAction implements Action {
 
-    private final ICrudBank crudBank;
+    private final BankApplication service;
 
-    public BankAddAction(ICrudBank crudBank) {
-        this.crudBank = crudBank;
+    public BankAddAction(BankApplication service) {
+        this.service = service;
     }
 
     @Override
@@ -27,9 +28,10 @@ public class BankAddAction implements Action {
 
         String name = tags.get("-n");
         String acronym = tags.get("-a");
-        Bank entity = new Bank(name, acronym);
-        entity = this.crudBank.create(entity);
 
-        return new BankNewResult(entity);
+        BankDTO bankDTO = this.service.create(new BankCreateCommand(name, acronym));
+
+
+        return new BankNewResult(bankDTO);
     }
 }

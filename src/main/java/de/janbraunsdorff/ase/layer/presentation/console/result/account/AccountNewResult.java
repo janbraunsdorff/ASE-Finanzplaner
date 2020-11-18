@@ -1,16 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.result.account;
 
 
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
+import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
+import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 
-public class AccountNewResult implements TypedResult<AccountMemoryEntity> {
+public class AccountNewResult implements Result {
 
-    private final Account account;
+    private final AccountDTO account;
 
-    public AccountNewResult(Account account) {
+    public AccountNewResult(AccountDTO account) {
         this.account = account;
     }
 
@@ -18,7 +17,7 @@ public class AccountNewResult implements TypedResult<AccountMemoryEntity> {
     public String print() {
         return new InformationOutputBuilder()
                 .addHeadline("Ein Account wurde erstellt")
-                .addInformation(String.format("ID: %s | Name: %s | Abkürzung: %s | Nummer: %s", account.getAcronym(), account.getName(), account.getAcronym(), account.getNumber()))
+                .addInformation(String.format("ID: %s | Name: %s | Abkürzung: %s", account.getAcronym(), account.getName(), account.getAcronym()))
                 .build();
     }
 }

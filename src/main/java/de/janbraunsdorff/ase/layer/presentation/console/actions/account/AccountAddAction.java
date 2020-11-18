@@ -1,9 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
+import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
@@ -13,9 +14,9 @@ import java.util.Map;
 
 public class AccountAddAction implements Action {
 
-    private final ICrudAccount service;
+    private final AccountApplication service;
 
-    public AccountAddAction(ICrudAccount service) {
+    public AccountAddAction(AccountApplication service) {
         this.service = service;
     }
 
@@ -26,10 +27,9 @@ public class AccountAddAction implements Action {
             return new AccountHelpResult();
         }
 
-        Account account = new Account(tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
-        String acronym = tags.get("-a");
-        Account add = this.service.createAccountByAcronym(acronym, account);
-        return new AccountNewResult(add);
+        AccountCreateCommand cmd = new AccountCreateCommand(tags.get("-a"), tags.get("-na"), tags.get("-ar"), tags.get("-ac"));
+        AccountDTO account = service.createAccountByAcronym(cmd);
+        return new AccountNewResult(account);
 
 
 

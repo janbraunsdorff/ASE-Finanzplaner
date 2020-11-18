@@ -1,21 +1,21 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankResult;
 
 
 public class BankAllAction implements Action {
-    private final ICrudBank crudBank;
+    private final BankApplication service;
 
-    public BankAllAction(ICrudBank crudBank) {
-        this.crudBank = crudBank;
+    public BankAllAction(BankApplication service) {
+        this.service = service;
     }
 
     @Override
     public Result act(String command) throws BankNotFoundExecption {
-        return new BankResult(crudBank.get());
+        return new BankResult(this.service.get());
     }
 }

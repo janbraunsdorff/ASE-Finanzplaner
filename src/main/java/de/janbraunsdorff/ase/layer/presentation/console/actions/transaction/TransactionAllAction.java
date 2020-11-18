@@ -1,8 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudTransaction;
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
-import de.janbraunsdorff.ase.layer.domain.crud.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.repository.exceptions.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
+import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.TransactionHelpResult;
@@ -13,20 +15,20 @@ import java.util.Map;
 
 public class TransactionAllAction implements Action {
 
-    private final ICrudTransaction crudTransaction;
+    private final TransactionApplication crudTransaction;
 
-    public TransactionAllAction(ICrudTransaction crudTransaction) {
+    public TransactionAllAction(TransactionApplication crudTransaction) {
         this.crudTransaction = crudTransaction;
     }
 
     @Override
-    public Result act(String command) throws AccountNotFoundException {
+    public Result act(String command) throws AccountNotFoundException, TransactionNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsAndValuesPresent(tags, "-a")){
             return new TransactionHelpResult();
         }
 
-        List<Transaction> allTransactionOfAccount = this.crudTransaction.getAllTransactionOfAccount(tags.get("-a"));
+        List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactions(new TransactionGetQuery(tags.get("-a"), 20));
         return new TransactionResult(allTransactionOfAccount);
     }
 }
