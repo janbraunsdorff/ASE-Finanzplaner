@@ -1,10 +1,7 @@
 package de.janbraunsdorff.ase;
 
 
-import de.janbraunsdorff.ase.layer.domain.crud.CrudAccount;
-import de.janbraunsdorff.ase.layer.domain.crud.CrudBank;
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudAccount;
-import de.janbraunsdorff.ase.layer.domain.crud.ICrudBank;
+import de.janbraunsdorff.ase.layer.domain.crud.*;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Account;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Bank;
 import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
@@ -12,7 +9,6 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.memory.AccountMemory
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.BankMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.MemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.repositories.memory.TransactionMemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.AccountMemoryEntity;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
@@ -50,13 +46,14 @@ public class App {
 //      ++++ create domain layer ++++
         ICrudAccount accountService = new CrudAccount(accountRepo);
         ICrudBank bankService = new CrudBank(bankRepo);
+        ICrudTransaction transactionService = new CrudTransaction(transactionRepo);
 
 
 //      ++++ create presentation / input layer +++
 //      build distributor
         Distributor crudBankDistributor = buildBankDistributor(bankService);
         Distributor crudAccountDistributor = createAccountDistributor(accountService);
-        Distributor crudTransactionDistributor = createTransactionDistributor(repo);
+        Distributor crudTransactionDistributor = createTransactionDistributor(transactionService);
 
 
 //      composite distributor
@@ -79,9 +76,9 @@ public class App {
         }
     }
 
-    private static Distributor createTransactionDistributor(MemoryRepository repository) {
+    private static Distributor createTransactionDistributor(ICrudTransaction service) {
         return new DistributorBuilder(new TransactionHelpResult(), new TransactionDefaultAction())
-                .addCommand("all", new TransactionAllAction())
+                .addCommand("all", new TransactionAllAction(service))
                 .build();
     }
 
