@@ -1,10 +1,8 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
-import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 public class TransactionMemoryEntity {
     private final String id;
