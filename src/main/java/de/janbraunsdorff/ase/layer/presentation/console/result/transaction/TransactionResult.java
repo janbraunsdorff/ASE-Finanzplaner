@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.crud.entitties.Transaction;
 import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.result.TypedResult;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class TransactionResult implements TypedResult<Transaction> {
@@ -11,12 +12,14 @@ public class TransactionResult implements TypedResult<Transaction> {
     private final TableOutputBuilder builder;
     private final int lengthThirdParty;
     private final int lengthCategory;
+    private final DateTimeFormatter dtFormatter;
 
     public TransactionResult(List<Transaction> transactions) {
         this.transactions = transactions;
         this.builder = new TableOutputBuilder();
         this.lengthThirdParty = getMax(v -> v.getThirdParty().length(), transactions);
         this.lengthCategory = getMax(v -> v.getCategory().length(), transactions);
+        this.dtFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     }
 
     @Override
@@ -37,7 +40,7 @@ public class TransactionResult implements TypedResult<Transaction> {
     private void print(Transaction t){
         builder.addLine()
                 .addEntry(t.getThirdParty())
-                .addEntry(t.getDate().toString())
+                .addEntry(this.dtFormatter.format(t.getDate()))
                 .addEntry(t.getContract() ? "ja": "nein")
                 .addEntry(t.getCategory())
                 .addAmount(t.getValue())

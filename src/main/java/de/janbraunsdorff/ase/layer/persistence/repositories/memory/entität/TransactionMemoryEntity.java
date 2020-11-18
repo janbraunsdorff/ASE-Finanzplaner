@@ -1,13 +1,14 @@
 package de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität;
 
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
 public class TransactionMemoryEntity {
     private final String id;
     private final Integer value;
-    private final Date date;
+    private final LocalDate date;
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
@@ -18,7 +19,7 @@ public class TransactionMemoryEntity {
     public TransactionMemoryEntity(String id, Integer value, String thirdParty, String category, Boolean isContract, Integer index) {
         this.id = id;
         this.index = index;
-        this.date = Calendar.getInstance().getTime();
+        this.date = LocalDate.now();
         this.value = value;
         this.thirdParty = thirdParty;
         this.category = category;
@@ -33,7 +34,7 @@ public class TransactionMemoryEntity {
         return value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

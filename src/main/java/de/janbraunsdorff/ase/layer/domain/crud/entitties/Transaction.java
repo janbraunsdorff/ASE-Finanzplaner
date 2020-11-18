@@ -1,18 +1,19 @@
 package de.janbraunsdorff.ase.layer.domain.crud.entitties;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 public class Transaction {
     private final Integer value;
-    private final Date date;
+    private final LocalDate date;
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
     private final Integer index;
 
-    public Transaction(Integer value, Date date, String thirdParty, String category, Boolean isContract, Integer index) {
+    public Transaction(Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, Integer index) {
         this.value = value;
         this.date = date;
         this.thirdParty = thirdParty;
@@ -23,7 +24,7 @@ public class Transaction {
 
     public Transaction(Integer value, String thirdParty, String category, Boolean isContract, Integer index) {
         this.value = value;
-        this.date = Calendar.getInstance().getTime();
+        this.date = LocalDate.now();
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
@@ -34,7 +35,7 @@ public class Transaction {
         return value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

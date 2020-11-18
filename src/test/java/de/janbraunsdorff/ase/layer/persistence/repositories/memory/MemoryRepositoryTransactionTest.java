@@ -10,6 +10,7 @@ import de.janbraunsdorff.ase.layer.persistence.repositories.memory.entität.Tran
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -45,7 +46,7 @@ class MemoryRepositoryTransactionTest {
         MemoryRepository base = new MemoryRepository();
         TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountAcronym("ID1", new Transaction(1, LocalDate.now(), "", "", false, 1)));
 
         String expected = "Account mit der ID oder der Abkürzung ID1 wurde nicht gefunden";
 
@@ -79,7 +80,7 @@ class MemoryRepositoryTransactionTest {
         MemoryRepository base = new MemoryRepository();
         TransactionMemoryRepository repo = new TransactionMemoryRepository(base);
 
-        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, Calendar.getInstance().getTime(), "", "", false, 1)));
+        Exception ex = assertThrows(AccountNotFoundException.class, () -> repo.createTransactionByAccountId("ACC-ID", new Transaction(1, LocalDate.now(), "", "", false, 1)));
 
         String expected = "Account mit der ID oder der Abkürzung ACC-ID wurde nicht gefunden";
 

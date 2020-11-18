@@ -27,6 +27,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.Trans
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class App {
@@ -102,8 +103,8 @@ public class App {
         Bank vb = new Bank("Volksbank Karlsruhe eG", "VB");
 
         Account acc0 = new Account("Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
-        acc0.addTransaction(new Transaction(10000, Calendar.getInstance().getTime(), "Jan Braunsdorff", "Start", false, 1));
-        acc0.addTransaction(new Transaction(-5000, Calendar.getInstance().getTime(), "Aldi", "Einkaufen", false, 2));
+        acc0.addTransaction(new Transaction(10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false, 1));
+        acc0.addTransaction(new Transaction(-5000, LocalDate.now(), "Aldi", "Einkaufen", false, 2));
         vb.addAccount(acc0);
 
 
