@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MemoryRepository {
     protected final Map<String, BankMemoryEntity> memory = new HashMap<>();
 
-    protected Transaction convertToDomain(TransactionMemoryEntity entity){
+    protected Transaction convertToDomain(TransactionMemoryEntity entity) {
         return new Transaction(
                 entity.getValue(),
                 entity.getDate(),
@@ -37,7 +37,7 @@ public class MemoryRepository {
         );
     }
 
-    protected Bank convertToDomain(BankMemoryEntity entity){
+    protected Bank convertToDomain(BankMemoryEntity entity) {
         return new Bank(
                 entity.getName(),
                 new ArrayList<>(entity.getAccounts().stream().map(this::convertToDomain).collect(Collectors.toList())),
@@ -45,24 +45,32 @@ public class MemoryRepository {
         );
     }
 
-    protected AccountMemoryEntity convertToEntity(Account account){
+    protected AccountMemoryEntity convertToEntity(Account account) {
+        Map<Integer, TransactionMemoryEntity> transactions = new HashMap<>();
+        account.getTransactions().forEach(a -> transactions.put(a.getIndex(), this.convertToEntity(a, a.getIndex())));
+
         return new AccountMemoryEntity(
                 UUID.randomUUID().toString(),
                 account.getName(),
                 account.getNumber(),
-                account.getAcronym()
+                account.getAcronym(),
+                transactions
         );
     }
 
-    protected BankMemoryEntity convertToEntity(Bank bank){
+    protected BankMemoryEntity convertToEntity(Bank bank) {
+        Map<String, AccountMemoryEntity> accounts = new HashMap<>();
+        bank.getAccounts().forEach(a -> accounts.put(a.getAcronym(), this.convertToEntity(a)));
+
         return new BankMemoryEntity(
                 UUID.randomUUID().toString(),
                 bank.getName(),
+                accounts,
                 bank.getAcronym()
         );
     }
 
-    protected TransactionMemoryEntity convertToEntity(Transaction transaction, Integer index){
+    protected TransactionMemoryEntity convertToEntity(Transaction transaction, Integer index) {
         return new TransactionMemoryEntity(
                 UUID.randomUUID().toString(),
                 transaction.getValue(),

@@ -15,6 +15,13 @@ public class BankMemoryEntity {
         this.acronym = acronym;
     }
 
+    public BankMemoryEntity(String id, String name, Map<String, AccountMemoryEntity> accounts, String acronym) {
+        this.id = id;
+        this.name = name;
+        this.accounts = accounts;
+        this.acronym = acronym;
+    }
+
     public void addAccount(AccountMemoryEntity entity) {
         this.accounts.put(entity.getId(), entity);
     }

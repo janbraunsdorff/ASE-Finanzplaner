@@ -18,6 +18,14 @@ public class AccountMemoryEntity {
         this.transactions = new HashMap<>();
     }
 
+    public AccountMemoryEntity(String id, String name, String number, String acronym, Map<Integer, TransactionMemoryEntity> transactions) {
+        this.id = id;
+        this.name = name;
+        this.number = number;
+        this.acronym = acronym;
+        this.transactions = transactions;
+    }
+
     public AccountMemoryEntity(String id, String name, String number, String acronym) {
         this.id = id;
         this.name = name;
