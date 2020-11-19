@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.persistence.memory.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
 
@@ -20,13 +20,13 @@ public class TransactionService implements TransactionApplication {
 
     public void createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
         Account account = this.accountRepo.getAccountByAcronym(query.getAccountAcronym());
-        Transaction transaction = new Transaction(account.getId(), query.getValue(), query.getDate(), query.getThirdParty(), query.getCategory(), query.getContract(), 0);
+        Transaction transaction = new Transaction(account.getId(), query.getValue(), query.getDate(), query.getThirdParty(), query.getCategory(), query.getContract());
         transactionRepo.createTransaction(transaction);
     }
 
     @Override
     public List<TransactionDTO> getTransactions(TransactionGetQuery query) throws TransactionNotFoundException {
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getCount());
-        return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getIndex())).collect(Collectors.toList());
+        return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId())).collect(Collectors.toList());
     }
 }

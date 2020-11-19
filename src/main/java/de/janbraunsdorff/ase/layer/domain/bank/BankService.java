@@ -31,7 +31,7 @@ public class BankService implements BankApplication {
                     int size = 0;
                     AtomicInteger amount = new AtomicInteger();
                     try {
-                        List<Account> accounts = accountRepo.getAccountsOfBankByBankId(b.getId());
+                        List<Account> accounts = accountRepo.getAccountsOfBankByBankAcronym(b.getId());
                         accounts.forEach(a -> amount.addAndGet(transactionRepo.getValueOfAccount(a.getId())));
                     } catch (BankNotFoundExecption ex) {
                         ex.printStackTrace();

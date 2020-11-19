@@ -109,8 +109,8 @@ public class App {
         Account acc0 = new Account(vb.getId(), "Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
         accountRepo.createAccount(acc0);
 
-        transactionRepo.createTransaction(new Transaction(acc0.getId(), 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false, 1));
-        transactionRepo.createTransaction(new Transaction(acc0.getId(), -5000, LocalDate.now(), "Aldi", "Einkaufen", false, 2));
+        transactionRepo.createTransaction(new Transaction(acc0.getId(), 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false));
+        transactionRepo.createTransaction(new Transaction(acc0.getId(), -5000, LocalDate.now(), "Aldi", "Einkaufen", false));
 
         accountRepo.createAccount(new Account(vb.getId(), "Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA"));
         accountRepo.createAccount(new Account(vb.getId(), "Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK"));

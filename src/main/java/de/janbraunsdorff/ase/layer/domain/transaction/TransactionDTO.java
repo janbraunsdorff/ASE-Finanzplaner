@@ -9,15 +9,15 @@ public class TransactionDTO {
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
-    private final Integer index;
+    private final String id;
 
-    public TransactionDTO(Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, Integer index) {
+    public TransactionDTO(Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, String id) {
         this.value = value;
         this.date = date;
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
-        this.index = index;
+        this.id = id;
     }
 
     public Integer getValue() {
@@ -40,7 +40,7 @@ public class TransactionDTO {
         return isContract;
     }
 
-    public Integer getIndex() {
-        return index;
+    public String getId() {
+        return id;
     }
 }

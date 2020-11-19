@@ -11,20 +11,8 @@ public class Transaction {
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
-    private final Integer index;
 
-    public Transaction(String id, String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, Integer index) {
-        this.id = id;
-        this.accountId = accountId;
-        this.value = value;
-        this.date = date;
-        this.thirdParty = thirdParty;
-        this.category = category;
-        this.isContract = isContract;
-        this.index = index;
-    }
-
-    public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, Integer index) {
+    public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
         this.id = UUID.randomUUID().toString();
         this.accountId = accountId;
         this.value = value;
@@ -32,7 +20,6 @@ public class Transaction {
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
-        this.index = index;
     }
 
     public String getId() {
@@ -63,7 +50,4 @@ public class Transaction {
         return isContract;
     }
 
-    public Integer getIndex() {
-        return index;
-    }
 }

@@ -4,7 +4,7 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-import de.janbraunsdorff.ase.layer.persistence.memory.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
@@ -26,7 +26,7 @@ public class AccountService implements AccountApplication {
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundExecption {
         Bank bank = bankRepo.getBankByAcronym(query.getId());
-        List<Account> accounts = this.repo.getAccountsOfBankByBankId(bank.getId());
+        List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(bank.getId());
         return accounts.stream().map(a -> {
             int amount = 0;
             try {

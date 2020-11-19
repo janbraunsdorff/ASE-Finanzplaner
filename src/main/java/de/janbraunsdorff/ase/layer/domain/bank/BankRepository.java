@@ -10,10 +10,8 @@ public interface BankRepository {
     List<Bank> getBank() throws BankNotFoundExecption;
 
     Bank getBankByAcronym(String acronym) throws BankNotFoundExecption;
-    Bank getBank(String Id) throws BankNotFoundExecption;
 
     void createBank(Bank bankEntity) throws AcronymAlreadyExistsException;
 
-    void deleteBankById(String bankId);
     void deleteBankByAcronym(String bankId);
 }

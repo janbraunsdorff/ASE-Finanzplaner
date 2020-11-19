@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.transaction;
 
-import de.janbraunsdorff.ase.layer.persistence.memory.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;

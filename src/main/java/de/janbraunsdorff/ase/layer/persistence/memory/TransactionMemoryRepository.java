@@ -17,26 +17,19 @@ public class TransactionMemoryRepository implements TransactionRepository {
 
     @Override
     public int getValueOfAccount(String accountId) {
-        return this.getTransactionOfAccount(accountId, -1).stream().map(Transaction::getValue).reduce(0, Integer::sum);
+        return this.getTransactionOfAccount(accountId, -1)
+                .stream()
+                .map(Transaction::getValue)
+                .reduce(0, Integer::sum);
     }
 
     @Override
-    public Transaction getTransactionsById(String id){
-        return this.transactions.get(id);
-    }
-
-    @Override
-    public void deleteTransactionById(String id) {
-        this.transactions.remove(id);
-    }
-
-    @Override
-    public List<Transaction> getTransactionOfAccount(String id, int count) {
+    public List<Transaction> getTransactionOfAccount(String acronym, int count) {
         if (count <= 0){
             count = transactions.size();
         }
         return this.transactions.values().stream()
-                .filter(a -> a.getAccountId().equals(id))
+                .filter(a -> a.getAccountId().equals(acronym))
                 .sorted(Comparator.comparing(Transaction::getDate))
                 .limit(count)
                 .collect(Collectors.toList());

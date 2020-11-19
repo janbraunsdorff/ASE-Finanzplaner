@@ -8,24 +8,24 @@ import java.util.UUID;
 
 public class Account {
     private final String id;
-    private final String bankId;
+    private final String bankAcronym;
     private final String name;
     private final String number;
     private final List<Transaction> transactions;
     private final String acronym;
 
-    public Account(String bankId, String name, String number, List<Transaction> transactions, String acronym) {
+    public Account(String bankAcronym, String name, String number, List<Transaction> transactions, String acronym) {
         this.id = UUID.randomUUID().toString();
-        this.bankId = bankId;
+        this.bankAcronym = bankAcronym;
         this.name = name;
         this.number = number;
         this.transactions = transactions;
         this.acronym = acronym;
     }
 
-    public Account(String bankId, String name, String number, String acronym) {
+    public Account(String bankAcronym, String name, String number, String acronym) {
         this.id = UUID.randomUUID().toString();
-        this.bankId = bankId;
+        this.bankAcronym = bankAcronym;
         this.name = name;
         this.number = number;
         this.transactions = new ArrayList<>();
@@ -36,8 +36,8 @@ public class Account {
         return id;
     }
 
-    public String getBankId(){
-        return bankId;
+    public String getBankAcronym(){
+        return bankAcronym;
     }
 
     public String getName() {
