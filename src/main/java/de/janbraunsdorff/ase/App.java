@@ -48,7 +48,7 @@ public class App {
         createSpasskasse(bankRepo, accountRepo); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
-        AccountService accountService = new AccountService(accountRepo, bankRepo, transactionRepo);
+        AccountService accountService = new AccountService(accountRepo, transactionRepo);
         BankService bankService = new BankService(bankRepo, accountRepo, transactionRepo);
         TransactionService transactionService = new TransactionService(transactionRepo, accountRepo);
 

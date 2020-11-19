@@ -13,6 +13,6 @@ import java.util.List;
 public interface AccountApplication {
     List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundExecption, AccountNotFoundException;
     AccountDTO createAccountByAcronym(AccountCreateCommand command) throws BankNotFoundExecption, AcronymAlreadyExistsException;
-    void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, AccountNotFoundException;
+    void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException;
 
 }
