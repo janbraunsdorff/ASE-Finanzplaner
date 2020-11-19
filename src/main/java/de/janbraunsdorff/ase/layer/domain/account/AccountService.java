@@ -2,13 +2,12 @@ package de.janbraunsdorff.ase.layer.domain.account;
 
 
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
-import de.janbraunsdorff.ase.layer.domain.repository.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.repository.BankRepository;
-import de.janbraunsdorff.ase.layer.domain.repository.TransactionRepository;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
+import de.janbraunsdorff.ase.layer.persistence.memory.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 
 import java.util.List;

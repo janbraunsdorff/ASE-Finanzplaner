@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.domain.repository.exceptions;
+package de.janbraunsdorff.ase.layer.persistence;
 
 public class BankNotFoundExecption extends Exception{
     public BankNotFoundExecption(String errorMessage) {

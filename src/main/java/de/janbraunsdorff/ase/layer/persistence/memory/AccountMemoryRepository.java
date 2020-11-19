@@ -1,9 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.account.Account;
-import de.janbraunsdorff.ase.layer.domain.repository.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.HashMap;
 import java.util.List;

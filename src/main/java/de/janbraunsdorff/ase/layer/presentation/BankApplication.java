@@ -3,8 +3,8 @@ package de.janbraunsdorff.ase.layer.presentation;
 import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.repository.exceptions.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
 
 import java.util.List;
 
