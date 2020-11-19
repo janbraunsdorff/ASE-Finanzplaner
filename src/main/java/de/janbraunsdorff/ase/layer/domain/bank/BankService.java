@@ -1,15 +1,15 @@
 package de.janbraunsdorff.ase.layer.domain.bank;
 
 
+import de.janbraunsdorff.ase.layer.domain.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
-import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
+import de.janbraunsdorff.ase.layer.domain.AccountRepository;
+import de.janbraunsdorff.ase.layer.domain.TransactionRepository;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
 import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class BankService implements BankApplication {
@@ -24,19 +24,23 @@ public class BankService implements BankApplication {
         this.transactionRepo = transactionRepo;
     }
 
-    public List<BankDTO> get() throws BankNotFoundExecption {
+    public List<BankDTO> get() {
         return this.bankRepo.getBank()
                 .stream()
                 .map(b -> {
                     int size = 0;
-                    AtomicInteger amount = new AtomicInteger();
+                    int amount = 0;
                     try {
-                        List<Account> accounts = accountRepo.getAccountsOfBankByBankAcronym(b.getId());
-                        accounts.forEach(a -> amount.addAndGet(transactionRepo.getValueOfAccount(a.getId())));
+                        List<Account> accounts = accountRepo.getAccountsOfBankByBankAcronym(b.getAcronym());
+                        size = accounts.size();
+                        amount += accounts
+                                .stream()
+                                .map(account -> transactionRepo.getValueOfAccount(account.getAcronym()))
+                                .reduce(0, Integer::sum);
                     } catch (BankNotFoundExecption ex) {
                         ex.printStackTrace();
                     }
-                    return new BankDTO(b.getName(), b.getAcronym(), amount.get(), size);
+                    return new BankDTO(b.getName(), b.getAcronym(), amount, size);
                 })
                 .collect(Collectors.toList());
     }
@@ -52,4 +56,6 @@ public class BankService implements BankApplication {
     public void deleteByAcronym(BankDeleteCommand command) {
         this.bankRepo.deleteBankByAcronym(command.getAcronym());
     }
+
+
 }

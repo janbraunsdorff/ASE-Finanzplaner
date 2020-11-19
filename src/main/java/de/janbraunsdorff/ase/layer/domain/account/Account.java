@@ -55,14 +55,4 @@ public class Account {
     public String getAcronym() {
         return this.acronym;
     }
-
-    public void addTransaction(Transaction transaction) {
-        this.transactions.add(transaction);
-    }
-
-    public int getAmountOfAccountInCent() {
-        return this.transactions.stream()
-                .mapToInt(Transaction::getValue)
-                .sum();
-    }
 }

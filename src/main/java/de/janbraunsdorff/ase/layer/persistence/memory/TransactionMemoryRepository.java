@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
+import de.janbraunsdorff.ase.layer.domain.TransactionRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;

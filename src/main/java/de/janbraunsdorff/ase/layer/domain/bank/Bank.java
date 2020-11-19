@@ -8,12 +8,6 @@ public class Bank {
     private final String name;
     private final String acronym;
 
-    public Bank(String id, String name, String acronym) {
-        this.id = id;
-        this.name = name;
-        this.acronym = acronym;
-    }
-
     public Bank(String name, String acronym) {
         this.id = UUID.randomUUID().toString();
         this.name = name;

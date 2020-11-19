@@ -1,6 +1,7 @@
-package de.janbraunsdorff.ase.layer.domain.account;
+package de.janbraunsdorff.ase.layer.domain;
 
 
+import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;

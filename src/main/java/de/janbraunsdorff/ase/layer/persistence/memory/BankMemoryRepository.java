@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
-import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.BankRepository;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
 
