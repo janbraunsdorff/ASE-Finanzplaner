@@ -3,12 +3,13 @@ package de.janbraunsdorff.ase.layer.domain;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountTestRepo implements AccountRepository{
+    public String acronymDelete;
     @Override
     public void createAccount(Account account) throws AcronymAlreadyExistsException {
 
@@ -20,7 +21,7 @@ public class AccountTestRepo implements AccountRepository{
     }
 
     @Override
-    public List<Account> getAccountsOfBankByBankAcronym(String bank) throws BankNotFoundExecption {
+    public List<Account> getAccountsOfBankByBankAcronym(String bank) throws BankNotFoundException {
         if (!bank.equals("b1")){
             return new ArrayList<>();
         }
@@ -34,6 +35,6 @@ public class AccountTestRepo implements AccountRepository{
 
     @Override
     public void deleteAccountByAcronym(String acronym) throws AccountNotFoundException {
-
+        this.acronymDelete = acronym;
     }
 }

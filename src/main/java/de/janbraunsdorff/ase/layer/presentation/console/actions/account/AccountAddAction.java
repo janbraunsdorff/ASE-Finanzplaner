@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
@@ -21,7 +21,7 @@ public class AccountAddAction implements Action {
     }
 
     @Override
-    public Result act(String command) throws BankNotFoundExecption, AcronymAlreadyExistsException {
+    public Result act(String command) throws BankNotFoundException, AcronymAlreadyExistsException {
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsAndValuesPresent(tags, "-na", "-nr", "-ac", "-a")) {
             return new AccountHelpResult();

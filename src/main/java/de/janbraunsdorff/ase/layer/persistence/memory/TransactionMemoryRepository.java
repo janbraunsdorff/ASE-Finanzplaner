@@ -30,7 +30,7 @@ public class TransactionMemoryRepository implements TransactionRepository {
         }
         return this.transactions.values().stream()
                 .filter(a -> a.getAccountId().equals(acronym))
-                .sorted(Comparator.comparing(Transaction::getDate))
+                .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .limit(count)
                 .collect(Collectors.toList());
     }

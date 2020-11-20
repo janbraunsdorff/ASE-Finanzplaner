@@ -48,7 +48,7 @@ public class App {
         createSpasskasse(bankRepo, accountRepo); // Create Demo Data Spaßkasse
 
 //      ++++ create domain layer ++++
-        AccountService accountService = new AccountService(accountRepo, transactionRepo);
+        AccountService accountService = new AccountService(accountRepo, transactionRepo, bankRepo);
         BankService bankService = new BankService(bankRepo, accountRepo, transactionRepo);
         TransactionService transactionService = new TransactionService(transactionRepo, accountRepo);
 
@@ -106,15 +106,15 @@ public class App {
         Bank vb = new Bank("Volksbank Karlsruhe eG", "VB");
         bankRepo.createBank(vb);
 
-        Account acc0 = new Account(vb.getId(), "Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
+        Account acc0 = new Account(vb.getAcronym(), "Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK");
         accountRepo.createAccount(acc0);
 
-        transactionRepo.createTransaction(new Transaction(acc0.getId(), 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false));
-        transactionRepo.createTransaction(new Transaction(acc0.getId(), -5000, LocalDate.now(), "Aldi", "Einkaufen", false));
+        transactionRepo.createTransaction(new Transaction(acc0.getAcronym(), 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false));
+        transactionRepo.createTransaction(new Transaction(acc0.getAcronym(), -5000, LocalDate.now(), "Aldi", "Einkaufen", false));
 
-        accountRepo.createAccount(new Account(vb.getId(), "Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA"));
-        accountRepo.createAccount(new Account(vb.getId(), "Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK"));
-        accountRepo.createAccount(new Account(vb.getId(), "Depot", "DE00 0000 0000 0000 0000 03", "VB-DT"));
+        accountRepo.createAccount(new Account(vb.getAcronym(), "Geschäftsanteile", "DE00 0000 0000 0000 0000 01", "VB-GA"));
+        accountRepo.createAccount(new Account(vb.getAcronym(), "Kreditkarte", "DE00 0000 0000 0000 0000 02", "VB-KK"));
+        accountRepo.createAccount(new Account(vb.getAcronym(), "Depot", "DE00 0000 0000 0000 0000 03", "VB-DT"));
 
     }
 
@@ -123,10 +123,10 @@ public class App {
         bankRepo.createBank(sk);
 
 
-        accountRepo.createAccount(new Account(sk.getId(), "Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK"));
-        accountRepo.createAccount(new Account(sk.getId(), "Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK"));
-        accountRepo.createAccount(new Account(sk.getId(), "Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL"));
-        accountRepo.createAccount(new Account(sk.getId(), "Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV"));
+        accountRepo.createAccount(new Account(sk.getAcronym(), "Aktien", "DE00 0000 0000 0000 0000 04", "SK-AK"));
+        accountRepo.createAccount(new Account(sk.getAcronym(), "Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK"));
+        accountRepo.createAccount(new Account(sk.getAcronym(), "Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL"));
+        accountRepo.createAccount(new Account(sk.getAcronym(), "Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV"));
 
         return sk;
     }

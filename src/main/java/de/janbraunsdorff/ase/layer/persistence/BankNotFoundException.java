@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence;
 
-public class BankNotFoundExecption extends Exception{
-    public BankNotFoundExecption(String errorMessage) {
+public class BankNotFoundException extends Exception{
+    public BankNotFoundException(String errorMessage) {
         super("Bank mit der ID oder der Abkürzung " + errorMessage + " wurde nicht gefunden");
     }
 }

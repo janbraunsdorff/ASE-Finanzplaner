@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
@@ -20,7 +20,7 @@ public class BankDeleteAction implements Action {
 
 
     @Override
-    public Result act(String command) throws BankNotFoundExecption {
+    public Result act(String command) throws BankNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
 
         if (!areTagsAndValuesPresent(tags, "-a")) {

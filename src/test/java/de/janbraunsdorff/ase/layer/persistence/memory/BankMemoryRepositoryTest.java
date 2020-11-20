@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -61,7 +61,7 @@ class BankMemoryRepositoryTest {
     }
 
     @Test
-    public void givenBankBankRepositoryWithBank_returnsBank() throws BankNotFoundExecption {
+    public void givenBankBankRepositoryWithBank_returnsBank() throws BankNotFoundException {
         BankMemoryRepository repo = new BankMemoryRepository();
         Bank bank = new Bank("name", "ac");
         getMemory(repo).put(bank.getAcronym(), bank);
@@ -77,7 +77,7 @@ class BankMemoryRepositoryTest {
     public void givenBankBankRepositoryWithNotExistingBank_throwsException() {
         BankMemoryRepository repo = new BankMemoryRepository();
 
-        assertThrows(BankNotFoundExecption.class, ()-> repo.getBankByAcronym("ac"));
+        assertThrows(BankNotFoundException.class, ()-> repo.getBankByAcronym("ac"));
     }
 
     @Test

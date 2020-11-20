@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.AccountRepository;
 import de.janbraunsdorff.ase.layer.domain.TransactionRepository;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundExecption;
+import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class BankService implements BankApplication {
                                 .stream()
                                 .map(account -> transactionRepo.getValueOfAccount(account.getAcronym()))
                                 .reduce(0, Integer::sum);
-                    } catch (BankNotFoundExecption ex) {
+                    } catch (BankNotFoundException ex) {
                         ex.printStackTrace();
                     }
                     return new BankDTO(b.getName(), b.getAcronym(), amount, size);
