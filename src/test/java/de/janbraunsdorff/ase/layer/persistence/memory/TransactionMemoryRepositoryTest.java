@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionMemoryRepositoryTest {
     @SuppressWarnings("unchecked")
@@ -34,7 +32,7 @@ class TransactionMemoryRepositoryTest {
 
         Transaction transaction = getMemory(repo).get(t.getId());
         assertThat(transaction.getValue(), is(t.getValue()));
-        assertThat(transaction.getAccountId(), is(t.getAccountId()));
+        assertThat(transaction.getAccountAcronym(), is(t.getAccountAcronym()));
         assertThat(transaction.getCategory(), is(t.getCategory()));
         assertThat(transaction.getThirdParty(), is(t.getThirdParty()));
         assertThat(transaction.getContract(), is(t.getContract()));

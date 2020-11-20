@@ -29,7 +29,7 @@ public class TransactionMemoryRepository implements TransactionRepository {
             count = transactions.size();
         }
         return this.transactions.values().stream()
-                .filter(a -> a.getAccountId().equals(acronym))
+                .filter(a -> a.getAccountAcronym().equals(acronym))
                 .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .limit(count)
                 .collect(Collectors.toList());

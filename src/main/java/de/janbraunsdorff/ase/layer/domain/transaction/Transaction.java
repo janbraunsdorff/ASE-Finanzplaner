@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Transaction {
     private final String id;
-    private final String accountId;
+    private final String accountAcronym;
     private final Integer value;
     private final LocalDate date;
     private final String thirdParty;
@@ -14,7 +14,7 @@ public class Transaction {
 
     public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
         this.id = UUID.randomUUID().toString();
-        this.accountId = accountId;
+        this.accountAcronym = accountId;
         this.value = value;
         this.date = date;
         this.thirdParty = thirdParty;
@@ -26,8 +26,8 @@ public class Transaction {
         return id;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getAccountAcronym() {
+        return accountAcronym;
     }
 
     public Integer getValue() {

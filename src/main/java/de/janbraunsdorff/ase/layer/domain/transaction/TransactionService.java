@@ -1,10 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.TransactionRepository;
-import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.AccountRepository;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
 
 import java.util.List;
@@ -19,14 +17,15 @@ public class TransactionService implements TransactionApplication {
         this.accountRepo = accountRepo;
     }
 
-    public void createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
-        Account account = this.accountRepo.getAccountByAcronym(query.getAccountAcronym());
-        Transaction transaction = new Transaction(account.getId(), query.getValue(), query.getDate(), query.getThirdParty(), query.getCategory(), query.getContract());
+    public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
+        accountRepo.getAccountByAcronym(query.getAccountAcronym());
+        Transaction transaction = new Transaction(query.getAccountAcronym(), query.getValue(), query.getDate(), query.getThirdParty(), query.getCategory(), query.getContract());
         transactionRepo.createTransaction(transaction);
+        return new TransactionDTO(transaction.getValue(), transaction.getDate(), transaction.getThirdParty(), transaction.getCategory(), transaction.getContract(), transaction.getId());
     }
 
     @Override
-    public List<TransactionDTO> getTransactions(TransactionGetQuery query) throws TransactionNotFoundException {
+    public List<TransactionDTO> getTransactions(TransactionGetQuery query) {
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getCount());
         return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId())).collect(Collectors.toList());
     }

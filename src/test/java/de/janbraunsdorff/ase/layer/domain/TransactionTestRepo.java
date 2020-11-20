@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.domain;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,9 +9,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class TransactionTestRepo implements TransactionRepository{
+    public Transaction entity;
+    public int count;
+    public String accountAcronym;
     @Override
     public void createTransaction(Transaction entity) throws AccountNotFoundException {
-
+        this.entity = entity;
     }
 
     @Override
@@ -25,7 +27,9 @@ public class TransactionTestRepo implements TransactionRepository{
     }
 
     @Override
-    public List<Transaction> getTransactionOfAccount(String id, int count) throws TransactionNotFoundException {
+    public List<Transaction> getTransactionOfAccount(String id, int count) {
+        this.count = count;
+        this.accountAcronym = id;
         if (id.equals("a1")){
             return new ArrayList<Transaction>(){{
                 add(new Transaction("a1", 8, LocalDate.now(), "tp", "cat", false));

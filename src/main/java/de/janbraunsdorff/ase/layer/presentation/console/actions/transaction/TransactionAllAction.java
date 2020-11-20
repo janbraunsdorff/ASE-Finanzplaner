@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.transaction;
 
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
@@ -22,7 +21,7 @@ public class TransactionAllAction implements Action {
     }
 
     @Override
-    public Result act(String command) throws AccountNotFoundException, TransactionNotFoundException {
+    public Result act(String command) throws AccountNotFoundException {
         Map<String, String> tags = parseCommand(command, 2);
         if (!areTagsAndValuesPresent(tags, "-a")){
             return new TransactionHelpResult();

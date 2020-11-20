@@ -17,7 +17,10 @@ public class AccountTestRepo implements AccountRepository{
 
     @Override
     public Account getAccountByAcronym(String acronym) throws AccountNotFoundException {
-        return null;
+        if(acronym.equals("accountAcronym")){
+            return new Account("bankAcronym", "name", "number", "ac");
+        }
+        throw new AccountNotFoundException(acronym);
     }
 
     @Override

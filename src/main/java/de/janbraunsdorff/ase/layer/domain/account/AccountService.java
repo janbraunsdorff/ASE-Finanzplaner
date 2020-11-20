@@ -8,7 +8,6 @@ import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class AccountService implements AccountApplication {
             try {
                 amount = transactionRepo.getTransactionOfAccount(a.getAcronym(), -1).size();
                 bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
-            } catch (TransactionNotFoundException | BankNotFoundException ignored) {
+            } catch (BankNotFoundException ignored) {
 
             }
             return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
