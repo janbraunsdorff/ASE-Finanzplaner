@@ -20,7 +20,7 @@ public class BankDeleteAction implements Action {
 
 
     @Override
-    public Result act(String command) throws BankNotFoundException {
+    public Result act(String command) {
         Map<String, String> tags = parseCommand(command, 2);
 
         if (!areTagsAndValuesPresent(tags, "-a")) {
