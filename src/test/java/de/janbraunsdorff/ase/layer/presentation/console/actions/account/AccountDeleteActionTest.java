@@ -17,7 +17,7 @@ class AccountDeleteActionTest {
 
         Result act = action.act("account delete -a acronym");
         assertThat(act, instanceOf(AccountDeleteResult.class));
-        assertThat(app.command.getAccountAcronym(), is("acronym"));
+        assertThat(app.deleteCommand.getAccountAcronym(), is("acronym"));
     }
 
     @Test

@@ -5,14 +5,17 @@ import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.*;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AccountTestApplication implements AccountApplication {
-    protected AccountDeleteCommand command;
+    protected AccountDeleteCommand deleteCommand;
+    protected AccountGetQuery getQuery;
 
     @Override
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException, AccountNotFoundException {
-        return null;
+        this.getQuery = query;
+        return Collections.emptyList();
     }
 
     @Override
@@ -22,6 +25,6 @@ public class AccountTestApplication implements AccountApplication {
 
     @Override
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException {
-        this.command = command;
+        this.deleteCommand = command;
     }
 }
