@@ -15,23 +15,23 @@ import de.janbraunsdorff.ase.layer.persistence.memory.AccountMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.BankMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.TransactionMemoryRepository;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
-import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
-import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
-import de.janbraunsdorff.ase.layer.presentation.console.UseCaseControllerBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.DistributorBuilder;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountAddAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountDefaultAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountDeleteAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankAddAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankDefaultAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankDeleteAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
-import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
-import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
-import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.TransactionHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.action.system.ExitAction;
+import de.janbraunsdorff.ase.layer.presentation.console.DistributorAction;
+import de.janbraunsdorff.ase.layer.presentation.console.DistributorActionFactory;
+import de.janbraunsdorff.ase.layer.presentation.console.DistributorUsecaseFactory;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.AccountAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.AccountAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.AccountHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.AccountDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.BankAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.BankAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.BankHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.BankDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.AccountHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -64,7 +64,7 @@ public class App {
 
 
 //      composite distributor
-        UseCaseController controller = new UseCaseControllerBuilder()
+        DistributorAction controller = new DistributorActionFactory()
                 .addUseCase("bank", crudBankDistributor)
                 .addUseCase("account", crudAccountDistributor)
                 .addUseCase("transaction", crudTransactionDistributor)
@@ -84,13 +84,13 @@ public class App {
     }
 
     private static Distributor createTransactionDistributor(TransactionApplication service) {
-        return new DistributorBuilder(new TransactionHelpResult(), new TransactionDefaultAction())
+        return new DistributorUsecaseFactory(new TransactionHelpResult(), new TransactionHelpAction())
                 .addCommand("all", new TransactionAllAction(service))
                 .build();
     }
 
     private static Distributor createAccountDistributor(AccountApplication accountService) {
-        return new DistributorBuilder(new AccountHelpResult(), new AccountDefaultAction())
+        return new DistributorUsecaseFactory(new AccountHelpResult(), new AccountHelpAction())
                 .addCommand("all", new AccountAllAction(accountService))
                 .addCommand("add", new AccountAddAction(accountService))
                 .addCommand("delete", new AccountDeleteAction(accountService))
@@ -98,7 +98,7 @@ public class App {
     }
 
     private static Distributor buildBankDistributor(BankApplication bankService) {
-        return new DistributorBuilder(new BankHelpResult(), new BankDefaultAction())
+        return new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankService))
                 .addCommand("add", new BankAddAction(bankService))
                 .addCommand("delete", new BankDeleteAction(bankService))

@@ -1,0 +1,23 @@
+package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account;
+
+
+import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+
+public class AccountAddResult implements Result {
+
+    private final AccountDTO account;
+
+    public AccountAddResult(AccountDTO account) {
+        this.account = account;
+    }
+
+    @Override
+    public String print() {
+        return new InformationOutputBuilder()
+                .addHeadline("Ein Account wurde erstellt")
+                .addInformation(String.format("ID: %s | Name: %s | Abkürzung: %s", account.getAcronym(), account.getName(), account.getAcronym()))
+                .build();
+    }
+}

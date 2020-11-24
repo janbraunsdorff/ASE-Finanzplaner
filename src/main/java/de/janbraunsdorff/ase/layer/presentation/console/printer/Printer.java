@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.printer;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 public class Printer {
 
