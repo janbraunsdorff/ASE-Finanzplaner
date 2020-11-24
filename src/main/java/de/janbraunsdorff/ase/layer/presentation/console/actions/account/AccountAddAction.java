@@ -27,7 +27,7 @@ public class AccountAddAction implements Action {
             return new AccountHelpResult();
         }
 
-        AccountCreateCommand cmd = new AccountCreateCommand(tags.get("-a"), tags.get("-na"), tags.get("-ar"), tags.get("-ac"));
+        AccountCreateCommand cmd = new AccountCreateCommand(tags.get("-a"), tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
         AccountDTO account = service.createAccountByAcronym(cmd);
         return new AccountNewResult(account);
 

@@ -11,6 +11,7 @@ import java.util.List;
 public class AccountTestApplication implements AccountApplication {
     protected AccountDeleteCommand deleteCommand;
     protected AccountGetQuery getQuery;
+    protected AccountCreateCommand createCommand;
 
     @Override
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException, AccountNotFoundException {
@@ -20,7 +21,8 @@ public class AccountTestApplication implements AccountApplication {
 
     @Override
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws BankNotFoundException, AcronymAlreadyExistsException {
-        return null;
+        this.createCommand = command;
+        return new AccountDTO("", "", 1, "", 1, "");
     }
 
     @Override
