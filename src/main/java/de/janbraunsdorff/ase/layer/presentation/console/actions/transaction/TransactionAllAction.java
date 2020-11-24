@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.transaction.TransactionHelpResult;

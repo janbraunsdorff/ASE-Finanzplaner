@@ -3,9 +3,9 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.AccountTestRepo;
 import de.janbraunsdorff.ase.layer.domain.BankTestRepo;
 import de.janbraunsdorff.ase.layer.domain.TransactionTestRepo;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

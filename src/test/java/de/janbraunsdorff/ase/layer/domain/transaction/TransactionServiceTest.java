@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountTestRepo;
 import de.janbraunsdorff.ase.layer.domain.TransactionTestRepo;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 

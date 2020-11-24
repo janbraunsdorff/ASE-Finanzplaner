@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.domain.bank;
 import de.janbraunsdorff.ase.layer.domain.AccountTestRepo;
 import de.janbraunsdorff.ase.layer.domain.BankTestRepo;
 import de.janbraunsdorff.ase.layer.domain.TransactionTestRepo;
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

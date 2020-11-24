@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.persistence;
+package de.janbraunsdorff.ase.layer.domain;
 
 public class AccountNotFoundException extends Exception {
     public AccountNotFoundException(String id) {

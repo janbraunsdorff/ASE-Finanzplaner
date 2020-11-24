@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.account.Account;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

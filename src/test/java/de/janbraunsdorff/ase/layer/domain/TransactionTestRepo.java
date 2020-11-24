@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.domain;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

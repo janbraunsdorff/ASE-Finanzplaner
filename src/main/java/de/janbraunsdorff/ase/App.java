@@ -10,7 +10,7 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankService;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.memory.AccountMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.BankMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.TransactionMemoryRepository;

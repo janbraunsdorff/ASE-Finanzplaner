@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain.bank;
 
 
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 
 import java.util.List;
 

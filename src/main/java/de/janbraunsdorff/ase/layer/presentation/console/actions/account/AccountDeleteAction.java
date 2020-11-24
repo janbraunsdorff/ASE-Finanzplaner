@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDeleteCommand;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountDeleteResult;

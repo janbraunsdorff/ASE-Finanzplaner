@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 
 import java.util.List;
 

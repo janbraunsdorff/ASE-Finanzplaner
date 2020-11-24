@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankNewResult;

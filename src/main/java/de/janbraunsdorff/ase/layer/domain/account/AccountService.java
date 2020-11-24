@@ -4,9 +4,9 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
