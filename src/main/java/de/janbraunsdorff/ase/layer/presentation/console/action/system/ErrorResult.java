@@ -1,8 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.system;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.ErrorOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.factory.ErrorPrinterInputFactory;
 
 public class ErrorResult implements Result {
 
@@ -13,8 +14,8 @@ public class ErrorResult implements Result {
     }
 
     @Override
-    public String print() {
-        return new ErrorOutputBuilder()
+    public PrinterInput print() {
+        return new ErrorPrinterInputFactory()
                 .addError(this.errorText)
                 .build();
     }

@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
-import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
 import java.util.Map;
 

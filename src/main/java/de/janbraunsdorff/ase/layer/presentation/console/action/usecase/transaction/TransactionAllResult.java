@@ -1,29 +1,30 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.printer.TableOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.action.TypedResult;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.factory.TablePrinterInputFactory;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final List<TransactionDTO> transactions;
-    private final TableOutputBuilder builder;
+    private final TablePrinterInputFactory builder;
     private final int lengthThirdParty;
     private final int lengthCategory;
     private final DateTimeFormatter dtFormatter;
 
     public TransactionAllResult(List<TransactionDTO> transactions) {
         this.transactions = transactions;
-        this.builder = new TableOutputBuilder();
+        this.builder = new TablePrinterInputFactory();
         this.lengthThirdParty = getMax(v -> v.getThirdParty().length(), transactions);
         this.lengthCategory = getMax(v -> v.getCategory().length(), transactions);
         this.dtFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     }
 
     @Override
-    public String print() {
+    public PrinterInput print() {
         this.builder.
                 addTableHeader(lengthThirdParty, "Von/Nach")
                 .addTableHeader(10, "Datum")

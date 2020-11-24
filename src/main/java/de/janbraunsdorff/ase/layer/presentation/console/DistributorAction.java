@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console;
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.Printer;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.Printer;
 
 import java.util.HashMap;
 import java.util.Map;

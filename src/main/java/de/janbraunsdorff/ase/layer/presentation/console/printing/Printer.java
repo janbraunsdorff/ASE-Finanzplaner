@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer;
+package de.janbraunsdorff.ase.layer.presentation.console.printing;
 
 
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 public class Printer {
 
     public void print(Result res) {
-        printList(res.print());
+        printList(res.print().getStringToPrint());
     }
 
     private void printList(String s) {

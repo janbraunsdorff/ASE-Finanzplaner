@@ -1,7 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account;
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.InformationOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.factory.InformationPrinterInputFactory;
 
 public class AccountDeleteResult implements Result {
     private final String id;
@@ -11,8 +12,8 @@ public class AccountDeleteResult implements Result {
     }
 
     @Override
-    public String print() {
-        return new InformationOutputBuilder()
+    public PrinterInput print() {
+        return new InformationPrinterInputFactory()
                 .addHeadline("Ein Account wurde gelöscht")
                 .addInformation(String.format("Account mit der Kennung: %s wurde gelöscht", this.id))
                 .build();

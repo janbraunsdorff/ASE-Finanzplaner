@@ -1,4 +1,6 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer.charts;
+package de.janbraunsdorff.ase.layer.presentation.console.printing.charts;
+
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
 
 import java.util.Arrays;
 
@@ -8,28 +10,23 @@ public class BarChart {
     private final int start;
     private final Grid grid;
 
-    public static void main(String[] args) {
-        int[] data = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10};
-        String[] keys = new String[]{"01.11", "05.11", "08.11", "12.11", "17.11", "18.11", "21.11", "23.11", "27.11", "29.11", "30.11"};
-
-        BarChart chart = new BarChart(new ChartData(data, keys, "Chart Test"));
-        System.out.println(chart.print());
-    }
-
     public BarChart(ChartData data) {
         this.data = data;
         this.start = scale(Arrays.stream(this.data.getValue()).max().getAsInt(), 100, 10);
         this.grid = new Grid(data.getValue().length + 1);
+
+        drawScale();
+        drawBars();
     }
 
-    public String print() {
-        drawScale();
+    public PrinterInput getPrintable() {
+        return new PrinterInput(this.grid.toString());
+    }
 
+    private void drawBars() {
         for (int i = 0; i < this.data.getValue().length; i++) {
             drawBar(this.data.getValue()[i], i + 1);
         }
-
-        return this.grid.toString();
 
     }
 
@@ -51,7 +48,6 @@ public class BarChart {
 
     }
 
-
     private void drawScale() {
         grid.addY();
         grid.addYPoints(0, start);
@@ -60,7 +56,6 @@ public class BarChart {
         grid.addYPoints(15, (int) (start * 0.25));
         grid.addX(this.data.getKey());
     }
-
 
     private int scale(int value, int limit, int step) {
         for (int i = step; i < limit; i += step) {

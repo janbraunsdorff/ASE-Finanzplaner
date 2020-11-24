@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer;
+package de.janbraunsdorff.ase.layer.presentation.console.printing;
 
 public class SentencePiece {
 
@@ -6,7 +6,6 @@ public class SentencePiece {
     private final String content;
 
     public SentencePiece(Color color, String content) {
-
         this.color = color;
         this.content = content;
     }

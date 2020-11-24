@@ -1,24 +1,26 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer;
+package de.janbraunsdorff.ase.layer.presentation.console.printing.factory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.part.TableDivider;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.Color;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.SentencePiece;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.part.TableDivider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableOutputBuilder extends OutputBuilder {
+public class TablePrinterInputFactory extends PrinterInputFactory {
 
     private final List<Integer> width;
     private int lastIndex;
     private boolean isFirstRow;
 
-    public TableOutputBuilder() {
+    public TablePrinterInputFactory() {
         super();
         this.width = new ArrayList<>();
         this.lastIndex = 0;
         this.isFirstRow = true;
     }
 
-    public TableOutputBuilder addTableHeader(int width, String name) {
+    public TablePrinterInputFactory addTableHeader(int width, String name) {
         this.addTableVerticalDivider();
         width = Math.max(width, name.length());
         this.addText(String.format("%-" + width + "s", name));
@@ -26,7 +28,7 @@ public class TableOutputBuilder extends OutputBuilder {
         return this;
     }
 
-    public TableOutputBuilder finishFirstLine() {
+    public TablePrinterInputFactory finishFirstLine() {
         this.addTableVerticalDivider();
         this.lastIndex = 0;
         this.isFirstRow = false;
@@ -34,7 +36,7 @@ public class TableOutputBuilder extends OutputBuilder {
         return this;
     }
 
-    public TableOutputBuilder addHorizontalLine() {
+    public TablePrinterInputFactory addHorizontalLine() {
         StringBuilder builder = new StringBuilder();
         builder.append("+");
         for (Integer i : this.width) {
@@ -47,18 +49,18 @@ public class TableOutputBuilder extends OutputBuilder {
         return this;
     }
 
-    public TableOutputBuilder addLine() {
+    public TablePrinterInputFactory addLine() {
         return this.addTableVerticalDivider();
     }
 
-    public TableOutputBuilder addEntry(String text) {
+    public TablePrinterInputFactory addEntry(String text) {
         this.addText(String.format("%-" + getLength() + "s", text));
         this.lastIndex++;
         this.addTableVerticalDivider();
         return this;
     }
 
-    public OutputBuilder addAmount(int amount) {
+    public PrinterInputFactory addAmount(int amount) {
         String amountBuilder = amount / 100 + "." + amount % 100 + "€";
         String text = String.format("%-" + getLength() + "s", amountBuilder);
         this.lastIndex++;
@@ -83,7 +85,7 @@ public class TableOutputBuilder extends OutputBuilder {
         return builder.toString();
     }
 
-    public TableOutputBuilder addTableVerticalDivider() {
+    public TablePrinterInputFactory addTableVerticalDivider() {
         this.pieces.add(new TableDivider("|"));
         return this;
     }

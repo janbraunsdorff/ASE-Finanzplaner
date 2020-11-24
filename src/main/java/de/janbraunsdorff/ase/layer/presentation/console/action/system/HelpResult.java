@@ -1,14 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.system;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.printer.HelpOutputBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.factory.HelpPrinterInputFactory;
 
 public class HelpResult implements Result {
 
     @Override
-    public String print() {
-        return new HelpOutputBuilder(50)
+    public PrinterInput print() {
+        return new HelpPrinterInputFactory(50)
                 .addHeadline("Hilfe:")
                 .addCommand("bank", "alle Optionen für Bank")
                 .addCommand("account", "alle Optionen für Account")

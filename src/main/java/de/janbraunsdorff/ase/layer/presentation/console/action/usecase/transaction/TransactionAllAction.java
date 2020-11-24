@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction;
 
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class TransactionAllAction extends UseCase {
         }
 
         int number = 20;
-        if (areTagsAndValuesPresent(tags, "-n")){
+        if (areTagsAndValuesPresent(tags, "-n")) {
             number = Integer.parseInt(tags.get("-n"));
         }
 

@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
-import de.janbraunsdorff.ase.layer.domain.bank.Bank;
-import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.bank.Bank;
+import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

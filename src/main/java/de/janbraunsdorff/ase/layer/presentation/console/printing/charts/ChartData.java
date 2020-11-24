@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer.charts;
+package de.janbraunsdorff.ase.layer.presentation.console.printing.charts;
 
 import java.util.Arrays;
 

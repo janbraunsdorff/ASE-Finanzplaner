@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console;
 
+import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.action.system.ErrorResult;
-import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 import java.util.HashMap;
 import java.util.Map;

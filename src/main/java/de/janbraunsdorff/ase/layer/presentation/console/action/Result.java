@@ -1,7 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action;
 
+import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
+
 public interface Result {
-    String print();
+    PrinterInput print();
 
 
 }

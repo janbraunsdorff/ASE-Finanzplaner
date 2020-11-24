@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
-import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
+import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
 
 public class BankAllAction extends UseCase {

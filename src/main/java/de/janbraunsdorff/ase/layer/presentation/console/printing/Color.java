@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer;
+package de.janbraunsdorff.ase.layer.presentation.console.printing;
 
 public enum Color {
     BASE("\u001B[0m"),

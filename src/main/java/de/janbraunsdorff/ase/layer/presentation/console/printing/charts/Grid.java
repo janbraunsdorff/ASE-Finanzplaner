@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.printer.charts;
+package de.janbraunsdorff.ase.layer.presentation.console.printing.charts;
 
 public class Grid {
     private final String full = String.format("%c%c%c%c%c%c%c", ' ', ' ', ChartElement.Block.getSymbol(), ChartElement.Block.getSymbol(), ChartElement.Block.getSymbol(), ' ', ' ');
@@ -57,8 +57,8 @@ public class Grid {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < grid[0].length; i++) {
-            for (int j = 0; j < grid.length; j++) {
-                builder.append(grid[j][i]);
+            for (String[] strings : grid) {
+                builder.append(strings[i]);
             }
             builder.append("\n");
         }
