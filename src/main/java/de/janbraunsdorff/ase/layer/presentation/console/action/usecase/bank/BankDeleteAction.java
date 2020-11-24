@@ -7,7 +7,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 import java.util.Map;
 
-public class BankDeleteAction implements UseCase {
+public class BankDeleteAction extends UseCase {
 
     private final BankApplication service;
 

@@ -7,10 +7,10 @@ import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public interface UseCase {
-    Result act(String command) throws Exception;
+public abstract class UseCase {
+    public abstract Result act(String command) throws Exception;
 
-    default Map<String, String> parseCommand(String command, int start) {
+    protected Map<String, String> parseCommand(String command, int start) {
         Map<String, String> parameter = new HashMap<>();
         String[] s = command.split(" ");
         Pattern pattern = Pattern.compile("^(-[a-z]+)$");
@@ -40,17 +40,7 @@ public interface UseCase {
         return parameter;
     }
 
-    default boolean areTagsPresent(Map<String, String> map, String... tags) {
-        for (String s : tags) {
-            if (!map.containsKey(s)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    default boolean areTagsAndValuesPresent(Map<String, String> map, String... tags) {
+    protected boolean areTagsAndValuesPresent(Map<String, String> map, String... tags) {
         for (String s : tags) {
             if (!map.containsKey(s)) {
                 return false;

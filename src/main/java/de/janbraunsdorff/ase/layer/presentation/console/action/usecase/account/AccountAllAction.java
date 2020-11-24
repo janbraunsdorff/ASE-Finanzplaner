@@ -11,7 +11,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import java.util.List;
 import java.util.Map;
 
-public class AccountAllAction implements UseCase {
+public class AccountAllAction extends UseCase {
 
     private final AccountApplication service;
 

@@ -10,7 +10,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 import java.util.Map;
 
-public class AccountAddAction implements UseCase {
+public class AccountAddAction extends UseCase {
 
     private final AccountApplication service;
 

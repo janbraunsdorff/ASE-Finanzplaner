@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 
-public class BankAllAction implements UseCase {
+public class BankAllAction extends UseCase {
     private final BankApplication service;
 
     public BankAllAction(BankApplication service) {

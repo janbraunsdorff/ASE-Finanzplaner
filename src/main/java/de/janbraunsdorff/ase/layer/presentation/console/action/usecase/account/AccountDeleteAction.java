@@ -8,7 +8,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 import java.util.Map;
 
-public class AccountDeleteAction implements UseCase {
+public class AccountDeleteAction extends UseCase {
     private final AccountApplication service;
 
     public AccountDeleteAction(AccountApplication service) {

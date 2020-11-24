@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 
 import java.util.Map;
 
-public class BankAddAction implements UseCase {
+public class BankAddAction extends UseCase {
 
     private final BankApplication service;
 

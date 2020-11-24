@@ -10,7 +10,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import java.util.List;
 import java.util.Map;
 
-public class TransactionAllAction implements UseCase {
+public class TransactionAllAction extends UseCase {
 
     private final TransactionApplication crudTransaction;
 
