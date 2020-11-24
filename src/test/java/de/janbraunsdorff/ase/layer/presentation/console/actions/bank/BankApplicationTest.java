@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.presentation.BankApplication;
+import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 
 import java.util.Collections;
 import java.util.List;

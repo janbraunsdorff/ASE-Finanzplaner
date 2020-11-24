@@ -1,19 +1,19 @@
 package de.janbraunsdorff.ase;
 
 
-import de.janbraunsdorff.ase.layer.domain.bank.BankService;
-import de.janbraunsdorff.ase.layer.domain.account.AccountService;
-import de.janbraunsdorff.ase.layer.domain.transaction.*;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
+import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
+import de.janbraunsdorff.ase.layer.domain.bank.BankService;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.memory.AccountMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.BankMemoryRepository;
 import de.janbraunsdorff.ase.layer.persistence.memory.TransactionMemoryRepository;
-import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
-import de.janbraunsdorff.ase.layer.presentation.BankApplication;
-import de.janbraunsdorff.ase.layer.presentation.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.UseCaseController;
@@ -23,7 +23,10 @@ import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountA
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.account.AccountDeleteAction;
-import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankDefaultAction;
+import de.janbraunsdorff.ase.layer.presentation.console.actions.bank.BankDeleteAction;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.transaction.TransactionDefaultAction;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
@@ -42,7 +45,7 @@ public class App {
         BankMemoryRepository bankRepo = new BankMemoryRepository();
         AccountMemoryRepository accountRepo = new AccountMemoryRepository();
         TransactionMemoryRepository transactionRepo = new TransactionMemoryRepository();
-        
+
 
         createVolksbank(bankRepo, accountRepo, transactionRepo); // Create Demo Data Volksbank
         createSpasskasse(bankRepo, accountRepo); // Create Demo Data Spaßkasse

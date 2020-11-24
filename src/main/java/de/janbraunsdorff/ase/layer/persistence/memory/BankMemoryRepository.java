@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
-import de.janbraunsdorff.ase.layer.domain.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 
@@ -22,7 +22,7 @@ public class BankMemoryRepository implements BankRepository {
 
     @Override
     public Bank getBankByAcronym(String acronym) throws BankNotFoundException {
-        if (!this.memory.containsKey(acronym)){
+        if (!this.memory.containsKey(acronym)) {
             throw new BankNotFoundException(acronym);
         }
         return this.memory.get(acronym);
@@ -30,7 +30,7 @@ public class BankMemoryRepository implements BankRepository {
 
     @Override
     public void createBank(Bank bank) throws AcronymAlreadyExistsException {
-        if (this.memory.containsKey(bank.getAcronym())){
+        if (this.memory.containsKey(bank.getAcronym())) {
             throw new AcronymAlreadyExistsException(bank.getAcronym());
         }
         this.memory.put(bank.getAcronym(), bank);

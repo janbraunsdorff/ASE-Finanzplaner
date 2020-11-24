@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class TransactionDTO {
     private final Integer value;

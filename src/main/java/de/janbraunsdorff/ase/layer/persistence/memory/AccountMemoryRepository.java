@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.account.Account;
-import de.janbraunsdorff.ase.layer.domain.AccountRepository;
+import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 
@@ -15,7 +15,7 @@ public class AccountMemoryRepository implements AccountRepository {
 
     @Override
     public void createAccount(Account account) throws AcronymAlreadyExistsException {
-        if (accounts.containsKey(account.getAcronym())){
+        if (accounts.containsKey(account.getAcronym())) {
             throw new AcronymAlreadyExistsException(account.getAcronym());
         }
         this.accounts.put(account.getAcronym(), account);
@@ -23,7 +23,7 @@ public class AccountMemoryRepository implements AccountRepository {
 
     @Override
     public Account getAccountByAcronym(String acronym) throws AccountNotFoundException {
-        if (this.accounts.containsKey(acronym)){
+        if (this.accounts.containsKey(acronym)) {
             return this.accounts.get(acronym);
         }
 

@@ -37,11 +37,11 @@ public class TransactionResult implements TypedResult<TransactionDTO> {
         return builder.build();
     }
 
-    private void print(TransactionDTO t){
+    private void print(TransactionDTO t) {
         builder.addLine()
                 .addEntry(t.getThirdParty())
                 .addEntry(this.dtFormatter.format(t.getDate()))
-                .addEntry(t.getContract() ? "ja": "nein")
+                .addEntry(t.getContract() ? "ja" : "nein")
                 .addEntry(t.getCategory())
                 .addAmount(t.getValue())
                 .addNewLine();

@@ -1,10 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.account;
 
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.presentation.AccountApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.account.AccountHelpResult;
@@ -30,7 +30,6 @@ public class AccountAddAction implements Action {
         AccountCreateCommand cmd = new AccountCreateCommand(tags.get("-a"), tags.get("-na"), tags.get("-ar"), tags.get("-ac"));
         AccountDTO account = service.createAccountByAcronym(cmd);
         return new AccountNewResult(account);
-
 
 
     }

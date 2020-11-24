@@ -1,9 +1,12 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import de.janbraunsdorff.ase.layer.domain.TransactionRepository;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TransactionMemoryRepository implements TransactionRepository {
@@ -25,7 +28,7 @@ public class TransactionMemoryRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getTransactionOfAccount(String acronym, int count) {
-        if (count <= 0){
+        if (count <= 0) {
             count = transactions.size();
         }
         return this.transactions.values().stream()

@@ -7,12 +7,12 @@ import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenericDistributor  implements Distributor {
+public class GenericDistributor implements Distributor {
     private final Map<String, Action> actions;
     private final Result helpResult;
     private final Action defaultAction;
 
-    public GenericDistributor(Result helpResult, Action defaultAction){
+    public GenericDistributor(Result helpResult, Action defaultAction) {
         this.helpResult = helpResult;
         this.defaultAction = defaultAction;
         this.actions = new HashMap<>();

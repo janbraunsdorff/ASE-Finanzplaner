@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TransactionTestRepo implements TransactionRepository{
+public class TransactionTestRepo implements TransactionRepository {
     public Transaction entity;
     public int count;
     public String accountAcronym;

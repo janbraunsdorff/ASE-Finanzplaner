@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.actions.bank;
 
+import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.presentation.BankApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.actions.Action;
 import de.janbraunsdorff.ase.layer.presentation.console.result.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.result.bank.BankHelpResult;
@@ -22,7 +22,7 @@ public class BankAddAction implements Action {
     @Override
     public Result act(String command) throws AcronymAlreadyExistsException {
         Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsAndValuesPresent(tags, "-a", "-n")){
+        if (!areTagsAndValuesPresent(tags, "-a", "-n")) {
             return new BankHelpResult();
         }
 

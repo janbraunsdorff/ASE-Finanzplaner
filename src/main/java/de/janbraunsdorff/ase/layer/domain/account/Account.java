@@ -36,7 +36,7 @@ public class Account {
         return id;
     }
 
-    public String getBankAcronym(){
+    public String getBankAcronym() {
         return bankAcronym;
     }
 

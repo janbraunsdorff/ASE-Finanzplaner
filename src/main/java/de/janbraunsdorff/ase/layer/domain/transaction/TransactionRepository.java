@@ -1,12 +1,13 @@
-package de.janbraunsdorff.ase.layer.domain;
+package de.janbraunsdorff.ase.layer.domain.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 
 import java.util.List;
 
 public interface TransactionRepository {
     void createTransaction(Transaction entity) throws AccountNotFoundException;
+
     int getValueOfAccount(String accountId);
+
     List<Transaction> getTransactionOfAccount(String id, int count);
 }

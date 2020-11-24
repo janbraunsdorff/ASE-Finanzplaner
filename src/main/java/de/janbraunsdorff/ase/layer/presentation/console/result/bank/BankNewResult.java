@@ -16,7 +16,7 @@ public class BankNewResult implements Result {
     public String print() {
         return new InformationOutputBuilder()
                 .addHeadline("Eine neune Bank wurde angelget")
-                .addInformation(String.format("Name: %s | Abkürzung: %s" , bankEntity.getName(), bankEntity.getAcronym()))
+                .addInformation(String.format("Name: %s | Abkürzung: %s", bankEntity.getName(), bankEntity.getAcronym()))
                 .build();
 
     }

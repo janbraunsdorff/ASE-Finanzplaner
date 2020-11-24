@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain;
 
 import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.persistence.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.persistence.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
@@ -8,7 +9,7 @@ import de.janbraunsdorff.ase.layer.persistence.BankNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountTestRepo implements AccountRepository{
+public class AccountTestRepo implements AccountRepository {
     public String acronymDelete;
     @Override
     public void createAccount(Account account) throws AcronymAlreadyExistsException {

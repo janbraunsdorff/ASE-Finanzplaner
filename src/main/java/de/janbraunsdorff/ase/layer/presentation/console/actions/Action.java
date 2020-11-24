@@ -52,15 +52,15 @@ public interface Action {
         return true;
     }
 
-    default boolean areTagsAndValuesPresent(Map<String, String> map, String... tags){
+    default boolean areTagsAndValuesPresent(Map<String, String> map, String... tags) {
         for (String s : tags) {
             if (!map.containsKey(s)) {
                 return false;
             }
 
-           if (map.get(s).equals("")){
-               return false;
-           }
+            if (map.get(s).equals("")) {
+                return false;
+            }
         }
 
         return true;

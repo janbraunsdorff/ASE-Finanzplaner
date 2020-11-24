@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TableOutputBuilder extends OutputBuilder {
 
-    private List<Integer> width;
+    private final List<Integer> width;
     private int lastIndex;
     private boolean isFirstRow;
 
