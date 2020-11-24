@@ -27,7 +27,12 @@ public class TransactionAllAction implements Action {
             return new TransactionHelpResult();
         }
 
-        List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactions(new TransactionGetQuery(tags.get("-a"), 20));
+        int number = 20;
+        if (areTagsAndValuesPresent(tags, "-n")){
+            number = Integer.parseInt(tags.get("-n"));
+        }
+
+        List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactions(new TransactionGetQuery(tags.get("-a"), number));
         return new TransactionResult(allTransactionOfAccount);
     }
 }
