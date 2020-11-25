@@ -12,6 +12,16 @@ public class Transaction {
     private final String category;
     private final Boolean isContract;
 
+    public Transaction(String id, String accountAcronym, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
+        this.id = id;
+        this.accountAcronym = accountAcronym;
+        this.value = value;
+        this.date = date;
+        this.thirdParty = thirdParty;
+        this.category = category;
+        this.isContract = isContract;
+    }
+
     public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
         this.id = UUID.randomUUID().toString();
         this.accountAcronym = accountId;

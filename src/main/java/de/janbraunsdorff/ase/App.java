@@ -4,38 +4,19 @@ package de.janbraunsdorff.ase;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
-import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
-import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
-import de.janbraunsdorff.ase.layer.domain.bank.BankService;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
-import de.janbraunsdorff.ase.layer.persistence.memory.AccountMemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.memory.BankMemoryRepository;
-import de.janbraunsdorff.ase.layer.persistence.memory.TransactionMemoryRepository;
-import de.janbraunsdorff.ase.layer.presentation.console.Distributor;
-import de.janbraunsdorff.ase.layer.presentation.console.DistributorAction;
-import de.janbraunsdorff.ase.layer.presentation.console.DistributorActionFactory;
-import de.janbraunsdorff.ase.layer.presentation.console.DistributorUsecaseFactory;
-import de.janbraunsdorff.ase.layer.presentation.console.action.system.ExitAction;
-import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpAction;
-import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpResult;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, AcronymAlreadyExistsException, AccountNotFoundException {
+    public static void main(String[] args) throws AcronymAlreadyExistsException, AccountNotFoundException, IOException {
         new ApplicationConsoleBuilder()
-                .intMemoryRepo()
+                .intJsonRepo("./")
+                //.intMemoryRepo()
+                /*
                 .addEntity(new Bank("Volksbank Karlsruhe eG", "VB"))
                 .addEntity(new Account("VB", "Girokonto", "DE00 0000 0000 0000 0000 00", "VB-GK"))
                 .addEntity(new Transaction("VB-GK", 10000, LocalDate.now().minusDays(2), "Jan Braunsdorff", "Start", false))
@@ -48,6 +29,7 @@ public class App {
                 .addEntity(new Account("SK", "Girokonto", "DE00 0000 0000 0000 0000 05", "SK-GK"))
                 .addEntity(new Account("SK", "Vermögenswirksammeleistungen", "DE00 0000 0000 0000 0000 06", "SK-VL"))
                 .addEntity(new Account("SK", "Altersvorsorge", "DE00 0000 0000 0000 0000 07", "SK-AV"))
+                */
                 .initDefaultApp()
                 .createBankDistributor()
                 .createAccountDistributor()
@@ -55,6 +37,7 @@ public class App {
                 .createActionDistributor()
                 .create()
                 .run();
+
     }
 
 }

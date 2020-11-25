@@ -24,6 +24,11 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
         return this;
     }
 
+    protected ApplicationConsoleBuilder intJsonRepo(String path) {
+        super.intJsonRepository(path);
+        return this;
+    }
+
     protected ApplicationConsoleBuilder initDefaultApp() {
         super.initDefaultApplication();
         return this;

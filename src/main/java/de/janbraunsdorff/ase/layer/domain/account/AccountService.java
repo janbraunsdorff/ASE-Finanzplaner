@@ -24,7 +24,7 @@ public class AccountService implements AccountApplication {
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
         List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(query.getId());
-        return accounts.stream().map(a -> {
+        List<AccountDTO> collect = accounts.stream().map(a -> {
             int amount = -1;
             String bankName = "nicht bekannt";
             try {
@@ -35,6 +35,7 @@ public class AccountService implements AccountApplication {
             }
             return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
         }).collect(Collectors.toList());
+        return collect;
     }
 
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws AcronymAlreadyExistsException, BankNotFoundException {
