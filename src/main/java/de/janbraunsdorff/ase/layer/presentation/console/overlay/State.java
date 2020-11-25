@@ -1,6 +1,5 @@
 package de.janbraunsdorff.ase.layer.presentation.console.overlay;
 
-
 import static de.janbraunsdorff.ase.layer.presentation.console.overlay.Hierarchy.*;
 
 public class State {
@@ -56,7 +55,25 @@ public class State {
         return bankIdent;
     }
 
-    public String getAccountIdent() {
-        return accountIdent;
+
+    public String getPath() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        builder.append(this.hierarchy.toString().charAt(0));
+        builder.append(this.hierarchy.toString().substring(1).toLowerCase());
+        builder.append("]");
+        builder.append("/");
+
+        if(this.bankIdent != null){
+            builder.append(this.bankIdent);
+            builder.append("/");
+        }
+
+        if (this.accountIdent != null){
+            builder.append(this.accountIdent);
+            builder.append("/");
+        }
+
+        return builder.toString();
     }
 }

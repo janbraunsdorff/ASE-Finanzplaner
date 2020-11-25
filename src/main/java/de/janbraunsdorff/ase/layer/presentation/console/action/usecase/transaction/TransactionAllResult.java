@@ -5,6 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.TypedResult;
 import de.janbraunsdorff.ase.layer.presentation.console.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.printing.factory.TablePrinterInputFactory;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final DateTimeFormatter dtFormatter;
 
 
-    private int month = 0;
+    private LocalDate date = LocalDate.now();
 
     public TransactionAllResult(List<TransactionDTO> transactions) {
         this.transactions = transactions;
@@ -42,16 +43,15 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     }
 
     private void print(TransactionDTO t) {
-        if (month != 0 && month != t.getDate().getMonthValue()){
-            this.month = t.getDate().getMonthValue();
+        if (this.date.getMonthValue() != t.getDate().getMonthValue() || this.date.getYear() != t.getDate().getYear()){
+            this.date = t.getDate();
             builder.addNewLine();
         }
-        this.month = t.getDate().getMonthValue();
 
         builder.addLine()
                 .addEntry(t.getThirdParty())
                 .addEntry(this.dtFormatter.format(t.getDate()))
-                .addEntry(t.getContract() ? "ja" : "nein")
+                .addEntry(t.getContract() ? "   x   " : "")
                 .addEntry(t.getCategory())
                 .addAmount(t.getValue())
                 .addNewLine();

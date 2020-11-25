@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.overlay;
 import de.janbraunsdorff.ase.layer.presentation.console.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.account.AccountActor;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.bank.BankActor;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.part.Command;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class CommandOverlay {
 //      TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
+            System.out.print(this.state.getPath());
+            System.out.print(new Command().getPiece());
+            System.out.print(" ");
             String shortCommand = reader.readLine();
             if (shortCommand == null) {
                 System.exit(0);
