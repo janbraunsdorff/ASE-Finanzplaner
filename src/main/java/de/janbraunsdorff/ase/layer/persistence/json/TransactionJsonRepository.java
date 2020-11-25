@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,7 @@ public class TransactionJsonRepository implements TransactionRepository {
             return readFile()
                     .stream()
                     .filter(f -> f.getAccountAcronym().equals(id))
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
                     .limit(count)
                     .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
                     .collect(Collectors.toList());

@@ -20,6 +20,13 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         this.isFirstRow = true;
     }
 
+    public TablePrinterInputFactory addHeadline(String text){
+        this.addText(text);
+        this.addNewLine();
+        return this;
+    }
+
+
     public TablePrinterInputFactory addTableHeader(int width, String name) {
         this.addTableVerticalDivider();
         width = Math.max(width, name.length());
@@ -61,8 +68,13 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
     }
 
     public PrinterInputFactory addAmount(int amount) {
-        String amountBuilder = amount / 100 + "." + amount % 100 + "€";
-        String text = String.format("%-" + getLength() + "s", amountBuilder);
+        StringBuilder builder = new StringBuilder()
+                .append(amount / 100)
+                .append(".")
+                .append(Math.abs(amount % 100))
+                .append(Integer.toString(Math.abs(amount % 100)).length() == 1? "0": "" )
+                .append("€");
+        String text = String.format("%" + getLength() + "s", builder.toString());
         this.lastIndex++;
         if (amount < 0) {
             this.pieces.add(new SentencePiece(Color.RED, text));

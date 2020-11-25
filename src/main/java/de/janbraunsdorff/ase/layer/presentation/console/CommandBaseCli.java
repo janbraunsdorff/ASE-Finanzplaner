@@ -4,16 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Console {
+public class CommandBaseCli {
     private final DistributorAction controller;
 
-    public Console(DistributorAction controller) {
+    public CommandBaseCli(DistributorAction controller) {
         this.controller = controller;
     }
 
     public void run() throws IOException {
-        System.out.println("Dein Planer steht zur benutzung bereit");
-
         //      TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {

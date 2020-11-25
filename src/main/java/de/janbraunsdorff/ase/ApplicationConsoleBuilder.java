@@ -12,6 +12,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.overlay.CommandOverlay;
 
 public class ApplicationConsoleBuilder extends ApplicationBase {
     private Distributor transactionDistributor;
@@ -86,7 +87,13 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
         return this;
     }
     
-    protected Console create(){
-        return new Console(this.controller);
+    protected CommandBaseCli createCli(){
+        System.out.println("Dein Planer steht zur benutzung bereit");
+        return new CommandBaseCli(this.controller);
+    }
+
+    protected CommandOverlay createOverlay(){
+        System.out.println("Dein Planer steht zur benutzung bereit");
+        return new CommandOverlay(this.controller);
     }
 }

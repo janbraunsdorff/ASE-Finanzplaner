@@ -27,7 +27,7 @@ public class BankAllResult implements TypedResult<BankDTO> {
                 .addTableHeader(length, "Name")
                 .addTableHeader(lengthAcronym, "Abkürzung")
                 .addTableHeader(10, "Account")
-                .addTableHeader(10, "Guthaben")
+                .addTableHeader(15, "Guthaben")
                 .finishFirstLine()
                 .addHorizontalLine();
 

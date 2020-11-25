@@ -15,6 +15,9 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final int lengthCategory;
     private final DateTimeFormatter dtFormatter;
 
+
+    private int month = 0;
+
     public TransactionAllResult(List<TransactionDTO> transactions) {
         this.transactions = transactions;
         this.builder = new TablePrinterInputFactory();
@@ -30,7 +33,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
                 .addTableHeader(10, "Datum")
                 .addTableHeader(7, "Vertrag")
                 .addTableHeader(lengthCategory, "Kategorie")
-                .addTableHeader(7, "Betrag")
+                .addTableHeader(15, "Betrag")
                 .finishFirstLine()
                 .addHorizontalLine();
         this.transactions.forEach(this::print);
@@ -39,6 +42,12 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     }
 
     private void print(TransactionDTO t) {
+        if (month != 0 && month != t.getDate().getMonthValue()){
+            this.month = t.getDate().getMonthValue();
+            builder.addNewLine();
+        }
+        this.month = t.getDate().getMonthValue();
+
         builder.addLine()
                 .addEntry(t.getThirdParty())
                 .addEntry(this.dtFormatter.format(t.getDate()))

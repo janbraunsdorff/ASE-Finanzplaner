@@ -24,12 +24,13 @@ public class AccountAllResult implements TypedResult<AccountDTO> {
     @Override
     public PrinterInput print() {
         this.builder
+                .addHeadline("Bank: " + result.get(0).getBankName())
                 //.addTableHeader(37, "ID")
                 .addTableHeader(lengthName, "Name")
                 .addTableHeader(lengthNumber, "Number")
                 .addTableHeader(10, "Abkürzung")
                 .addTableHeader(13, "Transactionen")
-                .addTableHeader(10, "Guthaben")
+                .addTableHeader(15, "Guthaben")
                 .finishFirstLine()
                 .addHorizontalLine();
 

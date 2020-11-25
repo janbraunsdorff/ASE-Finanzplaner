@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BankJsonRepository  implements BankRepository {
@@ -33,7 +30,12 @@ public class BankJsonRepository  implements BankRepository {
     @Override
     public List<Bank> getBank() {
         try {
-            return readFile().stream().map(b -> new Bank(b.getId(), b.getName(), b.getAcronym())).collect(Collectors.toList());
+            ArrayList<BankJsonEntity> bankJsonEntities = readFile();
+            return readFile()
+                    .stream()
+                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym()))
+                    .sorted(Comparator.comparing(Bank::getName))
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +81,7 @@ public class BankJsonRepository  implements BankRepository {
         try {
             List<BankJsonEntity> collect = readFile()
                     .stream()
-                    .filter(f -> !f.getId().equals(bankId))
+                    .filter(f -> !f.getAcronym().equals(bankId))
                     .collect(Collectors.toList());
             writeFile(collect);
         } catch (IOException e) {

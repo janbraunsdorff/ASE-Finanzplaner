@@ -35,6 +35,10 @@ public class AccountService implements AccountApplication {
             }
             return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
         }).collect(Collectors.toList());
+
+        if (collect.isEmpty()){
+            collect.add(new AccountDTO("---", "---", 0, "---", 0, query.getId()));
+        }
         return collect;
     }
 
