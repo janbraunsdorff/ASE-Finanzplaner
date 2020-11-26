@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.transaction;
 
 import de.janbraunsdorff.ase.layer.presentation.console.directory.Actor;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 
 import java.util.HashMap;
 
@@ -12,7 +12,7 @@ public class TransactionActor implements Actor {
     private final HashMap<String, CommandBuilder> builder = new HashMap<>();
 
     public State act(State state, Command command) {
-        if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")){
+        if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")) {
             return this.builder.get("cd ..").build(state, command);
         }
         String cmd = command.getTopLevel();

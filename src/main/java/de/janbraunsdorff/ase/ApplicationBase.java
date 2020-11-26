@@ -31,20 +31,19 @@ public abstract class ApplicationBase {
     protected TransactionApplication transactionApplication;
 
 
-
-    protected void intMemoryRepository(){
+    protected void intMemoryRepository() {
         this.bankRepository = new BankMemoryRepository();
         this.accountRepository = new AccountMemoryRepository();
         this.transactionRepository = new TransactionMemoryRepository();
     }
 
-    protected void intJsonRepository(String path){
+    protected void intJsonRepository(String path) {
         this.bankRepository = new BankJsonRepository(path);
         this.accountRepository = new AccountJsonRepository(path);
         this.transactionRepository = new TransactionJsonRepository(path);
     }
 
-    protected void initDefaultApplication(){
+    protected void initDefaultApplication() {
         this.accountApplication = new AccountService(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);

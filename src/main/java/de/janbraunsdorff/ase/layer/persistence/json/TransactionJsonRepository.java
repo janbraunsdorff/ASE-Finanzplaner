@@ -53,7 +53,7 @@ public class TransactionJsonRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getTransactionOfAccount(String id, int count) {
-        if (count < 0){
+        if (count < 0) {
             count = Integer.MAX_VALUE;
         }
         try {
@@ -73,7 +73,8 @@ public class TransactionJsonRepository implements TransactionRepository {
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<TransactionJsonEntity> ts = gson.fromJson(s, new TypeToken<List<TransactionJsonEntity>>(){}.getType());
+        ArrayList<TransactionJsonEntity> ts = gson.fromJson(s, new TypeToken<List<TransactionJsonEntity>>() {
+        }.getType());
 
         return ts;
     }

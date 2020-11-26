@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class AccountJsonEntity {
     @SerializedName("account_id")
-    private  String id;
+    private final String id;
     @SerializedName("bank_acronym")
-    private  String bankAcronym;
+    private final String bankAcronym;
     @SerializedName("account_name")
-    private  String name;
+    private final String name;
     @SerializedName("account_number")
-    private  String number;
+    private final String number;
     @SerializedName("account_acronym")
-    private  String acronym;
+    private final String acronym;
 
     public AccountJsonEntity(String id, String bankAcronym, String name, String number, String acronym) {
         this.id = id;

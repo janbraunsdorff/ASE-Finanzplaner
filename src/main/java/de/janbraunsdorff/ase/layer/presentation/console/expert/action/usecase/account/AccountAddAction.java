@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
-public class AccountAddAction  implements UseCase {
+public class AccountAddAction implements UseCase {
 
     private final AccountApplication service;
 
@@ -19,7 +19,7 @@ public class AccountAddAction  implements UseCase {
 
     @Override
     public Result act(Command command) throws BankNotFoundException, AcronymAlreadyExistsException {
-        if (!command.areTagsAndValuesPresent( "-na", "-nr", "-ac", "-a")) {
+        if (!command.areTagsAndValuesPresent("-na", "-nr", "-ac", "-a")) {
             return new AccountHelpResult();
         }
 

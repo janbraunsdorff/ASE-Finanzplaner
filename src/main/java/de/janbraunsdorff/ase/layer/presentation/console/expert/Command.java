@@ -34,7 +34,7 @@ public final class Command {
         return command;
     }
 
-    public String getParameter(String parameter){
+    public String getParameter(String parameter) {
         return this.parameter.get(parameter);
     }
 
@@ -91,6 +91,6 @@ public final class Command {
     }
 
     public Command changeStart(int i) {
-        return  new Command(this.command, i);
+        return new Command(this.command, i);
     }
 }

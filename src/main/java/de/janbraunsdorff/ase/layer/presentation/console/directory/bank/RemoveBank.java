@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.bank;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 
 public class RemoveBank implements CommandBuilder {
     @Override

@@ -79,7 +79,7 @@ public class AccountJsonRepository implements AccountRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        throw  new BankNotFoundException(bank);
+        throw new BankNotFoundException(bank);
     }
 
     @Override
@@ -95,7 +95,8 @@ public class AccountJsonRepository implements AccountRepository {
     private ArrayList<AccountJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<AccountJsonEntity> ts = gson.fromJson(s, new TypeToken<List<AccountJsonEntity>>(){}.getType());
+        ArrayList<AccountJsonEntity> ts = gson.fromJson(s, new TypeToken<List<AccountJsonEntity>>() {
+        }.getType());
 
         return ts;
     }

@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BankJsonRepository  implements BankRepository {
+public class BankJsonRepository implements BankRepository {
 
     private final Path path;
     private final Gson gson;
@@ -92,7 +92,8 @@ public class BankJsonRepository  implements BankRepository {
     private ArrayList<BankJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<BankJsonEntity> ts = gson.fromJson(s, new TypeToken<List<BankJsonEntity>>(){}.getType());
+        ArrayList<BankJsonEntity> ts = gson.fromJson(s, new TypeToken<List<BankJsonEntity>>() {
+        }.getType());
 
         return ts;
     }

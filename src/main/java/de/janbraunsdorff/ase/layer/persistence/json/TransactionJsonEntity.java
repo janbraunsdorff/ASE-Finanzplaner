@@ -7,18 +7,18 @@ import java.time.LocalDate;
 
 public class TransactionJsonEntity {
     @SerializedName("transaction_id")
-    private String id;
-    private String accountAcronym;
+    private final String id;
+    private final String accountAcronym;
     @SerializedName("transaction_value")
-    private Integer value;
+    private final Integer value;
     @SerializedName("transaction_date")
-    private LocalDate date;
+    private final LocalDate date;
     @SerializedName("transaction_thirdParty")
-    private String thirdParty;
+    private final String thirdParty;
     @SerializedName("transaction_category")
-    private String category;
+    private final String category;
     @SerializedName("transaction_contract")
-    private Boolean isContract;
+    private final Boolean isContract;
 
     public TransactionJsonEntity(String id, String accountAcronym, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
         this.id = id;

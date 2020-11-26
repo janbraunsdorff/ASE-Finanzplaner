@@ -10,7 +10,7 @@ public class State {
     private final String accountIdent;
     private final Command command;
 
-    public static State createInitState(){
+    public static State createInitState() {
         return new State(Hierarchy.BANK, null, null, null);
     }
 
@@ -73,17 +73,17 @@ public class State {
         builder.append("]");
         builder.append("/");
 
-        if(this.bankIdent != null){
+        if (this.bankIdent != null) {
             builder.append(this.bankIdent);
             builder.append("/");
         }
 
-        if (this.accountIdent != null){
+        if (this.accountIdent != null) {
             builder.append(this.accountIdent);
             builder.append("/");
         }
 
-        if (this.hierarchy == TRANSACTION){
+        if (this.hierarchy == TRANSACTION) {
             builder.append("Transaktionen");
             builder.append("/");
         }

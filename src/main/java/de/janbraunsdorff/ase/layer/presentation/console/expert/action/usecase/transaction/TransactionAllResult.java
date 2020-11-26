@@ -43,7 +43,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     }
 
     private void print(TransactionDTO t) {
-        if (this.date.getMonthValue() != t.getDate().getMonthValue() || this.date.getYear() != t.getDate().getYear()){
+        if (this.date.getMonthValue() != t.getDate().getMonthValue() || this.date.getYear() != t.getDate().getYear()) {
             this.date = t.getDate();
             builder.addNewLine();
         }

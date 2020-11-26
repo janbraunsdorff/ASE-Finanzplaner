@@ -4,5 +4,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 
 public interface Actor {
     State act(State state, Command command);
+
     void addBuilder(String trigger, CommandBuilder builder);
 }

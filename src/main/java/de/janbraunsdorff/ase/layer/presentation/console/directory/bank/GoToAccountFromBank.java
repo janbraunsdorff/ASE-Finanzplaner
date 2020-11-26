@@ -8,6 +8,6 @@ public class GoToAccountFromBank implements CommandBuilder {
     @Override
     public State build(State state, Command command) {
         String bankAcronym = command.getSecondLevel();
-        return state.goDeep(bankAcronym, new Command("account all -a "+ bankAcronym, 2));
+        return state.goDeep(bankAcronym, new Command("account all -a " + bankAcronym, 2));
     }
 }
