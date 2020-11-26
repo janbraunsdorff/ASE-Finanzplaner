@@ -26,10 +26,10 @@ public class TransactionAddAction implements UseCase {
 
         String accountAcronym = command.getParameter("-a");
         String thirdParty = command.getParameter("-thp");
-        Integer val = Integer.parseInt(command.getParameter("-val"));
+        Integer val = Integer.parseInt(command.getParameter("-val").replaceAll("[,.]", ""));
         LocalDate date = LocalDate.parse(command.getParameter("-dat"), dtf);
         String cat = command.getParameter("-cat");
-        boolean contact = command.areTagsPresent("-cat");
+        boolean contact = command.areTagsPresent("-con");
 
 
         TransactionCreateCommand cmd = new TransactionCreateCommand(accountAcronym, val, date, thirdParty, cat, contact);

@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.account.AccountActor;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.bank.BankActor;
+import de.janbraunsdorff.ase.layer.presentation.console.overlay.transaction.TransactionActor;
 import de.janbraunsdorff.ase.layer.presentation.console.printing.part.CommandPiece;
 
 import java.io.BufferedReader;
@@ -14,14 +15,16 @@ public class CommandOverlay {
 
     private final DistributorAction controller;
     private State state;
-    private final BankActor Bank;
-    private final AccountActor bankActor;
+    private final BankActor bankActor;
+    private final AccountActor accountActor;
+    private final TransactionActor transactionActor;
 
     public CommandOverlay(DistributorAction controller) {
         this.controller = controller;
         this.state = new State(Hierarchy.BANK, null, null, null);
-        this.Bank = new BankActor();
-        this.bankActor = new AccountActor();
+        this.bankActor = new BankActor();
+        this.accountActor = new AccountActor();
+        transactionActor = new TransactionActor();
     }
 
     public void run() throws IOException {
@@ -43,10 +46,13 @@ public class CommandOverlay {
     public void createCommand(Command shortCommand) {
         switch (this.state.getHierarchy()) {
             case BANK:
-                this.state = this.Bank.act(this.state, shortCommand);
+                this.state = this.bankActor.act(this.state, shortCommand);
                 break;
             case ACCOUNT:
-                this.state = this.bankActor.act(this.state, shortCommand);
+                this.state = this.accountActor.act(this.state, shortCommand);
+                break;
+            case Transaction:
+                this.state = this.transactionActor.act(this.state, shortCommand);
                 break;
         }
     }

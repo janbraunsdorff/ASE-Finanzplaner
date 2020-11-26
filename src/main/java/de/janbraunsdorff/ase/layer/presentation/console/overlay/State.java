@@ -57,6 +57,9 @@ public class State {
         return bankIdent;
     }
 
+    public String getAccountIdent() {
+        return accountIdent;
+    }
 
     public String getPath() {
         StringBuilder builder = new StringBuilder();
@@ -73,6 +76,11 @@ public class State {
 
         if (this.accountIdent != null){
             builder.append(this.accountIdent);
+            builder.append("/");
+        }
+
+        if (this.hierarchy == Transaction){
+            builder.append("Transaktionen");
             builder.append("/");
         }
 

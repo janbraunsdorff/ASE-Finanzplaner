@@ -31,6 +31,7 @@ public final class Command {
     }
 
 
+
     public String getParameter(String parameter){
         return this.parameter.get(parameter);
     }
