@@ -15,3 +15,6 @@ gradle-app.setting
 
 #Repo
 src/main/resources/bank.json
+/account.json
+/bank.json
+/transaction.json
