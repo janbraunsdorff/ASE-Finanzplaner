@@ -9,6 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.*;
 import de.janbraunsdorff.ase.layer.presentation.console.action.system.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionAddAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction.TransactionHelpResult;
@@ -53,6 +54,7 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
     protected ApplicationConsoleBuilder createTransactionDistributor(){
         this.transactionDistributor = new DistributorUsecaseFactory(new TransactionHelpResult(), new TransactionHelpAction())
                 .addCommand("all", new TransactionAllAction(this.transactionApplication))
+                .addCommand("add", new TransactionAddAction(this.transactionApplication))
                 .build();
         return this;
     }
