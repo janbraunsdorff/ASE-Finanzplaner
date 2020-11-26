@@ -10,7 +10,11 @@ public class State {
     private final String accountIdent;
     private final Command command;
 
-    public State(Hierarchy hierarchy, String bankIdent, String accountIdent, Command command) {
+    public static State createInitState(){
+        return new State(Hierarchy.BANK, null, null, null);
+    }
+
+    private State(Hierarchy hierarchy, String bankIdent, String accountIdent, Command command) {
         this.hierarchy = hierarchy;
         this.bankIdent = bankIdent;
         this.accountIdent = accountIdent;

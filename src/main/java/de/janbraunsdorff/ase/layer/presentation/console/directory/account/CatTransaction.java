@@ -4,7 +4,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 
-public class Cat implements CommandBuilder {
+public class CatTransaction implements CommandBuilder {
     @Override
     public State build(State state, Command command) {
         Command cmd = command.changeStart(2);

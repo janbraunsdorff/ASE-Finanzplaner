@@ -1,13 +1,13 @@
-package de.janbraunsdorff.ase.layer.presentation.console.directory.bank;
+package de.janbraunsdorff.ase.layer.presentation.console.directory.account;
 
+import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 
-public class GoToAccount implements CommandBuilder {
+public class RemoveAccount implements CommandBuilder {
     @Override
     public State build(State state, Command command) {
         String bankAcronym = command.getSecondLevel();
-        return state.goDeep(bankAcronym, new Command("account all -a "+ bankAcronym, 2));
+        return state.stay(new Command("account delete -a " + bankAcronym, 2));
     }
 }

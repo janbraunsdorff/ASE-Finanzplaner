@@ -10,16 +10,15 @@ import java.util.HashMap;
 
 public class BankActor implements Actor {
 
-    private final HashMap<String, CommandBuilder> builder = new HashMap<String, CommandBuilder>(){{
-        put("ls", new List());
-        put("cd", new GoToAccount());
-        put("cat", new Cat());
-        put("touch", new Touch());
-        put("rm", new Remove());
-    }};
+    private final HashMap<String, CommandBuilder> builder = new HashMap<>();
 
     public State act(State state, Command command){
         String cmd = command.getTopLevel();
         return this.builder.getOrDefault(cmd, (state1, command1) -> state1.stay(new Command("bank", 0))).build(state, command);
+    }
+
+    @Override
+    public void addBuilder(String trigger, CommandBuilder builder) {
+        this.builder.put(trigger, builder);
     }
 }

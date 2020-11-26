@@ -1,7 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.directory.account.AccountActor;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.BankActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.ListTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TouchTransaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TransactionActor;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
@@ -21,12 +24,36 @@ public class CommandOverlay {
 
     public CommandOverlay(DistributorAction controller) {
         this.controller = controller;
-        this.state = new State(Hierarchy.BANK, null, null, null);
+        this.state = State.createInitState();
+
+        BankActor bankActor = new ActorFactory<>(new BankActor())
+                .addBuilder("ls", new ListBank())
+                .addBuilder("cd", new GoToAccountFromBank())
+                .addBuilder("cat", new CatAccount())
+                .addBuilder("touch", new TouchBank())
+                .addBuilder("rm", new RemoveBank())
+                .build();
+
+        AccountActor accountActor = new ActorFactory<>(new AccountActor())
+                .addBuilder("ls", new ListAccount())
+                .addBuilder("cd", new GoToTransactionFromAccount())
+                .addBuilder("rm", new RemoveAccount())
+                .addBuilder("cat", new CatTransaction())
+                .addBuilder("touch", new TouchAccount())
+                .addBuilder("cd ..", new GoToBankFromAccount())
+                .build();
+
+        TransactionActor transactionActor = new ActorFactory<>(new TransactionActor())
+                .addBuilder("cd ..", new GoToAccountFromTransaction())
+                .addBuilder("ls", new ListTransaction())
+                .addBuilder("touch", new TouchTransaction())
+                .build();
+
 
         this.actors = new HashMap<>();
-        actors.put(Hierarchy.BANK, new BankActor());
-        actors.put(Hierarchy.ACCOUNT, new AccountActor());
-        actors.put(Hierarchy.TRANSACTION, new TransactionActor());
+        actors.put(Hierarchy.BANK, bankActor);
+        actors.put(Hierarchy.ACCOUNT, accountActor);
+        actors.put(Hierarchy.TRANSACTION, transactionActor);
     }
 
     public void run() throws IOException {
@@ -40,14 +67,10 @@ public class CommandOverlay {
             if (shortCommand == null) {
                 System.exit(0);
             }
-            createCommand(new Command(shortCommand, 1));
+            this.state = actors
+                    .get(this.state.getHierarchy())
+                    .act(this.state, new Command(shortCommand, 1));
             controller.answer(this.state.getCommand());
         }
     }
-
-    public void createCommand(Command shortCommand) {
-        this.state = actors.get(this.state.getHierarchy()).act(this.state, shortCommand);
-    }
-
-
 }

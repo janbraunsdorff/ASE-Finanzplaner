@@ -4,7 +4,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 
-public class GoToBank implements CommandBuilder {
+public class GoToBankFromAccount implements CommandBuilder {
     @Override
     public State build(State state, Command command) {
         return state.goUp(new Command("bank all", 2));
