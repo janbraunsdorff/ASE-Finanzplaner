@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class BankDeleteActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankDeleteAction action = new BankDeleteAction(service);
 
-        Result act = action.act("bank delete -a acronym");
+        Result act = action.act(new Command("bank delete -a acronym", 2));
 
         assertThat(act, Matchers.instanceOf(BankDeleteResult.class));
         assertThat(service.deleteCommand.getAcronym(), Matchers.is("acronym"));
@@ -24,10 +25,10 @@ class BankDeleteActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankDeleteAction action = new BankDeleteAction(service);
 
-        Result act = action.act("bank delete -a");
+        Result act = action.act(new Command("bank delete -a", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act("bank delete");
+        act = action.act(new Command("bank delete", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
     }

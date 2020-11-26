@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.overlay.bank;
 
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.State;
 
@@ -16,8 +17,8 @@ public class BankActor {
         put("rm", new Remove());
     }};
 
-    public State act(State state, String command){
-        String cmd = command.split(" ")[0];
-        return this.builder.getOrDefault(cmd, (state1, command1) -> state1.stay("bank")).build(state, command);
+    public State act(State state, Command command){
+        String cmd = command.getTopLevel();
+        return this.builder.getOrDefault(cmd, (state1, command1) -> state1.stay(new Command("bank", 0))).build(state, command);
     }
 }

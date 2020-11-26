@@ -1,9 +1,10 @@
 package de.janbraunsdorff.ase.layer.presentation.console.overlay;
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.account.AccountActor;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.bank.BankActor;
-import de.janbraunsdorff.ase.layer.presentation.console.printing.part.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.part.CommandPiece;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,18 +29,18 @@ public class CommandOverlay {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.print(this.state.getPath());
-            System.out.print(new Command().getPiece());
+            System.out.print(new CommandPiece().getPiece());
             System.out.print(" ");
             String shortCommand = reader.readLine();
             if (shortCommand == null) {
                 System.exit(0);
             }
-            createCommand(shortCommand);
+            createCommand(new Command(shortCommand, 1));
             controller.answer(this.state.getCommand());
         }
     }
 
-    public void createCommand(String shortCommand) {
+    public void createCommand(Command shortCommand) {
         switch (this.state.getHierarchy()) {
             case BANK:
                 this.state = this.Bank.act(this.state, shortCommand);

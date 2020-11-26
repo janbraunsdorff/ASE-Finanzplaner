@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.printing.factory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.printing.part.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.printing.part.CommandPiece;
 
 public class HelpPrinterInputFactory extends PrinterInputFactory {
 
@@ -25,7 +25,7 @@ public class HelpPrinterInputFactory extends PrinterInputFactory {
     }
 
     public PrinterInputFactory addCommand() {
-        this.pieces.add(new Command());
+        this.pieces.add(new CommandPiece());
         return this;
     }
 }

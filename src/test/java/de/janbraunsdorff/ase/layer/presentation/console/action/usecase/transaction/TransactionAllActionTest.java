@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class TransactionAllActionTest {
         TransactionTestApplication app = new TransactionTestApplication();
         TransactionAllAction action = new TransactionAllAction(app);
 
-        Result act = action.act("transaction all -a acronym");
+        Result act = action.act(new Command("transaction all -a acronym",2));
         assertThat(act, Matchers.instanceOf(TransactionAllResult.class));
         assertThat(app.getQuery.getAccount(), Matchers.is("acronym"));
         assertThat(app.getQuery.getCount(), Matchers.is(20));
@@ -26,7 +27,7 @@ class TransactionAllActionTest {
         TransactionTestApplication app = new TransactionTestApplication();
         TransactionAllAction action = new TransactionAllAction(app);
 
-        Result act = action.act("transaction all -a acronym -n 40");
+        Result act = action.act(new Command("transaction all -a acronym -n 40",2));
         assertThat(act, Matchers.instanceOf(TransactionAllResult.class));
         assertThat(app.getQuery.getAccount(), Matchers.is("acronym"));
         assertThat(app.getQuery.getCount(), Matchers.is(40));
@@ -37,7 +38,7 @@ class TransactionAllActionTest {
         TransactionTestApplication app = new TransactionTestApplication();
         TransactionAllAction action = new TransactionAllAction(app);
 
-        assertThrows(NumberFormatException.class, () ->action.act("transaction all -a acronym -n number"));
+        assertThrows(NumberFormatException.class, () ->action.act(new Command("transaction all -a acronym -n number",2)));
     }
 
     @Test
@@ -45,7 +46,7 @@ class TransactionAllActionTest {
         TransactionTestApplication app = new TransactionTestApplication();
         TransactionAllAction action = new TransactionAllAction(app);
 
-        assertThat(action.act("transaction all -a"), Matchers.instanceOf(TransactionHelpResult.class));
-        assertThat(action.act("transaction all"), Matchers.instanceOf(TransactionHelpResult.class));
+        assertThat(action.act(new Command("transaction all -a",2)), Matchers.instanceOf(TransactionHelpResult.class));
+        assertThat(action.act(new Command("transaction all",2)), Matchers.instanceOf(TransactionHelpResult.class));
     }
 }

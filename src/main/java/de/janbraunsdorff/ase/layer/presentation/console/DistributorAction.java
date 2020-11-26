@@ -15,9 +15,8 @@ public class DistributorAction {
         this.useCases = new HashMap<>();
     }
 
-    public void answer(String command) {
-        command = command.trim();
-        String useCase = command.split(" ")[0];
+    public void answer(Command command) {
+        String useCase = command.getTopLevel();
         Result res = this.useCases.getOrDefault(useCase, new DistributorDefault()).distribute(command);
         this.printer.print(res);
     }

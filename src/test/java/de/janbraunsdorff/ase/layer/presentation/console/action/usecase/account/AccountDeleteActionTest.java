@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ class AccountDeleteActionTest {
         AccountTestApplication app = new AccountTestApplication();
         AccountDeleteAction action = new AccountDeleteAction(app);
 
-        Result act = action.act("account delete -a acronym");
+        Result act = action.act(new Command("account delete -a acronym", 2));
         assertThat(act, instanceOf(AccountDeleteResult.class));
         assertThat(app.deleteCommand.getAccountAcronym(), is("acronym"));
     }
@@ -23,7 +24,7 @@ class AccountDeleteActionTest {
         AccountTestApplication app = new AccountTestApplication();
         AccountDeleteAction action = new AccountDeleteAction(app);
 
-        assertThat(action.act("account delete -a"), instanceOf(AccountHelpResult.class));
-        assertThat(action.act("account delete"), instanceOf(AccountHelpResult.class));
+        assertThat(action.act(new Command("account delete -a", 2)), instanceOf(AccountHelpResult.class));
+        assertThat(action.act(new Command("account delete", 2)), instanceOf(AccountHelpResult.class));
     }
 }

@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class BankAddActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankAddAction action = new BankAddAction(service);
 
-        Result act = action.act("bank add -a acronym -n name");
+        Result act = action.act(new Command("bank add -a acronym -n name", 2));
         assertThat(act, Matchers.instanceOf(BankAddResult.class));
         assertThat(act, Matchers.instanceOf(Result.class));
 
@@ -27,20 +28,20 @@ class BankAddActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankAddAction action = new BankAddAction(service);
 
-        Result act = action.act("bank add -a acronym -n");
+        Result act = action.act(new Command("bank add -a acronym -n", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act("bank add -a acronym");
+        act = action.act(new Command("bank add -a acronym", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act("bank add -a -n name");
+        act = action.act(new Command("bank add -a -n name", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act("bank add -n name");
+        act = action.act(new Command("bank add -n name", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
 
-        act = action.act("bank add");
+        act = action.act(new Command("bank add", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
     }
 }

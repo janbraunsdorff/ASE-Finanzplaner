@@ -19,13 +19,12 @@ public class DistributorUseCase implements Distributor {
     }
 
     @Override
-    public Result distribute(String command) {
+    public Result distribute(Command command) {
 
-        String[] s = command.split(" ");
-        if (s.length <= 1) {
+        if (command.getTopLevel() == null) {
             return this.helpResult;
         }
-        String action = s[1];
+        String action = command.getSecondLevel();
         try {
             return this.actions.getOrDefault(action, this.defaultAction).act(command);
         } catch (Exception e) {

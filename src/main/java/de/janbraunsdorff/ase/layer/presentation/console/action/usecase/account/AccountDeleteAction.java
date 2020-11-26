@@ -3,12 +3,11 @@ package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.account;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDeleteCommand;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
-import java.util.Map;
-
-public class AccountDeleteAction extends UseCase {
+public class AccountDeleteAction implements UseCase {
     private final AccountApplication service;
 
     public AccountDeleteAction(AccountApplication service) {
@@ -16,15 +15,13 @@ public class AccountDeleteAction extends UseCase {
     }
 
     @Override
-    public Result act(String command) throws AccountNotFoundException {
-        Map<String, String> tags = parseCommand(command, 2);
-
-        if (!areTagsAndValuesPresent(tags, "-a")) {
+    public Result act(Command command) throws AccountNotFoundException {
+        if (!command.areTagsAndValuesPresent("-a")) {
             return new AccountHelpResult();
         }
 
-        AccountDeleteCommand cmd = new AccountDeleteCommand(tags.get("-a"));
+        AccountDeleteCommand cmd = new AccountDeleteCommand(command.getParameter("-a"));
         this.service.deleteByAcronym(cmd);
-        return new AccountDeleteResult(tags.get("-a"));
+        return new AccountDeleteResult(command.getParameter("-a"));
     }
 }

@@ -11,7 +11,7 @@ class DefaultDistributorTest {
     @Test
     public void defaultDistributorReturnsHelp(){
         DistributorDefault distributor = new DistributorDefault();
-        Result distribute = distributor.distribute("");
+        Result distribute = distributor.distribute(new Command("", 2));
 
         assertThat(distribute, Matchers.instanceOf(HelpResult.class));
         assertThat(distribute, Matchers.instanceOf(Result.class));

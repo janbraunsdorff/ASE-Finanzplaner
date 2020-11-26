@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.action.system.HelpResult
 
 public class DistributorDefault implements Distributor {
     @Override
-    public Result distribute(String command) {
+    public Result distribute(Command command) {
         return new HelpResult();
     }
 }

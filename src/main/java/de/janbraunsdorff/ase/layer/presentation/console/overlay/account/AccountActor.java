@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.overlay.account;
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.overlay.State;
 
@@ -15,13 +16,12 @@ public class AccountActor {
         put("cd ..", new GoToBank());
     }};
 
-    public State act(State state, String command){
-        if (command.equals("cd ..")){
+    public State act(State state, Command command){
+        if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")){
             return this.builder.get("cd ..").build(state, command);
-
         }
-        String cmd = command.split(" ")[0];
-        return this.builder.getOrDefault(cmd, (state1, command1) -> state1.stay("account")).build(state, command);
+        String cmd = command.getTopLevel();
+        return this.builder.getOrDefault(cmd, (state1, command1) -> state1.stay(new Command("account", 0))).build(state, command);
     }
 }
 

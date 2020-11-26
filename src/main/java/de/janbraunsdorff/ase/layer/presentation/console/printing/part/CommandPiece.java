@@ -4,9 +4,9 @@ package de.janbraunsdorff.ase.layer.presentation.console.printing.part;
 import de.janbraunsdorff.ase.layer.presentation.console.printing.Color;
 import de.janbraunsdorff.ase.layer.presentation.console.printing.SentencePiece;
 
-public class Command extends SentencePiece {
+public class CommandPiece extends SentencePiece {
 
-    public Command() {
+    public CommandPiece() {
         super(Color.CYAN, ">");
     }
 }

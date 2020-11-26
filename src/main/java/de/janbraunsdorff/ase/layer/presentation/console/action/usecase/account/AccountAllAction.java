@@ -5,13 +5,13 @@ import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetQuery;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
 import java.util.List;
-import java.util.Map;
 
-public class AccountAllAction extends UseCase {
+public class AccountAllAction implements UseCase {
 
     private final AccountApplication service;
 
@@ -20,13 +20,12 @@ public class AccountAllAction extends UseCase {
     }
 
     @Override
-    public Result act(String command) throws BankNotFoundException, AccountNotFoundException {
-        Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsAndValuesPresent(tags, "-a")) {
+    public Result act(Command command) throws BankNotFoundException, AccountNotFoundException {
+        if (!command.areTagsAndValuesPresent("-a")) {
             return new AccountHelpResult();
         }
 
-        List<AccountDTO> accountsOfBank = service.getAccountsOfBank(new AccountGetQuery(tags.get("-a")));
+        List<AccountDTO> accountsOfBank = service.getAccountsOfBank(new AccountGetQuery(command.getParameter("-a")));
         return new AccountAllResult(accountsOfBank);
     }
 }

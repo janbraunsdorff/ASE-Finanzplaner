@@ -2,12 +2,11 @@ package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
-import java.util.Map;
-
-public class BankDeleteAction extends UseCase {
+public class BankDeleteAction implements UseCase {
 
     private final BankApplication service;
 
@@ -17,15 +16,13 @@ public class BankDeleteAction extends UseCase {
 
 
     @Override
-    public Result act(String command) {
-        Map<String, String> tags = parseCommand(command, 2);
-
-        if (!areTagsAndValuesPresent(tags, "-a")) {
+    public Result act(Command command) {
+        if (!command.areTagsAndValuesPresent("-a")) {
             return new BankHelpResult();
 
         }
 
-        String value = tags.get("-a");
+        String value = command.getParameter("-a");
 
         this.service.deleteByAcronym(new BankDeleteCommand(value));
 

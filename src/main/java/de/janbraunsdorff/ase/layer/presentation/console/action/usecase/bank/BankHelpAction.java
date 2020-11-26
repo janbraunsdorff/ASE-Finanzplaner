@@ -1,11 +1,12 @@
 package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.bank;
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
-public class BankHelpAction extends UseCase {
+public class BankHelpAction implements UseCase {
     @Override
-    public Result act(String command) {
+    public Result act(Command command) {
         return new BankHelpResult();
     }
 }

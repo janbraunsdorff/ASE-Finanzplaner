@@ -5,12 +5,11 @@ import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
-import java.util.Map;
-
-public class AccountAddAction extends UseCase {
+public class AccountAddAction  implements UseCase {
 
     private final AccountApplication service;
 
@@ -19,13 +18,12 @@ public class AccountAddAction extends UseCase {
     }
 
     @Override
-    public Result act(String command) throws BankNotFoundException, AcronymAlreadyExistsException {
-        Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsAndValuesPresent(tags, "-na", "-nr", "-ac", "-a")) {
+    public Result act(Command command) throws BankNotFoundException, AcronymAlreadyExistsException {
+        if (!command.areTagsAndValuesPresent( "-na", "-nr", "-ac", "-a")) {
             return new AccountHelpResult();
         }
 
-        AccountCreateCommand cmd = new AccountCreateCommand(tags.get("-a"), tags.get("-na"), tags.get("-nr"), tags.get("-ac"));
+        AccountCreateCommand cmd = new AccountCreateCommand(command.getParameter("-a"), command.getParameter("-na"), command.getParameter("-nr"), command.getParameter("-ac"));
         AccountDTO account = service.createAccountByAcronym(cmd);
         return new AccountAddResult(account);
 

@@ -3,14 +3,14 @@ package de.janbraunsdorff.ase.layer.presentation.console.action.usecase.transact
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.action.UseCase;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
-public class TransactionAddAction extends UseCase {
+public class TransactionAddAction implements UseCase {
     final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final TransactionApplication service;
 
@@ -19,18 +19,17 @@ public class TransactionAddAction extends UseCase {
     }
 
     @Override
-    public Result act(String command) throws Exception {
-        Map<String, String> tags = parseCommand(command, 2);
-        if (!areTagsAndValuesPresent(tags, "-a", "-val", "-thp", "-dat", "-cat")) {
+    public Result act(Command command) throws Exception {
+        if (!command.areTagsAndValuesPresent("-a", "-val", "-thp", "-dat", "-cat")) {
             return new TransactionHelpResult();
         }
 
-        String accountAcronym = tags.get("-a");
-        String thirdParty = tags.get("-thp");
-        Integer val = Integer.parseInt(tags.get("-val"));
-        LocalDate date = LocalDate.parse(tags.get("-dat"), dtf);
-        String cat = tags.get("-cat");
-        boolean contact = tags.containsKey("-cat");
+        String accountAcronym = command.getParameter("-a");
+        String thirdParty = command.getParameter("-thp");
+        Integer val = Integer.parseInt(command.getParameter("-val"));
+        LocalDate date = LocalDate.parse(command.getParameter("-dat"), dtf);
+        String cat = command.getParameter("-cat");
+        boolean contact = command.areTagsPresent("-cat");
 
 
         TransactionCreateCommand cmd = new TransactionCreateCommand(accountAcronym, val, date, thirdParty, cat, contact);

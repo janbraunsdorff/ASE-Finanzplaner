@@ -19,7 +19,7 @@ public class CommandBaseCli {
             if (name == null) {
                 System.exit(0);
             }
-            controller.answer(name);
+            controller.answer(new Command(name, 2));
         }
     }
 }

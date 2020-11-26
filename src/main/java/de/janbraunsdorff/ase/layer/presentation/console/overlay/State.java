@@ -1,21 +1,23 @@
 package de.janbraunsdorff.ase.layer.presentation.console.overlay;
 
+import de.janbraunsdorff.ase.layer.presentation.console.Command;
+
 import static de.janbraunsdorff.ase.layer.presentation.console.overlay.Hierarchy.*;
 
 public class State {
     private final Hierarchy hierarchy;
     private final String bankIdent;
     private final String accountIdent;
-    private final String command;
+    private final Command command;
 
-    public State(Hierarchy hierarchy, String bankIdent, String accountIdent, String command) {
+    public State(Hierarchy hierarchy, String bankIdent, String accountIdent, Command command) {
         this.hierarchy = hierarchy;
         this.bankIdent = bankIdent;
         this.accountIdent = accountIdent;
         this.command = command;
     }
 
-    public State goUp(String command) {
+    public State goUp(Command command) {
         switch (this.hierarchy) {
             case BANK:
                 return new State(BANK, null, null, command);
@@ -27,7 +29,7 @@ public class State {
         throw new IllegalArgumentException();
     }
 
-    public State goDeep(String ident, String command) {
+    public State goDeep(String ident, Command command) {
         switch (this.hierarchy) {
             case BANK:
                 return new State(ACCOUNT, ident, null, command);
@@ -39,11 +41,11 @@ public class State {
         throw new IllegalArgumentException();
     }
 
-    public State stay(String command) {
+    public State stay(Command command) {
         return new State(this.hierarchy, this.bankIdent, this.accountIdent, command);
     }
 
-    public String getCommand() {
+    public Command getCommand() {
         return command;
     }
 
