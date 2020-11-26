@@ -1,13 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.bank;
 
 
+import de.janbraunsdorff.ase.layer.presentation.console.directory.Actor;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 
 import java.util.HashMap;
 
-public class BankActor {
+public class BankActor implements Actor {
 
     private final HashMap<String, CommandBuilder> builder = new HashMap<String, CommandBuilder>(){{
         put("ls", new List());

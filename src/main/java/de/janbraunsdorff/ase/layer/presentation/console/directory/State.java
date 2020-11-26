@@ -23,7 +23,7 @@ public class State {
                 return new State(BANK, null, null, command);
             case ACCOUNT:
                 return new State(BANK, this.bankIdent, null, command);
-            case Transaction:
+            case TRANSACTION:
                 return new State(ACCOUNT, this.bankIdent, this.accountIdent, command);
         }
         throw new IllegalArgumentException();
@@ -34,9 +34,9 @@ public class State {
             case BANK:
                 return new State(ACCOUNT, ident, null, command);
             case ACCOUNT:
-                return new State(Transaction, this.bankIdent, ident, command);
-            case Transaction:
-                return new State(Transaction, this.bankIdent, this.accountIdent, command);
+                return new State(TRANSACTION, this.bankIdent, ident, command);
+            case TRANSACTION:
+                return new State(TRANSACTION, this.bankIdent, this.accountIdent, command);
         }
         throw new IllegalArgumentException();
     }
@@ -79,7 +79,7 @@ public class State {
             builder.append("/");
         }
 
-        if (this.hierarchy == Transaction){
+        if (this.hierarchy == TRANSACTION){
             builder.append("Transaktionen");
             builder.append("/");
         }

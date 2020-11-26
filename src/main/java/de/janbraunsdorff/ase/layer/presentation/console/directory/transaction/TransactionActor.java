@@ -1,12 +1,13 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.transaction;
 
+import de.janbraunsdorff.ase.layer.presentation.console.directory.Actor;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 
 import java.util.HashMap;
 
-public class TransactionActor {
+public class TransactionActor implements Actor {
 
     private final HashMap<String, CommandBuilder> builder = new HashMap<String, CommandBuilder>(){{
         put("cd ..", new GoToAccount());

@@ -7,11 +7,17 @@ import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 public class Touch implements CommandBuilder {
     @Override
     public State build(State state, Command command) {
-        String name = command.getParameter("-na");
-        String number = command.getParameter("-nr");
-        String acronym = command.getParameter("-ac");
+        String pattern = "account";
 
-        Command cmd = new Command("account add -na " + name + " -nr " + number + " -ac " + acronym + " -a " + state.getBankIdent(), 2);
+        if (command.areTagsAndValuesPresent("-na", "-nr", "-ac")){
+            String name = command.getParameter("-na");
+            String number = command.getParameter("-nr");
+            String acronym = command.getParameter("-ac");
+            pattern = "account add -na " + name + " -nr " + number + " -ac " + acronym + " -a " + state.getBankIdent();
+        }
+
+
+        Command cmd = new Command(pattern, 2);
         return state.stay(cmd);
     }
 }

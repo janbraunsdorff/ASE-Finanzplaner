@@ -30,7 +30,9 @@ public final class Command {
         return secondLevel;
     }
 
-
+    public String getInput() {
+        return command;
+    }
 
     public String getParameter(String parameter){
         return this.parameter.get(parameter);
