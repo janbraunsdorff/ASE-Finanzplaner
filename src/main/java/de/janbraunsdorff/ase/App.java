@@ -8,10 +8,6 @@ public class App {
         new ApplicationConsoleBuilder()
                 .intJsonRepo("./") //.intMemoryRepo()
                 .initDefaultApp()
-                .createBankDistributor()
-                .createAccountDistributor()
-                .createTransactionDistributor()
-                .createActionDistributor()
                 .createOverlay()// .createCli()
                 .run();
     }
