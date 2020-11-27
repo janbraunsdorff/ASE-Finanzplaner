@@ -1,8 +1,9 @@
 package de.janbraunsdorff.ase;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
-import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.domain.account.AccountService;
+import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
+import de.janbraunsdorff.ase.layer.domain.account.AccountServiceCrud;
+import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.bank.BankService;
@@ -21,9 +22,10 @@ public abstract class ApplicationBase {
     private AccountRepository accountRepository;
     private TransactionRepository transactionRepository;
 
-    protected AccountApplication accountApplication;
+    protected AccountService accountApplication;
     protected BankApplication bankApplication;
     protected TransactionApplication transactionApplication;
+    protected TransactionAnalyse transactionAnalyse;
 
 
     protected void intMemoryRepository() {
@@ -39,9 +41,11 @@ public abstract class ApplicationBase {
     }
 
     protected void initDefaultApplication() {
-        this.accountApplication = new AccountService(this.accountRepository, this.transactionRepository, this.bankRepository);
+        this.accountApplication = new AccountServiceCrud(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);
+
+        this.transactionAnalyse = new TransactionAnalyse(this.transactionRepository);
     }
 
 }

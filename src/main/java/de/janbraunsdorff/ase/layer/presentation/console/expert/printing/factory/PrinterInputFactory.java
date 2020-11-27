@@ -42,4 +42,5 @@ public abstract class PrinterInputFactory {
                         .map(SentencePiece::getPiece)
                         .collect(Collectors.joining("")));
     }
+
 }

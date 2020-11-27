@@ -1,10 +1,12 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountService;
+import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse.TransactionGroupAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAddAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
@@ -18,7 +20,7 @@ import java.io.InputStreamReader;
 public class CommandBaseCli {
     private final DistributorAction controller;
 
-    public CommandBaseCli(BankApplication bankApplication, AccountApplication accountApplication, TransactionApplication transactionApplication) {
+    public CommandBaseCli(BankApplication bankApplication, AccountService accountApplication, TransactionApplication transactionApplication, TransactionAnalyse transactionAnalyse) {
         DistributorUseCase bankDistributor = new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankApplication))
                 .addCommand("add", new BankAddAction(bankApplication))
@@ -34,6 +36,7 @@ public class CommandBaseCli {
         DistributorUseCase transactionDistributor = new DistributorUsecaseFactory(new TransactionHelpResult(), new TransactionHelpAction())
                 .addCommand("all", new TransactionAllAction(transactionApplication))
                 .addCommand("add", new TransactionAddAction(transactionApplication))
+                .addCommand("group", new TransactionGroupAction(transactionAnalyse))
                 .build();
 
 

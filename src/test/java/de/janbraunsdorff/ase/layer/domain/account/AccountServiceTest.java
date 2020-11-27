@@ -21,7 +21,7 @@ class AccountServiceTest {
         AccountTestRepo accRepo = new AccountTestRepo();
         TransactionTestRepo tranRepo = new TransactionTestRepo();
 
-        AccountService service = new AccountService(accRepo, tranRepo, bankRepo);
+        AccountServiceCrud service = new AccountServiceCrud(accRepo, tranRepo, bankRepo);
 
         List<AccountDTO> accounts = service.getAccountsOfBank(new AccountGetQuery("b1"));
 
@@ -40,7 +40,7 @@ class AccountServiceTest {
         AccountTestRepo accRepo = new AccountTestRepo();
         TransactionTestRepo tranRepo = new TransactionTestRepo();
 
-        AccountService service = new AccountService(accRepo, tranRepo, bankRepo);
+        AccountServiceCrud service = new AccountServiceCrud(accRepo, tranRepo, bankRepo);
 
         AccountDTO accountByAcronym = service.createAccountByAcronym(new AccountCreateCommand("bankAcronymCreate", "name", "number", "accountAcronym"));
 
@@ -59,7 +59,7 @@ class AccountServiceTest {
         AccountTestRepo accRepo = new AccountTestRepo();
         TransactionTestRepo tranRepo = new TransactionTestRepo();
 
-        AccountService service = new AccountService(accRepo, tranRepo, bankRepo);
+        AccountServiceCrud service = new AccountServiceCrud(accRepo, tranRepo, bankRepo);
 
         assertThrows(BankNotFoundException.class, () -> service.createAccountByAcronym(new AccountCreateCommand("nonExistingBank", "", "", "")));
     }
@@ -70,7 +70,7 @@ class AccountServiceTest {
         AccountTestRepo accRepo = new AccountTestRepo();
         TransactionTestRepo tranRepo = new TransactionTestRepo();
 
-        AccountService service = new AccountService(accRepo, tranRepo, bankRepo);
+        AccountServiceCrud service = new AccountServiceCrud(accRepo, tranRepo, bankRepo);
         service.deleteByAcronym(new AccountDeleteCommand("accountAcronym"));
 
         assertThat(accRepo.acronymDelete, is("accountAcronym"));

@@ -2,10 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.ListTransaction;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TouchTransaction;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TransactionActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.CommandPiece;
@@ -47,6 +44,7 @@ public class CommandOverlay {
                 .addBuilder("cd ..", new GoToAccountFromTransaction())
                 .addBuilder("ls", new ListTransaction())
                 .addBuilder("touch", new TouchTransaction())
+                .addBuilder("group", new GroupTransaction())
                 .build();
 
 

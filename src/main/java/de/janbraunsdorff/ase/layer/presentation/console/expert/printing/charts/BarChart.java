@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class BarChart {
 
@@ -12,7 +13,7 @@ public class BarChart {
 
     public BarChart(ChartData data) {
         this.data = data;
-        this.start = scale(Arrays.stream(this.data.getValue()).max().getAsInt(), 100, 10);
+        this.start = scale(Arrays.stream(this.data.getValue()).max(Comparator.comparingInt(a -> a)).get(), 100, 10);
         this.grid = new Grid(data.getValue().length + 1);
 
         drawScale();
@@ -20,7 +21,7 @@ public class BarChart {
     }
 
     public PrinterInput getPrintable() {
-        return new PrinterInput(this.grid.toString());
+        return new PrinterInput(this.data.getName() + "\n" + this.grid.toString());
     }
 
     private void drawBars() {

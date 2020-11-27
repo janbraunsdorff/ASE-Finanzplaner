@@ -1,16 +1,16 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDeleteCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
 public class AccountDeleteAction implements UseCase {
-    private final AccountApplication service;
+    private final AccountService service;
 
-    public AccountDeleteAction(AccountApplication service) {
+    public AccountDeleteAction(AccountService service) {
         this.service = service;
     }
 

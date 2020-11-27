@@ -23,7 +23,7 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
 
     protected CommandBaseCli createCli() {
         System.out.println("Dein Planer steht zur benutzung bereit");
-        return new CommandBaseCli(bankApplication, accountApplication, transactionApplication);
+        return new CommandBaseCli(bankApplication, accountApplication, transactionApplication, transactionAnalyse);
     }
 
     protected CommandOverlay createOverlay() {

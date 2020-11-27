@@ -8,7 +8,7 @@ import de.janbraunsdorff.ase.layer.domain.account.*;
 import java.util.Collections;
 import java.util.List;
 
-public class AccountTestApplication implements AccountApplication {
+public class AccountTestApplication implements AccountService {
     protected AccountDeleteCommand deleteCommand;
     protected AccountGetQuery getQuery;
     protected AccountCreateCommand createCommand;

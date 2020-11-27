@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.a
 
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
@@ -11,9 +11,9 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
 public class AccountAddAction implements UseCase {
 
-    private final AccountApplication service;
+    private final AccountService service;
 
-    public AccountAddAction(AccountApplication service) {
+    public AccountAddAction(AccountService service) {
         this.service = service;
     }
 

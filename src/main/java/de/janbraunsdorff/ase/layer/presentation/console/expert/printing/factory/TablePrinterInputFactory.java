@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory
 
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.SentencePiece;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.BarChart;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.TableDivider;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         return this;
     }
 
-    public PrinterInputFactory addAmount(int amount) {
+    public TablePrinterInputFactory addAmount(int amount) {
         String builder = amount / 100 +
                 "." +
                 String.format("%2d", Math.abs(amount % 100)).replace(' ', '0') +
@@ -98,5 +99,9 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
     public TablePrinterInputFactory addTableVerticalDivider() {
         this.pieces.add(new TableDivider("|"));
         return this;
+    }
+
+    public void addChart(BarChart chart) {
+        this.addText(chart.getPrintable().getStringToPrint());
     }
 }
