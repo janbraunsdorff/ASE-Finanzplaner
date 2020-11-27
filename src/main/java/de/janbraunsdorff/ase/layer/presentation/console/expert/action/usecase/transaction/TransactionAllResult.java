@@ -15,7 +15,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final int lengthThirdParty;
     private final int lengthCategory;
     private final DateTimeFormatter dtFormatter;
-
+    private int value;
 
     private LocalDate date = LocalDate.now();
 
@@ -44,11 +44,24 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
 
     private void print(TransactionDTO t) {
         if (this.date.getMonthValue() != t.getDate().getMonthValue() || this.date.getYear() != t.getDate().getYear()) {
+            this.builder.addHorizontalLine();
+            this.builder.addLine()
+                    .addEntry("")
+                    .addEntry("")
+                    .addEntry("")
+                    .addEntry("")
+                    .addAmount(value)
+                    .addNewLine();
+
             this.date = t.getDate();
-            builder.addNewLine();
+            this.builder.addNewLine();
+            this.value = 0;
         }
 
-        builder.addLine()
+        this.value += t.getValue();
+
+
+        this.builder.addLine()
                 .addEntry(t.getThirdParty())
                 .addEntry(this.dtFormatter.format(t.getDate()))
                 .addEntry(t.getContract() ? "   x   " : "")
