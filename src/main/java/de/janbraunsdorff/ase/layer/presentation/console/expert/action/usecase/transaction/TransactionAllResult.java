@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final List<TransactionDTO> transactions;
+    private boolean withId;
     private final TablePrinterInputFactory builder;
     private final int lengthThirdParty;
     private final int lengthCategory;
@@ -19,8 +20,9 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
 
     private LocalDate date = LocalDate.now();
 
-    public TransactionAllResult(List<TransactionDTO> transactions) {
+    public TransactionAllResult(List<TransactionDTO> transactions, boolean withId) {
         this.transactions = transactions;
+        this.withId = withId;
         this.builder = new TablePrinterInputFactory();
         this.lengthThirdParty = getMax(v -> v.getThirdParty().length(), transactions);
         this.lengthCategory = getMax(v -> v.getCategory().length(), transactions);
@@ -35,6 +37,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
                 .addTableHeader(7, "Vertrag")
                 .addTableHeader(lengthCategory, "Kategorie")
                 .addTableHeader(15, "Betrag")
+                .addTableHeader(this.withId, 36, "Unique Ident")
                 .finishFirstLine()
                 .addHorizontalLine();
         this.transactions.forEach(this::print);
@@ -51,6 +54,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
                     .addEntry("")
                     .addEntry("")
                     .addAmount(value)
+                    .addEntry(this.withId, "")
                     .addNewLine();
 
             this.date = t.getDate();
@@ -67,6 +71,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
                 .addEntry(t.getContract() ? "   x   " : "")
                 .addEntry(t.getCategory())
                 .addAmount(t.getValue())
+                .addEntry(this.withId, t.getId())
                 .addNewLine();
     }
 }

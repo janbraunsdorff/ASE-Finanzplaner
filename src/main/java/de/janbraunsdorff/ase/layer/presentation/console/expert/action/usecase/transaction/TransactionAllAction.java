@@ -30,6 +30,10 @@ public class TransactionAllAction implements UseCase {
         }
 
         List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactions(new TransactionGetQuery(command.getParameter("-a"), number));
-        return new TransactionAllResult(allTransactionOfAccount);
+
+        boolean withId = command.areTagsPresent("-f");
+
+
+        return new TransactionAllResult(allTransactionOfAccount, withId);
     }
 }

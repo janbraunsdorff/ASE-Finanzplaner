@@ -10,7 +10,8 @@ public class ListTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         String account = "-a " + state.getAccountIdent();
-        String amount = command.getParameter("-n") != null ? "-n " + command.getParameter("-n") : "";
-        return new OverlayCommand(new ExpertCommand("transaction all " + account + " " + amount, 2), StateTransition.STAY);
+        String amount = command.getParameter("-n") != null ? " -n " + command.getParameter("-n") : "";
+        String withId = command.getParameter("-f") != null ? " -f" : "";
+        return new OverlayCommand(new ExpertCommand("transaction all " + account + amount + withId, 2), StateTransition.STAY);
     }
 }

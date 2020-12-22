@@ -27,12 +27,18 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         return this;
     }
 
-
     public TablePrinterInputFactory addTableHeader(int width, String name) {
         this.addTableVerticalDivider();
         width = Math.max(width, name.length());
         this.addText(String.format("%-" + width + "s", name));
         this.width.add(width);
+        return this;
+    }
+
+    public TablePrinterInputFactory addTableHeader(boolean condition, int width, String name) {
+        if (condition){
+            this.addTableHeader(width, name);
+        }
         return this;
     }
 
@@ -65,6 +71,13 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         this.addText(String.format("%-" + getLength() + "s", text));
         this.lastIndex++;
         this.addTableVerticalDivider();
+        return this;
+    }
+
+    public TablePrinterInputFactory addEntry(boolean condition, String text) {
+        if (condition){
+            this.addEntry(text);
+        }
         return this;
     }
 
