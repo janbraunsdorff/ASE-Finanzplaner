@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.Hel
 
 public class DistributorDefault implements Distributor {
     @Override
-    public Result distribute(Command command) {
+    public Result distribute(ExpertCommand command) {
         return new HelpResult();
     }
 }

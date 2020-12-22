@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank;
 
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class BankAddActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankAddAction action = new BankAddAction(service);
 
-        Result act = action.act(new Command("bank add -a acronym -n name", 2));
+        Result act = action.act(new ExpertCommand("bank add -a acronym -n name", 2));
         assertThat(act, Matchers.instanceOf(BankAddResult.class));
         assertThat(act, Matchers.instanceOf(Result.class));
 
@@ -28,20 +28,20 @@ class BankAddActionTest {
         BankApplicationTest service = new BankApplicationTest();
         BankAddAction action = new BankAddAction(service);
 
-        Result act = action.act(new Command("bank add -a acronym -n", 2));
+        Result act = action.act(new ExpertCommand("bank add -a acronym -n", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act(new Command("bank add -a acronym", 2));
+        act = action.act(new ExpertCommand("bank add -a acronym", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act(new Command("bank add -a -n name", 2));
+        act = action.act(new ExpertCommand("bank add -a -n name", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
-        act = action.act(new Command("bank add -n name", 2));
+        act = action.act(new ExpertCommand("bank add -n name", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
 
 
-        act = action.act(new Command("bank add", 2));
+        act = action.act(new ExpertCommand("bank add", 2));
         assertThat(act, Matchers.instanceOf(BankHelpResult.class));
     }
 }

@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public interface CommandBuilder {
-    State build(State state, Command command);
+    OverlayCommand build(State state, ExpertCommand command);
 }

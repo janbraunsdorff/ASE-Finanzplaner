@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.a
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupCommand;
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
@@ -18,7 +18,7 @@ public class TransactionGroupAction implements UseCase {
     }
 
     @Override
-    public Result act(Command command) throws Exception {
+    public Result act(ExpertCommand command) throws Exception {
         if (!command.areTagsAndValuesPresent("-a")){
             return new TransactionHelpResult();
         }

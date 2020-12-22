@@ -4,7 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
@@ -17,7 +17,7 @@ public class BankAddAction implements UseCase {
     }
 
     @Override
-    public Result act(Command command) throws AcronymAlreadyExistsException {
+    public Result act(ExpertCommand command) throws AcronymAlreadyExistsException {
         if (!command.areTagsAndValuesPresent("-a", "-n")) {
             return new BankHelpResult();
         }

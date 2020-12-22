@@ -1,12 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.transaction;
 
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.OverlayCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public class TouchTransaction implements CommandBuilder {
     @Override
-    public State build(State state, Command command) {
+    public OverlayCommand build(State state, ExpertCommand command) {
         String account = " -a " + state.getAccountIdent();
         String value = " -val " + command.getParameter("-val");
         String thp = " -thp " + command.getParameter("-thp");
@@ -14,6 +16,6 @@ public class TouchTransaction implements CommandBuilder {
         String cat = " -cat " + command.getParameter("-cat");
         String con = (command.getParameter("-con") != null) ? " -con" : "";
 
-        return state.stay(new Command("transaction add" + account + value + thp + dat + cat + con, 2));
+        return new OverlayCommand(new ExpertCommand("transaction add" + account + value + thp + dat + cat + con, 2), StateTransition.STAY);
     }
 }

@@ -1,13 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.bank;
 
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.OverlayCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public class RemoveBank implements CommandBuilder {
     @Override
-    public State build(State state, Command command) {
+    public OverlayCommand build(State state, ExpertCommand command) {
         String bankAcronym = command.getSecondLevel();
-        return state.stay(new Command("bank delete -a " + bankAcronym, 2));
+        return new OverlayCommand(new ExpertCommand("bank delete -a " + bankAcronym, 2), StateTransition.STAY);
     }
 }

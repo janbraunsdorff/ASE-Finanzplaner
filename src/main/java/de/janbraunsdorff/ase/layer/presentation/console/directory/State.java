@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.*;
 
@@ -8,32 +8,31 @@ public class State {
     private final Hierarchy hierarchy;
     private final String bankIdent;
     private final String accountIdent;
-    private final Command command;
+    private final ExpertCommand command;
 
     public static State createInitState() {
         return new State(Hierarchy.BANK, null, null, null);
     }
 
-    private State(Hierarchy hierarchy, String bankIdent, String accountIdent, Command command) {
+    private State(Hierarchy hierarchy, String bankIdent, String accountIdent, ExpertCommand command) {
         this.hierarchy = hierarchy;
         this.bankIdent = bankIdent;
         this.accountIdent = accountIdent;
         this.command = command;
     }
 
-    public State goUp(Command command) {
+    private State goUp(ExpertCommand command) {
         switch (this.hierarchy) {
             case BANK:
-                return new State(BANK, null, null, command);
             case ACCOUNT:
-                return new State(BANK, this.bankIdent, null, command);
+                return new State(BANK, null, null, command);
             case TRANSACTION:
-                return new State(ACCOUNT, this.bankIdent, this.accountIdent, command);
+                return new State(ACCOUNT, this.bankIdent, null, command);
         }
         throw new IllegalArgumentException();
     }
 
-    public State goDeep(String ident, Command command) {
+    private State goDeep(String ident, ExpertCommand command) {
         switch (this.hierarchy) {
             case BANK:
                 return new State(ACCOUNT, ident, null, command);
@@ -45,13 +44,17 @@ public class State {
         throw new IllegalArgumentException();
     }
 
-    public State stay(Command command) {
-        return new State(this.hierarchy, this.bankIdent, this.accountIdent, command);
+    public State move(OverlayCommand overlayCommand){
+        switch (overlayCommand.getTransition()) {
+            case DEEPER:
+                return this.goDeep(overlayCommand.getIdent(), overlayCommand.getCommand());
+            case UP:
+                return this.goUp(overlayCommand.getCommand());
+            default:
+                return this;
+        }
     }
 
-    public Command getCommand() {
-        return command;
-    }
 
     public Hierarchy getHierarchy() {
         return hierarchy;
@@ -83,11 +86,8 @@ public class State {
             builder.append("/");
         }
 
-        if (this.hierarchy == TRANSACTION) {
-            builder.append("Transaktionen");
-            builder.append("/");
-        }
-
         return builder.toString();
     }
+
+
 }

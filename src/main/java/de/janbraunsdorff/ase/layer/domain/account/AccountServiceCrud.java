@@ -23,6 +23,7 @@ public class AccountServiceCrud implements AccountService {
     }
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
+        this.bankRepo.getBankByAcronym(query.getId());
         List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(query.getId());
         List<AccountDTO> collect = accounts.stream().map(a -> {
             int amount = -1;

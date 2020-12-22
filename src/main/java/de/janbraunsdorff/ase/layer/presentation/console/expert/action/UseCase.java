@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public interface UseCase {
-    Result act(Command command) throws Exception;
+    Result act(ExpertCommand command) throws Exception;
 }

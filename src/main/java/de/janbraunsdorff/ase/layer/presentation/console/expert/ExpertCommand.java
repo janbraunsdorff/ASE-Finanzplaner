@@ -6,13 +6,13 @@ import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class Command {
+public final class ExpertCommand {
     private final Map<String, String> parameter;
     private final String topLevel;
     private final String secondLevel;
     private final String command;
 
-    public Command(String command, int start) {
+    public ExpertCommand(String command, int start) {
         this.command = command;
         String[] s = command.split(" ");
         this.topLevel = s[0];
@@ -90,7 +90,7 @@ public final class Command {
         return true;
     }
 
-    public Command changeStart(int i) {
-        return new Command(this.command, i);
+    public ExpertCommand changeStart(int i) {
+        return new ExpertCommand(this.command, i);
     }
 }

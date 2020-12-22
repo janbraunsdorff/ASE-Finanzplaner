@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse.TransactionGroupAction;
@@ -12,6 +13,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.tr
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +21,10 @@ import java.io.InputStreamReader;
 
 public class CommandBaseCli {
     private final DistributorAction controller;
+    private final Printer printer;
 
     public CommandBaseCli(BankApplication bankApplication, AccountService accountApplication, TransactionApplication transactionApplication, TransactionAnalyse transactionAnalyse) {
+        this.printer = new Printer();
         DistributorUseCase bankDistributor = new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankApplication))
                 .addCommand("add", new BankAddAction(bankApplication))
@@ -60,7 +64,8 @@ public class CommandBaseCli {
             if (name == null) {
                 System.exit(0);
             }
-            controller.answer(new Command(name, 2));
+            Result answer = controller.answer(new ExpertCommand(name, 2));
+            this.printer.print(answer);
         }
     }
 }

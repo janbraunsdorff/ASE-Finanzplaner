@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.t
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
@@ -19,7 +19,7 @@ public class TransactionAddAction implements UseCase {
     }
 
     @Override
-    public Result act(Command command) throws Exception {
+    public Result act(ExpertCommand command) throws Exception {
         if (!command.areTagsAndValuesPresent("-a", "-val", "-thp", "-dat", "-cat")) {
             return new TransactionHelpResult();
         }

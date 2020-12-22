@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetQuery;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
@@ -20,7 +20,7 @@ public class AccountAllAction implements UseCase {
     }
 
     @Override
-    public Result act(Command command) throws BankNotFoundException, AccountNotFoundException {
+    public Result act(ExpertCommand command) throws BankNotFoundException, AccountNotFoundException {
         if (!command.areTagsAndValuesPresent("-a")) {
             return new AccountHelpResult();
         }

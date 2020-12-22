@@ -1,12 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.account;
 
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.OverlayCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public class TouchAccount implements CommandBuilder {
     @Override
-    public State build(State state, Command command) {
+    public OverlayCommand build(State state, ExpertCommand command) {
         String pattern = "account";
 
         if (command.areTagsAndValuesPresent("-na", "-nr", "-ac")) {
@@ -17,7 +19,7 @@ public class TouchAccount implements CommandBuilder {
         }
 
 
-        Command cmd = new Command(pattern, 2);
-        return state.stay(cmd);
+        OverlayCommand cmd = new OverlayCommand(new ExpertCommand(pattern, 2), StateTransition.STAY);
+        return cmd;
     }
 }

@@ -3,8 +3,11 @@ package de.janbraunsdorff.ase.layer.presentation.console.directory;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.CommandPiece;
 
 import java.io.BufferedReader;
@@ -16,10 +19,12 @@ import java.util.Map;
 public class CommandOverlay {
 
     private final DistributorAction controller;
+    private final Printer printer;
     private State state;
     private final Map<Hierarchy, Actor> actors;
 
     public CommandOverlay(DistributorAction controller) {
+        this.printer = new Printer();
         this.controller = controller;
         this.state = State.createInitState();
 
@@ -45,13 +50,17 @@ public class CommandOverlay {
                 .addBuilder("ls", new ListTransaction())
                 .addBuilder("touch", new TouchTransaction())
                 .addBuilder("group", new GroupTransaction())
+                .addBuilder("help", new HelpTransaction())
                 .build();
 
 
-        this.actors = new HashMap<>();
-        actors.put(Hierarchy.BANK, bankActor);
-        actors.put(Hierarchy.ACCOUNT, accountActor);
-        actors.put(Hierarchy.TRANSACTION, transactionActor);
+        this.actors = new HashMap<Hierarchy, Actor>() {
+            {
+                put(Hierarchy.BANK, bankActor);
+                put(Hierarchy.ACCOUNT, accountActor);
+                put(Hierarchy.TRANSACTION, transactionActor);
+            }
+        };
     }
 
     public void run() throws IOException {
@@ -65,10 +74,21 @@ public class CommandOverlay {
             if (shortCommand == null) {
                 System.exit(0);
             }
-            this.state = actors
+
+
+            OverlayCommand overlayCommand = actors
                     .get(this.state.getHierarchy())
-                    .act(this.state, new Command(shortCommand, 1));
-            controller.answer(this.state.getCommand());
+                    .act(this.state, new ExpertCommand(shortCommand, 1));
+
+            Result answer = controller.answer(overlayCommand.getCommand());
+
+            this.printer.print(answer);
+
+            if (!(answer instanceof ErrorResult)){
+                this.state = state.move(overlayCommand);
+            }
+
+
         }
     }
 }

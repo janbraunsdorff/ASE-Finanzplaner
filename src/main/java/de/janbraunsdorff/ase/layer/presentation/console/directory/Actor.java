@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 public interface Actor {
-    State act(State state, Command command);
+    OverlayCommand act(State state, ExpertCommand command);
 
     void addBuilder(String trigger, CommandBuilder builder);
 }

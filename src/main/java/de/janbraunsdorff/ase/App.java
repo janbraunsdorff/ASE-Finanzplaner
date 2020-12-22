@@ -6,9 +6,11 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         new ApplicationConsoleBuilder()
-                .intJsonRepo("./") //.intMemoryRepo()
+                .intJsonRepo("./")
+                //.intMemoryRepo()
                 .initDefaultApp()
-                .createOverlay()// .createCli()
+                .createOverlay()
+                //.createCli()
                 .run();
     }
 

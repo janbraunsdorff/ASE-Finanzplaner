@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.domain.account.AccountCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.Command;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 
@@ -18,7 +18,7 @@ public class AccountAddAction implements UseCase {
     }
 
     @Override
-    public Result act(Command command) throws BankNotFoundException, AcronymAlreadyExistsException {
+    public Result act(ExpertCommand command) throws BankNotFoundException, AcronymAlreadyExistsException {
         if (!command.areTagsAndValuesPresent("-na", "-nr", "-ac", "-a")) {
             return new AccountHelpResult();
         }
