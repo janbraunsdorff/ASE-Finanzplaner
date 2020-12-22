@@ -1,18 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.HelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionDeleteAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.CommandPiece;

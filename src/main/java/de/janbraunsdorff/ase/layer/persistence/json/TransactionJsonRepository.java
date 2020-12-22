@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
 import java.io.IOException;

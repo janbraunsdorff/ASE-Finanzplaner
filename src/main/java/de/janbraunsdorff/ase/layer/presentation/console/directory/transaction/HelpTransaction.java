@@ -1,6 +1,5 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandBuilder;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.OverlayCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
