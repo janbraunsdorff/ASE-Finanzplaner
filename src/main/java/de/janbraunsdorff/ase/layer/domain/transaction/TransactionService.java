@@ -3,7 +3,10 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TransactionService implements TransactionApplication {
@@ -26,5 +29,19 @@ public class TransactionService implements TransactionApplication {
     public List<TransactionDTO> getTransactions(TransactionGetQuery query) {
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getCount());
         return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TransactionDTO> deleteTransaction(String... id) {
+        List<TransactionDTO> transactionDTOS = new ArrayList<>();
+        for (String s : id) {
+            Optional<Transaction> transaction = this.transactionRepo.deleteTransactionById(s);
+            if (transaction.isPresent()){
+                Transaction a = transaction.get();
+                transactionDTOS.add(new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId()));
+            }
+        }
+
+        return transactionDTOS;
     }
 }

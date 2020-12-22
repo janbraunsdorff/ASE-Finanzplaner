@@ -11,6 +11,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.Err
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.HelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionDeleteAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
@@ -57,6 +58,7 @@ public class CommandOverlay {
                 .addBuilder("touch", new TouchTransaction())
                 .addBuilder("group", new GroupTransaction())
                 .addBuilder("help", new HelpTransaction())
+                .addBuilder("rm", new DeleteTransaction())
                 .build();
 
 

@@ -9,10 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.Exi
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse.TransactionGroupAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAddAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 
 import java.io.BufferedReader;
@@ -41,6 +38,7 @@ public class CommandBaseCli {
                 .addCommand("all", new TransactionAllAction(transactionApplication))
                 .addCommand("add", new TransactionAddAction(transactionApplication))
                 .addCommand("group", new TransactionGroupAction(transactionAnalyse))
+                .addCommand("delete", new TransactionDeleteAction(transactionApplication))
                 .build();
 
 

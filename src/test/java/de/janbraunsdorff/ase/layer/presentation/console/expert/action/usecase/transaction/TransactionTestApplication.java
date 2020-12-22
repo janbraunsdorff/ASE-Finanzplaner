@@ -22,4 +22,9 @@ public class TransactionTestApplication implements TransactionApplication {
         this.getQuery = query;
         return Collections.emptyList();
     }
+
+    @Override
+    public List<TransactionDTO> deleteTransaction(String... id) {
+        return Collections.emptyList();
+    }
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TransactionTestRepo implements TransactionRepository {
     public Transaction entity;
@@ -40,5 +41,10 @@ public class TransactionTestRepo implements TransactionRepository {
         }
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public Optional<Transaction> deleteTransactionById(String id) {
+        return Optional.empty();
     }
 }

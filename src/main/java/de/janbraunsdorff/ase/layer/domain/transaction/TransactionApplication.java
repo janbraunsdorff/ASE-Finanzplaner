@@ -8,4 +8,6 @@ public interface TransactionApplication {
     TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException;
 
     List<TransactionDTO> getTransactions(TransactionGetQuery query);
+
+    List<TransactionDTO> deleteTransaction(String... id);
 }

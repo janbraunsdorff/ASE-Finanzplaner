@@ -1,12 +1,10 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TransactionMemoryRepository implements TransactionRepository {
@@ -36,5 +34,10 @@ public class TransactionMemoryRepository implements TransactionRepository {
                 .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .limit(count)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Transaction> deleteTransactionById(String id) {
+        return Optional.empty();
     }
 }

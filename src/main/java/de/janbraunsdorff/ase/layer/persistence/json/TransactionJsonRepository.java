@@ -4,16 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TransactionJsonRepository implements TransactionRepository {
@@ -68,6 +66,27 @@ public class TransactionJsonRepository implements TransactionRepository {
             e.printStackTrace();
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public Optional<Transaction> deleteTransactionById(String id) {
+        Optional<Transaction> transaction = null;
+        try {
+            ArrayList<TransactionJsonEntity> transactionJsonEntities = readFile();
+            transaction = transactionJsonEntities
+                    .stream()
+                    .filter(f -> f.getId().equals(id))
+                    .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
+                    .findFirst();
+            List<TransactionJsonEntity> collect = transactionJsonEntities
+                    .stream()
+                    .filter(f -> !f.getId().equals(id))
+                    .collect(Collectors.toList());
+            writeFile(collect);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return transaction;
     }
 
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
