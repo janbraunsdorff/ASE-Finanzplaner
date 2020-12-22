@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
@@ -7,6 +8,11 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.HelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.CommandPiece;
 
@@ -84,11 +90,19 @@ public class CommandOverlay {
 
             this.printer.print(answer);
 
-            if (!(answer instanceof ErrorResult)){
+            if (canChangeState(answer)){
                 this.state = state.move(overlayCommand);
             }
 
 
         }
+    }
+
+    private boolean canChangeState(Result r){
+        return !(r instanceof ErrorResult)
+                && !(r instanceof HelpResult)
+                && !(r instanceof AccountHelpResult)
+                && !(r instanceof BankHelpResult)
+                && !(r instanceof TransactionHelpResult);
     }
 }
