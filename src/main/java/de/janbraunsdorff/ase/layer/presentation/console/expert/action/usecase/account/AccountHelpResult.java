@@ -14,8 +14,9 @@ public class AccountHelpResult implements Result {
                 .addCommand("ls", "Anzeigen aller Accounts im Path")
                 .addCommand("cat [Abkürzung]", "Transaction eines Accounts anzeigen")
                 .addCommand("cd [Abkürzung]", "Wechseln in Kontext der Transactionen vom Account")
-                .addCommand("touch -n [name] -a [Abkürzung]", "Account anlegen")
-                .addCommand("rm -a [abkürzung]", "Account Löschen")
+                .addCommand("cd ..", "Wechseln in Kontext der Banken vom Account")
+                .addCommand("touch -na [Name] -ac [Abkürzung] -nr [Nummer]", "Account anlegen")
+                .addCommand("rm -a [Abkürzung]", "Account Löschen")
 
                 .addHeadline("")
                 .addHeadline("Experteneingabe:")
