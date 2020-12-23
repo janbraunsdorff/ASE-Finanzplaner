@@ -76,7 +76,7 @@ class TransactionServiceTest {
         LocalDate d = LocalDate.now();
         List<TransactionDTO> dto = service.getTransactions(
                 new TransactionGetQuery(
-                        "a1",
+                        "accountAcronym",
                         1
                 )
         );
@@ -90,7 +90,7 @@ class TransactionServiceTest {
 
         // repo
         assertThat(transRepo.count, Matchers.is(1));
-        assertThat(transRepo.accountAcronym, Matchers.is("a1"));
+        assertThat(transRepo.accountAcronym, Matchers.is("accountAcronym"));
 
     }
 }

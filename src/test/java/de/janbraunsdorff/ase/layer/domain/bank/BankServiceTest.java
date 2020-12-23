@@ -25,7 +25,6 @@ class BankServiceTest {
         assertThat(bankDTOS.get(0).getAcronym(), is("b1"));
         assertThat(bankDTOS.get(0).getNumberOfAccount(), is(4));
         assertThat(bankDTOS.get(0).getName(), is("name1"));
-        assertThat(bankDTOS.get(0).getValue(), is(28));
     }
 
     @Test

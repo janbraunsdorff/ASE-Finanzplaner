@@ -1,11 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
-import de.janbraunsdorff.ase.layer.domain.AccountTestRepo;
-import de.janbraunsdorff.ase.layer.domain.BankTestRepo;
-import de.janbraunsdorff.ase.layer.domain.TransactionTestRepo;
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,9 +24,6 @@ class AccountServiceTest {
         assertThat(accounts.get(0).getAccountNumber(), is("number1"));
         assertThat(accounts.get(0).getNumberOfTransaction(), is(4));
         assertThat(accounts.get(0).getName(), is("name1"));
-        assertThat(accounts.get(0).getValue(), is(7));
-        assertThat(accounts.get(0).getAcronym(), is("a1"));
-        assertThat(accounts.get(0).getBankName(), is("bankName"));
     }
 
     @Test
@@ -65,7 +57,7 @@ class AccountServiceTest {
     }
 
     @Test
-    public void deleteAccount() throws AccountNotFoundException {
+    public void deleteAccount() throws AccountNotFoundException, TransactionNotFoundException {
         BankTestRepo bankRepo = new BankTestRepo();
         AccountTestRepo accRepo = new AccountTestRepo();
         TransactionTestRepo tranRepo = new TransactionTestRepo();

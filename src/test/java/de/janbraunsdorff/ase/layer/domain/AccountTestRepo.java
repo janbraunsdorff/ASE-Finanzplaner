@@ -27,7 +27,7 @@ public class AccountTestRepo implements AccountRepository {
             return new ArrayList<>();
         }
         return new ArrayList<Account>(){{
-            add(new Account("b1", "name1", "number1", "a1"));
+            add(new Account("b1", "name1", "number1", "accountAcronym"));
             add(new Account("b1", "name2", "number2", "a2"));
             add(new Account("b1", "name3", "number3", "a3"));
             add(new Account("b1", "name4", "number4", "a4"));

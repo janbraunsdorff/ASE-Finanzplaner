@@ -31,12 +31,12 @@ public class TransactionTestRepo implements TransactionRepository {
     public List<Transaction> getTransactionOfAccount(String id, int count) {
         this.count = count;
         this.accountAcronym = id;
-        if (id.equals("a1")){
+        if (id.equals("accountAcronym")){
             return new ArrayList<Transaction>(){{
-                add(new Transaction("a1", 8, LocalDate.now(), "tp", "cat", false));
-                add(new Transaction("a1", 8, LocalDate.now(), "tp", "cat", false));
-                add(new Transaction("a1", 8, LocalDate.now(), "tp", "cat", false));
-                add(new Transaction("a1", 8, LocalDate.now(), "tp", "cat", false));
+                add(new Transaction("accountAcronym", 8, LocalDate.now(), "tp", "cat", false));
+                add(new Transaction("accountAcronym", 8, LocalDate.now(), "tp", "cat", false));
+                add(new Transaction("accountAcronym", 8, LocalDate.now(), "tp", "cat", false));
+                add(new Transaction("accountAcronym", 8, LocalDate.now(), "tp", "cat", false));
             }};
         }
 

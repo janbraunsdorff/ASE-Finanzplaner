@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 class AccountDeleteActionTest {
     @Test
-    public void deleteAccount() throws AccountNotFoundException {
+    public void deleteAccount() throws AccountNotFoundException, TransactionNotFoundException {
         AccountTestApplication app = new AccountTestApplication();
         AccountDeleteAction action = new AccountDeleteAction(app);
 
@@ -20,7 +21,7 @@ class AccountDeleteActionTest {
     }
 
     @Test
-    public void deleteAccountIncompleteStatement() throws AccountNotFoundException {
+    public void deleteAccountIncompleteStatement() throws AccountNotFoundException, TransactionNotFoundException {
         AccountTestApplication app = new AccountTestApplication();
         AccountDeleteAction action = new AccountDeleteAction(app);
 
