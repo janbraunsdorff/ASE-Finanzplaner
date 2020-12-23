@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDeleteCommand;
 import de.janbraunsdorff.ase.layer.domain.account.AccountService;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
@@ -15,7 +16,7 @@ public class AccountDeleteAction implements UseCase {
     }
 
     @Override
-    public Result act(ExpertCommand command) throws AccountNotFoundException {
+    public Result act(ExpertCommand command) throws AccountNotFoundException, TransactionNotFoundException {
         if (!command.areTagsAndValuesPresent("-a")) {
             return new AccountHelpResult();
         }

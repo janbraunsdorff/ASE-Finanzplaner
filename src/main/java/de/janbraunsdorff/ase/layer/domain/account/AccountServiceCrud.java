@@ -4,8 +4,10 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
 import java.util.List;
@@ -50,7 +52,10 @@ public class AccountServiceCrud implements AccountService {
         return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), 0, bank.getName());
     }
 
-    public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException {
+    public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
+        for (Transaction t : this.transactionRepo.getTransactionOfAccount(command.getAccountAcronym(), -1)) {
+            this.transactionRepo.deleteTransactionById(t.getId());
+        }
         this.repo.deleteAccountByAcronym(command.getAccountAcronym());
     }
 }
