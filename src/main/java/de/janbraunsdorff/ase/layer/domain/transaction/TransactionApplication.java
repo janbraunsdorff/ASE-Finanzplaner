@@ -8,7 +8,7 @@ import java.util.List;
 public interface TransactionApplication {
     TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException;
 
-    List<TransactionDTO> getTransactions(TransactionGetQuery query);
+    List<TransactionDTO> getTransactions(TransactionGetQuery query) throws AccountNotFoundException;
 
     List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException;
 }

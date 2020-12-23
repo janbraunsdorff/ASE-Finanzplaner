@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class TransactionService implements TransactionApplication {
     }
 
     @Override
-    public List<TransactionDTO> getTransactions(TransactionGetQuery query) {
+    public List<TransactionDTO> getTransactions(TransactionGetQuery query) throws AccountNotFoundException {
+        accountRepo.getAccountByAcronym(query.getAccount());
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getCount());
         return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId())).collect(Collectors.toList());
     }
