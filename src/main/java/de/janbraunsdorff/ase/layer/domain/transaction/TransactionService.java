@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class TransactionService implements TransactionApplication {
     }
 
     @Override
-    public List<TransactionDTO> deleteTransaction(String... id) {
+    public List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
         for (String s : id) {
             Optional<Transaction> transaction = this.transactionRepo.deleteTransactionById(s);

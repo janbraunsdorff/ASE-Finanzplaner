@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.persistence.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
@@ -68,11 +69,10 @@ public class TransactionJsonRepository implements TransactionRepository {
     }
 
     @Override
-    public Optional<Transaction> deleteTransactionById(String id) {
-        Optional<Transaction> transaction = null;
+    public Optional<Transaction> deleteTransactionById(String id) throws TransactionNotFoundException {
         try {
             ArrayList<TransactionJsonEntity> transactionJsonEntities = readFile();
-            transaction = transactionJsonEntities
+            Optional<Transaction> transaction = transactionJsonEntities
                     .stream()
                     .filter(f -> f.getId().equals(id))
                     .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
@@ -82,10 +82,15 @@ public class TransactionJsonRepository implements TransactionRepository {
                     .filter(f -> !f.getId().equals(id))
                     .collect(Collectors.toList());
             writeFile(collect);
+            if (transaction.isPresent()){
+                return transaction;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return transaction;
+
+        throw new TransactionNotFoundException(id);
     }
 
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {

@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface TransactionApplication {
 
     List<TransactionDTO> getTransactions(TransactionGetQuery query);
 
-    List<TransactionDTO> deleteTransaction(String... id);
+    List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException;
 }

@@ -1,10 +1,12 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
 
 import java.util.List;
 
@@ -22,12 +24,17 @@ public class TransactionDeleteAction implements UseCase {
             return new TransactionHelpResult();
         }
 
-        List<TransactionDTO> dto = service.deleteTransaction(command.getParameter("-id"));
-        String id = "";
-        if (!dto.isEmpty()){
-            id = dto.get(0).getId();
+        try {
+            List<TransactionDTO> dto = service.deleteTransaction(command.getParameter("-id"));
+            String id = "";
+            if (!dto.isEmpty()){
+                id = dto.get(0).getId();
+            }
+            return new TransactionDeleteResult(id);
+
+        } catch (TransactionNotFoundException ex){
+            return new ErrorResult(ex.getMessage());
         }
 
-        return new TransactionDeleteResult(id);
     }
 }
