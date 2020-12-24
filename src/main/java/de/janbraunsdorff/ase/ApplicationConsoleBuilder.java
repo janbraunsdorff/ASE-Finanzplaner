@@ -17,7 +17,7 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
     }
 
     protected ApplicationConsoleBuilder initDefaultApp() {
-        super.initDefaultApplication();
+        super.initDomain();
         return this;
     }
 

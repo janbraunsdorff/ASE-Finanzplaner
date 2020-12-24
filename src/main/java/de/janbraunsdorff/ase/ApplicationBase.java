@@ -40,7 +40,7 @@ public abstract class ApplicationBase {
         this.transactionRepository = new TransactionJsonRepository(path);
     }
 
-    protected void initDefaultApplication() {
+    protected void initDomain() {
         this.accountApplication = new AccountServiceCrud(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);

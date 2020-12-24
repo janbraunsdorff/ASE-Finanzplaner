@@ -35,3 +35,10 @@ jar {
     }
 }
 
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'de.janbraunsdorff.ase.App'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
