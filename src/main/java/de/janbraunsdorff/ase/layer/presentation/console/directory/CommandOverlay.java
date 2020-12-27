@@ -56,6 +56,7 @@ public class CommandOverlay {
                 .addBuilder("group", new GroupTransaction())
                 .addBuilder("help", new HelpTransaction())
                 .addBuilder("rm", new DeleteTransaction())
+                .addBuilder("print", new PrintTransaction())
                 .build();
 
 

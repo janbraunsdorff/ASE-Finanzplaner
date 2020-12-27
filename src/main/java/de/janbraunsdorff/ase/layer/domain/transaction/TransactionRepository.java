@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +15,6 @@ public interface TransactionRepository {
     List<Transaction> getTransactionOfAccount(String id, int count);
 
     Optional<Transaction> deleteTransactionById(String id) throws TransactionNotFoundException;
+
+    List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end);
 }

@@ -34,6 +34,13 @@ public class TransactionService implements TransactionApplication {
     }
 
     @Override
+    public List<TransactionDTO> getTransactions(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
+        accountRepo.getAccountByAcronym(query.getAccount());
+        List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getStart(), query.getEnd());
+        return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId())).collect(Collectors.toList());
+    }
+
+    @Override
     public List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
         for (String s : id) {
@@ -43,7 +50,6 @@ public class TransactionService implements TransactionApplication {
                 transactionDTOS.add(new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId()));
             }
         }
-
         return transactionDTOS;
     }
 }

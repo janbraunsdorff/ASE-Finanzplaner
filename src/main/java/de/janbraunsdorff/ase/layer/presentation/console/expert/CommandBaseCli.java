@@ -39,6 +39,7 @@ public class CommandBaseCli {
                 .addCommand("add", new TransactionAddAction(transactionApplication))
                 .addCommand("group", new TransactionGroupAction(transactionAnalyse))
                 .addCommand("delete", new TransactionDeleteAction(transactionApplication))
+                .addCommand("print", new TransactionToPdfAction(transactionApplication))
                 .build();
 
 

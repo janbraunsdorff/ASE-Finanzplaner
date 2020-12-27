@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.persistence.memory;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,5 +39,10 @@ public class TransactionMemoryRepository implements TransactionRepository {
     @Override
     public Optional<Transaction> deleteTransactionById(String id) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end) {
+        return Collections.emptyList();
     }
 }

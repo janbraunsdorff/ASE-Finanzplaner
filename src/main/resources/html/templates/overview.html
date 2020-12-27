@@ -1,0 +1,89 @@
+<div class="card">
+    <h2>Übersicht</h2>
+    <div class="card-content">
+        <div class="graph">
+            <canvas id="dashboardChart{{id}}" width="100%"></canvas>
+            <div class="differenze">
+                <span {{color}}>{{profit}}</span>
+            </div>
+        </div>
+        <div class="value">
+            <div class="item main-item">
+                <span class="topic">Einnahmen Gesamt</span>
+                <span class="value">{{income-total}}</span>
+            </div>
+            <hr />
+            <div class="item">
+                <span class="topic">Davon Gehalt</span>
+                <span class="value">{{income-salary}}</span>
+            </div>
+            <div class="item">
+                <span class="topic">Davon Vertrag</span>
+                <span class="value">{{income-contract}}</span>
+            </div>
+            <div class="item">
+                <span class="topic">Sonstiges</span>
+                <span class="value">{{income-other}}</span>
+            </div>
+
+
+            <div class="item main-item">
+                <span class="topic">Ausgaben Gesamt</span>
+                <span class="value">{{expense-total}}</span>
+            </div>
+            <hr />
+            <div class="item">
+                <span class="topic">Davon Monatlich</span>
+                <span class="value">{{expense-monthly}}</span>
+            </div>
+            <div class="item">
+                <span class="topic">Davon Vertrag</span>
+                <span class="value">{{expense-contract}}</span>
+            </div>
+            <div class="item">
+                <span class="topic">Davon Einkaufen</span>
+                <span class="value">{{expense-purchase}}</span>
+            </div>
+            <div class="item">
+                <span class="topic">Sonstiges</span>
+                <span class="value">{{expense-others}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let color = '#388e3c';
+    if ({{income-value}} + {{expense-value}} < 0){
+        color = '#7a0c0c'
+    }
+
+    new Chart(document.getElementById("dashboardChart{{id}}"), {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [{{income-value}}, 20, {{expense-value}}],
+                backgroundColor: [
+                    color,
+                    '#fefefe'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255 , 1)',
+                ],
+                borderWidth: 1
+            }]
+
+        },
+        options: {
+            rotation: 1 * Math.PI,
+            circumference: 1 * Math.PI,
+            cutoutPercentage: 85,
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: false
+            },
+        }
+    });
+</script>

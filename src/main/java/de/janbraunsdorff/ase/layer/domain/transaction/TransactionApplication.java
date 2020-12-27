@@ -10,5 +10,7 @@ public interface TransactionApplication {
 
     List<TransactionDTO> getTransactions(TransactionGetQuery query) throws AccountNotFoundException;
 
+    List<TransactionDTO> getTransactions(TransactionGetInIntervalQuery query) throws AccountNotFoundException;
+
     List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException;
 }

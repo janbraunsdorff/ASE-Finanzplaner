@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -91,6 +92,22 @@ public class TransactionJsonRepository implements TransactionRepository {
         }
 
         throw new TransactionNotFoundException(id);
+    }
+
+    @Override
+    public List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end) {
+        try {
+            return readFile()
+                    .stream()
+                    .filter(f -> f.getAccountAcronym().equals(account))
+                    .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) > 0)
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
+                    .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
 
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {

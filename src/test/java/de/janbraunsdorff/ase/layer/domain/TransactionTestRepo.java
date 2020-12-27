@@ -47,4 +47,9 @@ public class TransactionTestRepo implements TransactionRepository {
     public Optional<Transaction> deleteTransactionById(String id) {
         return Optional.empty();
     }
+
+    @Override
+    public List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end) {
+        return null;
+    }
 }

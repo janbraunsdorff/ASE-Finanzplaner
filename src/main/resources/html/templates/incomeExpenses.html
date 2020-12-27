@@ -1,0 +1,166 @@
+<div class="card">
+    <h2>Einnahmen</h2>
+
+    <div class="card-content">
+        <div class="graph">
+            <canvas id="c1{{id1}}" width="100%"></canvas>
+        </div>
+
+        <div class="graph">
+            <canvas id="c2{{id2}}" width="100%"></canvas>
+        </div>
+
+    </div>
+</div>
+<div class="card">
+    <h2>Ausgaben</h2>
+
+    <div class="card-content">
+        <div class="graph">
+            <canvas id="c3{{id3}}" width="100%"></canvas>
+        </div>
+
+        <div class="graph">
+            <canvas id="c4{{id4}}" width="100%"></canvas>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    new Chart(document.getElementById("c3{{id3}}"), {
+        type: 'pie',
+        data: {
+            labels: [{{c3-exp-cat-lbl}}],
+            datasets: [{
+                data: [{{c3-exp-cat-val}}],
+                lineTension: 0,
+                backgroundColor: [
+                    'rgba(239, 83, 80, 0.5)',
+                    'rgba(244, 67, 54, 0.5)',
+                    'rgba(229, 57, 53, 0.5)',
+                    'rgba(211, 47, 47, 0.5)',
+                    'rgba(198, 40, 40, 0.5)',
+                    'rgba(183, 28, 28, 0.5)',
+                ],
+                borderColor: [
+                    '#ef5350',
+                    '#f44336',
+                    '#e53935',
+                    '#d32f2f',
+                    '#c62828',
+                    '#b71c1c'
+                ]
+            }]
+
+        },
+        options: {
+            legend: {
+                position: 'right',
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+        }
+    });
+
+    new Chart(document.getElementById("c4{{id4}}"), {
+        type: 'pie',
+        data: {
+            labels: [{{c4-exp-cat-lbl}}],
+            datasets: [{
+                data: [{{c4-exp-cat-val}}],
+                lineTension: 0,
+                backgroundColor: [
+                    'rgba(239, 83, 80, 0.5)',
+                    'rgba(244, 67, 54, 0.5)',
+                    'rgba(229, 57, 53, 0.5)',
+                    'rgba(211, 47, 47, 0.5)',
+                    'rgba(198, 40, 40, 0.5)',
+                    'rgba(183, 28, 28, 0.5)',
+                ],
+                borderColor: [
+                    '#ef5350',
+                    '#f44336',
+                    '#e53935',
+                    '#d32f2f',
+                    '#c62828',
+                    '#b71c1c'
+                ]
+            }]
+
+        },
+        options: {
+            legend: {
+                position: 'right',
+
+            }
+        }
+    });
+
+    new Chart(document.getElementById("c1{{id1}}"), {
+        type: 'pie',
+        data: {
+            labels: [{{c1-exp-cat-lbl}}],
+            datasets: [{
+                data: [{{c1-exp-cat-val}}],
+                lineTension: 0,
+                backgroundColor: [
+                    'rgba(156, 204, 101, 0.5)',
+                    'rgba(139, 195, 74, 0.5)',
+                    'rgba(124, 179, 66, 0.5)',
+                    'rgba(104, 159, 56, 0.5)',
+                    'rgba(85, 139, 47, 0.5)',
+                    'rgba(51, 105, 30, 0.5)',
+                ],
+                borderColor: [
+                    '#9ccc65',
+                    '#8bc34a',
+                    '#7cb342',
+                    '#689f38',
+                    '#558b2f',
+                    '#33691e',
+                ]
+            }]
+
+        },
+        options: {
+            legend: {
+                position: 'right',
+
+            }
+        }
+    });
+
+    new Chart(document.getElementById("c2{{id2}}"), {
+        type: 'pie',
+        data: {
+            labels: [{{c2-exp-cat-lbl}}],
+            datasets: [{
+                data: [{{c2-exp-cat-val}}],
+                lineTension: 0,
+                backgroundColor: [
+                    'rgba(156, 204, 101, 0.5)',
+                    'rgba(139, 195, 74, 0.5)',
+                    'rgba(124, 179, 66, 0.5)',
+                    'rgba(104, 159, 56, 0.5)',
+                    'rgba(85, 139, 47, 0.5)',
+                    'rgba(51, 105, 30, 0.5)',
+                ],
+                borderColor: [
+                    '#9ccc65',
+                    '#8bc34a',
+                    '#7cb342',
+                    '#689f38',
+                    '#558b2f',
+                    '#33691e',
+                ]
+            }]
+
+        },
+        options: {
+            legend: {
+                position: 'right',
+            },
+        }
+    });
+</script>
