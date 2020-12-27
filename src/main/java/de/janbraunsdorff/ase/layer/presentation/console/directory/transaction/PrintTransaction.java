@@ -6,12 +6,37 @@ import de.janbraunsdorff.ase.layer.presentation.console.directory.State;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class PrintTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
-        String account = "-a " + state.getAccountIdent();
-        String[] start = command.getInput().split(" ");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
 
-        return new OverlayCommand(new ExpertCommand("transaction print -a "+ account + " -s 01012020 -e 31012020", 2), StateTransition.STAY);
+        String account = "-a " + state.getAccountIdent();
+        String[] dates = command.getInput().split(" ");
+
+        String start = " -s " + formatDate(dates[1]).format(dtf);
+        String end = "" ;
+
+        if (dates.length  >= 3){
+            end = " -e " + formatDate(dates[2]).format(dtf);
+        }else {
+            end = " -e " + lastOfMonth(dates[1]).format(dtf);
+        }
+
+        return new OverlayCommand(new ExpertCommand("transaction print "+ account + start + end, 2), StateTransition.STAY);
+    }
+
+    private LocalDate formatDate(String in){
+        int year = Integer.parseInt(in) % 10_000;
+        int month = Integer.parseInt(in) / 10_000;
+        return LocalDate.of(year, month, 1);
+    }
+
+    private LocalDate lastOfMonth(String in ){
+        LocalDate date = formatDate(in);
+        return LocalDate.of(date.getYear(), date.getMonthValue(), date.lengthOfMonth());
     }
 }
