@@ -1,0 +1,213 @@
+@font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./../font/XRXV3I6Li01BKofINeaBTMnFcQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+html, body {
+    font-family: 'Nunito';
+    background-color: #2c2c2c;
+    float: none;
+}
+
+.pages {
+    margin: 0 auto;
+    width: 210mm;
+    
+    .page {
+        width: 100%;
+        height: 297mm;
+        padding: 2.5em 2.5em;
+
+        background-color: #fefefe;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        border-radius: 0.5em;
+
+        display: flex;
+        flex-direction: column;
+        
+        &:not(:first-of-type){
+            margin-top: 1em;
+        } 
+
+        .header{
+            width: 100%;
+            margin-top: 0;
+
+            span {
+                display: inline-block;
+                width: calc(calc(100% / 3) - 3px);
+
+                &:last-child{
+                    text-align: right;
+                }
+
+                &:nth-child(2){
+                    text-align: center;
+                }
+            }
+        }
+
+        .content{
+            text-align: justify;
+            h1 {
+                margin-bottom: 0;
+            }
+            h4 {
+                margin-top: 0;
+            }
+
+            .card {
+                padding: 1em 1em;
+                border: thin solid rgba(0,0,0,0.05);
+                border-radius: 0.5em;
+                box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+                &:not(:first-child){
+                    margin-top: 16px;
+                }
+
+            }
+
+            .card-content{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                &:not(:first){
+                    margin-top: 1em;
+                }
+
+                .graph{
+                    width: 48%;
+                   
+                    .differenze{
+                        height: 4em;
+                        width: 100%;
+                        margin-top: -4em;
+                        text-align: center;
+
+                        span {
+                            width: 100%;
+                            margin: auto;
+                            color: #388e3c;
+                            font-size: 32px;
+                        };
+                    }
+
+                }
+
+                .value {
+                    width: 48%;
+
+                    .item {
+                        display: flex;
+                        flex-direction: row;
+                        font-size: 14px;
+
+                        span{
+                            &:last-child{
+                                margin-left: auto;
+                                text-align: right;
+                            }
+                        }
+                    }
+
+                    .main-item{
+                        font-weight: 900;
+                        font-size: 16px;
+
+                        &:not(:first-child){
+                            margin-top: 1em;
+                        }
+                    }
+                }
+            }
+
+            .posting{
+                .item {
+                    display: flex;
+                    flex-direction: row;
+                    height: 2em;
+
+                    &:nth-child(5n){
+                        margin-bottom: 2em;
+                    }
+
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+
+                    .date {
+                        width: 10%;
+                    }
+                    .account {
+                        width: 20%;
+                        text-align: center;
+                    }
+                    .thirdparty {
+                        width: 40%;
+                        text-align: left;
+                    }
+                    .contract {
+                        width: 10%;
+                        text-align: center;
+
+                        span{
+                            background-color: rgba(2, 136, 209, 0.2);
+                            color: rgb(0, 74, 114);
+                            font-weight: 900;
+                            padding: 0.2em 0.5em;
+                            border-radius: 99em;
+                        }
+                        
+                    }
+                    .value {
+                        width: 20%;
+                        text-align: right;
+                    }
+                }
+            }
+
+        }
+        
+        .footer {
+            border-top: thin solid black;
+            width: 100%;
+            text-align: right;
+            margin-top: auto;
+        }
+    }
+}
+
+@media print {
+    .pages {
+        margin: 0;
+
+        .page {
+            border: none;
+            box-shadow: none;
+
+            &:not(:first-of-type){
+                margin-top: 4em;
+            } 
+
+            .content {
+                .card{
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+
+    
+}
+
+
+@page {
+    margin: 0;
+}
