@@ -65,7 +65,7 @@ public class PdfDocument implements Document{
     }
 
     public URI saveTo(String name) throws IOException {
-       return this.render().saveTo(name + " " + UUID.randomUUID().toString().substring(20));
+       return this.render().saveTo(name + "-" + UUID.randomUUID().toString().substring(24));
 
     }
 }

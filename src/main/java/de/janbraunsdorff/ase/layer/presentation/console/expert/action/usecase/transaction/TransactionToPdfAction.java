@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
@@ -8,43 +10,73 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.PdfDoc
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter.MonthlySummary;
 
 import java.awt.*;
-import java.io.File;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionToPdfAction implements UseCase {
 
     private final TransactionApplication service;
+    private AccountApplication accountService;
 
-    public TransactionToPdfAction(TransactionApplication service) {
+    public TransactionToPdfAction(TransactionApplication service, AccountApplication accountService) {
         this.service = service;
+        this.accountService = accountService;
     }
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        // transactions print -a VB -s 01012020 -e 31012020
-        if (!command.areTagsAndValuesPresent("-a", "-s")) {
+        if (!command.areTagsAndValuesPresent("-a", "-s" , "-e")) {
             return new TransactionHelpResult();
         }
 
         String account = command.getParameter("-a");
+        String accountName = accountService.getAccount(new AccountGetByAcronymQuery(account)).getName();
         LocalDate start = parseDate(command.getParameter("-s"));
         LocalDate end = parseDate(command.getParameter("-e"));
 
-        List<TransactionDTO> transaction = this.service.getTransactions(new TransactionGetInIntervalQuery(account, start, end));
-        Integer startValue = this.service.getTransactions(new TransactionGetInIntervalQuery(account, LocalDate.of(0,1,1), start.minusDays(1)))
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyMM");
+        String name = accountName + " " + start.format(dtf) + end.format(dtf);
+        PdfDocument doc = new PdfDocument(name);
+
+        do {
+            List<TransactionDTO> transaction = this.service.getTransactions(
+                    new TransactionGetInIntervalQuery(
+                            account,
+                            start,
+                            LocalDate.of(start.getYear(), start.getMonthValue(), start.lengthOfMonth())
+                    )
+            );
+            Integer startValue = this.service.getTransactions(
+                    new TransactionGetInIntervalQuery(
+                            account,
+                            LocalDate.of(0,1,1), start.minusDays(1)
+                    )
+            )
                 .stream()
                 .map(TransactionDTO::getValue)
                 .reduce(0, Integer::sum);
 
 
-        String name = "";
-        PdfDocument doc = new PdfDocument(name);
 
-        MonthlySummary pdf = new MonthlySummary(transaction, startValue, new ArrayList<>());
-        doc.addChapter(pdf);
+
+            MonthlySummary pdf = new MonthlySummary(
+                    transaction,
+                    startValue,
+                    new ArrayList<String>(){{
+                        add(accountName);
+                    }},
+                    accountService
+            );
+
+            doc.addChapter(pdf);
+            start = start.plusMonths(1);
+        }while (start.isBefore(end));
+
+
+
         URI uri = doc.saveTo(name);
         Desktop.getDesktop().browse(uri);
 

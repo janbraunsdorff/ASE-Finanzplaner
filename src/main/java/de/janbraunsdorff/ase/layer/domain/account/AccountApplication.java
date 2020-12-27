@@ -7,10 +7,12 @@ import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 
 import java.util.List;
 
-public interface AccountService {
+public interface AccountApplication {
     List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException, AccountNotFoundException;
 
     AccountDTO createAccountByAcronym(AccountCreateCommand command) throws BankNotFoundException, AcronymAlreadyExistsException;
+
+    AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException;
 
     void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException;
 

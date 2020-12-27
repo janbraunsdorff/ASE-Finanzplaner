@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase;
 
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.account.AccountService;
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountServiceCrud;
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
@@ -22,7 +22,7 @@ public abstract class ApplicationBase {
     private AccountRepository accountRepository;
     private TransactionRepository transactionRepository;
 
-    protected AccountService accountApplication;
+    protected AccountApplication accountApplication;
     protected BankApplication bankApplication;
     protected TransactionApplication transactionApplication;
     protected TransactionAnalyse transactionAnalyse;

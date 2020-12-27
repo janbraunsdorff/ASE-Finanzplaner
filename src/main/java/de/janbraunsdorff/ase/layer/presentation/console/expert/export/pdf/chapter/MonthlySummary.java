@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter;
 
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.*;
@@ -22,7 +23,7 @@ public class MonthlySummary implements PdfChapter {
     private final DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
-    public MonthlySummary(List<TransactionDTO> transactions, int startValue, List<String> accounts) {
+    public MonthlySummary(List<TransactionDTO> transactions, int startValue, List<String> accounts, AccountApplication accountService) {
         transactions.sort(Comparator.comparing(TransactionDTO::getDate));
 
         LocalDate dateOfFirstTransaction = transactions.get(0).getDate();
@@ -52,7 +53,7 @@ public class MonthlySummary implements PdfChapter {
         );
 
         this.postingItems = new ArrayList<>();
-        new PostingItemsPages(transactions).getPages().forEach(f -> this.postingItems.add(new PdfPage(f)));
+        new PostingItemsPages(transactions, accountService).getPages().forEach(f -> this.postingItems.add(new PdfPage(f)));
     }
 
 

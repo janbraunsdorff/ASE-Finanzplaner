@@ -4,7 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetQuery;
-import de.janbraunsdorff.ase.layer.domain.account.AccountService;
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class AccountAllAction implements UseCase {
 
-    private final AccountService service;
+    private final AccountApplication service;
 
-    public AccountAllAction(AccountService service) {
+    public AccountAllAction(AccountApplication service) {
         this.service = service;
     }
 

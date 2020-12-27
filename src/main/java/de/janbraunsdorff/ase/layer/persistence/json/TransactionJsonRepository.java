@@ -100,7 +100,7 @@ public class TransactionJsonRepository implements TransactionRepository {
             return readFile()
                     .stream()
                     .filter(f -> f.getAccountAcronym().equals(account))
-                    .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) > 0)
+                    .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) >= 0)
                     .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
                     .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
                     .collect(Collectors.toList());

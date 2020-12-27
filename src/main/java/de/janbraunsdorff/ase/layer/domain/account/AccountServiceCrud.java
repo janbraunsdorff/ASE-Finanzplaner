@@ -13,7 +13,7 @@ import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccountServiceCrud implements AccountService {
+public class AccountServiceCrud implements AccountApplication {
     private final AccountRepository repo;
     private final TransactionRepository transactionRepo;
     private final BankRepository bankRepo;
@@ -22,6 +22,13 @@ public class AccountServiceCrud implements AccountService {
         this.repo = repo;
         this.transactionRepo = transactionRepo;
         this.bankRepo = bankRepo;
+    }
+
+    public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
+        Account a = this.repo.getAccountByAcronym(query.getAcronym());
+        int amount = transactionRepo.getTransactionOfAccount(a.getAcronym(), -1).size();
+        String bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
+        return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
     }
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {

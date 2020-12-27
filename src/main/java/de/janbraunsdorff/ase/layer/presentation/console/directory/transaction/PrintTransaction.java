@@ -21,7 +21,7 @@ public class PrintTransaction implements CommandBuilder {
         String end = "" ;
 
         if (dates.length  >= 3){
-            end = " -e " + formatDate(dates[2]).format(dtf);
+            end = " -e " + lastOfMonth(dates[2]).format(dtf);
         }else {
             end = " -e " + lastOfMonth(dates[1]).format(dtf);
         }
@@ -35,7 +35,7 @@ public class PrintTransaction implements CommandBuilder {
         return LocalDate.of(year, month, 1);
     }
 
-    private LocalDate lastOfMonth(String in ){
+    private LocalDate lastOfMonth(String in){
         LocalDate date = formatDate(in);
         return LocalDate.of(date.getYear(), date.getMonthValue(), date.lengthOfMonth());
     }
