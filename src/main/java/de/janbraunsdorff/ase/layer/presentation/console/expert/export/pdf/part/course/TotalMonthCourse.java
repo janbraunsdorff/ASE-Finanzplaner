@@ -1,18 +1,19 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.DataPoint;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 
-public class TotalMonthlyCourse  extends MonthlyCourse {
+public class TotalMonthCourse extends MonthCourse {
     private final int startValue;
 
 
-    public TotalMonthlyCourse(List<TransactionDTO> transactions, int startValue) {
-        super(transactions);
+    public TotalMonthCourse(List<TransactionDTO> transactions, int startValue, LocalDate start, LocalDate end) {
+        super(transactions, start, end);
 
         this.startValue = startValue;
     }

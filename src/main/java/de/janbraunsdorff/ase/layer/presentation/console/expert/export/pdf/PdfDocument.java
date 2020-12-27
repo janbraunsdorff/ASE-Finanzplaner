@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapte
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,13 +22,16 @@ public class PdfDocument implements Document{
     private final String name;
 
     public PdfDocument(String name) {
-        //TODO: First page desing
         this.name = name;
         this.date = LocalDateTime.now().format(dtf);
         this.chapters = new ArrayList<>();
     }
 
-    public void addChapter(PdfChapter chapter){
+    public void prependChapter(PdfChapter chapter){
+        this.chapters.add(0, chapter);
+    }
+
+    public void appendChapter(PdfChapter chapter){
         this.chapters.add(chapter);
     }
 
@@ -64,7 +68,7 @@ public class PdfDocument implements Document{
         return template;
     }
 
-    public URI saveTo(String name) throws IOException {
+    public Path saveTo(String name) throws IOException {
        return this.render().saveTo(name + "-" + UUID.randomUUID().toString().substring(24));
 
     }

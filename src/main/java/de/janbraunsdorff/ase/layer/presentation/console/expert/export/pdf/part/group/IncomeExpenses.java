@@ -1,7 +1,9 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.group;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class IncomeExpenses implements PdfPart {
     private List<DataPoint> reduceMap(Map<String, Integer> map){
         final List<DataPoint> valuePerObjects = new ArrayList<>();
         map.forEach((k, v) -> valuePerObjects.add(new DataPoint(k, v)));
-        valuePerObjects.sort(Comparator.comparing(DataPoint::getValue));
+        valuePerObjects.sort(Comparator.comparing(DataPoint::getAbsolutValue).reversed());
 
         List<DataPoint> returnValues = valuePerObjects.subList(0, Math.min(4, valuePerObjects.size()));
 

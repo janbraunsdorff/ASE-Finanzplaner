@@ -1,15 +1,13 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course.MonthlyCourse;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course.TotalMonthlyCourse;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course.MonthCourse;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course.TotalMonthCourse;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.group.IncomeExpenses;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.group.OverviewFactory;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline.Headline;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline.HeadlineSize;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.posting.PostingItemsPages;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -19,33 +17,25 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class MonthlySummary implements PdfChapter {
+public class MonthSummary implements PdfChapter {
     private final String headline;
     private final String accountsString;
     private final String interval;
     private final PdfPage overview;
     private final PdfPage course;
-    private final List<PdfPage> postingItems;
     private final DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
-    public MonthlySummary(List<TransactionDTO> transactions, int startValue, List<String> accounts, AccountApplication accountService) {
-        if (transactions.isEmpty()){
-            throw new IllegalArgumentException("no transactions");
-        }
+    public MonthSummary(List<TransactionDTO> transactions, int startValue, List<String> accounts, LocalDate start, LocalDate end) {
         transactions.sort(Comparator.comparing(TransactionDTO::getDate));
 
-        LocalDate dateOfFirstTransaction = transactions.get(0).getDate();
-        int year = dateOfFirstTransaction.getYear();
-        int month = dateOfFirstTransaction.getMonthValue();
-        String monthName = DateFormatSymbols.getInstance().getMonths()[month - 1];
 
-        String startInterval = dateOfFirstTransaction.withDayOfMonth(1).format(formatter);
-        String endInterval = dateOfFirstTransaction.withDayOfMonth(dateOfFirstTransaction.lengthOfMonth()).format(formatter);
+        String monthNameStart = DateFormatSymbols.getInstance().getMonths()[start.getMonthValue() - 1];
+        String monthNameEnd = DateFormatSymbols.getInstance().getMonths()[end.getMonthValue() - 1];
 
-        this.headline = String.join(" ","Monatsübersicht", monthName, String.valueOf(year));
+        this.headline = String.join(" ",monthNameStart, String.valueOf(start.getYear()), "-", monthNameEnd, String.valueOf(end.getYear()));
         this.accountsString = String.join(";", accounts);
-        this.interval = String.join(" - ", startInterval, endInterval);
+        this.interval = String.join(" - ", start.format(formatter), end.format(formatter));
 
 
         this.overview = new PdfPage(
@@ -56,13 +46,10 @@ public class MonthlySummary implements PdfChapter {
         );
 
         this.course = new PdfPage(
-                new Headline("Verlauf", HeadlineSize.H1),
-                new MonthlyCourse(transactions),
-                new TotalMonthlyCourse(transactions, startValue)
+                new MonthCourse(transactions, start, end),
+                new TotalMonthCourse(transactions, startValue, start, end),
+                new TotalMonthCourse(transactions, startValue, start, end)
         );
-
-        this.postingItems = new ArrayList<>();
-        new PostingItemsPages(transactions, accountService).getPages().forEach(f -> this.postingItems.add(new PdfPage(f)));
     }
 
 
@@ -71,14 +58,6 @@ public class MonthlySummary implements PdfChapter {
         List<HtmlObject> objects = new ArrayList<>();
         objects.add(getPage(this.overview.render()));
         objects.add(getPage(this.course.render()));
-        this.postingItems.forEach(f -> {
-            try {
-                objects.add(getPage(f.render()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         return HtmlObject.join(objects);
     }
 

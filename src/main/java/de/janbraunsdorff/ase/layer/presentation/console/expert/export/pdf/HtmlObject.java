@@ -24,9 +24,6 @@ public class HtmlObject {
        );
     }
 
-    public void replace(String key, String value) {
-        this.html = html.replaceAll("\\{\\{" + key + "}}", value);
-    }
 
     public void replace(String key, HtmlObject value) {
         this.html = html.replaceAll("\\{\\{" + key + "}}", value.html);
@@ -37,6 +34,10 @@ public class HtmlObject {
         return this.html.contains("{{" + key + "}}");
     }
 
+    public void replace(String key, String value) {
+        this.html = html.replaceAll("\\{\\{" + key + "}}", value);
+    }
+
     public void replace(String key, List<HtmlObject> items) {
         this.html = html.replaceAll("\\{\\{" + key + "}}", items.
                 stream()
@@ -45,12 +46,12 @@ public class HtmlObject {
         );
     }
 
-    public URI saveTo(String name) throws IOException {
+    public Path saveTo(String name) throws IOException {
         Path path = Paths.get("./" + name + ".html");
         if (!Files.exists(path)) {
             Files.createFile(path);
             Files.write(path, html.getBytes());
         }
-        return path.toUri();
+        return path;
     }
 }

@@ -1,5 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
 
+import java.util.Map;
+
 public final class DataPoint {
     private final String name;
     private final Integer value;
@@ -15,6 +17,10 @@ public final class DataPoint {
 
     public Integer getValue() {
         return value;
+    }
+
+    public Integer getAbsolutValue() {
+        return Math.abs(this.value);
     }
 
 }

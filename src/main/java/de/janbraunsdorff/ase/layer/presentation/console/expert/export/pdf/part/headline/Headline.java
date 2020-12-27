@@ -1,10 +1,11 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline;
 
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
 
 import java.io.IOException;
 
-public class Headline implements PdfPart{
+public class Headline implements PdfPart {
 
     private String name;
     private HeadlineSize size;

@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.group;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 

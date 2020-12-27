@@ -1,6 +1,7 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.posting;
 
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
 
 import java.io.IOException;
 import java.util.ArrayList;
