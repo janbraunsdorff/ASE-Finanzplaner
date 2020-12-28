@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetByAcronymQuery;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.PdfDocumentBuilder;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
@@ -22,8 +23,6 @@ public class TransactionToPdfAction implements UseCase {
 
     private final TransactionApplication service;
     private final AccountApplication accountService;
-    private String account;
-    private PdfDocument doc;
 
     public TransactionToPdfAction(TransactionApplication service, AccountApplication accountService) {
         this.service = service;
@@ -35,7 +34,7 @@ public class TransactionToPdfAction implements UseCase {
         if (!command.areTagsAndValuesPresent("-a", "-s", "-e")) {
             return new TransactionHelpResult();
         }
-        this.account = command.getParameter("-a");
+        String account = command.getParameter("-a");
         String accountName = this.accountService.getAccount(new AccountGetByAcronymQuery(account)).getName();
 
 
@@ -44,49 +43,16 @@ public class TransactionToPdfAction implements UseCase {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyMM");
         String name = accountName + " " + start.format(dtf) + end.format(dtf);
-        this.doc = new PdfDocument(name);
 
-        int numberOfChapters = addMonthlyChapters(start, end);
-        start = parseDate(command.getParameter("-s"));
-
-        addSummery(start, end, numberOfChapters);
+        PdfDocument doc = new PdfDocumentBuilder(name, service, accountService)
+                .addMonthly(start, end, account)
+                .addMonthlySummery(parseDate(command.getParameter("-s")), end, account)
+                .build();
 
         Path uri = doc.saveTo(name);
         Desktop.getDesktop().browse(uri.toUri());
 
         return new TransactionToPdfResult(uri.toAbsolutePath().toString());
-    }
-
-    private void addSummery(LocalDate start, LocalDate end, int numberOfChapters) throws AccountNotFoundException, BankNotFoundException {
-        if (numberOfChapters > 1) {
-            MonthSummary summary = new MonthSummary(
-                   Collections.singletonList(account),
-                    start,
-                    end,
-                    service,
-                    accountService
-            );
-            doc.prependChapter(summary);
-        }
-    }
-
-    private int addMonthlyChapters(LocalDate start, LocalDate end) throws AccountNotFoundException, BankNotFoundException {
-        int numberOfChapters = 0;
-        do {
-            MonthlySummary pdf = new MonthlySummary(
-                    Collections.singletonList(account),
-                    accountService,
-                    start,
-                    LocalDate.of(start.getYear(), start.getMonthValue(), start.lengthOfMonth()),
-                    service
-            );
-            doc.appendChapter(pdf);
-
-            start = start.plusMonths(1);
-            numberOfChapters++;
-        } while (start.isBefore(end));
-
-        return numberOfChapters;
     }
 
     private LocalDate parseDate(String date) {
