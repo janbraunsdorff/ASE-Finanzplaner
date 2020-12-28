@@ -1,9 +1,8 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.group;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part.group;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public final class Overview implements PdfPart {

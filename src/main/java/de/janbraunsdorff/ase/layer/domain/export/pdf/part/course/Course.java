@@ -1,12 +1,11 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part.course;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.DataPoint;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;

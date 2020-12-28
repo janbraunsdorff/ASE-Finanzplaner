@@ -1,6 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part;
-
-import java.util.Map;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part;
 
 public final class DataPoint {
     private final String name;

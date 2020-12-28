@@ -1,25 +1,26 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part.course;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.DataPoint;
 
 import java.time.LocalDate;
 import java.util.*;
 
-public class MonthlyCourse extends Course {
+public class MonthCourse extends Course {
+    private final LocalDate end;
+    private LocalDate start;
 
-    public MonthlyCourse(List<TransactionDTO> transactions) {
+    public MonthCourse(List<TransactionDTO> transactions, LocalDate start, LocalDate end) {
         super(transactions);
+        this.start = start;
+        this.end = end;
     }
 
     protected List<DataPoint> createDataPoints(List<DataPoint> list, int accountValue) {
         List<DataPoint> dataPoints = new ArrayList<>();
-        int month = transactions.get(0).getDate().getMonth().getValue();
-        int year = transactions.get(0).getDate().getYear();
-        LocalDate start = LocalDate.of(year, month, 1);
 
         int index = 0;
-        while (start.getMonth().getValue() == month){
+        while (start.isBefore(end)){
             if (isADatapointForDatePresent(list, start, index)) {
                 accountValue += list.get(index).getValue();
                 index++;

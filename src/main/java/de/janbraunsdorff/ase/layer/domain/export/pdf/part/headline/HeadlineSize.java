@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part.headline;
 
 public enum HeadlineSize {
     H1("h1"),

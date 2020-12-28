@@ -1,10 +1,10 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.chapter;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,9 +1,7 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.posting;
+package de.janbraunsdorff.ase.layer.domain.export.pdf.part.posting;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
-
-import java.io.IOException;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
 
 public final class PostingItem implements PdfPart {
     private final String date;
