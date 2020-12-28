@@ -26,6 +26,11 @@ public class AccountTestApplication implements AccountApplication {
     }
 
     @Override
+    public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
+        return null;
+    }
+
+    @Override
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException {
         this.deleteCommand = command;
     }
