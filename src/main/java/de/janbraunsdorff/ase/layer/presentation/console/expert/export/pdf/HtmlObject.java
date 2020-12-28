@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf;
 
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

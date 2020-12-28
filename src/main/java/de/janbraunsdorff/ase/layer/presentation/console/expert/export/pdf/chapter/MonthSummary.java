@@ -1,5 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter;
 
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.domain.account.AccountsGetByAcronymQuery;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.course.MonthCourse;
@@ -9,24 +15,25 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.g
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline.Headline;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.headline.HeadlineSize;
 
-import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class MonthSummary implements PdfChapter {
+public class MonthSummary extends PdfChapter {
     private final String headline;
     private final String accountsString;
-    private final String interval;
     private final PdfPage overview;
     private final PdfPage course;
-    private final DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
-    public MonthSummary(List<TransactionDTO> transactions, int startValue, List<String> accounts, LocalDate start, LocalDate end) {
+    public MonthSummary(List<String> accounts, LocalDate start, LocalDate end, TransactionApplication service, AccountApplication accountService) throws AccountNotFoundException, BankNotFoundException {
+        super(service);
+        List<TransactionDTO> transactions = getTransactionInInterval(start, end, accounts);
+        int startValue = getStartValue(start, accounts);
         transactions.sort(Comparator.comparing(TransactionDTO::getDate));
 
 
@@ -34,8 +41,9 @@ public class MonthSummary implements PdfChapter {
         String monthNameEnd = DateFormatSymbols.getInstance().getMonths()[end.getMonthValue() - 1];
 
         this.headline = String.join(" ",monthNameStart, String.valueOf(start.getYear()), "-", monthNameEnd, String.valueOf(end.getYear()));
-        this.accountsString = String.join(";", accounts);
-        this.interval = String.join(" - ", start.format(formatter), end.format(formatter));
+        this.accountsString = accountService.getAccount(new AccountsGetByAcronymQuery(accounts)).stream().map(AccountDTO::getName).collect(Collectors.joining(";"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String interval = String.join(" - ", start.format(formatter), end.format(formatter));
 
 
         this.overview = new PdfPage(
@@ -54,14 +62,14 @@ public class MonthSummary implements PdfChapter {
 
 
     @Override
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         List<HtmlObject> objects = new ArrayList<>();
         objects.add(getPage(this.overview.render()));
         objects.add(getPage(this.course.render()));
         return HtmlObject.join(objects);
     }
 
-    private HtmlObject getPage(HtmlObject s) throws IOException {
+    private HtmlObject getPage(HtmlObject s) {
         HtmlObject template = getTemplate("page.html");
         template.replace("content", s);
         template.replace("chapter-title", this.headline);

@@ -3,15 +3,15 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf;
 
 import de.janbraunsdorff.ase.App;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter.PdfChapter;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.PdfPart;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,29 +32,19 @@ public class PdfDocument implements Document{
     }
 
     public void appendChapter(PdfChapter chapter){
+        if (chapter == null){
+            return;
+        }
         this.chapters.add(chapter);
     }
 
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         HtmlObject template = getTemplate("document.html");
         template.replace("headline", name);
-
-        String fileName = "config.txt";
-        URL path = App.class.getClassLoader().getResource(fileName);
-        String root = path.getFile().replaceAll(fileName, "");
-        template.replace("path", root);
-
-        List<HtmlObject> collect = chapters.stream().map(chapter -> {
-            try {
-                return chapter.render();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return new HtmlObject("");
-        }).collect(Collectors.toList());
-        HtmlObject pages = HtmlObject.join(collect);
-        template.replace("pages", pages);
+        template.replace("path", getPathToResources());
+        template.replace("pages", HtmlObject.join(chapters.stream().map(PdfPart::render).collect(Collectors.toList())));
         template.replace("date-created", date);
+
 
         int i = 0;
         while (template.replaceFirst("pages", String.join("/", String.valueOf(i+1), "{{totalPage}}"))) {
@@ -62,10 +52,14 @@ public class PdfDocument implements Document{
         }
 
         template.replace("totalPage", String.valueOf(i+1));
-
-
-
         return template;
+    }
+
+    @NotNull
+    private String getPathToResources() {
+        String fileName = "config.txt";
+        URL path = App.class.getClassLoader().getResource(fileName);
+        return path.getFile().replaceAll(fileName, "");
     }
 
     public Path saveTo(String name) throws IOException {

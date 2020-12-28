@@ -60,7 +60,7 @@ public class IncomeExpenses implements PdfPart {
     }
 
     @Override
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         HtmlObject template = getTemplate("incomeExpenses.html");
         template.replace("id1", UUID.randomUUID().toString());
         template.replace("id2", UUID.randomUUID().toString());

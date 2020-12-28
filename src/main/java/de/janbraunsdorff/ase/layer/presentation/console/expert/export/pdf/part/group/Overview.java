@@ -33,7 +33,7 @@ public final class Overview implements PdfPart {
         this.profit = profit;
     }
 
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         HtmlObject html = getTemplate("overview.html");
         html.replace("income-total", String.valueOf(formatValue(this.totalIncome)));
         html.replace("income-salary", String.valueOf(formatValue(this.totalIncomeSalary)));

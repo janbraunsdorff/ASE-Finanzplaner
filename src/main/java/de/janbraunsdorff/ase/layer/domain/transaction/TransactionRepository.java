@@ -16,5 +16,5 @@ public interface TransactionRepository {
 
     Optional<Transaction> deleteTransactionById(String id) throws TransactionNotFoundException;
 
-    List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end);
+    List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end);
 }

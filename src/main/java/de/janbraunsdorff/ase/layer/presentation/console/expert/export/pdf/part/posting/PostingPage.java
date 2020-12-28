@@ -6,6 +6,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.part.P
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class PostingPage implements PdfPart {
     private final List<PostingItem> items;
@@ -20,15 +21,10 @@ public final class PostingPage implements PdfPart {
 
 
     @Override
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         HtmlObject template = getTemplate("postingPage.html");
-        List<HtmlObject> htmlItems = new ArrayList<>();
-        for (PostingItem pi : items){
-            htmlItems.add(pi.render());
-        }
+        List<HtmlObject> htmlItems = items.stream().map(PostingItem::render).collect(Collectors.toList());
         template.replace("items", htmlItems);
-
-
         return template;
     }
 }

@@ -20,7 +20,7 @@ public class PdfPage {
         this.parts = parts;
     }
 
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         List<HtmlObject> objects = new ArrayList<>();
         for (PdfPart part : parts) {
             HtmlObject render = part.render();

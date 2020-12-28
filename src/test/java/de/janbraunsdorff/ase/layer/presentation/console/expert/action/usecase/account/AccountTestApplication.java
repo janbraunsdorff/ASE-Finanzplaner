@@ -26,7 +26,7 @@ public class AccountTestApplication implements AccountApplication {
     }
 
     @Override
-    public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
+    public AccountDTO getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
         return null;
     }
 

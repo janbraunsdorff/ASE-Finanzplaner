@@ -24,7 +24,7 @@ public class TotalMonthCourse extends MonthCourse {
 
 
     @Override
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         List<DataPoint> dataPoints = getDataPoints(startValue);
         return render(dataPoints, "Gesamt");
     }

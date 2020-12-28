@@ -27,12 +27,12 @@ public abstract class Course implements PdfPart {
     }
 
     @Override
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         List<DataPoint> dataPoints = getDataPoints(0);
         return render(dataPoints, "Intervall Übersicht");
     }
 
-    protected HtmlObject render(List<DataPoint> dataPoints, String type) throws IOException{
+    protected HtmlObject render(List<DataPoint> dataPoints, String type){
         HtmlObject template = getTemplate("course.html");
 
         template.replace("id", UUID.randomUUID().toString());

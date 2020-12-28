@@ -34,7 +34,9 @@ public class TransactionService implements TransactionApplication {
 
     @Override
     public List<TransactionDTO> getTransactions(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
-        accountRepo.getAccountByAcronym(query.getAccount());
+        for (String s : query.getAccount()){
+            accountRepo.getAccountByAcronym(s);
+        }
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getStart(), query.getEnd());
         return accounts.stream().map(a -> new TransactionDTO(a.getValue(), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym())).collect(Collectors.toList());
     }

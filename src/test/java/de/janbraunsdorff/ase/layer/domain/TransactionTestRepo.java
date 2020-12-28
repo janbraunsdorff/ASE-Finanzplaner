@@ -49,7 +49,7 @@ public class TransactionTestRepo implements TransactionRepository {
     }
 
     @Override
-    public List<Transaction> getTransactionOfAccount(String account, LocalDate start, LocalDate end) {
+    public List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end) {
         return null;
     }
 }

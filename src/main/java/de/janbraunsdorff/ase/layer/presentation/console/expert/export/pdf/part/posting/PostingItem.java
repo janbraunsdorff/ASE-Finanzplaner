@@ -20,7 +20,7 @@ public final class PostingItem implements PdfPart {
         this.value = value;
     }
 
-    public HtmlObject render() throws IOException {
+    public HtmlObject render() {
         HtmlObject html = getTemplate("postingItem.html");
         html.replace("date", this.date);
         html.replace("account", this.account);

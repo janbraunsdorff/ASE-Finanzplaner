@@ -1,31 +1,29 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.PdfDocument;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter.MonthSummary;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.export.pdf.chapter.MonthlySummary;
-import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.net.URI;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class TransactionToPdfAction implements UseCase {
 
     private final TransactionApplication service;
     private final AccountApplication accountService;
+    private String account;
+    private PdfDocument doc;
 
     public TransactionToPdfAction(TransactionApplication service, AccountApplication accountService) {
         this.service = service;
@@ -37,33 +35,21 @@ public class TransactionToPdfAction implements UseCase {
         if (!command.areTagsAndValuesPresent("-a", "-s", "-e")) {
             return new TransactionHelpResult();
         }
+        this.account = command.getParameter("-a");
+        String accountName = this.accountService.getAccount(new AccountGetByAcronymQuery(account)).getName();
 
-        // TODO total income per month vs total expense per month
 
-        String account = command.getParameter("-a");
-        String accountName = accountService.getAccount(new AccountGetByAcronymQuery(account)).getName();
         LocalDate start = parseDate(command.getParameter("-s"));
         LocalDate end = parseDate(command.getParameter("-e"));
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyMM");
         String name = accountName + " " + start.format(dtf) + end.format(dtf);
-        PdfDocument doc = new PdfDocument(name);
+        this.doc = new PdfDocument(name);
 
-        int numberOfChapters = 0;
-        do {
-            MonthlySummary pdf = getMonthlySummary(account, accountName, start);
-            if (pdf != null) {
-                doc.appendChapter(pdf);
-            }
-            start = start.plusMonths(1);
-            numberOfChapters++;
-        } while (start.isBefore(end));
+        int numberOfChapters = addMonthlyChapters(start, end);
         start = parseDate(command.getParameter("-s"));
 
-        if (numberOfChapters > 1) {
-            MonthSummary summary = getMonthSummary(start, end, account, accountName);
-            doc.prependChapter(summary);
-        }
+        addSummery(start, end, numberOfChapters);
 
         Path uri = doc.saveTo(name);
         Desktop.getDesktop().browse(uri.toUri());
@@ -71,64 +57,36 @@ public class TransactionToPdfAction implements UseCase {
         return new TransactionToPdfResult(uri.toAbsolutePath().toString());
     }
 
-    private MonthlySummary getMonthlySummary(String account, String accountName, LocalDate start) throws AccountNotFoundException {
-        List<TransactionDTO> transaction = getTransactionInInterval(
-                account,
-                start,
-                LocalDate.of(start.getYear(), start.getMonthValue(), start.lengthOfMonth())
-        );
-
-        if (transaction.isEmpty()){
-            return null;
+    private void addSummery(LocalDate start, LocalDate end, int numberOfChapters) throws AccountNotFoundException, BankNotFoundException {
+        if (numberOfChapters > 1) {
+            MonthSummary summary = new MonthSummary(
+                   Collections.singletonList(account),
+                    start,
+                    end,
+                    service,
+                    accountService
+            );
+            doc.prependChapter(summary);
         }
-
-        Integer startValue = getStartValue(account, start);
-
-        return new MonthlySummary(
-                transaction,
-                startValue,
-                new ArrayList<String>() {{
-                    add(accountName);
-                }},
-                accountService
-        );
     }
 
-    @NotNull
-    private MonthSummary getMonthSummary(LocalDate start, LocalDate end, String account, String accountName) throws AccountNotFoundException {
-        List<TransactionDTO> transaction = getTransactionInInterval(account, start, end);
-        Integer startValue = getStartValue(account, start);
+    private int addMonthlyChapters(LocalDate start, LocalDate end) throws AccountNotFoundException, BankNotFoundException {
+        int numberOfChapters = 0;
+        do {
+            MonthlySummary pdf = new MonthlySummary(
+                    Collections.singletonList(account),
+                    accountService,
+                    start,
+                    LocalDate.of(start.getYear(), start.getMonthValue(), start.lengthOfMonth()),
+                    service
+            );
+            doc.appendChapter(pdf);
 
-        return new MonthSummary(
-                transaction,
-                startValue,
-                new ArrayList<String>() {{
-                    add(accountName);
-                }},
-                start,
-                end
-        );
-    }
+            start = start.plusMonths(1);
+            numberOfChapters++;
+        } while (start.isBefore(end));
 
-    private List<TransactionDTO> getTransactionInInterval(String account, LocalDate start, LocalDate end) throws AccountNotFoundException {
-        return this.service.getTransactions(
-                new TransactionGetInIntervalQuery(
-                        account,
-                        start,
-                        end
-                )
-        );
-    }
-
-    private Integer getStartValue(String account, LocalDate start) throws AccountNotFoundException {
-        return getTransactionInInterval(
-                account,
-                LocalDate.of(0, 1, 1),
-                start.minusDays(1)
-        )
-        .stream()
-        .map(TransactionDTO::getValue)
-        .reduce(0, Integer::sum);
+        return numberOfChapters;
     }
 
     private LocalDate parseDate(String date) {

@@ -16,8 +16,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public interface PdfPart {
-    HtmlObject render() throws IOException;
-    default HtmlObject getTemplate(String name) throws IOException {
+    HtmlObject render();
+    default HtmlObject getTemplate(String name) {
         InputStream resource = App.class.getClassLoader().getResourceAsStream("html/templates/" + name);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resource));
         String lines = reader.lines().collect(Collectors.joining("\n"));
