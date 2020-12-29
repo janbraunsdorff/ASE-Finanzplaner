@@ -1,23 +1,18 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetByAcronymQuery;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.PdfDocumentBuilder;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.PdfDocumentBuilder;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.PdfDocument;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.chapter.MonthSummary;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.chapter.MonthlySummary;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.PdfDocument;
 
 import java.awt.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 
 public class TransactionToPdfAction implements UseCase {
 

@@ -1,8 +1,8 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part.course;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 
 import java.time.LocalDate;
 import java.util.List;

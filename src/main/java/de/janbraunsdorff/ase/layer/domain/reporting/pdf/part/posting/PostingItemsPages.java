@@ -1,12 +1,12 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part.posting;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.posting;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

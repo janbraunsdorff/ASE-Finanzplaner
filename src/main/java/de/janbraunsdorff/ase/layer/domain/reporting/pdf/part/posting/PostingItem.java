@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part.posting;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.posting;
 
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 
 public final class PostingItem implements PdfPart {
     private final String date;

@@ -1,9 +1,9 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part.group;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.DataPoint;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

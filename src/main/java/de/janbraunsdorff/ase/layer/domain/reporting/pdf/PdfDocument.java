@@ -1,9 +1,9 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf;
 
 
 import de.janbraunsdorff.ase.App;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.chapter.PdfChapter;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter.PdfChapter;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

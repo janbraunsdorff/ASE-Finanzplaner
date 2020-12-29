@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.chapter;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter;
 
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part;
 
 public final class DataPoint {
     private final String name;

@@ -1,7 +1,7 @@
-package de.janbraunsdorff.ase.layer.domain.export.pdf.part;
+package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part;
 
 import de.janbraunsdorff.ase.App;
-import de.janbraunsdorff.ase.layer.domain.export.pdf.HtmlObject;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
