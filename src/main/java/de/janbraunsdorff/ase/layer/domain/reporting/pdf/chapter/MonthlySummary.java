@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.AccountsGetByAcronymQuery;
@@ -35,7 +36,7 @@ public class MonthlySummary extends PdfChapter {
     public MonthlySummary(List<String> accounts, AccountApplication accountService, LocalDate start, LocalDate end, TransactionApplication service) throws AccountNotFoundException, BankNotFoundException {
         super(service);
         List<TransactionDTO> transactions = getTransactionInInterval(start, end, accounts);
-        int startValue = getStartValue(start, accounts);
+        Value startValue = getStartValue(start, accounts);
         if (transactions.isEmpty()){
             throw new IllegalArgumentException("no transactions");
         }

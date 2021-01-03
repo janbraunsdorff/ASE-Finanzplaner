@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.SentencePiece;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.BarChart;
@@ -92,6 +93,18 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
             this.pieces.add(new SentencePiece(Color.RED, text));
         } else {
             this.pieces.add(new SentencePiece(Color.GREEN, text));
+        }
+        this.addTableVerticalDivider();
+        return this;
+    }
+
+    public TablePrinterInputFactory addAmount(Value value) {
+        String text = String.format("%" + getLength() + "s", value.getFormatted());
+        this.lastIndex++;
+        if (value.isPositive()) {
+            this.pieces.add(new SentencePiece(Color.GREEN, text));
+        } else {
+            this.pieces.add(new SentencePiece(Color.RED, text));
         }
         this.addTableVerticalDivider();
         return this;

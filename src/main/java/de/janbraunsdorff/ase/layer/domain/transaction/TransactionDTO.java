@@ -1,9 +1,11 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
+
 import java.time.LocalDate;
 
 public class TransactionDTO {
-    private final Integer value;
+    private final Value value;
     private final LocalDate date;
     private final String thirdParty;
     private final String category;
@@ -11,7 +13,7 @@ public class TransactionDTO {
     private final String id;
     private final String account;
 
-    public TransactionDTO(Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, String id, String account) {
+    public TransactionDTO(Value value, LocalDate date, String thirdParty, String category, Boolean isContract, String id, String account) {
         this.value = value;
         this.date = date;
         this.thirdParty = thirdParty;
@@ -21,7 +23,7 @@ public class TransactionDTO {
         this.account = account;
     }
 
-    public Integer getValue() {
+    public Value getValue() {
         return value;
     }
 

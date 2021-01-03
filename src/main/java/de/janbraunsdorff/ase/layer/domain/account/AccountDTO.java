@@ -1,14 +1,16 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
+
 public class AccountDTO {
     private final String name;
     private final String accountNumber;
     private final Integer numberOfTransaction;
     private final String acronym;
-    private final Integer value;
+    private final Value value;
     private final String bankName;
 
-    public AccountDTO(String name, String bankNumber, Integer numberOfTransaction, String acronym, Integer value, String bankName) {
+    public AccountDTO(String name, String bankNumber, Integer numberOfTransaction, String acronym, Value value, String bankName) {
         this.name = name;
         this.accountNumber = bankNumber;
         this.numberOfTransaction = numberOfTransaction;
@@ -37,7 +39,7 @@ public class AccountDTO {
         return acronym;
     }
 
-    public int getValue() {
+    public Value getValue() {
         return this.value;
     }
 }

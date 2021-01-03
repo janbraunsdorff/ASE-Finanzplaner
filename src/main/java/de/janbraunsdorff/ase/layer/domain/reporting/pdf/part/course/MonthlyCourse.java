@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 
@@ -12,7 +13,7 @@ public class MonthlyCourse extends Course {
         super(transactions);
     }
 
-    protected List<DataPoint> createDataPoints(List<DataPoint> list, int accountValue) {
+    protected List<DataPoint> createDataPoints(List<DataPoint> list, Value accountValue) {
         List<DataPoint> dataPoints = new ArrayList<>();
         int month = transactions.get(0).getDate().getMonth().getValue();
         int year = transactions.get(0).getDate().getYear();
@@ -21,7 +22,7 @@ public class MonthlyCourse extends Course {
         int index = 0;
         while (start.getMonth().getValue() == month){
             if (isADatapointForDatePresent(list, start, index)) {
-                accountValue += list.get(index).getValue();
+                accountValue = accountValue.add(list.get(index).getValue());
                 index++;
             }
             dataPoints.add(new DataPoint(createKey(start), accountValue));

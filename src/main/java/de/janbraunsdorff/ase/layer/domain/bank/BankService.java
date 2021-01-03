@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.domain.bank;
 
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
@@ -37,7 +38,7 @@ public class BankService implements BankApplication {
                                 .reduce(0, Integer::sum);
                     } catch (BankNotFoundException ignored) {
                     }
-                    return new BankDTO(b.getName(), b.getAcronym(), amount, size);
+                    return new BankDTO(b.getName(), b.getAcronym(), new Value(amount), size);
                 })
                 .collect(Collectors.toList());
     }
@@ -47,7 +48,7 @@ public class BankService implements BankApplication {
 
         this.bankRepo.createBank(bank);
 
-        return new BankDTO(bank.getName(), bank.getAcronym(), 0, 0);
+        return new BankDTO(bank.getName(), bank.getAcronym(), new Value(0), 0);
     }
 
     public void deleteByAcronym(BankDeleteCommand command) {

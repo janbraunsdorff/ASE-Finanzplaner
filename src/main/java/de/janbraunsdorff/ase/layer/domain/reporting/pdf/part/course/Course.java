@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
@@ -19,7 +20,7 @@ public abstract class Course implements PdfPart {
 
     }
 
-    abstract List<DataPoint> createDataPoints(List<DataPoint> list, int accountValue);
+    abstract List<DataPoint> createDataPoints(List<DataPoint> list, Value accountValue);
 
     protected String createKey(LocalDate t) {
         return String.format("%02d.%02d.%2d", t.getDayOfMonth(), t.getMonth().getValue(), t.getYear() % 100);
@@ -27,7 +28,7 @@ public abstract class Course implements PdfPart {
 
     @Override
     public HtmlObject render() {
-        List<DataPoint> dataPoints = getDataPoints(0);
+        List<DataPoint> dataPoints = getDataPoints(new Value(0));
         return render(dataPoints, "Intervall Übersicht");
     }
 
@@ -63,15 +64,15 @@ public abstract class Course implements PdfPart {
         transactions.forEach(t -> {
             String key = createKey(t.getDate());
             if (groups.containsKey(key)){
-                groups.put(key, groups.get(key) + t.getValue());
+                groups.put(key, groups.get(key) + t.getValue().getValue());
             }else{
-                groups.put(key, t.getValue());
+                groups.put(key, t.getValue().getValue());
             }
 
         });
 
         List<DataPoint> list = new ArrayList<>();
-        groups.forEach((k, v) -> list.add(new DataPoint(k, v)));
+        groups.forEach((k, v) -> list.add(new DataPoint(k, new Value(v))));
 
         list.sort((o1, o2) -> {
             List<String> list1 = Arrays.asList(o1.getName().split("\\."));
@@ -88,7 +89,7 @@ public abstract class Course implements PdfPart {
         return list;
     }
 
-    public List<DataPoint> getDataPoints(int accountValue) {
+    public List<DataPoint> getDataPoints(Value accountValue) {
         List<DataPoint> group = groupTransactionsByDate(transactions);
         return createDataPoints(group, accountValue);
     }

@@ -44,7 +44,7 @@ public class PostingItemsPages implements PdfPart {
                                 accountName,
                                 t.getThirdParty(),
                                 getDescription(t.getCategory(), t.getContract()),
-                                formatValue(t.getValue()));
+                                t.getValue());
                     })
                     .collect(Collectors.toList())));
         }

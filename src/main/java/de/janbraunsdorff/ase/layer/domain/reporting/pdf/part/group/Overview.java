@@ -1,25 +1,26 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 
 import java.util.UUID;
 
 public final class Overview implements PdfPart {
-    private final int totalIncome;
-    private final int totalIncomeSalary;
-    private final int totalIncomeContract;
-    private final int totalIncomeOthers;
+    private final Value totalIncome;
+    private final Value totalIncomeSalary;
+    private final Value totalIncomeContract;
+    private final Value totalIncomeOthers;
 
-    private final int totalExpenses;
-    private final int totalExpensesMonthly;
-    private final int totalExpensesContract;
-    private final int totalExpensesPurchase;
-    private final int totalExpensesOthers;
+    private final Value totalExpenses;
+    private final Value totalExpensesMonthly;
+    private final Value totalExpensesContract;
+    private final Value totalExpensesPurchase;
+    private final Value totalExpensesOthers;
 
-    private final int profit;
+    private final Value profit;
 
-    public Overview(int totalIncome, int totalIncomeSalary, int totalIncomeContract, int totalIncomeOthers, int totalOutcome, int totalOutcomeMonthly, int totalOutcomeContract, int totalOutcomePurchase, int totalOutcomeOthers, int profit) {
+    public Overview(Value totalIncome, Value totalIncomeSalary, Value totalIncomeContract, Value totalIncomeOthers, Value totalOutcome, Value totalOutcomeMonthly, Value totalOutcomeContract, Value totalOutcomePurchase, Value totalOutcomeOthers, Value profit) {
         this.totalIncome = totalIncome;
         this.totalIncomeSalary = totalIncomeSalary;
         this.totalIncomeContract = totalIncomeContract;
@@ -34,24 +35,24 @@ public final class Overview implements PdfPart {
 
     public HtmlObject render() {
         HtmlObject html = getTemplate("overview.html");
-        html.replace("income-total", String.valueOf(formatValue(this.totalIncome)));
-        html.replace("income-salary", String.valueOf(formatValue(this.totalIncomeSalary)));
-        html.replace("income-contract", String.valueOf(formatValue(this.totalIncomeContract)));
-        html.replace("income-other", String.valueOf(formatValue(this.totalIncomeOthers)));
+        html.replace("income-total", this.totalIncome.getFormatted());
+        html.replace("income-salary", this.totalIncomeSalary.getFormatted());
+        html.replace("income-contract", this.totalIncomeContract.getFormatted());
+        html.replace("income-other", this.totalIncomeOthers.getFormatted());
 
-        html.replace("expense-total", String.valueOf(formatValue(this.totalExpenses * -1)));
-        html.replace("expense-monthly", String.valueOf(formatValue(this.totalExpensesMonthly* -1)));
-        html.replace("expense-contract", String.valueOf(formatValue(this.totalExpensesContract* -1)));
-        html.replace("expense-purchase", String.valueOf(formatValue(this.totalExpensesPurchase* -1)));
-        html.replace("expense-others", String.valueOf(formatValue(this.totalExpensesOthers* -1)));
+        html.replace("expense-total", this.totalExpenses.negated().getFormatted());
+        html.replace("expense-monthly", this.totalExpensesMonthly.negated().getFormatted());
+        html.replace("expense-contract", this.totalExpensesContract.negated().getFormatted());
+        html.replace("expense-purchase", this.totalExpensesPurchase.negated().getFormatted());
+        html.replace("expense-others", this.totalExpensesOthers.negated().getFormatted());
 
-        html.replace("expense-profit", String.valueOf(formatValue(this.profit)));
+        html.replace("expense-profit", this.profit.getFormatted());
         html.replace("id", UUID.randomUUID().toString());
-        html.replace("expense-value", String.valueOf(this.totalExpenses));
-        html.replace("income-value", String.valueOf(this.totalIncome));
+        html.replace("expense-value", String.valueOf(this.totalExpenses.getValue()));
+        html.replace("income-value", String.valueOf(this.totalIncome.getValue()));
 
-        html.replace("profit", String.valueOf(formatValue(this.profit)));
-        html.replace("color", totalIncome + totalExpenses < 0 ? "style=\"color: #7a0c0c\"" : "");
+        html.replace("profit", this.profit.getFormatted());
+        html.replace("color", totalIncome.getValue() + totalExpenses.getValue() < 0 ? "style=\"color: #7a0c0c\"" : "");
 
         return html;
 

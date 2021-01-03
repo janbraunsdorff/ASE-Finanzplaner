@@ -1,5 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
@@ -10,35 +11,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IncomeExpenses implements PdfPart {
-    private final Map<String, Integer> incomeCategory = new HashMap<>();
-    private final Map<String, Integer> incomePerson = new HashMap<>();
-    private final Map<String, Integer> expenseCategory = new HashMap<>();
-    private final Map<String, Integer> expensePerson = new HashMap<>();
+    private final Map<String, Value> incomeCategory = new HashMap<>();
+    private final Map<String, Value> incomePerson = new HashMap<>();
+    private final Map<String, Value> expenseCategory = new HashMap<>();
+    private final Map<String, Value> expensePerson = new HashMap<>();
 
 
     public IncomeExpenses(List<TransactionDTO> transactions) {
         transactions.forEach(t -> {
-            if (t.getValue() > 0){
-                this.incomeCategory.put(t.getCategory(), 0);
-                this.incomePerson.put(t.getThirdParty(), 0);
-            }else if (t.getValue() < 0){
-                this.expenseCategory.put(t.getCategory(), 0);
-                this.expensePerson.put(t.getThirdParty(), 0);
+            if (t.getValue().isPositive()){
+                this.incomeCategory.put(t.getCategory(), new Value(0));
+                this.incomePerson.put(t.getThirdParty(), new Value(0));
+            }else if (!t.getValue().isPositive()){
+                this.expenseCategory.put(t.getCategory(), new Value(0));
+                this.expensePerson.put(t.getThirdParty(), new Value(0));
             }
         });
 
         transactions.forEach(t -> {
-            if (t.getValue() > 0){
-                this.incomeCategory.put(t.getCategory(), this.incomeCategory.get(t.getCategory()) + t.getValue());
-                this.incomePerson.put(t.getThirdParty(), this.incomePerson.get(t.getThirdParty()) + t.getValue());
-            }else if (t.getValue() < 0){
-                this.expenseCategory.put(t.getCategory(), this.expenseCategory.get(t.getCategory()) + t.getValue());
-                this.expensePerson.put(t.getThirdParty(), this.expensePerson.get(t.getThirdParty()) + t.getValue());
+            if (t.getValue().isPositive()){
+                this.incomeCategory.put(t.getCategory(), this.incomeCategory.get(t.getCategory()).add(t.getValue()));
+                this.incomePerson.put(t.getThirdParty(), this.incomePerson.get(t.getThirdParty()).add(t.getValue()));
+            }else if (!t.getValue().isPositive()){
+                this.expenseCategory.put(t.getCategory(), this.expenseCategory.get(t.getCategory()).add(t.getValue()));
+                this.expensePerson.put(t.getThirdParty(), this.expensePerson.get(t.getThirdParty()).add(t.getValue()));
             }
         });
     }
 
-    private List<DataPoint> reduceMap(Map<String, Integer> map){
+    private List<DataPoint> reduceMap(Map<String, Value> map){
         final List<DataPoint> valuePerObjects = new ArrayList<>();
         map.forEach((k, v) -> valuePerObjects.add(new DataPoint(k, v)));
         valuePerObjects.sort(Comparator.comparing(DataPoint::getAbsolutValue).reversed());
@@ -52,7 +53,7 @@ public class IncomeExpenses implements PdfPart {
                     .map(DataPoint::getValue)
                     .reduce(0, Integer::sum);
 
-            returnValues.add(new DataPoint("Andere", reduce));
+            returnValues.add(new DataPoint("Andere", new Value(reduce)));
         }
 
         return returnValues;
@@ -83,7 +84,7 @@ public class IncomeExpenses implements PdfPart {
     }
 
     @NotNull
-    private String getLabels(Map<String, Integer> expenseCategory) {
+    private String getLabels(Map<String, Value> expenseCategory) {
         return reduceMap(expenseCategory)
                 .stream()
                 .map(DataPoint::getName)
@@ -92,13 +93,10 @@ public class IncomeExpenses implements PdfPart {
     }
 
     @NotNull
-    private String getValues(Map<String, Integer> expenseCategory) {
+    private String getValues(Map<String, Value> expenseCategory) {
         return reduceMap(expenseCategory)
                 .stream()
-                .map(DataPoint::getValue)
-                .mapToDouble(t -> t / 100.0)
-                .boxed()
-                .map(t -> String.format("%.2f", t).replace(',', '.'))
+                .map(DataPoint::getDecimalString)
                 .collect(Collectors.joining(", "));
     }
 }

@@ -1,25 +1,27 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 
 import java.util.List;
 
 public class OverviewFactory {
-    private int totalIncome;
-    private int totalIncomeSalary;
-    private int totalIncomeContract;
-    private int totalIncomeOthers;
+    private Value totalIncome = new Value(0);
+    private Value totalIncomeSalary = new Value(0);
+    private Value totalIncomeContract = new Value(0);
+    private Value totalIncomeOthers = new Value(0);
 
-    private int totalExpenses;
-    private int totalExpensesMonthly;
-    private int totalExpensesContract;
-    private int totalExpensesPurchase;
-    private int totalExpensesOthers;
+    private Value totalExpenses = new Value(0);
+    private Value totalExpensesMonthly = new Value(0);
+    private Value totalExpensesContract = new Value(0);
+    private Value totalExpensesPurchase = new Value(0);
+    private Value totalExpensesOthers = new Value(0);
+
 
     public OverviewFactory sort(List<TransactionDTO> transaction){
         transaction.forEach(t ->{
             // income
-            if(t.getValue() > 0) {
+            if(t.getValue().isPositive()) {
                 if (t.getCategory().equals("Gehalt")) {
                     this.addSalary(t.getValue());
                 }else if(t.getContract()){
@@ -29,7 +31,7 @@ public class OverviewFactory {
                 }
             }
             // outcome
-            else if (t.getValue() < 0){
+            else if (!t.getValue().isPositive()){
                 if(t.getCategory().contains("Einkauf")){
                     this.addPurchase(t.getValue());
                 }else if (t.getContract()) {
@@ -42,39 +44,39 @@ public class OverviewFactory {
         return this;
     }
 
-    private void addSalary(int value){
-        this.totalIncomeSalary += value;
-        this.totalIncome += value;
+    private void addSalary(Value value){
+        this.totalIncomeSalary = this.totalIncomeSalary.add(value);
+        this.totalIncome =  this.totalIncome.add(value);
     }
 
-    private void addIncomeContract(int value){
-        this.totalIncomeContract += value;
-        this.totalIncome += value;
+    private void addIncomeContract(Value value){
+        this.totalIncomeContract = this.totalIncomeContract.add(value);
+        this.totalIncome = this.totalIncome.add(value);
     }
 
-    private void addOtherIncome(int value) {
-        this.totalIncomeOthers += value;
-        this.totalIncome += value;
+    private void addOtherIncome(Value value) {
+        this.totalIncomeOthers = this.totalIncomeOthers.add(value);
+        this.totalIncome = this.totalIncome.add(value);
     }
 
-    private void addMonthlyExpenses(int value){
-        this.totalExpensesMonthly += value;
-        this.totalExpenses += value;
+    private void addMonthlyExpenses(Value value){
+        this.totalExpensesMonthly = this.totalExpensesMonthly.add(value);
+        this.totalExpenses = this.totalExpenses.add(value);
     }
 
-    private void addExpensesContract(int value){
-        this.totalExpensesContract += value;
-        this.totalExpenses += value;
+    private void addExpensesContract(Value value){
+        this.totalExpensesContract = this.totalExpensesContract.add(value);
+        this.totalExpenses = this.totalExpenses.add(value);
     }
 
-    private void addPurchase(int value){
-        this.totalExpensesPurchase += value;
-        this.totalExpenses += value;
+    private void addPurchase(Value value){
+        this.totalExpensesPurchase = this.totalExpensesPurchase.add(value);
+        this.totalExpenses = this.totalExpenses.add(value);
     }
 
-    private void addExpensesOutcome(int value){
-        this.totalExpensesOthers += value;
-        this.totalExpenses += value;
+    private void addExpensesOutcome(Value value){
+        this.totalExpensesOthers =  this.totalExpensesOthers.add(value);
+        this.totalExpenses = this.totalExpenses.add(value);
     }
 
     public Overview build(){
@@ -88,7 +90,7 @@ public class OverviewFactory {
                 this.totalExpensesContract,
                 this.totalExpensesPurchase,
                 this.totalExpensesOthers,
-                this.totalIncome - (this.totalExpenses * -1)
+                this.totalIncome.add(this.totalExpenses)
         );
     }
 

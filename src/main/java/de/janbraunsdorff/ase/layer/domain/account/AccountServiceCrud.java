@@ -1,10 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
 
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.*;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
@@ -53,11 +50,11 @@ public class AccountServiceCrud implements AccountApplication {
             } catch (BankNotFoundException ignored) {
 
             }
-            return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
+            return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), new Value(transactionRepo.getValueOfAccount(a.getAcronym())), bankName);
         }).collect(Collectors.toList());
 
         if (collect.isEmpty()) {
-            collect.add(new AccountDTO("---", "---", 0, "---", 0, query.getId()));
+            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.getId()));
         }
         return collect;
     }
@@ -66,7 +63,7 @@ public class AccountServiceCrud implements AccountApplication {
         Bank bank = this.bankRepo.getBankByAcronym(command.getBank());
         Account account = new Account(command.getBank(), command.getName(), command.getNumber(), command.getAcronym());
         this.repo.createAccount(account);
-        return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), 0, bank.getName());
+        return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), new Value(0), bank.getName());
     }
 
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
@@ -86,7 +83,7 @@ public class AccountServiceCrud implements AccountApplication {
                 a.getNumber(),
                 amount,
                 a.getAcronym(),
-                transactionRepo.getValueOfAccount(a.getAcronym()), bankName
+                new Value(transactionRepo.getValueOfAccount(a.getAcronym())), bankName
         );
     }
 }

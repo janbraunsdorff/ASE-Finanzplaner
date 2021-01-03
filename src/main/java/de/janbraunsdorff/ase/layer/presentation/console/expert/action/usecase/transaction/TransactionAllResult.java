@@ -62,7 +62,7 @@ public class TransactionAllResult implements TypedResult<TransactionDTO> {
             this.value = 0;
         }
 
-        this.value += t.getValue();
+        this.value += t.getValue().getValue();
 
 
         this.builder.addLine()

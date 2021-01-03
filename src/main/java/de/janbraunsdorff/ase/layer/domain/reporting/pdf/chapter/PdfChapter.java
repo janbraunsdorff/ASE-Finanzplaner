@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
@@ -26,14 +27,16 @@ public abstract class PdfChapter implements PdfPart {
         );
     }
 
-    protected Integer getStartValue(LocalDate start, List<String> account) throws AccountNotFoundException {
-        return getTransactionInInterval(
+    protected Value getStartValue(LocalDate start, List<String> account) throws AccountNotFoundException {
+        return new Value(getTransactionInInterval(
                 LocalDate.of(0, 1, 1),
                 start.minusDays(1),
                 account
         )
                 .stream()
                 .map(TransactionDTO::getValue)
-                .reduce(0, Integer::sum);
+                .map(Value::getValue)
+                .reduce(0, Integer::sum)
+        );
     }
 }
