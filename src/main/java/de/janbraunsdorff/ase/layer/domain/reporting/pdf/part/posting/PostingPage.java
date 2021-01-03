@@ -13,11 +13,6 @@ public final class PostingPage implements PdfPart {
         this.items = items;
     }
 
-    public List<PostingItem> getItems() {
-        return items;
-    }
-
-
     @Override
     public HtmlObject render() {
         HtmlObject template = getTemplate("postingPage.html");

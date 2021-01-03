@@ -22,7 +22,7 @@ public final class Value {
     }
 
     public boolean isPositive(){
-        return value > 0;
+        return value >= 0;
     }
 
     public Value add(Integer value) {

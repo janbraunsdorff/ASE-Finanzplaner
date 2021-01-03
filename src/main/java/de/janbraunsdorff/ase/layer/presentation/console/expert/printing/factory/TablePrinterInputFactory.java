@@ -13,13 +13,11 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
 
     private final List<Integer> width;
     private int lastIndex;
-    private boolean isFirstRow;
 
     public TablePrinterInputFactory() {
         super();
         this.width = new ArrayList<>();
         this.lastIndex = 0;
-        this.isFirstRow = true;
     }
 
     public TablePrinterInputFactory addHeadline(String text) {
@@ -46,7 +44,6 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
     public TablePrinterInputFactory finishFirstLine() {
         this.addTableVerticalDivider();
         this.lastIndex = 0;
-        this.isFirstRow = false;
         this.addNewLine();
         return this;
     }

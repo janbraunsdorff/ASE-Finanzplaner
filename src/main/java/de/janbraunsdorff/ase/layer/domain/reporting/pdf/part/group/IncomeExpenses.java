@@ -1,10 +1,10 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
 import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

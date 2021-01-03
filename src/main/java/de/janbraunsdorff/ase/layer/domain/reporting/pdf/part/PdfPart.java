@@ -6,7 +6,6 @@ import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 import java.util.stream.Collectors;
 
 public interface PdfPart {
@@ -18,8 +17,4 @@ public interface PdfPart {
         return new HtmlObject(lines);
     }
 
-    default String formatValue(Integer value) {
-        DecimalFormat df = new DecimalFormat("0.00");
-        return String.format("%s€", df.format(value / 100.0));
-    }
 }

@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
 import de.janbraunsdorff.ase.layer.domain.Value;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 
-import java.util.*;
+import java.util.List;
 
 public class TotalMonthlyCourse  extends MonthlyCourse {
     private final Value startValue;
@@ -16,11 +16,6 @@ public class TotalMonthlyCourse  extends MonthlyCourse {
 
         this.startValue = startValue;
     }
-
-    public List<DataPoint> getDataPoints() {
-        return super.getDataPoints(startValue);
-    }
-
 
     @Override
     public HtmlObject render() {

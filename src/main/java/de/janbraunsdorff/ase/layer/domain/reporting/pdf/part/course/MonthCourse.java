@@ -5,7 +5,8 @@ import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MonthCourse extends Course {
     private final LocalDate end;

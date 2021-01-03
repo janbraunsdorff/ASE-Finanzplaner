@@ -15,10 +15,6 @@ public class PdfPage {
         this.parts.addAll(Arrays.asList(part));
     }
 
-    public PdfPage(List<PdfPart> parts) {
-        this.parts = parts;
-    }
-
     public HtmlObject render() {
         List<HtmlObject> objects = new ArrayList<>();
         for (PdfPart part : parts) {

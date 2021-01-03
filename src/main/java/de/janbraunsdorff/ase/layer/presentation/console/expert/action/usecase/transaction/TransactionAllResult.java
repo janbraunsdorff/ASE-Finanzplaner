@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TransactionAllResult implements TypedResult<TransactionDTO> {
     private final List<TransactionDTO> transactions;
-    private boolean withId;
+    private final boolean withId;
     private final TablePrinterInputFactory builder;
     private final int lengthThirdParty;
     private final int lengthCategory;
