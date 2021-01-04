@@ -28,7 +28,7 @@ public class DistributorUseCase implements Distributor {
         try {
             return this.actions.getOrDefault(action, this.defaultAction).act(command);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return new ErrorResult(e.getMessage());
         }
     }

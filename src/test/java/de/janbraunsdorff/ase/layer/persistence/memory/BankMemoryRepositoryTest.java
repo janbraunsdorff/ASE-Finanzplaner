@@ -30,7 +30,7 @@ class BankMemoryRepositoryTest {
     public void givenBankRepositoryWithBanks_shouldReturnsBanks(){
         BankMemoryRepository repo = new BankMemoryRepository();
 
-        Bank bank = new Bank("name", "ac");
+        Bank bank = new Bank("name", "ac", type);
         getMemory(repo).put(bank.getId(), bank);
 
         List<Bank> banks = repo.getBank();
@@ -41,7 +41,7 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankEmptyBankRepository_canCreateBank() throws AcronymAlreadyExistsException {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac");
+        Bank bank = new Bank("name", "ac", type);
         repo.createBank(bank);
 
         Bank repoBank = getMemory(repo).get(bank.getAcronym());
@@ -53,17 +53,17 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankBankRepositoryWithBankAcronymExits_throwsException() {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac");
+        Bank bank = new Bank("name", "ac", type);
         getMemory(repo).put(bank.getAcronym(), bank);
 
-        Bank errorBank = new Bank("name", "ac");
+        Bank errorBank = new Bank("name", "ac", type);
         assertThrows(AcronymAlreadyExistsException.class, ()-> repo.createBank(errorBank));
     }
 
     @Test
     public void givenBankBankRepositoryWithBank_returnsBank() throws BankNotFoundException {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac");
+        Bank bank = new Bank("name", "ac", type);
         getMemory(repo).put(bank.getAcronym(), bank);
 
 
@@ -83,7 +83,7 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankRepositoryWithBank_deleteBank(){
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac");
+        Bank bank = new Bank("name", "ac", type);
         getMemory(repo).put(bank.getAcronym(), bank);
 
         repo.deleteBankByAcronym("ac");

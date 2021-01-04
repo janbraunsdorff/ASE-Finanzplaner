@@ -18,14 +18,15 @@ public class BankAddAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws AcronymAlreadyExistsException {
-        if (!command.areTagsAndValuesPresent("-a", "-n")) {
+        if (!command.areTagsAndValuesPresent("-a", "-n", "-t")) {
             return new BankHelpResult();
         }
 
         String name = command.getParameter("-n");
         String acronym = command.getParameter("-a");
+        String type = command.getParameter("-t");
 
-        BankDTO bankDTO = this.service.create(new BankCreateCommand(name, acronym));
+        BankDTO bankDTO = this.service.create(new BankCreateCommand(name, acronym, type));
 
 
         return new BankAddResult(bankDTO);

@@ -18,7 +18,7 @@ public class TransactionAddResult implements Result {
     public PrinterInput print() {
         return new InformationPrinterInputFactory()
                 .addHeadline("Eine neune Transaktion wurde angelget")
-                .addInformation(String.format("Betrag: %d | Datum: %s | Von/Nach: %s | Kategorie: %s | Vertrag: %s", dto.getValue(), dto.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), dto.getThirdParty(), dto.getCategory(), dto.getContract() ? "ja" : "nein"))
+                .addInformation(String.format("Betrag: %s | Datum: %s | Von/Nach: %s | Kategorie: %s | Vertrag: %s", dto.getValue().getFormatted(), dto.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), dto.getThirdParty(), dto.getCategory(), dto.getContract() ? "ja" : "nein"))
                 .build();
     }
 }

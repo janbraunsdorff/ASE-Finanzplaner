@@ -38,17 +38,17 @@ public class BankService implements BankApplication {
                                 .reduce(0, Integer::sum);
                     } catch (BankNotFoundException ignored) {
                     }
-                    return new BankDTO(b.getName(), b.getAcronym(), new Value(amount), size);
+                    return new BankDTO(b.getName(), b.getAcronym(), new Value(amount), size, b.getType());
                 })
                 .collect(Collectors.toList());
     }
 
     public BankDTO create(BankCreateCommand command) throws AcronymAlreadyExistsException {
-        Bank bank = new Bank(command.getName(), command.getAcronym());
+        Bank bank = new Bank(command.getName(), command.getAcronym(), command.getType());
 
         this.bankRepo.createBank(bank);
 
-        return new BankDTO(bank.getName(), bank.getAcronym(), new Value(0), 0);
+        return new BankDTO(bank.getName(), bank.getAcronym(), new Value(0), 0, bank.getType());
     }
 
     public void deleteByAcronym(BankDeleteCommand command) {

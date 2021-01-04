@@ -7,12 +7,14 @@ public class BankDTO {
     private final String acronym;
     private final Value value;
     private final Integer numberOfAccount;
+    private final String type;
 
-    public BankDTO(String name, String acronym, Value value, Integer numberOfAccount) {
+    public BankDTO(String name, String acronym, Value value, Integer numberOfAccount, String type) {
         this.name = name;
         this.acronym = acronym;
         this.value = value;
         this.numberOfAccount = numberOfAccount;
+        this.type = type;
     }
 
     public String getName() {
@@ -29,5 +31,9 @@ public class BankDTO {
 
     public Integer getNumberOfAccount() {
         return numberOfAccount;
+    }
+
+    public String getType() {
+        return type;
     }
 }

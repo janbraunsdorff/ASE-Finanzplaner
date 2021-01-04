@@ -32,7 +32,7 @@ class BankServiceTest {
         BankTestRepo bankRepo = new BankTestRepo();
         BankService service = new BankService(bankRepo, null, null);
 
-        BankCreateCommand cmd = new BankCreateCommand("name","ac");
+        BankCreateCommand cmd = new BankCreateCommand("name","ac", type);
         BankDTO bankDTO = service.create(cmd);
 
         assertThat(bankRepo.createBankEntity.getAcronym(), is("ac"));

@@ -11,6 +11,7 @@ public class TouchBank implements CommandBuilder {
     public OverlayCommand build(State state, ExpertCommand command) {
         String name = command.getParameter("-n");
         String acronym = command.getParameter("-a");
-        return new OverlayCommand(new ExpertCommand("bank add -n " + name + " -a " + acronym, 2), StateTransition.STAY);
+        String type = command.getParameter("-t");
+        return new OverlayCommand(new ExpertCommand("bank add -n " + name + " -a " + acronym + " -t " + type , 2), StateTransition.STAY);
     }
 }

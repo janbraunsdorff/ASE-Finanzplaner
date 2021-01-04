@@ -12,10 +12,14 @@ public class BankJsonEntity {
     @SerializedName("bank_acronym")
     private final String acronym;
 
-    public BankJsonEntity(String id, String name, String acronym) {
+    @SerializedName("bank_type")
+    private final String type;
+
+    public BankJsonEntity(String id, String name, String acronym, String type) {
         this.id = id;
         this.name = name;
         this.acronym = acronym;
+        this.type = type;
     }
 
     public String getId() {
@@ -28,5 +32,9 @@ public class BankJsonEntity {
 
     public String getAcronym() {
         return acronym;
+    }
+
+    public String getType() {
+        return type;
     }
 }

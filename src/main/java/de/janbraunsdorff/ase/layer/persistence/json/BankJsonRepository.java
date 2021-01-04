@@ -33,7 +33,7 @@ public class BankJsonRepository implements BankRepository {
             ArrayList<BankJsonEntity> bankJsonEntities = readFile();
             return readFile()
                     .stream()
-                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym()))
+                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym(), b.getType()))
                     .sorted(Comparator.comparing(Bank::getName))
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -47,7 +47,7 @@ public class BankJsonRepository implements BankRepository {
         try {
             Optional<BankJsonEntity> first = readFile().stream().filter(f -> f.getAcronym().equals(acronym)).findFirst();
             if (first.isPresent()) {
-                return new Bank(first.get().getId(), first.get().getName(), first.get().getAcronym());
+                return new Bank(first.get().getId(), first.get().getName(), first.get().getAcronym(), first.get().getType());
             }
 
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class BankJsonRepository implements BankRepository {
 
     @Override
     public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException {
-        BankJsonEntity entity = new BankJsonEntity(bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym());
+        BankJsonEntity entity = new BankJsonEntity(bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getType());
         try {
             List<BankJsonEntity> jsonEntities = readFile();
             Optional<BankJsonEntity> bankJson = jsonEntities
