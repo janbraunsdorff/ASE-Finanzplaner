@@ -44,7 +44,7 @@ public class BankService implements BankApplication {
     }
 
     public BankDTO create(BankCreateCommand command) throws AcronymAlreadyExistsException {
-        Bank bank = new Bank(command.getName(), command.getAcronym(), command.getType());
+        Bank bank = new Bank(command.getName(), command.getAcronym(), BankType.getByName(command.getType()));
 
         this.bankRepo.createBank(bank);
 

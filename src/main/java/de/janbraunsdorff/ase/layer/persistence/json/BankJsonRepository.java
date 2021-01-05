@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,7 +34,7 @@ public class BankJsonRepository implements BankRepository {
             ArrayList<BankJsonEntity> bankJsonEntities = readFile();
             return readFile()
                     .stream()
-                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym(), b.getType()))
+                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym(), BankType.getByName(b.getType())))
                     .sorted(Comparator.comparing(Bank::getName))
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -47,7 +48,7 @@ public class BankJsonRepository implements BankRepository {
         try {
             Optional<BankJsonEntity> first = readFile().stream().filter(f -> f.getAcronym().equals(acronym)).findFirst();
             if (first.isPresent()) {
-                return new Bank(first.get().getId(), first.get().getName(), first.get().getAcronym(), first.get().getType());
+                return new Bank(first.get().getId(), first.get().getName(), first.get().getAcronym(), BankType.getByName(first.get().getType()));
             }
 
         } catch (IOException e) {
@@ -58,7 +59,7 @@ public class BankJsonRepository implements BankRepository {
 
     @Override
     public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException {
-        BankJsonEntity entity = new BankJsonEntity(bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getType());
+        BankJsonEntity entity = new BankJsonEntity(bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getType().getName());
         try {
             List<BankJsonEntity> jsonEntities = readFile();
             Optional<BankJsonEntity> bankJson = jsonEntities
