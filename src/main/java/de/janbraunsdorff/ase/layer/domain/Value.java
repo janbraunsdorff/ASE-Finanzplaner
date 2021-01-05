@@ -1,6 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain;
 
 import java.text.DecimalFormat;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 public final class Value {
     private final Integer value;
@@ -35,5 +37,10 @@ public final class Value {
 
     public Value negated() {
         return new Value(this.value * -1);
+    }
+
+
+    public static Value combine (Value v1, Value v2){
+        return v1.add(v2);
     }
 }
