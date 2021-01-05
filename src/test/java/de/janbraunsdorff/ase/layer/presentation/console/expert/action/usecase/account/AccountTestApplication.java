@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.a
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.*;
 
 import java.util.Collections;
@@ -22,11 +23,16 @@ public class AccountTestApplication implements AccountApplication {
     @Override
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws BankNotFoundException, AcronymAlreadyExistsException {
         this.createCommand = command;
-        return new AccountDTO("", "", 1, "", 1, "");
+        return new AccountDTO("", "", 1, "", new Value(1), "");
     }
 
     @Override
-    public AccountDTO getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
+    public List<AccountDTO> getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
+        return null;
+    }
+
+    @Override
+    public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
         return null;
     }
 

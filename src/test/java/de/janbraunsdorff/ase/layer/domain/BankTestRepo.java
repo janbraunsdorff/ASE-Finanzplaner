@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.domain;
 
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,10 @@ public class BankTestRepo implements BankRepository {
     @Override
     public List<Bank> getBank() {
         return new ArrayList<Bank>() {{
-            add(new Bank("name1", "b1", type));
-            add(new Bank("name2", "b2", type));
-            add(new Bank("name3", "b3", type));
-            add(new Bank("name4", "b4", type));
+            add(new Bank("name1", "b1", BankType.None));
+            add(new Bank("name2", "b2", BankType.None));
+            add(new Bank("name3", "b3", BankType.None));
+            add(new Bank("name4", "b4", BankType.None));
         }};
     }
 
@@ -26,7 +27,7 @@ public class BankTestRepo implements BankRepository {
             throw new BankNotFoundException(acronym);
         }
 
-        return new Bank("bankName", acronym, type);
+        return new Bank("bankName", acronym, BankType.None);
     }
 
     @Override

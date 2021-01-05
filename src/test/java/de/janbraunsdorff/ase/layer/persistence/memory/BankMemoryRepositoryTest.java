@@ -1,8 +1,9 @@
 package de.janbraunsdorff.ase.layer.persistence.memory;
 
-import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.bank.Bank;
+import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BankMemoryRepositoryTest {
@@ -30,7 +31,7 @@ class BankMemoryRepositoryTest {
     public void givenBankRepositoryWithBanks_shouldReturnsBanks(){
         BankMemoryRepository repo = new BankMemoryRepository();
 
-        Bank bank = new Bank("name", "ac", type);
+        Bank bank = new Bank("name", "ac", BankType.None);
         getMemory(repo).put(bank.getId(), bank);
 
         List<Bank> banks = repo.getBank();
@@ -41,7 +42,7 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankEmptyBankRepository_canCreateBank() throws AcronymAlreadyExistsException {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac", type);
+        Bank bank = new Bank("name", "ac", BankType.None);
         repo.createBank(bank);
 
         Bank repoBank = getMemory(repo).get(bank.getAcronym());
@@ -53,17 +54,17 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankBankRepositoryWithBankAcronymExits_throwsException() {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac", type);
+        Bank bank = new Bank("name", "ac", BankType.None);
         getMemory(repo).put(bank.getAcronym(), bank);
 
-        Bank errorBank = new Bank("name", "ac", type);
+        Bank errorBank = new Bank("name", "ac", BankType.None);
         assertThrows(AcronymAlreadyExistsException.class, ()-> repo.createBank(errorBank));
     }
 
     @Test
     public void givenBankBankRepositoryWithBank_returnsBank() throws BankNotFoundException {
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac", type);
+        Bank bank = new Bank("name", "ac", BankType.None);
         getMemory(repo).put(bank.getAcronym(), bank);
 
 
@@ -83,7 +84,7 @@ class BankMemoryRepositoryTest {
     @Test
     public void givenBankRepositoryWithBank_deleteBank(){
         BankMemoryRepository repo = new BankMemoryRepository();
-        Bank bank = new Bank("name", "ac", type);
+        Bank bank = new Bank("name", "ac", BankType.None);
         getMemory(repo).put(bank.getAcronym(), bank);
 
         repo.deleteBankByAcronym("ac");
