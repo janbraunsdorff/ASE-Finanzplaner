@@ -17,6 +17,7 @@ public class ApplicationWeb {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
+
         };
     }
 }
