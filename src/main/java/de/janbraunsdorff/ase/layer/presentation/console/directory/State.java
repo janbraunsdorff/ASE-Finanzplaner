@@ -2,66 +2,37 @@ package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
 import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.*;
 
-public class State {
-    private final Hierarchy hierarchy;
-    private final String bankIdent;
-    private final String accountIdent;
-
+public record State(Hierarchy hierarchy, String bankIdent, String accountIdent) {
     public static State createInitState() {
         return new State(Hierarchy.BANK, null, null);
     }
 
-    private State(Hierarchy hierarchy, String bankIdent, String accountIdent) {
-        this.hierarchy = hierarchy;
-        this.bankIdent = bankIdent;
-        this.accountIdent = accountIdent;
-    }
-
     private State goUp() {
-        switch (this.hierarchy) {
-            case BANK:
-            case ACCOUNT:
-                return new State(BANK, null, null);
-            case TRANSACTION:
-                return new State(ACCOUNT, this.bankIdent, null);
-        }
-        throw new IllegalArgumentException();
+        return switch (this.hierarchy) {
+            case BANK, ACCOUNT -> new State(BANK, null, null);
+            case TRANSACTION -> new State(ACCOUNT, this.bankIdent, null);
+        };
     }
 
     private State goDeep(String ident) {
-        switch (this.hierarchy) {
-            case BANK:
-                return new State(ACCOUNT, ident, null);
-            case ACCOUNT:
-                return new State(TRANSACTION, this.bankIdent, ident);
-            case TRANSACTION:
-                return new State(TRANSACTION, this.bankIdent, this.accountIdent);
-        }
-        throw new IllegalArgumentException();
+        return switch (this.hierarchy) {
+            case BANK -> new State(ACCOUNT, ident, null);
+            case ACCOUNT -> new State(TRANSACTION, this.bankIdent, ident);
+            case TRANSACTION -> new State(TRANSACTION, this.bankIdent, this.accountIdent);
+        };
     }
 
-    public State move(OverlayCommand overlayCommand){
-        switch (overlayCommand.getTransition()) {
-            case DEEPER:
-                return this.goDeep(overlayCommand.getIdent());
-            case UP:
-                return this.goUp();
-            default:
-                return this;
-        }
+    public State move(OverlayCommand overlayCommand) {
+        return switch (overlayCommand.getTransition()) {
+            case DEEPER -> this.goDeep(overlayCommand.getIdent());
+            case UP -> this.goUp();
+            default -> this;
+        };
     }
 
 
     public Hierarchy getHierarchy() {
         return hierarchy;
-    }
-
-    public String getBankIdent() {
-        return bankIdent;
-    }
-
-    public String getAccountIdent() {
-        return accountIdent;
     }
 
     public String getPath() {

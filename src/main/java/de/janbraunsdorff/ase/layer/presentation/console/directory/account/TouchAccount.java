@@ -15,7 +15,7 @@ public class TouchAccount implements CommandBuilder {
             String name = command.getParameter("-na");
             String number = command.getParameter("-nr");
             String acronym = command.getParameter("-ac");
-            pattern = "account add -na " + name + " -nr " + number + " -ac " + acronym + " -a " + state.getBankIdent();
+            pattern = "account add -na " + name + " -nr " + number + " -ac " + acronym + " -a " + state.bankIdent();
         }
 
 

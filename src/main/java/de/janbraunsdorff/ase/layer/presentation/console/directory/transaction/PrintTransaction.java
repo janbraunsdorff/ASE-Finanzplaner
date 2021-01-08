@@ -14,7 +14,7 @@ public class PrintTransaction implements CommandBuilder {
     public OverlayCommand build(State state, ExpertCommand command) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
 
-        String account = "-a " + state.getAccountIdent();
+        String account = "-a " + state.accountIdent();
         String[] dates = command.getInput().split(" ");
 
         String start = " -s " + formatDate(dates[1]).format(dtf);

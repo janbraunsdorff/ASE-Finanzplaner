@@ -9,6 +9,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 public class ListAccount implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
-        return new OverlayCommand(new ExpertCommand("account all -a " + state.getBankIdent(), 2), StateTransition.STAY);
+        return new OverlayCommand(new ExpertCommand("account all -a " + state.bankIdent(), 2), StateTransition.STAY);
     }
 }

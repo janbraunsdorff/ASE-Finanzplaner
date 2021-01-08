@@ -9,7 +9,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 public class TouchTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
-        String account = " -a " + state.getAccountIdent();
+        String account = " -a " + state.accountIdent();
         String value = " -val " + command.getParameter("-val");
         String thp = " -thp " + command.getParameter("-thp");
         String dat = " -dat " + command.getParameter("-dat");
