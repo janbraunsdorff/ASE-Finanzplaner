@@ -34,7 +34,7 @@ public class BankJsonRepository implements BankRepository {
             ArrayList<BankJsonEntity> bankJsonEntities = readFile();
             return readFile()
                     .stream()
-                    .map(b -> new Bank(b.getId(), b.getName(), b.getAcronym(), BankType.getByName(b.getType())))
+                    .map(BankJsonEntity::convertToBank)
                     .sorted(Comparator.comparing(Bank::getName))
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -46,9 +46,12 @@ public class BankJsonRepository implements BankRepository {
     @Override
     public Bank getBankByAcronym(String acronym) throws BankNotFoundException {
         try {
-            Optional<BankJsonEntity> first = readFile().stream().filter(f -> f.getAcronym().equals(acronym)).findFirst();
+            Optional<BankJsonEntity> first = readFile()
+                    .stream()
+                    .filter(f -> f.getAcronym().equals(acronym))
+                    .findFirst();
             if (first.isPresent()) {
-                return new Bank(first.get().getId(), first.get().getName(), first.get().getAcronym(), BankType.getByName(first.get().getType()));
+                return first.get().convertToBank();
             }
 
         } catch (IOException e) {
@@ -59,8 +62,7 @@ public class BankJsonRepository implements BankRepository {
 
     @Override
     public void createBank(Bank bankEntity) throws AcronymAlreadyExistsException {
-        BankJsonEntity entity = new BankJsonEntity(bankEntity.getId(), bankEntity.getName(), bankEntity.getAcronym(), bankEntity.getType().getName());
-        try {
+        try{
             List<BankJsonEntity> jsonEntities = readFile();
             Optional<BankJsonEntity> bankJson = jsonEntities
                     .stream()
@@ -70,6 +72,7 @@ public class BankJsonRepository implements BankRepository {
                 throw new AcronymAlreadyExistsException(bankEntity.getAcronym());
             }
 
+            BankJsonEntity entity = new BankJsonEntity(bankEntity);
             jsonEntities.add(entity);
             writeFile(jsonEntities);
         } catch (IOException e) {
@@ -93,10 +96,9 @@ public class BankJsonRepository implements BankRepository {
     private ArrayList<BankJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<BankJsonEntity> ts = gson.fromJson(s, new TypeToken<List<BankJsonEntity>>() {
-        }.getType());
 
-        return ts;
+        return gson.fromJson(s, new TypeToken<List<BankJsonEntity>>() {
+        }.getType());
     }
 
     void checkForFile() throws IOException {
