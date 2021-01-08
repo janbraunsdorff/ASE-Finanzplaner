@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.json.account;
 
 import com.google.gson.annotations.SerializedName;
+import de.janbraunsdorff.ase.layer.domain.account.Account;
 
 public class AccountJsonEntity {
     @SerializedName("account_id")
@@ -20,6 +21,18 @@ public class AccountJsonEntity {
         this.name = name;
         this.number = number;
         this.acronym = acronym;
+    }
+
+    public AccountJsonEntity (Account account){
+        this.id = account.getId();
+        this.bankAcronym = account.getBankAcronym();
+        this.name = account.getName();
+        this.number = account.getNumber();
+        this.acronym = account.getAcronym();
+    }
+
+    public Account convertToAccount(){
+        return new Account(id, bankAcronym, name, number, acronym);
     }
 
     public String getId() {

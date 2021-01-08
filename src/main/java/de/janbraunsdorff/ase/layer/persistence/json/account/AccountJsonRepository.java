@@ -46,7 +46,7 @@ public class AccountJsonRepository implements AccountRepository {
                 throw new AcronymAlreadyExistsException(account.getAcronym());
             }
 
-            accountJson.add(new AccountJsonEntity(account.getId(), account.getBankAcronym(), account.getName(), account.getNumber(), account.getAcronym()));
+            accountJson.add(new AccountJsonEntity(account));
             writeFile(accountJson);
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class AccountJsonRepository implements AccountRepository {
         try {
             Optional<AccountJsonEntity> first = readFile().stream().filter(a -> a.getAcronym().equals(acronym)).findFirst();
             if (first.isPresent()) {
-                return new Account(first.get().getId(), first.get().getBankAcronym(), first.get().getName(), first.get().getNumber(), first.get().getAcronym());
+                return first.get().convertToAccount();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,13 +69,12 @@ public class AccountJsonRepository implements AccountRepository {
     @Override
     public List<Account> getAccountsOfBankByBankAcronym(String bank) throws BankNotFoundException {
         try {
-            List<Account> collect = readFile()
+            return readFile()
                     .stream()
                     .filter(f -> f.getBankAcronym().equals(bank))
-                    .map(f -> new Account(f.getId(), f.getBankAcronym(), f.getName(), f.getNumber(), f.getAcronym()))
+                    .map(AccountJsonEntity::convertToAccount)
                     .sorted(Comparator.comparing(Account::getAcronym))
                     .collect(Collectors.toList());
-            return collect;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +84,10 @@ public class AccountJsonRepository implements AccountRepository {
     @Override
     public void deleteAccountByAcronym(String acronym) throws AccountNotFoundException {
         try {
-            List<AccountJsonEntity> collect = readFile().stream().filter(a -> !a.getAcronym().equals(acronym)).collect(Collectors.toList());
+            List<AccountJsonEntity> collect = readFile()
+                    .stream()
+                    .filter(a -> !a.getAcronym().equals(acronym))
+                    .collect(Collectors.toList());
             writeFile(collect);
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,10 +97,9 @@ public class AccountJsonRepository implements AccountRepository {
     private ArrayList<AccountJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<AccountJsonEntity> ts = gson.fromJson(s, new TypeToken<List<AccountJsonEntity>>() {
-        }.getType());
 
-        return ts;
+        return gson.fromJson(s, new TypeToken<List<AccountJsonEntity>>() {
+        }.getType());
     }
 
     private void checkForFile() throws IOException {
