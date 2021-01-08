@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TransactionAddAction implements UseCase {
-    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final TransactionApplication service;
 
     public TransactionAddAction(TransactionApplication service) {

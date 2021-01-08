@@ -4,12 +4,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.InformationPrinterInputFactory;
 
-public class TransactionToPdfResult implements Result {
-    private final String path;
-
-    public TransactionToPdfResult(String path) {
-        this.path = path;
-    }
+public record TransactionToPdfResult(String path) implements Result {
 
     @Override
     public PrinterInput print() {

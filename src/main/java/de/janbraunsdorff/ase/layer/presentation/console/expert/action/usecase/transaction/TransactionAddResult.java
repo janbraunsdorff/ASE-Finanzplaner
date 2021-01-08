@@ -7,12 +7,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.
 
 import java.time.format.DateTimeFormatter;
 
-public class TransactionAddResult implements Result {
-    private final TransactionDTO dto;
-
-    public TransactionAddResult(TransactionDTO dto) {
-        this.dto = dto;
-    }
+public record TransactionAddResult(TransactionDTO dto) implements Result {
 
     @Override
     public PrinterInput print() {
