@@ -9,9 +9,9 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankService;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
-import de.janbraunsdorff.ase.layer.persistence.json.AccountJsonRepository;
-import de.janbraunsdorff.ase.layer.persistence.json.BankJsonRepository;
-import de.janbraunsdorff.ase.layer.persistence.json.TransactionJsonRepository;
+import de.janbraunsdorff.ase.layer.persistence.json.account.AccountJsonRepository;
+import de.janbraunsdorff.ase.layer.persistence.json.bank.BankJsonRepository;
+import de.janbraunsdorff.ase.layer.persistence.json.transaction.TransactionJsonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

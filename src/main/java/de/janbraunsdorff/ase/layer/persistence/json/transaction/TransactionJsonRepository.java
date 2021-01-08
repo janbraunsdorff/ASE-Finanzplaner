@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.persistence.json;
+package de.janbraunsdorff.ase.layer.persistence.json.transaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.persistence.json;
+package de.janbraunsdorff.ase.layer.persistence.json.account;
 
 import com.google.gson.annotations.SerializedName;
 
