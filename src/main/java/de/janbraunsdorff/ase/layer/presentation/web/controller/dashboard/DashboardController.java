@@ -90,4 +90,28 @@ public class DashboardController {
 
 
     }
+
+    @GetMapping("month")
+    public ResponseDashboardMonth month(){
+        AccountMonthDTO month = accountApplication.getMonth(new AccountCategorizeMonthCommand(LocalDate.now()));
+
+        return new ResponseDashboardMonth(
+                month.profit().getFormatted(),
+                month.percent(),
+
+                month.totalIncome().getValue(),
+                month.totalExpenses().getValue(),
+
+                month.totalIncome().getFormatted(),
+                month.totalIncomeSalary().getFormatted(),
+                month.totalIncomeContract().getFormatted(),
+                month.totalIncomeOthers().getFormatted(),
+
+                month.totalExpenses().getFormatted(),
+                month.totalExpensesMonthly().getFormatted(),
+                month.totalExpensesContract().getFormatted(),
+                month.totalExpensesPurchase().getFormatted(),
+                month.totalExpensesOthers().getFormatted()
+        );
+    }
 }

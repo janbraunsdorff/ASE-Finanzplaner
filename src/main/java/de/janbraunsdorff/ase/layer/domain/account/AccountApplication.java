@@ -17,4 +17,6 @@ public interface AccountApplication {
     List<Value> getCourse(AccountCourseCommand command);
 
     List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException;
+
+    AccountMonthDTO getMonth(AccountCategorizeMonthCommand command);
 }

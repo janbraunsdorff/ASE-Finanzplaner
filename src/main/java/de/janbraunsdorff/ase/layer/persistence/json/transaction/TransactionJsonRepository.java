@@ -131,6 +131,21 @@ public class TransactionJsonRepository implements TransactionRepository {
         return 0L;
     }
 
+    @Override
+    public List<Transaction> getTransactions(LocalDate start, LocalDate end) {
+        try {
+            return readFile()
+                    .stream()
+                    .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) >= 0)
+                    .map(TransactionJsonEntity::convertToTransaction)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));

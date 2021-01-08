@@ -55,4 +55,9 @@ public class TransactionMemoryRepository implements TransactionRepository {
     public Long count(String acronym) {
         return null;
     }
+
+    @Override
+    public List<Transaction> getTransactions(LocalDate start, LocalDate end) {
+        return null;
+    }
 }

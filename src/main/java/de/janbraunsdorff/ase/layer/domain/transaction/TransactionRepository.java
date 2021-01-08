@@ -22,4 +22,6 @@ public interface TransactionRepository {
     List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end);
 
     Long count(String acronym);
+
+    List<Transaction> getTransactions(LocalDate start, LocalDate end);
 }

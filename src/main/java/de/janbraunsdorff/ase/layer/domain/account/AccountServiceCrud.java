@@ -4,13 +4,11 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.*;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
-import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,6 +112,60 @@ public class AccountServiceCrud implements AccountApplication {
         String[] accountAcronyms = this.getAccountsOfBank(new AccountGetQuery(command.bankAcronym())).stream().map(AccountDTO::getAcronym).toArray(String[]::new);
         return this.getCourse(new AccountCourseCommand(command.month(), accountAcronyms));
 
+    }
+
+    @Override
+    public AccountMonthDTO getMonth(AccountCategorizeMonthCommand command) {
+        List<Transaction> transactions = this.transactionRepo.getTransactions(LocalDate.of(command.month().getYear(), command.month().getMonth(), 1), LocalDate.of(command.month().getYear(), command.month().getMonth(), command.month().lengthOfMonth()));
+
+        Value totalIncome = new Value(0);
+        Value totalIncomeSalary = new Value(0);
+        Value totalIncomeContract = new Value(0);
+        Value totalIncomeOthers = new Value(0);
+
+        Value totalExpenses = new Value(0);
+        Value totalExpensesMonthly = new Value(0);
+        Value totalExpensesContract = new Value(0);
+        Value totalExpensesPurchase = new Value(0);
+        Value totalExpensesOthers = new Value(0);
+
+        for (Transaction t : transactions) {// income
+            if (t.getValue() > 0) {
+                totalIncome = totalIncome.add(t.getValue());
+                if (t.getCategory().equals("Gehalt")) {
+                    totalIncomeSalary = totalIncomeSalary.add(t.getValue());
+                } else if (t.getContract()) {
+                    totalIncomeContract = totalIncomeContract.add(t.getValue());
+                } else {
+                    totalIncomeOthers = totalIncomeOthers.add(t.getValue());
+                }
+            }
+            // outcome
+            else if (t.getValue() < 0) {
+                totalExpenses = totalExpenses.add(t.getValue());
+                if (t.getCategory().contains("Einkauf")) {
+                    totalExpensesPurchase = totalExpensesPurchase.add(t.getValue());
+                } else if (t.getContract()) {
+                    totalExpensesContract = totalExpensesContract.add(t.getValue());
+                } else {
+                    totalExpensesOthers = totalExpensesOthers.add(t.getValue());
+                }
+            }
+        }
+
+
+        double percent = (double) (totalExpenses.getValue() * -1) /  Double.valueOf(totalIncome.getValue());
+        percent = percent > 1 ? percent - 1: percent;
+        String printPercent = new DecimalFormat("0.00").format(percent * 100)+ "%";
+
+
+        return new AccountMonthDTO(
+                totalIncome, totalIncomeSalary, totalIncomeContract, totalIncomeOthers,
+                totalExpenses, totalExpensesMonthly, totalExpensesContract, totalExpensesPurchase, totalExpensesOthers,
+
+                totalIncome.add(totalExpenses),
+                printPercent
+        );
     }
 
     @NotNull
