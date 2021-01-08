@@ -23,6 +23,7 @@ public class TransactionJsonRepository implements TransactionRepository {
         this.path = Paths.get(path + "/transaction.json");
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
                 .create();
     }
 

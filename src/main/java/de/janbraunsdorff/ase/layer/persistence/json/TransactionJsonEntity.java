@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class TransactionJsonEntity {
     @SerializedName("transaction_id")
     private final String id;
+    @SerializedName("account_Acronym")
     private final String accountAcronym;
     @SerializedName("transaction_value")
     private final Integer value;
