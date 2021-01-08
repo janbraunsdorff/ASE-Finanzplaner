@@ -45,4 +45,5 @@ configurations {
 
 test {
     useJUnitPlatform()
+    jvmArgs += '--enable-preview'
 }
