@@ -17,9 +17,9 @@ public class BankAllResult implements TypedResult<BankDTO> {
 
     public BankAllResult(List<BankDTO> result) {
         this.result = result;
-        this.length = getMax(v1 -> v1.getName().length(), result);
-        this.lengthAcronym = getMax(v -> v.getAcronym().length(), result);
-        this.typeLength = getMax(v -> v.getType().getName().length(), result);
+        this.length = getMax(v1 -> v1.name().length(), result);
+        this.lengthAcronym = getMax(v -> v.acronym().length(), result);
+        this.typeLength = getMax(v -> v.type().getName().length(), result);
         this.builder = new TablePrinterInputFactory();
     }
 
@@ -42,11 +42,11 @@ public class BankAllResult implements TypedResult<BankDTO> {
     private void print(BankDTO r) {
         builder
                 .addLine()
-                .addEntry(r.getName())
-                .addEntry(r.getAcronym())
-                .addEntry(r.getType().getName())
-                .addEntry(r.getNumberOfAccount().toString())
-                .addAmount(r.getValue())
+                .addEntry(r.name())
+                .addEntry(r.acronym())
+                .addEntry(r.type().getName())
+                .addEntry(r.numberOfAccount().toString())
+                .addAmount(r.value())
                 .addNewLine();
     }
 

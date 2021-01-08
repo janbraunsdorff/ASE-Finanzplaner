@@ -17,7 +17,7 @@ public class BankAddResult implements Result {
     public PrinterInput print() {
         return new InformationPrinterInputFactory()
                 .addHeadline("Eine neune Bank wurde angelget")
-                .addInformation(String.format("Name: %s | Abkürzung: %s", bankEntity.getName(), bankEntity.getAcronym()))
+                .addInformation(String.format("Name: %s | Abkürzung: %s", bankEntity.name(), bankEntity.acronym()))
                 .build();
 
     }

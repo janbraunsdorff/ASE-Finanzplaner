@@ -44,7 +44,7 @@ public class BankService implements BankApplication {
     }
 
     public BankDTO create(BankCreateCommand command) throws AcronymAlreadyExistsException {
-        Bank bank = new Bank(command.getName(), command.getAcronym(), BankType.getByName(command.getType()));
+        Bank bank = new Bank(command.name(), command.acronym(), BankType.getByName(command.type()));
 
         this.bankRepo.createBank(bank);
 
@@ -52,7 +52,7 @@ public class BankService implements BankApplication {
     }
 
     public void deleteByAcronym(BankDeleteCommand command) {
-        this.bankRepo.deleteBankByAcronym(command.getAcronym());
+        this.bankRepo.deleteBankByAcronym(command.acronym());
     }
 
 

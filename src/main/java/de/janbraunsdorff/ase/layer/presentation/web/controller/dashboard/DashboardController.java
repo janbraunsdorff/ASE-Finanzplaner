@@ -43,13 +43,13 @@ public class DashboardController {
         Value bar = new Value(0);
 
         for (BankDTO bank : this.bankApplication.get()) {
-            switch (bank.getType()) {
-                case None -> bar = bar.add(bank.getValue());
-                case Retail -> account = account.add(bank.getValue());
-                case Investment -> deposit = deposit.add(bank.getValue());
+            switch (bank.type()) {
+                case None -> bar = bar.add(bank.value());
+                case Retail -> account = account.add(bank.value());
+                case Investment -> deposit = deposit.add(bank.value());
             }
 
-            total = total.add(bank.getValue());
+            total = total.add(bank.value());
         }
         ;
 
@@ -72,12 +72,12 @@ public class DashboardController {
         typeValues[1] = new ArrayList<Value>();
 
         for (BankDTO bank : this.bankApplication.get()) {
-            if (bank.getType().equals(BankType.None)) {
+            if (bank.type().equals(BankType.None)) {
                 continue;
             }
 
             LocalDate startInterval = LocalDate.now().minusMonths(12);
-            List<String> accounts = this.accountApplication.getAccountsOfBank(new AccountGetQuery(bank.getAcronym())).stream().map(AccountDTO::getAcronym).collect(Collectors.toList());
+            List<String> accounts = this.accountApplication.getAccountsOfBank(new AccountGetQuery(bank.acronym())).stream().map(AccountDTO::getAcronym).collect(Collectors.toList());
             List<TransactionDTO> transactions = this.transactionApplication.getTransactions(new TransactionGetInIntervalQuery(accounts, LocalDate.MIN, LocalDate.MAX));
 
             LocalDate finalStartInterval = startInterval;
@@ -92,9 +92,9 @@ public class DashboardController {
                         .filter(a -> a.getDate().isAfter(finalStartInterval1) && a.getDate().isBefore(finalStartInterval1.plusMonths(1).plusDays(1)))
                         .map(TransactionDTO::getValue)
                         .reduce(new Value(0), Value::combine).add(reduce);
-                if (bank.getType().equals(BankType.Investment)){
+                if (bank.type().equals(BankType.Investment)){
                     typeValues[1].add(reduce);
-                }else if (bank.getType().equals(BankType.Retail)){
+                }else if (bank.type().equals(BankType.Retail)){
                     typeValues[0].add(reduce);
                 }
                 startInterval = startInterval.plusMonths(1);
