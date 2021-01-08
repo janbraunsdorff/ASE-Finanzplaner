@@ -23,8 +23,8 @@ public record State(Hierarchy hierarchy, String bankIdent, String accountIdent) 
     }
 
     public State move(OverlayCommand overlayCommand) {
-        return switch (overlayCommand.getTransition()) {
-            case DEEPER -> this.goDeep(overlayCommand.getIdent());
+        return switch (overlayCommand.transition()) {
+            case DEEPER -> this.goDeep(overlayCommand.ident());
             case UP -> this.goUp();
             default -> this;
         };

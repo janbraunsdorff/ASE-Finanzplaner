@@ -86,7 +86,7 @@ public class CommandOverlay {
                     .get(this.state.getHierarchy())
                     .act(this.state, new ExpertCommand(shortCommand, 1));
 
-            Result answer = controller.answer(overlayCommand.getCommand());
+            Result answer = controller.answer(overlayCommand.command());
 
             this.printer.print(answer);
 
