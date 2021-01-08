@@ -29,7 +29,7 @@ public class TransactionAllAction implements UseCase {
             number = Integer.parseInt(command.getParameter("-n"));
         }
 
-        List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactions(new TransactionGetQuery(command.getParameter("-a"), number));
+        List<TransactionDTO> allTransactionOfAccount = this.crudTransaction.getTransactionsOfMultipleAccounts(new TransactionGetQuery(command.getParameter("-a"), number));
 
         boolean withId = command.areTagsPresent("-f");
 

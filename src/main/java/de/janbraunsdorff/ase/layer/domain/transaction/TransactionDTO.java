@@ -23,6 +23,16 @@ public class TransactionDTO {
         this.account = account;
     }
 
+    public TransactionDTO(Transaction transaction){
+        this.value = new Value(transaction.getValue());
+        this.date = transaction.getDate();
+        this.thirdParty = transaction.getThirdParty();
+        this.category = transaction.getCategory();
+        this.isContract = transaction.getContract();
+        this.id = transaction.getId();
+        this.account = transaction.getAccountAcronym();
+    }
+
     public Value getValue() {
         return value;
     }

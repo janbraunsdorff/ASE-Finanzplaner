@@ -20,26 +20,26 @@ public class TransactionService implements TransactionApplication {
     }
 
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
-        accountRepo.getAccountByAcronym(query.accountAcronym());
+        checkIfAccountExists(query.accountAcronym());
         Transaction transaction = new Transaction(query.accountAcronym(), query.value(), query.date(), query.thirdParty(), query.category(), query.isContract());
         transactionRepo.createTransaction(transaction);
-        return new TransactionDTO(new Value(transaction.getValue()), transaction.getDate(), transaction.getThirdParty(), transaction.getCategory(), transaction.getContract(), transaction.getId(), transaction.getAccountAcronym());
+        return new TransactionDTO(transaction);
     }
 
     @Override
-    public List<TransactionDTO> getTransactions(TransactionGetQuery query) throws AccountNotFoundException {
-        accountRepo.getAccountByAcronym(query.account());
+    public List<TransactionDTO> getTransactionsOfMultipleAccounts(TransactionGetQuery query) throws AccountNotFoundException {
+        checkIfAccountExists(query.account());
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.account(), query.count());
-        return accounts.stream().map(a -> new TransactionDTO(new Value(a.getValue()), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym())).collect(Collectors.toList());
+        return accounts.stream().map(TransactionDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<TransactionDTO> getTransactions(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
+    public List<TransactionDTO> getTransactionsOfMultipleAccounts(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
         for (String s : query.account()){
-            accountRepo.getAccountByAcronym(s);
+            checkIfAccountExists(s);
         }
         List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.account(), query.start(), query.end());
-        return accounts.stream().map(a -> new TransactionDTO(new Value(a.getValue()), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym())).collect(Collectors.toList());
+        return accounts.stream().map(TransactionDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -47,11 +47,12 @@ public class TransactionService implements TransactionApplication {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
         for (String s : id) {
             Optional<Transaction> transaction = this.transactionRepo.deleteTransactionById(s);
-            if (transaction.isPresent()){
-                Transaction a = transaction.get();
-                transactionDTOS.add(new TransactionDTO(new Value(a.getValue()), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym()));
-            }
+            transaction.ifPresent(value -> transactionDTOS.add(new TransactionDTO(value)));
         }
         return transactionDTOS;
+    }
+
+    private void checkIfAccountExists(String s) throws AccountNotFoundException {
+        accountRepo.getAccountByAcronym(s);
     }
 }

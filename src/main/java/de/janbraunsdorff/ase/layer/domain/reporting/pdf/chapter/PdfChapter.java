@@ -18,7 +18,7 @@ public abstract class PdfChapter implements PdfPart {
     }
 
     protected List<TransactionDTO> getTransactionInInterval(LocalDate start, LocalDate end, List<String> account) throws AccountNotFoundException {
-        return this.service.getTransactions(
+        return this.service.getTransactionsOfMultipleAccounts(
                 new TransactionGetInIntervalQuery(
                         account,
                         start,

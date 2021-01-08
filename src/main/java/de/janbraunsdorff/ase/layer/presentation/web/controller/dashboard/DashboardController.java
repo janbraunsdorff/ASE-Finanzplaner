@@ -78,7 +78,7 @@ public class DashboardController {
 
             LocalDate startInterval = LocalDate.now().minusMonths(12);
             List<String> accounts = this.accountApplication.getAccountsOfBank(new AccountGetQuery(bank.acronym())).stream().map(AccountDTO::getAcronym).collect(Collectors.toList());
-            List<TransactionDTO> transactions = this.transactionApplication.getTransactions(new TransactionGetInIntervalQuery(accounts, LocalDate.MIN, LocalDate.MAX));
+            List<TransactionDTO> transactions = this.transactionApplication.getTransactionsOfMultipleAccounts(new TransactionGetInIntervalQuery(accounts, LocalDate.MIN, LocalDate.MAX));
 
             LocalDate finalStartInterval = startInterval;
             Value reduce = transactions.stream()
