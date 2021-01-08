@@ -2,12 +2,14 @@ package de.janbraunsdorff.ase.layer.persistence.memory;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountMemoryRepository implements AccountRepository {
@@ -36,6 +38,11 @@ public class AccountMemoryRepository implements AccountRepository {
                 .stream()
                 .filter(a -> a.getBankAcronym().equals(acronym))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException {
+        return null;
     }
 
     @Override

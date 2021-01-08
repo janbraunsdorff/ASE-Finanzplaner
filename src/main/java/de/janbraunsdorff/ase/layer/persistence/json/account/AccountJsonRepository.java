@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountJsonRepository implements AccountRepository {
@@ -75,6 +72,20 @@ public class AccountJsonRepository implements AccountRepository {
                     .map(AccountJsonEntity::convertToAccount)
                     .sorted(Comparator.comparing(Account::getAcronym))
                     .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new BankNotFoundException(bank);
+    }
+
+    @Override
+    public Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException {
+        try {
+            return readFile()
+                    .stream()
+                    .filter(f -> f.getBankAcronym().equals(bank))
+                    .map(AccountJsonEntity::getAcronym)
+                    .collect(Collectors.toSet());
         } catch (IOException e) {
             e.printStackTrace();
         }

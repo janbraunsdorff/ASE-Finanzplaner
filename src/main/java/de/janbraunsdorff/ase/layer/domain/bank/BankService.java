@@ -4,11 +4,12 @@ package de.janbraunsdorff.ase.layer.domain.bank;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.account.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BankService implements BankApplication {
@@ -26,28 +27,25 @@ public class BankService implements BankApplication {
     public List<BankDTO> get() {
         return this.bankRepo.getBank()
                 .stream()
-                .map(b -> {
-                    int size = 0;
-                    int amount = 0;
-                    try {
-                        List<Account> accounts = accountRepo.getAccountsOfBankByBankAcronym(b.getAcronym());
-                        size = accounts.size();
-                        amount += accounts
-                                .stream()
-                                .map(account -> transactionRepo.getValueOfAccount(account.getAcronym()))
-                                .reduce(0, Integer::sum);
-                    } catch (BankNotFoundException ignored) {
-                    }
-                    return new BankDTO(b.getName(), b.getAcronym(), new Value(amount), size, b.getType());
-                })
+                .map(this::searchForBank)
                 .collect(Collectors.toList());
+    }
+
+    private BankDTO searchForBank(Bank b) {
+        int size = 0;
+        int amount = 0;
+        try {
+            Set<String> accounts = this.accountRepo.getAccountNamesOfBankByBankAcronym(b.getAcronym());
+            amount = this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.MAX, accounts);
+            size = accounts.size();
+        } catch (BankNotFoundException ignored) {
+        }
+        return new BankDTO(b.getName(), b.getAcronym(), new Value(amount), size, b.getType());
     }
 
     public BankDTO create(BankCreateCommand command) throws AcronymAlreadyExistsException {
         Bank bank = new Bank(command.name(), command.acronym(), BankType.getByName(command.type()));
-
         this.bankRepo.createBank(bank);
-
         return new BankDTO(bank.getName(), bank.getAcronym(), new Value(0), 0, bank.getType());
     }
 
