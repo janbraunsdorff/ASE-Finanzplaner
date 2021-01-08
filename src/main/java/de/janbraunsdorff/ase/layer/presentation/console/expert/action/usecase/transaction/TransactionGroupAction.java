@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
-import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupCommand;
-import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupDTO;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupCommand;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
@@ -10,10 +10,11 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import java.util.List;
 
 public class TransactionGroupAction implements UseCase {
-    private final TransactionAnalyse analyse;
 
-    public TransactionGroupAction(TransactionAnalyse analyse) {
-        this.analyse = analyse;
+    private final TransactionApplication service;
+
+    public TransactionGroupAction(TransactionApplication service) {
+        this.service = service;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class TransactionGroupAction implements UseCase {
             return new TransactionHelpResult();
         }
         String accountAcronym = command.getParameter("-a");
-        List<TransactionGroupDTO> transactionGroupDTOS = analyse.groupMonthly(new TransactionGroupCommand(accountAcronym));
+        List<TransactionGroupDTO> transactionGroupDTOS = service.groupMonthly(new TransactionGroupCommand(accountAcronym));
         return new TransactionGroupResult(transactionGroupDTOS);
     }
 }

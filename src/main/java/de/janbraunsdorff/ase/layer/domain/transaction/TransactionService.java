@@ -2,7 +2,6 @@ package de.janbraunsdorff.ase.layer.domain.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.ArrayList;
@@ -50,6 +49,50 @@ public class TransactionService implements TransactionApplication {
             transaction.ifPresent(value -> transactionDTOS.add(new TransactionDTO(value)));
         }
         return transactionDTOS;
+    }
+
+    @Override
+    public List<TransactionGroupDTO> groupMonthly(TransactionGroupCommand command) {
+
+        List<Transaction> transactionOfAccount = this.transactionRepo.getTransactionOfAccount(command.getAccount(), -1);
+
+        List<TransactionGroupDTO> dtos = new ArrayList<>();
+
+        TransactionGroupDTO dto = null;
+
+        for (Transaction t : transactionOfAccount){
+            if(dto == null || (t.getDate().getMonthValue() != dto.getMonth() || t.getDate().getYear() != dto.getYear())){
+                if (dto != null){
+                    dtos.add(dto);
+                }
+                dto = new TransactionGroupDTO(command.getAccount(), t.getDate().getMonthValue(), t.getDate().getYear());
+            }
+
+            if (t.getValue() > 0){
+                dto.increment(t.getValue());
+                if (t.getContract()){
+                    dto.addIncomeContract(t.getValue());
+                }
+            }else {
+                dto.decrement(t.getValue());
+                if (t.getContract()){
+                    dto.addOutcomeContract(t.getValue());
+                }
+            }
+        }
+
+        if (dto != null){
+            dtos.add(dto);
+        }
+
+        int totalValue = 0;
+        for(int i = dtos.size()-1; i >=0; i--){
+            totalValue += dtos.get(i).getTotal();
+            dtos.get(i).setValue(totalValue);
+        }
+
+
+        return dtos;
     }
 
     private void checkIfAccountExists(String s) throws AccountNotFoundException {

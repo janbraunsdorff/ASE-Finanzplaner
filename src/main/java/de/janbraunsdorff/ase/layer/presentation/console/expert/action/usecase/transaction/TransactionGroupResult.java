@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupDTO;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.BarChart;

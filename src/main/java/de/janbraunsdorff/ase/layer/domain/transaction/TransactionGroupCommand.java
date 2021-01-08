@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.domain.analyse;
+package de.janbraunsdorff.ase.layer.domain.transaction;
 
 public class TransactionGroupCommand {
     private final String account;

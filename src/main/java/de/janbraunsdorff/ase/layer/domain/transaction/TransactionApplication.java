@@ -13,4 +13,6 @@ public interface TransactionApplication {
     List<TransactionDTO> getTransactionsOfMultipleAccounts(TransactionGetInIntervalQuery query) throws AccountNotFoundException;
 
     List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException;
+
+    List<TransactionGroupDTO> groupMonthly(TransactionGroupCommand command);
 }

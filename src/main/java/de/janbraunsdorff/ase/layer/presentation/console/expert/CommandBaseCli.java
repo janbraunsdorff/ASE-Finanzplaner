@@ -1,7 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
 import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
-import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
@@ -20,7 +19,7 @@ public class CommandBaseCli {
     private final DistributorAction controller;
     private final Printer printer;
 
-    public CommandBaseCli(BankApplication bankApplication, AccountApplication accountApplication, TransactionApplication transactionApplication, TransactionAnalyse transactionAnalyse) {
+    public CommandBaseCli(BankApplication bankApplication, AccountApplication accountApplication, TransactionApplication transactionApplication) {
         this.printer = new Printer();
         DistributorUseCase bankDistributor = new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankApplication))
@@ -37,7 +36,7 @@ public class CommandBaseCli {
         DistributorUseCase transactionDistributor = new DistributorUsecaseFactory(new TransactionHelpResult(), new TransactionHelpAction())
                 .addCommand("all", new TransactionAllAction(transactionApplication))
                 .addCommand("add", new TransactionAddAction(transactionApplication))
-                .addCommand("group", new TransactionGroupAction(transactionAnalyse))
+                .addCommand("group", new TransactionGroupAction(transactionApplication))
                 .addCommand("delete", new TransactionDeleteAction(transactionApplication))
                 .addCommand("print", new TransactionToPdfAction(transactionApplication, accountApplication))
                 .build();
