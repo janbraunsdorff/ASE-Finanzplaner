@@ -114,6 +114,20 @@ public class AccountJsonRepository implements AccountRepository {
         }
     }
 
+    @Override
+    public List<Account> getAll() {
+        try {
+            return readFile()
+                    .stream()
+                    .map(AccountJsonEntity::convertToAccount)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
     private ArrayList<AccountJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));

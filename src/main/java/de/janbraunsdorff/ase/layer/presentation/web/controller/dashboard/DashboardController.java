@@ -121,14 +121,16 @@ public class DashboardController {
 
     @GetMapping("last-transactions")
     public List<ResponseDashboardLastTransaction> lastTransactions(){
+        var mapping = accountApplication.getAcronymToNameMapping();
         return transactionApplication.getLast(new TransactionGetLastQuery(9))
                 .stream()
                 .map(t -> new ResponseDashboardLastTransaction(
                         t.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
                         t.getThirdParty(),
-                        t.getValue().getFormatted(), t.getAccount(), t.getCategory()))
+                        t.getValue().getFormatted(),
+                        mapping.get(t.getAccount()),
+                        t.getCategory()))
                 .collect(Collectors.toList());
-
     }
 
 }

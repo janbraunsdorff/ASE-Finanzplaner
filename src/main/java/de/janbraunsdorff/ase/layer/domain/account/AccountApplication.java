@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.account;
 
 import de.janbraunsdorff.ase.layer.domain.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface AccountApplication {
@@ -19,4 +20,6 @@ public interface AccountApplication {
     List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException;
 
     AccountMonthDTO getMonth(AccountCategorizeMonthCommand command);
+
+    HashMap<String, String> getAcronymToNameMapping();
 }

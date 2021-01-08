@@ -50,4 +50,9 @@ public class AccountMemoryRepository implements AccountRepository {
         this.accounts.remove(acronym);
     }
 
+    @Override
+    public List<Account> getAll() {
+        return null;
+    }
+
 }

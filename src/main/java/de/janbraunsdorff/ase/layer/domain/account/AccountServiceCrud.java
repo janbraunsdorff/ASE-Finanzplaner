@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -166,6 +167,13 @@ public class AccountServiceCrud implements AccountApplication {
                 totalIncome.add(totalExpenses),
                 printPercent
         );
+    }
+
+    @Override
+    public HashMap<String, String> getAcronymToNameMapping() {
+        HashMap<String, String> mapping = new HashMap<>();
+        accountRepo.getAll().forEach(t -> mapping.put(t.getAcronym(), t.getName()));
+        return mapping;
     }
 
     @NotNull
