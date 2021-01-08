@@ -4,11 +4,16 @@ package de.janbraunsdorff.ase.layer.domain.account;
 import de.janbraunsdorff.ase.layer.domain.*;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
+import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +79,41 @@ public class AccountServiceCrud implements AccountApplication {
             this.transactionRepo.deleteTransactionById(t.getId());
         }
         this.accountRepo.deleteAccountByAcronym(command.accountAcronym());
+    }
+
+    @Override
+    public List<Value> getCourse(AccountCourseCommand command) {
+        LocalDate startInterval = LocalDate.now().minusMonths(command.month());
+        List<Value> values = new ArrayList<>();
+
+        List<Transaction> transactions = transactionRepo.getTransactionOfAccount(Arrays.asList(command.accountAcronym()), LocalDate.MIN, LocalDate.MAX);
+
+        LocalDate finalStartInterval = startInterval;
+        int startAccountValue = transactions.stream()
+                .filter(a -> a.getDate().isBefore(finalStartInterval.plusDays(1)))
+                .map(Transaction::getValue)
+                .reduce(0, Integer::sum);
+
+
+        for (int i = 0; i < command.month(); i++) {
+            LocalDate finalStartInterval1 = startInterval;
+            startAccountValue = transactions.stream()
+                    .filter(a -> a.getDate().isAfter(finalStartInterval1) && a.getDate().isBefore(finalStartInterval1.plusMonths(1).plusDays(1)))
+                    .map(Transaction::getValue)
+                    .reduce(0, Integer::sum) + startAccountValue;
+
+            values.add(new Value(startAccountValue));
+            startInterval = startInterval.plusMonths(1);
+        }
+
+        return values;
+    }
+
+    @Override
+    public List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException {
+        String[] accountAcronyms = this.getAccountsOfBank(new AccountGetQuery(command.bankAcronym())).stream().map(AccountDTO::getAcronym).toArray(String[]::new);
+        return this.getCourse(new AccountCourseCommand(command.month(), accountAcronyms));
+
     }
 
     @NotNull

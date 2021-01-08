@@ -6,9 +6,9 @@ import java.net.URISyntaxException;
 public class App {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        // new ApplicationWeb().run(args);
+        new ApplicationWeb().run(args);
 
-
+/*
         new ApplicationConsoleBuilder()
                 .intJsonRepo("./")
                 //.intMemoryRepo()
@@ -18,6 +18,7 @@ public class App {
                 .run();
 
 
+ */
 
     }
 

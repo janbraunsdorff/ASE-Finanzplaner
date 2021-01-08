@@ -1,9 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.*;
 
 import java.util.List;
 
@@ -17,4 +14,7 @@ public interface AccountApplication {
 
     void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException;
 
+    List<Value> getCourse(AccountCourseCommand command);
+
+    List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException;
 }

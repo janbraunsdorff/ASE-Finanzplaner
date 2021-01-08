@@ -3,9 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.web.controller.dashboard;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
-import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
-import de.janbraunsdorff.ase.layer.domain.account.AccountGetQuery;
+import de.janbraunsdorff.ase.layer.domain.account.*;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankType;
@@ -51,7 +49,6 @@ public class DashboardController {
 
             total = total.add(bank.value());
         }
-        ;
 
         return new ResponseDashboardOverview(
                 total.getFormatted(),
@@ -76,28 +73,10 @@ public class DashboardController {
                 continue;
             }
 
-            LocalDate startInterval = LocalDate.now().minusMonths(12);
-            List<String> accounts = this.accountApplication.getAccountsOfBank(new AccountGetQuery(bank.acronym())).stream().map(AccountDTO::getAcronym).collect(Collectors.toList());
-            List<TransactionDTO> transactions = this.transactionApplication.getTransactionsOfMultipleAccounts(new TransactionGetInIntervalQuery(accounts, LocalDate.MIN, LocalDate.MAX));
-
-            LocalDate finalStartInterval = startInterval;
-            Value reduce = transactions.stream()
-                    .filter(a -> a.getDate().isBefore(finalStartInterval))
-                    .map(TransactionDTO::getValue)
-                    .reduce(new Value(0), Value::combine);
-
-            for (int i = 0; i < 12; i++) {
-                LocalDate finalStartInterval1 = startInterval;
-                reduce = transactions.stream()
-                        .filter(a -> a.getDate().isAfter(finalStartInterval1) && a.getDate().isBefore(finalStartInterval1.plusMonths(1).plusDays(1)))
-                        .map(TransactionDTO::getValue)
-                        .reduce(new Value(0), Value::combine).add(reduce);
-                if (bank.type().equals(BankType.Investment)){
-                    typeValues[1].add(reduce);
-                }else if (bank.type().equals(BankType.Retail)){
-                    typeValues[0].add(reduce);
-                }
-                startInterval = startInterval.plusMonths(1);
+            if (bank.type().equals(BankType.Investment)){
+                typeValues[1] = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+            }else if (bank.type().equals(BankType.Retail)) {
+                typeValues[0] = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
             }
 
         }
