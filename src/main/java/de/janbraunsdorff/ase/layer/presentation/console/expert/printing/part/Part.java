@@ -1,11 +1,13 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.printing;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part;
 
-public class SentencePiece {
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
+
+public class Part {
 
     private final Color color;
     private final String content;
 
-    public SentencePiece(Color color, String content) {
+    public Part(Color color, String content) {
         this.color = color;
         this.content = content;
     }

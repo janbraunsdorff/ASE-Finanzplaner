@@ -13,20 +13,20 @@ public class BarChart {
 
     public BarChart(ChartData data) {
         this.data = data;
-        this.start = scale(Arrays.stream(this.data.getValue()).max(Comparator.comparingInt(a -> a)).get(), 100, 10);
-        this.grid = new Grid(data.getValue().length + 1);
+        this.start = scale(Arrays.stream(this.data.value()).max(Comparator.comparingInt(a -> a)).get(), 100, 10);
+        this.grid = new Grid(data.value().length + 1);
 
         drawScale();
         drawBars();
     }
 
     public PrinterInput getPrintable() {
-        return new PrinterInput(this.data.getName() + "\n" + this.grid.toString());
+        return new PrinterInput(this.data.name() + "\n" + this.grid.toString());
     }
 
     private void drawBars() {
-        for (int i = 0; i < this.data.getValue().length; i++) {
-            drawBar(this.data.getValue()[i], i + 1);
+        for (int i = 0; i < this.data.value().length; i++) {
+            drawBar(this.data.value()[i], i + 1);
         }
 
     }
@@ -55,7 +55,7 @@ public class BarChart {
         grid.addYPoints(5, (int) (start * 0.75));
         grid.addYPoints(10, (int) (start * 0.5));
         grid.addYPoints(15, (int) (start * 0.25));
-        grid.addX(this.data.getKey());
+        grid.addX(this.data.key());
     }
 
     private int scale(int value, int limit, int step) {

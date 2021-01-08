@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory
 
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.SentencePiece;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.Part;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.BarChart;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.TableDivider;
 
@@ -87,9 +87,9 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         String text = String.format("%" + getLength() + "s", builder);
         this.lastIndex++;
         if (amount < 0) {
-            this.pieces.add(new SentencePiece(Color.RED, text));
+            this.pieces.add(new Part(Color.RED, text));
         } else {
-            this.pieces.add(new SentencePiece(Color.GREEN, text));
+            this.pieces.add(new Part(Color.GREEN, text));
         }
         this.addTableVerticalDivider();
         return this;
@@ -99,9 +99,9 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
         String text = String.format("%" + getLength() + "s", value.getFormatted());
         this.lastIndex++;
         if (value.isPositive()) {
-            this.pieces.add(new SentencePiece(Color.GREEN, text));
+            this.pieces.add(new Part(Color.GREEN, text));
         } else {
-            this.pieces.add(new SentencePiece(Color.RED, text));
+            this.pieces.add(new Part(Color.RED, text));
         }
         this.addTableVerticalDivider();
         return this;

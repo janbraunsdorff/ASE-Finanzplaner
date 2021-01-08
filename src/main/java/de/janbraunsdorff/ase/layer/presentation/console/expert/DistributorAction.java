@@ -14,8 +14,7 @@ public class DistributorAction {
 
     public Result answer(ExpertCommand command) {
         String useCase = command.getTopLevel();
-        Result res = this.useCases.getOrDefault(useCase, new DistributorDefault()).distribute(command);
-        return res;
+        return this.useCases.getOrDefault(useCase, new DistributorDefault()).distribute(command);
     }
 
     protected void addUseCase(String command, Distributor distributor) {

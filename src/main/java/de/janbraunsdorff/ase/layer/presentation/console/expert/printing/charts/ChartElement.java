@@ -8,6 +8,9 @@ public enum ChartElement {
     Horizontal('═'),
     Block('█'),
     HalfBlock('▄');
+
+
+
     private final char symbol;
 
     ChartElement(char symbol) {

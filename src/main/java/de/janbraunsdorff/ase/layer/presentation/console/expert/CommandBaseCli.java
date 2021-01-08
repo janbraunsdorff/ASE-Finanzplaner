@@ -56,7 +56,6 @@ public class CommandBaseCli {
     }
 
     public void run() throws IOException {
-        //      TODO: cleaner reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String name = reader.readLine();

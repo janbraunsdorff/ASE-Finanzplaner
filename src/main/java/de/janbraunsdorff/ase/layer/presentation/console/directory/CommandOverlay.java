@@ -12,7 +12,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.ac
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.CommandPiece;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.Command;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,7 +74,7 @@ public class CommandOverlay {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.print(this.state.getPath());
-            System.out.print(new CommandPiece().getPiece());
+            System.out.print(new Command().getPiece());
             System.out.print(" ");
             String shortCommand = reader.readLine();
             if (shortCommand == null) {
