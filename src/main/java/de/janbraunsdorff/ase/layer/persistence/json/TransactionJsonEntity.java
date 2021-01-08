@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.persistence.json;
 
 
 import com.google.gson.annotations.SerializedName;
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 
 import java.time.LocalDate;
 
@@ -29,6 +30,20 @@ public class TransactionJsonEntity {
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
+    }
+
+    public TransactionJsonEntity(Transaction transaction){
+        this.id = transaction.getId();
+        this.accountAcronym = transaction.getAccountAcronym();
+        this.value = transaction.getValue();
+        this.date = transaction.getDate();
+        this.thirdParty = transaction.getThirdParty();
+        this.category = transaction.getCategory();
+        this.isContract = transaction.getContract();
+    }
+
+    public Transaction convertToTransaction(){
+        return new Transaction(id, accountAcronym, value, date, thirdParty, category, isContract);
     }
 
     public String getId() {

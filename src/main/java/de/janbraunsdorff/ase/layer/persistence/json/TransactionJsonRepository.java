@@ -31,7 +31,7 @@ public class TransactionJsonRepository implements TransactionRepository {
     public void createTransaction(Transaction entity) {
         try {
             List<TransactionJsonEntity> json = readFile();
-            json.add(new TransactionJsonEntity(entity.getId(), entity.getAccountAcronym(), entity.getValue(), entity.getDate(), entity.getThirdParty(), entity.getCategory(), entity.getContract()));
+            json.add(new TransactionJsonEntity(entity));
             writeFile(json);
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class TransactionJsonRepository implements TransactionRepository {
                     .filter(f -> f.getAccountAcronym().equals(id))
                     .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
                     .limit(count)
-                    .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
+                    .map(TransactionJsonEntity::convertToTransaction)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class TransactionJsonRepository implements TransactionRepository {
             Optional<Transaction> transaction = transactionJsonEntities
                     .stream()
                     .filter(f -> f.getId().equals(id))
-                    .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
+                    .map(TransactionJsonEntity::convertToTransaction)
                     .findFirst();
             List<TransactionJsonEntity> collect = transactionJsonEntities
                     .stream()
@@ -103,7 +103,7 @@ public class TransactionJsonRepository implements TransactionRepository {
                     .filter(f -> account.contains(f.getAccountAcronym()))
                     .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) >= 0)
                     .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
-                    .map(t -> new Transaction(t.getId(), t.getAccountAcronym(), t.getValue(), t.getDate(), t.getThirdParty(), t.getCategory(), t.getContract()))
+                    .map(TransactionJsonEntity::convertToTransaction)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,10 +114,8 @@ public class TransactionJsonRepository implements TransactionRepository {
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));
-        ArrayList<TransactionJsonEntity> ts = gson.fromJson(s, new TypeToken<List<TransactionJsonEntity>>() {
+        return gson.fromJson(s, new TypeToken<List<TransactionJsonEntity>>() {
         }.getType());
-
-        return ts;
     }
 
     private void checkForFile() throws IOException {
