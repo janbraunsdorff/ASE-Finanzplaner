@@ -20,4 +20,6 @@ public interface TransactionRepository {
     Optional<Transaction> deleteTransactionById(String id) throws TransactionNotFoundException;
 
     List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end);
+
+    Long count(String acronym);
 }

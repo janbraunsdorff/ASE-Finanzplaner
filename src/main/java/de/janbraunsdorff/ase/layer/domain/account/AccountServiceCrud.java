@@ -13,19 +13,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AccountServiceCrud implements AccountApplication {
-    private final AccountRepository repo;
+    private final AccountRepository accountRepo;
     private final TransactionRepository transactionRepo;
     private final BankRepository bankRepo;
 
     public AccountServiceCrud(AccountRepository repo, TransactionRepository transactionRepo, BankRepository bankRepo) {
-        this.repo = repo;
-        this.transactionRepo = transactionRepo;
         this.bankRepo = bankRepo;
+        this.accountRepo = repo;
+        this.transactionRepo = transactionRepo;
     }
 
     public List<AccountDTO> getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
         List<AccountDTO> accounts = new ArrayList<>();
-        for (String s : query.acronym()){
+        for (String s : query.acronym()) {
             AccountDTO account = getAccount(s);
             accounts.add(account);
         }
@@ -39,13 +39,12 @@ public class AccountServiceCrud implements AccountApplication {
     }
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
-        this.bankRepo.getBankByAcronym(query.id());
-        List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(query.id());
-        List<AccountDTO> collect = accounts.stream().map(a -> {
+        checkIfBankExists(query.bankAcronym());
+        List<AccountDTO> collect = this.accountRepo.getAccountsOfBankByBankAcronym(query.bankAcronym()).stream().map(a -> {
             int amount = -1;
             String bankName = "nicht bekannt";
             try {
-                amount = transactionRepo.getTransactionOfAccount(a.getAcronym(), -1).size();
+                amount = Math.toIntExact(transactionRepo.count(a.getAcronym()));
                 bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
             } catch (BankNotFoundException ignored) {
 
@@ -54,15 +53,19 @@ public class AccountServiceCrud implements AccountApplication {
         }).collect(Collectors.toList());
 
         if (collect.isEmpty()) {
-            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.id()));
+            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.bankAcronym()));
         }
         return collect;
     }
 
+    private Bank checkIfBankExists(String acronym) throws BankNotFoundException {
+        return this.bankRepo.getBankByAcronym(acronym);
+    }
+
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws AcronymAlreadyExistsException, BankNotFoundException {
-        Bank bank = this.bankRepo.getBankByAcronym(command.bank());
+        Bank bank = checkIfBankExists(command.bank());
         Account account = new Account(command.bank(), command.name(), command.number(), command.acronym());
-        this.repo.createAccount(account);
+        this.accountRepo.createAccount(account);
         return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), new Value(0), bank.getName());
     }
 
@@ -70,20 +73,21 @@ public class AccountServiceCrud implements AccountApplication {
         for (Transaction t : this.transactionRepo.getTransactionOfAccount(command.accountAcronym(), -1)) {
             this.transactionRepo.deleteTransactionById(t.getId());
         }
-        this.repo.deleteAccountByAcronym(command.accountAcronym());
+        this.accountRepo.deleteAccountByAcronym(command.accountAcronym());
     }
 
     @NotNull
     private AccountDTO getAccount(String s) throws AccountNotFoundException, BankNotFoundException {
-        Account a = this.repo.getAccountByAcronym(s);
-        int amount = transactionRepo.getTransactionOfAccount(a.getAcronym(), -1).size();
+        Account a = this.accountRepo.getAccountByAcronym(s);
+        int amount = Math.toIntExact(transactionRepo.count(a.getAcronym()));
         String bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
         return new AccountDTO(
                 a.getName(),
                 a.getNumber(),
                 amount,
                 a.getAcronym(),
-                new Value(transactionRepo.getValueOfAccount(a.getAcronym())), bankName
+                new Value(transactionRepo.getValueOfAccount(a.getAcronym())),
+                bankName
         );
     }
 }

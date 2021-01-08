@@ -14,15 +14,15 @@ public class TransactionHelpResult implements Result {
                 .addHeadline("Hilfe (Transactionen):")
                 .addCommand("ls", "Zeigt die letzten 20 Transactionen an.")
                 .addCommand("ls -n [Anzahl an Transactionen]", "Zeigt die letzten n Transactionen an")
-                .addCommand("ls -f ", "Zeigt die letzten 20 Transactionen mit id an")
+                .addCommand("ls -f ", "Zeigt die letzten 20 Transactionen mit bankAcronym an")
                 .addCommand("touch -val [Betrag in Cent] -thp [Von / Nach] -dat [DD.MM.YY] -cat [Kategorie] {-con}", "Legt eine neue Transaction an. Datum, Kategorie und Vertrag sind optional")
-                .addCommand("rm [id]", "Löscht Transaction mit der ID")
+                .addCommand("rm [bankAcronym]", "Löscht Transaction mit der ID")
 
                 .addHeadline("")
                 .addHeadline("Experteneingabe:")
                 .addCommand("transaction all -a [Account Abkürzung] {-n [Anzahl an Transactionen]}", "Zeigt die letzten Transactionen an. Anzahl ist optional")
                 .addCommand("transaction add -a [Account Abkürzung] -val [Betrag in Cent] -thp [Von / Nach] -dat [DD.MM.YY] -cat [Kategorie] {-con}", "Legt eine neue Transaction an. Datum, Kategorie und Vertrag sind optional")
-                .addCommand("transaction delete -id [ID]", "Löscht Transaction mit der ID")
+                .addCommand("transaction delete -bankAcronym [ID]", "Löscht Transaction mit der ID")
                 .build();
     }
 }

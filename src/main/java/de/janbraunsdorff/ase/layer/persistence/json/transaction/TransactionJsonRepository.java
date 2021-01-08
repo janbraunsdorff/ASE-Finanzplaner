@@ -117,6 +117,20 @@ public class TransactionJsonRepository implements TransactionRepository {
         return Collections.emptyList();
     }
 
+    @Override
+    public Long count(String acronym) {
+        try {
+            return readFile()
+                    .stream()
+                    .filter(f -> f.getAccountAcronym().equals(acronym))
+                    .count();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));

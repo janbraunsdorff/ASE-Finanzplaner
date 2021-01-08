@@ -11,6 +11,6 @@ public class DeleteTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         String ident = command.getSecondLevel();
-        return new OverlayCommand(new ExpertCommand("transaction delete -id " + ident, 2), StateTransition.STAY);
+        return new OverlayCommand(new ExpertCommand("transaction delete -bankAcronym " + ident, 2), StateTransition.STAY);
     }
 }

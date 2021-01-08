@@ -20,12 +20,12 @@ public class TransactionDeleteAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        if (!command.areTagsAndValuesPresent("-id")){
+        if (!command.areTagsAndValuesPresent("-bankAcronym")){
             return new TransactionHelpResult();
         }
 
         try {
-            List<TransactionDTO> dto = service.deleteTransaction(command.getParameter("-id"));
+            List<TransactionDTO> dto = service.deleteTransaction(command.getParameter("-bankAcronym"));
             String id = "";
             if (!dto.isEmpty()){
                 id = dto.get(0).getId();
