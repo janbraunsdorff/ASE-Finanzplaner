@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;

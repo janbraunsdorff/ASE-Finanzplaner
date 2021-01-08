@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse;
+package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionAnalyse;
 import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupCommand;
@@ -6,7 +6,6 @@ import de.janbraunsdorff.ase.layer.domain.analyse.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 
 import java.util.List;
 

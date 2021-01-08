@@ -7,7 +7,7 @@ import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.analyse.TransactionGroupAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionGroupAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.*;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
