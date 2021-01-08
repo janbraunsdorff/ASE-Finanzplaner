@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,6 +94,14 @@ public class TransactionService implements TransactionApplication {
 
 
         return dtos;
+    }
+
+    @Override
+    public List<TransactionDTO> getLast(TransactionGetLastQuery transactionGetLastQuery) {
+        return this.transactionRepo.getLastTransactions(transactionGetLastQuery.getNumber())
+                .stream()
+                .map(TransactionDTO::new)
+                .collect(Collectors.toList());
     }
 
     private void checkIfAccountExists(String s) throws AccountNotFoundException {

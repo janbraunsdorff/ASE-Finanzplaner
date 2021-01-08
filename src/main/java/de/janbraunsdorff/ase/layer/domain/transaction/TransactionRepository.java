@@ -24,4 +24,6 @@ public interface TransactionRepository {
     Long count(String acronym);
 
     List<Transaction> getTransactions(LocalDate start, LocalDate end);
+
+    List<Transaction> getLastTransactions(int number);
 }

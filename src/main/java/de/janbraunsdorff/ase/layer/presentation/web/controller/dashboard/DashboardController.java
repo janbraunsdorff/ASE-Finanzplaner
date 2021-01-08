@@ -10,11 +10,14 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetInIntervalQuery;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetLastQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -114,4 +117,18 @@ public class DashboardController {
                 month.totalExpensesOthers().getFormatted()
         );
     }
+
+
+    @GetMapping("last-transactions")
+    public List<ResponseDashboardLastTransaction> lastTransactions(){
+        return transactionApplication.getLast(new TransactionGetLastQuery(9))
+                .stream()
+                .map(t -> new ResponseDashboardLastTransaction(
+                        t.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+                        t.getThirdParty(),
+                        t.getValue().getFormatted(), t.getAccount(), t.getCategory()))
+                .collect(Collectors.toList());
+
+    }
+
 }

@@ -146,6 +146,22 @@ public class TransactionJsonRepository implements TransactionRepository {
         return Collections.emptyList();
     }
 
+    @Override
+    public List<Transaction> getLastTransactions(int number) {
+        try {
+            return readFile()
+                    .stream()
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
+                    .limit(number)
+                    .map(TransactionJsonEntity::convertToTransaction)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
         checkForFile();
         String s = new String(Files.readAllBytes(path));

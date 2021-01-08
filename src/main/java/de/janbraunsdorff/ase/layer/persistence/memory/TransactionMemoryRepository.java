@@ -60,4 +60,9 @@ public class TransactionMemoryRepository implements TransactionRepository {
     public List<Transaction> getTransactions(LocalDate start, LocalDate end) {
         return null;
     }
+
+    @Override
+    public List<Transaction> getLastTransactions(int number) {
+        return null;
+    }
 }
