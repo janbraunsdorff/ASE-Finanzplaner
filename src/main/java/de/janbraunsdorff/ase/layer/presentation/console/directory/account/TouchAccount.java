@@ -19,7 +19,6 @@ public class TouchAccount implements CommandBuilder {
         }
 
 
-        OverlayCommand cmd = new OverlayCommand(new ExpertCommand(pattern, 2), StateTransition.STAY);
-        return cmd;
+        return new OverlayCommand(new ExpertCommand(pattern, 2), StateTransition.STAY);
     }
 }
