@@ -39,10 +39,10 @@ public class TransactionJsonRepository implements TransactionRepository {
     }
 
     @Override
-    public int getValueOfAccount(String accountId, LocalDate start, LocalDate end) {
+    public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
         try {
             return readFile().stream()
-                    .filter(f -> f.getAccountAcronym().equals(accountId))
+                    .filter(f -> accountAcronyms.contains(f.getAccountAcronym()))
                     .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) >= 0)
                     .map(TransactionJsonEntity::getValue)
                     .reduce(0, Integer::sum);
@@ -53,8 +53,8 @@ public class TransactionJsonRepository implements TransactionRepository {
     }
 
     @Override
-    public int getValueOfAccount(String accountId) {
-        return getValueOfAccount(accountId, LocalDate.MIN, LocalDate.MAX);
+    public int getValueOfAccount(String acronym) {
+        return getValueOfAccount(LocalDate.MIN, LocalDate.MAX, Set.of(acronym));
     }
 
     @Override

@@ -6,11 +6,12 @@ import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TransactionRepository {
     void createTransaction(Transaction entity) throws AccountNotFoundException;
 
-    int getValueOfAccount(String accountId, LocalDate start, LocalDate end);
+    int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms);
 
     int getValueOfAccount(String accountId);
 

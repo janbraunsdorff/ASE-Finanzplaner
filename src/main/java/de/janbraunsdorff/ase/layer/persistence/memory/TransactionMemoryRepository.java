@@ -17,6 +17,11 @@ public class TransactionMemoryRepository implements TransactionRepository {
     }
 
     @Override
+    public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
+        return 0;
+    }
+
+    @Override
     public int getValueOfAccount(String accountId) {
         return this.getTransactionOfAccount(accountId, -1)
                 .stream()
