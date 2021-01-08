@@ -154,7 +154,7 @@ public class AccountServiceCrud implements AccountApplication {
         }
 
 
-        double percent = (double) (totalExpenses.getValue() * -1) /  Double.valueOf(totalIncome.getValue());
+        double percent = (double) (totalExpenses.getValue() * -1) / (double) Math.max(totalIncome.getValue(), 1);
         percent = percent > 1 ? percent - 1: percent;
         String printPercent = new DecimalFormat("0.00").format(percent * 100)+ "%";
 
