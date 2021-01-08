@@ -25,7 +25,7 @@ public class AccountServiceCrud implements AccountApplication {
 
     public List<AccountDTO> getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
         List<AccountDTO> accounts = new ArrayList<>();
-        for (String s : query.getAcronym()){
+        for (String s : query.acronym()){
             AccountDTO account = getAccount(s);
             accounts.add(account);
         }
@@ -35,12 +35,12 @@ public class AccountServiceCrud implements AccountApplication {
 
     @Override
     public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
-        return getAccount(query.getAcronym());
+        return getAccount(query.acronym());
     }
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
-        this.bankRepo.getBankByAcronym(query.getId());
-        List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(query.getId());
+        this.bankRepo.getBankByAcronym(query.id());
+        List<Account> accounts = this.repo.getAccountsOfBankByBankAcronym(query.id());
         List<AccountDTO> collect = accounts.stream().map(a -> {
             int amount = -1;
             String bankName = "nicht bekannt";
@@ -54,23 +54,23 @@ public class AccountServiceCrud implements AccountApplication {
         }).collect(Collectors.toList());
 
         if (collect.isEmpty()) {
-            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.getId()));
+            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.id()));
         }
         return collect;
     }
 
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws AcronymAlreadyExistsException, BankNotFoundException {
-        Bank bank = this.bankRepo.getBankByAcronym(command.getBank());
-        Account account = new Account(command.getBank(), command.getName(), command.getNumber(), command.getAcronym());
+        Bank bank = this.bankRepo.getBankByAcronym(command.bank());
+        Account account = new Account(command.bank(), command.name(), command.number(), command.acronym());
         this.repo.createAccount(account);
         return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), new Value(0), bank.getName());
     }
 
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
-        for (Transaction t : this.transactionRepo.getTransactionOfAccount(command.getAccountAcronym(), -1)) {
+        for (Transaction t : this.transactionRepo.getTransactionOfAccount(command.accountAcronym(), -1)) {
             this.transactionRepo.deleteTransactionById(t.getId());
         }
-        this.repo.deleteAccountByAcronym(command.getAccountAcronym());
+        this.repo.deleteAccountByAcronym(command.accountAcronym());
     }
 
     @NotNull
