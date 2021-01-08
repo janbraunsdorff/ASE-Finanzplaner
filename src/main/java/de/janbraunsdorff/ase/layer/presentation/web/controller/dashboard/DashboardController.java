@@ -44,15 +44,9 @@ public class DashboardController {
 
         for (BankDTO bank : this.bankApplication.get()) {
             switch (bank.getType()) {
-                case None:
-                    bar = bar.add(bank.getValue());
-                    break;
-                case Retail:
-                    account = account.add(bank.getValue());
-                    break;
-                case Investment:
-                    deposit = deposit.add(bank.getValue());
-                    break;
+                case None -> bar = bar.add(bank.getValue());
+                case Retail -> account = account.add(bank.getValue());
+                case Investment -> deposit = deposit.add(bank.getValue());
             }
 
             total = total.add(bank.getValue());
