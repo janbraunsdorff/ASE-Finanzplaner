@@ -5,13 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.ErrorPrinterInputFactory;
 
-public class ErrorResult implements Result {
-
-    private final String errorText;
-
-    public ErrorResult(String errorText) {
-        this.errorText = errorText;
-    }
+public record ErrorResult(String errorText) implements Result {
 
     @Override
     public PrinterInput print() {

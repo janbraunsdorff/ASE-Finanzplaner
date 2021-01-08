@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.Distributor;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 
-public class ExitAction implements Distributor {
+public record ExitAction() implements Distributor {
     @Override
     public Result distribute(ExpertCommand command) {
         System.exit(0);

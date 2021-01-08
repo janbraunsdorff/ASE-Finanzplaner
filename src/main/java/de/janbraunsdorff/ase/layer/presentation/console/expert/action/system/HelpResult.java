@@ -5,7 +5,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.HelpPrinterInputFactory;
 
-public class HelpResult implements Result {
+public record HelpResult() implements Result {
 
     @Override
     public PrinterInput print() {
