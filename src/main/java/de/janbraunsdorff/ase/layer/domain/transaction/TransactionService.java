@@ -20,25 +20,25 @@ public class TransactionService implements TransactionApplication {
     }
 
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
-        accountRepo.getAccountByAcronym(query.getAccountAcronym());
-        Transaction transaction = new Transaction(query.getAccountAcronym(), query.getValue(), query.getDate(), query.getThirdParty(), query.getCategory(), query.getContract());
+        accountRepo.getAccountByAcronym(query.accountAcronym());
+        Transaction transaction = new Transaction(query.accountAcronym(), query.value(), query.date(), query.thirdParty(), query.category(), query.isContract());
         transactionRepo.createTransaction(transaction);
         return new TransactionDTO(new Value(transaction.getValue()), transaction.getDate(), transaction.getThirdParty(), transaction.getCategory(), transaction.getContract(), transaction.getId(), transaction.getAccountAcronym());
     }
 
     @Override
     public List<TransactionDTO> getTransactions(TransactionGetQuery query) throws AccountNotFoundException {
-        accountRepo.getAccountByAcronym(query.getAccount());
-        List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getCount());
+        accountRepo.getAccountByAcronym(query.account());
+        List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.account(), query.count());
         return accounts.stream().map(a -> new TransactionDTO(new Value(a.getValue()), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym())).collect(Collectors.toList());
     }
 
     @Override
     public List<TransactionDTO> getTransactions(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
-        for (String s : query.getAccount()){
+        for (String s : query.account()){
             accountRepo.getAccountByAcronym(s);
         }
-        List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.getAccount(), query.getStart(), query.getEnd());
+        List<Transaction> accounts = this.transactionRepo.getTransactionOfAccount(query.account(), query.start(), query.end());
         return accounts.stream().map(a -> new TransactionDTO(new Value(a.getValue()), a.getDate(), a.getThirdParty(), a.getCategory(), a.getContract(), a.getId(), a.getAccountAcronym())).collect(Collectors.toList());
     }
 
