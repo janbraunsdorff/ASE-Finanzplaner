@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface TransactionRepository {
     void createTransaction(Transaction entity) throws AccountNotFoundException;
 
+    int getValueOfAccount(String accountId, LocalDate start, LocalDate end);
+
     int getValueOfAccount(String accountId);
 
     List<Transaction> getTransactionOfAccount(String id, int count);
