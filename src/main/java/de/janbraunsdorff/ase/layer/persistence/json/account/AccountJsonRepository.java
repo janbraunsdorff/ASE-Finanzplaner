@@ -84,6 +84,15 @@ public class AccountJsonRepository implements AccountRepository {
     @Override
     public void deleteAccountByAcronym(String acronym) throws AccountNotFoundException {
         try {
+            Optional<AccountJsonEntity> account = readFile()
+                    .stream()
+                    .filter(a -> a.getAcronym().equals(acronym))
+                    .findFirst();
+
+            if (account.isEmpty()){
+                throw new AccountNotFoundException(acronym);
+            }
+
             List<AccountJsonEntity> collect = readFile()
                     .stream()
                     .filter(a -> !a.getAcronym().equals(acronym))
