@@ -22,4 +22,6 @@ public interface AccountApplication {
     AccountMonthDTO getMonth(AccountCategorizeMonthCommand command);
 
     HashMap<String, String> getAcronymToNameMapping();
+
+    AccountDetailDTO getAccountDetail(AccountGetDetailQuery query);
 }

@@ -65,4 +65,9 @@ public class TransactionMemoryRepository implements TransactionRepository {
     public List<Transaction> getLastTransactions(int number) {
         return null;
     }
+
+    @Override
+    public int getMaxValueOfAccount(String accountAcronym) {
+        return 0;
+    }
 }

@@ -26,4 +26,6 @@ public interface TransactionRepository {
     List<Transaction> getTransactions(LocalDate start, LocalDate end);
 
     List<Transaction> getLastTransactions(int number);
+
+    int getMaxValueOfAccount(String accountAcronym);
 }

@@ -10,10 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountServiceCrud implements AccountApplication {
@@ -174,6 +172,52 @@ public class AccountServiceCrud implements AccountApplication {
         HashMap<String, String> mapping = new HashMap<>();
         accountRepo.getAll().forEach(t -> mapping.put(t.getAcronym(), t.getName()));
         return mapping;
+    }
+
+    @Override
+    public AccountDetailDTO getAccountDetail(AccountGetDetailQuery query) {
+        try {
+            var accountByAcronym = this.accountRepo.getAccountByAcronym(query.accountAcronym());
+            var value = this.transactionRepo.getValueOfAccount(query.accountAcronym());
+            var last7 =  this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(8), Set.of(query.accountAcronym()));
+            var last30 =  this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(31), Set.of(query.accountAcronym()));
+            var max = this.transactionRepo.getMaxValueOfAccount(query.accountAcronym());
+            var lastPostingDate = this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).get(0).getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+
+            return new AccountDetailDTO(
+                    accountByAcronym.getName(),
+                    accountByAcronym.getAcronym(),
+                    new Value(value).getFormatted(),
+                    getPercent(last7, value),
+                    getPercent(last30, value),
+                    new Value(max).getFormatted(),
+                    lastPostingDate,
+                    getCourse(query.accountAcronym(), 365)
+            );
+
+        } catch (AccountNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private List<Integer> getCourse(String accountAcronym, int days) {
+        List<Integer> values = new ArrayList<>();
+        for (int i = 0; i < days/10; i++){
+           values.add(this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
+        }
+
+        values.add(this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now(), Set.of(accountAcronym)));
+
+        return values;
+    }
+
+    private String getPercent(int base, int value){
+        var d = (double) value / (double) base;
+        d =  (d > 1)? (d -1) * 100: (1 - d) * -1;
+        return new DecimalFormat("0.0000").format(d) + "%";
     }
 
     @NotNull

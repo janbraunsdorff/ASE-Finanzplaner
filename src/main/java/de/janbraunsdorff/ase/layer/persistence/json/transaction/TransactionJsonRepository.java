@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TransactionJsonRepository implements TransactionRepository {
     private final Path path;
@@ -41,10 +42,17 @@ public class TransactionJsonRepository implements TransactionRepository {
     @Override
     public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
         try {
-            return readFile().stream()
+            List<TransactionJsonEntity> transactionJsonEntityStream = readFile().stream()
                     .filter(f -> accountAcronyms.contains(f.getAccountAcronym()))
-                    .filter(f -> start.compareTo(f.getDate()) * f.getDate().compareTo(end) >= 0)
-                    .map(TransactionJsonEntity::getValue)
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
+                    .collect(Collectors.toList());
+            List<TransactionJsonEntity> t1 = transactionJsonEntityStream.stream()
+                    .filter(f -> f.getDate().isAfter(start))
+                    .filter(f -> f.getDate().isBefore(end))
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate).reversed())
+                    .collect(Collectors.toList());
+
+            return t1.stream().map(TransactionJsonEntity::getValue)
                     .reduce(0, Integer::sum);
         } catch (IOException e) {
             e.printStackTrace();
@@ -160,6 +168,40 @@ public class TransactionJsonRepository implements TransactionRepository {
         }
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public int getMaxValueOfAccount(String accountAcronym) {
+        try {
+            List<TransactionJsonEntity> collect = readFile()
+                    .stream()
+                    .filter(t -> t.getAccountAcronym().equals(accountAcronym))
+                    .sorted(Comparator.comparing(TransactionJsonEntity::getDate))
+                    .collect(Collectors.toList());
+
+            var maxValue = 0;
+            var accountValue = 0;
+
+            for (int i = 0; i < collect.size(); i++) {
+                TransactionJsonEntity t = collect.get(i);
+                accountValue += t.getValue();
+                if (i+1 < collect.size() && t.getDate().isEqual(collect.get(i+1).getDate())) {
+                    continue;
+                }
+
+                if (maxValue < accountValue) {
+                    maxValue = accountValue;
+                }
+
+
+            }
+
+            return maxValue;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {
