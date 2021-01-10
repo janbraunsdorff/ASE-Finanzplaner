@@ -36,7 +36,7 @@ public class BankService implements BankApplication {
         int amount = 0;
         try {
             Set<String> accounts = this.accountRepo.getAccountNamesOfBankByBankAcronym(b.getAcronym());
-            amount = this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.MAX, accounts);
+            amount = this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now(), accounts);
             size = accounts.size();
         } catch (BankNotFoundException ignored) {
         }

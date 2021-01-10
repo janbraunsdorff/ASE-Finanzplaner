@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface TransactionSpringRepository extends CrudRepository<TransactionDatabaseEntity, String> {
 
-    @Query(value = "SELECT * FROM transaction_database_entity WHERE transaction_date <= ?1 AND  transaction_date >= ?2  AND account_acronym  IN ?3 ORDER BY transaction_date", nativeQuery = true)
+    @Query(value = "SELECT * FROM transaction_database_entity WHERE transaction_date >= ?1 AND  transaction_date <= ?2  AND account_acronym  IN ?3 ORDER BY transaction_date", nativeQuery = true)
     List<TransactionDatabaseEntity> findInInterval(LocalDate x1, LocalDate x2, Collection<String> x3);
 
 

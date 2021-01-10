@@ -83,7 +83,7 @@ public class AccountServiceCrud implements AccountApplication {
         LocalDate startInterval = LocalDate.now().minusMonths(command.month());
         List<Value> values = new ArrayList<>();
 
-        List<Transaction> transactions = transactionRepo.getTransactionOfAccount(Arrays.asList(command.accountAcronym()), LocalDate.MIN, LocalDate.MAX);
+        List<Transaction> transactions = transactionRepo.getTransactionOfAccount(Arrays.asList(command.accountAcronym()), LocalDate.of(0, 1, 1), LocalDate.now());
 
         LocalDate finalStartInterval = startInterval;
         int startAccountValue = transactions.stream()
@@ -179,8 +179,8 @@ public class AccountServiceCrud implements AccountApplication {
         try {
             var accountByAcronym = this.accountRepo.getAccountByAcronym(query.accountAcronym());
             var value = this.transactionRepo.getValueOfAccount(query.accountAcronym());
-            var last7 =  this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(8), Set.of(query.accountAcronym()));
-            var last30 =  this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(31), Set.of(query.accountAcronym()));
+            var last7 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(8), Set.of(query.accountAcronym()));
+            var last30 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(31), Set.of(query.accountAcronym()));
             var max = this.transactionRepo.getMaxValueOfAccount(query.accountAcronym());
             var lastPostingDate = this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).get(0).getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
@@ -206,10 +206,10 @@ public class AccountServiceCrud implements AccountApplication {
     private List<Integer> getCourse(String accountAcronym, int days) {
         List<Integer> values = new ArrayList<>();
         for (int i = 0; i < days/10; i++){
-           values.add(this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
+           values.add(this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
         }
 
-        values.add(this.transactionRepo.getValueOfAccount(LocalDate.MIN, LocalDate.now(), Set.of(accountAcronym)));
+        values.add(this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now(), Set.of(accountAcronym)));
 
         return values;
     }
