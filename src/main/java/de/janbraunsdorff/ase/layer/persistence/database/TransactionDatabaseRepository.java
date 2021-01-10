@@ -48,9 +48,9 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getTransactionOfAccount(String id, int count) {
-        return this.repo.findByAccountAcronym(id)
+        Pageable topTen = PageRequest.of(0, count);
+        return this.repo.findByAccountAcronymOrderByDateDesc(id, topTen)
                 .stream()
-                .limit(count)
                 .map(TransactionDatabaseEntity::toDomain)
                 .collect(Collectors.toList());
     }

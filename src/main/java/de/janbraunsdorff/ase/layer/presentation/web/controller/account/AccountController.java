@@ -37,7 +37,6 @@ public class AccountController {
         for (BankDTO b : bankDTOS) {
             var accountDetails = new ArrayList<AccountDetailDTO>();
             this.accountService.getAccountsOfBank(new AccountGetQuery(b.acronym())).forEach(t -> {
-                System.out.println(t.getAcronym());
                 accountDetails.add(this.accountService.getAccountDetail(new AccountGetDetailQuery(t.getAcronym())));
             });
 

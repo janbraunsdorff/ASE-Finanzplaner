@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface TransactionSpringRepository extends CrudRepository<TransactionD
     List<TransactionDatabaseEntity> findByAccountAcronym(String id);
     Page<TransactionDatabaseEntity> findAllByOrderByDateDesc(Pageable topTen);
 
+    List<TransactionDatabaseEntity> findByAccountAcronymOrderByDateDesc(String id, Pageable topTen);
 }
