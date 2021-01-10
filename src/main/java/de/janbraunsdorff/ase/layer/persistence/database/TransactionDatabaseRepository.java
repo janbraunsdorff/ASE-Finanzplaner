@@ -4,10 +4,11 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-import de.janbraunsdorff.ase.layer.persistence.json.transaction.TransactionJsonEntity;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -29,7 +30,9 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
-        return this.repo.findByDateBetweenAndAccountAcronymInOrderByDateDesc(start, end, accountAcronyms)
+        ArrayList<String> x3 = new ArrayList<>(accountAcronyms);
+        List<TransactionDatabaseEntity> byDateBetweenAndAccountAcronymInOrderByDateDesc = this.repo.findInInterval(start, end, x3);
+        return byDateBetweenAndAccountAcronymInOrderByDateDesc
                 .stream()
                 .map(TransactionDatabaseEntity::getValue)
                 .reduce(0, Integer::sum);
@@ -59,10 +62,11 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end) {
-        return this.repo.findByDateBetweenAndAccountAcronymInOrderByDateDesc(start, end, account)
+        List<Transaction> collect = this.repo.findInInterval(start, end, account)
                 .stream()
                 .map(TransactionDatabaseEntity::toDomain)
                 .collect(Collectors.toList());
+        return collect;
     }
 
     @Override
@@ -77,7 +81,11 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getLastTransactions(int number) {
-        return this.repo.findAllByOrderByDateDesc().stream().map(TransactionDatabaseEntity::toDomain).collect(Collectors.toList());
+        Pageable topTen = PageRequest.of(0, number);
+        return this.repo.findAllByOrderByDateDesc(topTen)
+                .stream()
+                .map(TransactionDatabaseEntity::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override

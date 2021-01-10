@@ -37,7 +37,7 @@ public class AccountDatabaseRepository  implements AccountRepository {
 
     @Override
     public Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException {
-        return this.getAccountsOfBankByBankAcronym(bank).stream().map(Account::getName).collect(Collectors.toSet());
+        return this.getAccountsOfBankByBankAcronym(bank).stream().map(Account::getAcronym).collect(Collectors.toSet());
     }
 
     @Override

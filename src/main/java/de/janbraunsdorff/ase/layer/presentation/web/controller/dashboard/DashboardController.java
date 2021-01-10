@@ -43,7 +43,8 @@ public class DashboardController {
         Value deposit = new Value(0);
         Value bar = new Value(0);
 
-        for (BankDTO bank : this.bankApplication.get()) {
+        List<BankDTO> bankDTOS = this.bankApplication.get();
+        for (BankDTO bank : bankDTOS) {
             switch (bank.type()) {
                 case None -> bar = bar.add(bank.value());
                 case Retail -> account = account.add(bank.value());
