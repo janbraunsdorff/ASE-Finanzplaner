@@ -9,6 +9,7 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankService;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
+import de.janbraunsdorff.ase.layer.persistence.database.*;
 import de.janbraunsdorff.ase.layer.persistence.json.account.AccountJsonRepository;
 import de.janbraunsdorff.ase.layer.persistence.json.bank.BankJsonRepository;
 import de.janbraunsdorff.ase.layer.persistence.json.transaction.TransactionJsonRepository;
@@ -19,6 +20,10 @@ import org.springframework.context.annotation.Configuration;
 public class BeanApplication {
     private final String repoBasePath = "/Users/janbraunsdorff/ASE-Finanzplaner/";
 
+    /*
+    //--------------------------
+    // Json Repo
+    //--------------------------
     @Bean
     public BankRepository createBankRepository(){
         return new BankJsonRepository(repoBasePath);
@@ -33,7 +38,30 @@ public class BeanApplication {
     public TransactionRepository createTransactionRepository(){
         return new TransactionJsonRepository(repoBasePath);
     }
+     */
 
+    //--------------------------
+    // DB Repo
+    //--------------------------
+    @Bean
+    public BankRepository createBankRepository(BankSpringRepository repo){
+        return new BankDatabaseRepository(repo);
+    }
+
+    @Bean
+    public AccountRepository createAccountRepository(AccountSpringRepository repo){
+        return new AccountDatabaseRepository(repo);
+    }
+
+    @Bean
+    public TransactionRepository createTransactionRepository(TransactionSpringRepository repo){
+        return new TransactionDatabaseRepository(repo);
+    }
+
+
+    //--------------------------
+    // Domain
+    //--------------------------
     @Bean
     public BankApplication createBankApplication(BankRepository br, AccountRepository ar, TransactionRepository tr){
         return new BankService(br, ar, tr);
@@ -48,4 +76,5 @@ public class BeanApplication {
     public TransactionApplication createTransactionApplication(AccountRepository ar, TransactionRepository tr){
         return new TransactionService(tr, ar);
     }
+
 }

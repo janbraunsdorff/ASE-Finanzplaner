@@ -14,6 +14,6 @@ public interface TransactionSpringRepository extends CrudRepository<TransactionD
     long countByAccountAcronym(String x1);
 
     List<TransactionDatabaseEntity> findByAccountAcronym(String id);
-    List<TransactionDatabaseEntity> findAllOrOrderByDateDesc();
+    List<TransactionDatabaseEntity> findAllByOrderByDateDesc();
 
 }

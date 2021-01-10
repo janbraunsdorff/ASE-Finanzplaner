@@ -77,7 +77,7 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getLastTransactions(int number) {
-        return this.repo.findAllOrOrderByDateDesc().stream().map(TransactionDatabaseEntity::toDomain).collect(Collectors.toList());
+        return this.repo.findAllByOrderByDateDesc().stream().map(TransactionDatabaseEntity::toDomain).collect(Collectors.toList());
     }
 
     @Override
