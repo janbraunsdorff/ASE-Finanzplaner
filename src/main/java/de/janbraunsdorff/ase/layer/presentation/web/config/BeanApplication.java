@@ -68,8 +68,8 @@ public class BeanApplication {
     }
 
      @Bean
-     public AccountAnalyticsApplication createAccountAnalyticApplication(BankRepository br, AccountRepository ar, TransactionRepository tr, AccountIOApplication ioA){
-        return new AccountAnalytics(ar, tr, br, ioA);
+     public AccountAnalyticsApplication createAccountAnalyticApplication(AccountRepository ar, TransactionRepository tr, AccountIOApplication ioA){
+        return new AccountAnalytics(ar, tr, ioA);
     }
 
     @Bean

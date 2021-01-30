@@ -6,7 +6,6 @@ import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.command.AccountCategorizeMonthCommand;
 import de.janbraunsdorff.ase.layer.domain.account.command.AccountCourseCommand;
 import de.janbraunsdorff.ase.layer.domain.account.command.BankCourseCommand;
-import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDetailDTO;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountMonthDTO;
@@ -15,7 +14,6 @@ import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetQuery;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -27,10 +25,8 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
     private final AccountRepository accountRepo;
     private final TransactionRepository transactionRepo;
     private final AccountIOApplication io;
-    private final BankRepository bankRepo;
 
-    public AccountAnalytics(AccountRepository repo, TransactionRepository transactionRepo, BankRepository bankRepo, AccountIOApplication io) {
-        this.bankRepo = bankRepo;
+    public AccountAnalytics(AccountRepository repo, TransactionRepository transactionRepo, AccountIOApplication io) {
         this.accountRepo = repo;
         this.transactionRepo = transactionRepo;
         this.io = io;
