@@ -69,8 +69,8 @@ public class DashboardController {
     public List<ResponseDashboardCourse> course() throws BankNotFoundException, AccountNotFoundException {
 
         List<Value>[] typeValues = new List[2];
-        typeValues[0] = new ArrayList<Value>();
-        typeValues[1] = new ArrayList<Value>();
+        typeValues[0] = getZeroList(12);
+        typeValues[1] = getZeroList(12);
 
         for (BankDTO bank : this.bankApplication.get()) {
             if (bank.type().equals(BankType.None)) {
@@ -78,9 +78,17 @@ public class DashboardController {
             }
 
             if (bank.type().equals(BankType.Investment)){
-                typeValues[1] = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                for (int i = 0; i < course.size(); i++) {
+                    Value v = course.get(i);
+                    typeValues[1].add(i, typeValues[1].get(i).add(v));
+                }
             }else if (bank.type().equals(BankType.Retail)) {
-                typeValues[0] = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                for (int i = 0; i < course.size(); i++) {
+                    Value v = course.get(i);
+                    typeValues[0].add(i, typeValues[0].get(i).add(v));
+                }
             }
 
         }
@@ -132,6 +140,16 @@ public class DashboardController {
                         mapping.get(t.getAccount()),
                         t.getCategory()))
                 .collect(Collectors.toList());
+    }
+
+    private List<Value> getZeroList(int count){
+        ArrayList<Value> values = new ArrayList<>();
+
+        for (int i = 0; i <count; i++) {
+            values.add(new Value(0));
+        }
+
+        return values;
     }
 
 }

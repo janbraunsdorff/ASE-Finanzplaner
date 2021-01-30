@@ -25,7 +25,6 @@ public abstract class ApplicationBase {
     protected BankApplication bankApplication;
     protected TransactionApplication transactionApplication;
 
-
     protected void intMemoryRepository() {
         this.bankRepository = new BankMemoryRepository();
         this.accountRepository = new AccountMemoryRepository();
@@ -44,4 +43,9 @@ public abstract class ApplicationBase {
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);
     }
 
+    protected void initWithSpring(BankApplication bankApp, AccountApplication accountApp, TransactionApplication transactionApp) {
+        this.bankApplication = bankApp;
+        this.accountApplication = accountApp;
+        this.transactionApplication = transactionApp;
+    }
 }

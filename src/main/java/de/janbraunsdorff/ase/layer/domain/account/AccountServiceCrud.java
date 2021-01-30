@@ -182,7 +182,10 @@ public class AccountServiceCrud implements AccountApplication {
             var last7 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(8), Set.of(query.accountAcronym()));
             var last30 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(31), Set.of(query.accountAcronym()));
             var max = this.transactionRepo.getMaxValueOfAccount(query.accountAcronym());
-            var lastPostingDate = this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).get(0).getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            var lastPostingDate = "01.01.0001";
+            if (!this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).isEmpty()){
+                lastPostingDate = this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).get(0).getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            }
 
 
             return new AccountDetailDTO(

@@ -45,7 +45,9 @@ public class TransactionToPdfAction implements UseCase {
                 .build();
 
         Path uri = doc.saveTo(name);
-        Desktop.getDesktop().browse(uri.toUri());
+        if (Desktop.isDesktopSupported()){
+            Desktop.getDesktop().browse(uri.toUri());
+        }
 
         return new TransactionToPdfResult(uri.toAbsolutePath().toString());
     }
