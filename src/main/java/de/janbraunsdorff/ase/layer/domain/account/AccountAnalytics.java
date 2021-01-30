@@ -11,7 +11,6 @@ import de.janbraunsdorff.ase.layer.domain.account.data.AccountDetailDTO;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountMonthDTO;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetDetailQuery;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetQuery;
-import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 

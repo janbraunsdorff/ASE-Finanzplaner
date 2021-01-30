@@ -10,12 +10,12 @@ public class AccountDTO {
     private final Value value;
     private final String bankName;
 
-    public AccountDTO(String name, String bankNumber, Integer numberOfTransaction, String acronym, Value value, String bankName) {
-        this.name = name;
-        this.accountNumber = bankNumber;
-        this.numberOfTransaction = numberOfTransaction;
-        this.acronym = acronym;
-        this.value = value;
+    public AccountDTO(Account a, int numberOfAccounts, int valueOfAccount, String bankName){
+        this.name = a.getName();
+        this.accountNumber = a.getNumber();
+        this.numberOfTransaction = numberOfAccounts;
+        this.acronym = a.getAcronym();
+        this.value = new Value(valueOfAccount);
         this.bankName = bankName;
     }
 

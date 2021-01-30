@@ -2,13 +2,11 @@ package de.janbraunsdorff.ase.layer.domain.account;
 
 
 import de.janbraunsdorff.ase.layer.domain.*;
-import de.janbraunsdorff.ase.layer.domain.account.command.*;
+import de.janbraunsdorff.ase.layer.domain.account.command.AccountCreateCommand;
+import de.janbraunsdorff.ase.layer.domain.account.command.AccountDeleteCommand;
 import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
-import de.janbraunsdorff.ase.layer.domain.account.data.AccountDetailDTO;
-import de.janbraunsdorff.ase.layer.domain.account.data.AccountMonthDTO;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetByAcronymQuery;
-import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetDetailQuery;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetQuery;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountsGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
@@ -17,11 +15,8 @@ import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountIO implements AccountIOApplication {
     private final AccountRepository accountRepo;
@@ -36,35 +31,24 @@ public class AccountIO implements AccountIOApplication {
 
     public List<AccountDTO> getAccount(AccountsGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
         List<AccountDTO> accounts = new ArrayList<>();
-        for (String s : query.acronym()) {
-            AccountDTO account = getAccount(s);
+        for (String acronym : query.acronym()) {
+            AccountDTO account = this.getAccount(acronym);
             accounts.add(account);
         }
         return accounts;
-
     }
 
     @Override
     public AccountDTO getAccount(AccountGetByAcronymQuery query) throws AccountNotFoundException, BankNotFoundException {
-        return getAccount(query.acronym());
+        return this.getAccount(query.acronym());
     }
 
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
         checkIfBankExists(query.bankAcronym());
-        List<AccountDTO> collect = this.accountRepo.getAccountsOfBankByBankAcronym(query.bankAcronym()).stream().map(a -> {
-            int amount = -1;
-            String bankName = "nicht bekannt";
-            try {
-                amount = Math.toIntExact(transactionRepo.count(a.getAcronym()));
-                bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
-            } catch (BankNotFoundException ignored) {
-
-            }
-            return new AccountDTO(a.getName(), a.getNumber(), amount, a.getAcronym(), new Value(transactionRepo.getValueOfAccount(a.getAcronym())), bankName);
-        }).collect(Collectors.toList());
-
-        if (collect.isEmpty()) {
-            collect.add(new AccountDTO("---", "---", 0, "---", new Value(0), query.bankAcronym()));
+        var accounts = this.accountRepo.getAccountsOfBankByBankAcronym(query.bankAcronym());
+        var collect = new ArrayList<AccountDTO>();
+        for (Account account : accounts) {
+            collect.add(this.getAccount(account));
         }
         return collect;
     }
@@ -77,7 +61,7 @@ public class AccountIO implements AccountIOApplication {
         Bank bank = checkIfBankExists(command.bank());
         Account account = new Account(command.bank(), command.name(), command.number(), command.acronym());
         this.accountRepo.createAccount(account);
-        return new AccountDTO(account.getName(), account.getNumber(), 0, account.getAcronym(), new Value(0), bank.getName());
+        return new AccountDTO(account, 0, 0, bank.getName());
     }
 
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
@@ -88,18 +72,15 @@ public class AccountIO implements AccountIOApplication {
     }
 
     @NotNull
-    private AccountDTO getAccount(String s) throws AccountNotFoundException, BankNotFoundException {
-        Account a = this.accountRepo.getAccountByAcronym(s);
-        int amount = Math.toIntExact(transactionRepo.count(a.getAcronym()));
-        String bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
-        return new AccountDTO(
-                a.getName(),
-                a.getNumber(),
-                amount,
-                a.getAcronym(),
-                new Value(transactionRepo.getValueOfAccount(a.getAcronym())),
-                bankName
-        );
+    private AccountDTO getAccount(String acronym) throws AccountNotFoundException, BankNotFoundException {
+        Account a = this.accountRepo.getAccountByAcronym(acronym);
+        return this.getAccount(a);
     }
 
+    @NotNull
+    private AccountDTO getAccount(Account a) throws BankNotFoundException {
+        int numberOfTransactions = Math.toIntExact(transactionRepo.count(a.getAcronym()));
+        String bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
+        return new AccountDTO(a, numberOfTransactions, transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
+    }
 }
