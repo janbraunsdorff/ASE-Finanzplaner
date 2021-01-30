@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface AccountAnalyticsApplication {
-    List<Value> getCourseOfTheLastMonths(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException;
+    List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException;
     AccountMonthDTO getMonth(AccountCategorizeMonthCommand command);
     HashMap<String, String> getAcronymToNameMapping();
     AccountDetailDTO getAccountDetail(AccountGetDetailQuery query);

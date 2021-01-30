@@ -49,7 +49,7 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
     }
 
     @Override
-    public List<Value> getCourseOfTheLastMonths(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException {
+    public List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException {
         String[] accountAcronyms = this.io.getAccountsOfBank(new AccountGetQuery(command.bankAcronym())).stream().map(AccountDTO::getAcronym).toArray(String[]::new);
         return this.getCourseOfOneMonth(new AccountCourseCommand(command.month(), accountAcronyms));
 

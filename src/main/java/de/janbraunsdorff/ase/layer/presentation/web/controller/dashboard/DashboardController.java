@@ -43,14 +43,12 @@ public class DashboardController {
         Value deposit = new Value(0);
         Value bar = new Value(0);
 
-        List<BankDTO> bankDTOS = this.bankApplication.get();
-        for (BankDTO bank : bankDTOS) {
+        for (BankDTO bank : this.bankApplication.get()) {
             switch (bank.type()) {
                 case None -> bar = bar.add(bank.value());
                 case Retail -> account = account.add(bank.value());
                 case Investment -> deposit = deposit.add(bank.value());
             }
-
             total = total.add(bank.value());
         }
 
@@ -73,22 +71,15 @@ public class DashboardController {
         typeValues[1] = getZeroList(12);
 
         for (BankDTO bank : this.bankApplication.get()) {
-            if (bank.type().equals(BankType.None)) {
+            if (bank.type().equals(BankType.None)){
                 continue;
             }
 
-            if (bank.type().equals(BankType.Investment)){
-                List<Value> course = accountAnalytics.getCourseOfTheLastMonths(new BankCourseCommand(12, bank.acronym()));
-                for (int i = 0; i < course.size(); i++) {
-                    Value v = course.get(i);
-                    typeValues[1].add(i, typeValues[1].get(i).add(v));
-                }
-            }else if (bank.type().equals(BankType.Retail)) {
-                List<Value> course = accountAnalytics.getCourseOfTheLastMonths(new BankCourseCommand(12, bank.acronym()));
-                for (int i = 0; i < course.size(); i++) {
-                    Value v = course.get(i);
-                    typeValues[0].add(i, typeValues[0].get(i).add(v));
-                }
+            List<Value> course = accountAnalytics.getCourse(new BankCourseCommand(12, bank.acronym()));
+            var index = bank.type().equals(BankType.Retail) ? 0 : 1;
+            for (int i = 0; i < course.size(); i++) {
+                Value v = course.get(i);
+                typeValues[index].add(i, typeValues[index].get(i).add(v));
             }
 
         }
@@ -99,8 +90,6 @@ public class DashboardController {
         }
 
         return course;
-
-
     }
 
     @GetMapping("month")
