@@ -57,7 +57,9 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
 
     @Override
     public AccountMonthDTO getMonth(AccountCategorizeMonthCommand command) {
-        List<Transaction> transactions = this.transactionRepo.getTransactions(LocalDate.of(command.month().getYear(), command.month().getMonth(), 1), LocalDate.of(command.month().getYear(), command.month().getMonth(), command.month().lengthOfMonth()));
+        LocalDate start = LocalDate.of(command.month().getYear(), command.month().getMonth(), 1);
+        LocalDate end = LocalDate.of(command.month().getYear(), command.month().getMonth(), command.month().lengthOfMonth());
+        List<Transaction> transactions = this.transactionRepo.getTransactions(start, end);
 
         Value totalIncome = new Value(0);
         Value totalIncomeSalary = new Value(0);
@@ -121,8 +123,8 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
         try {
             var accountByAcronym = this.accountRepo.getAccountByAcronym(query.accountAcronym());
             var value = this.transactionRepo.getValueOfAccount(query.accountAcronym());
-            var last7 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(8), Set.of(query.accountAcronym()));
-            var last30 =  this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(31), Set.of(query.accountAcronym()));
+            var last7 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(7), Set.of(query.accountAcronym()));
+            var last30 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(30), Set.of(query.accountAcronym()));
             var max = this.transactionRepo.getMaxValueOfAccount(query.accountAcronym());
             var lastPostingDate = "01.01.0001";
             if (!this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).isEmpty()){
