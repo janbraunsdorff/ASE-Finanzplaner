@@ -23,12 +23,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AccountServiceCrud implements AccountApplication {
+public class AccountIO implements AccountIOApplication {
     private final AccountRepository accountRepo;
     private final TransactionRepository transactionRepo;
     private final BankRepository bankRepo;
 
-    public AccountServiceCrud(AccountRepository repo, TransactionRepository transactionRepo, BankRepository bankRepo) {
+    public AccountIO(AccountRepository repo, TransactionRepository transactionRepo, BankRepository bankRepo) {
         this.bankRepo = bankRepo;
         this.accountRepo = repo;
         this.transactionRepo = transactionRepo;

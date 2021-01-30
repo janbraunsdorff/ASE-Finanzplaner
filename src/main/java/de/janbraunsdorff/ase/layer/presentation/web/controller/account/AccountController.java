@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.web.controller.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDetailDTO;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetDetailQuery;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetQuery;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @RequestMapping("account")
 public class AccountController {
 
-    private final AccountApplication accountService;
+    private final AccountIOApplication accountService;
     private final BankApplication bankService;
 
-    public AccountController(AccountApplication accountService, BankApplication bankService) {
+    public AccountController(AccountIOApplication accountService, BankApplication bankService) {
         this.accountService = accountService;
         this.bankService = bankService;
     }

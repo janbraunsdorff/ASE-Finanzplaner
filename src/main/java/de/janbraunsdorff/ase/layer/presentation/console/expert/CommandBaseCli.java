@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
@@ -19,7 +19,7 @@ public class CommandBaseCli {
     private final DistributorAction controller;
     private final Printer printer;
 
-    public CommandBaseCli(BankApplication bankApplication, AccountApplication accountApplication, TransactionApplication transactionApplication) {
+    public CommandBaseCli(BankApplication bankApplication, AccountIOApplication accountApplication, TransactionApplication transactionApplication) {
         this.printer = new Printer();
         DistributorUseCase bankDistributor = new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankApplication))

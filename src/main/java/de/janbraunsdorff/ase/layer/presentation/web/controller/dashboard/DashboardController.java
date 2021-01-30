@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 public class DashboardController {
 
     private final BankApplication bankApplication;
-    private final AccountApplication accountApplication;
+    private final AccountIOApplication accountApplication;
     private final TransactionApplication transactionApplication;
 
-    public DashboardController(BankApplication bankApplication, AccountApplication accountApplication, TransactionApplication transactionApplication) {
+    public DashboardController(BankApplication bankApplication, AccountIOApplication accountApplication, TransactionApplication transactionApplication) {
         this.bankApplication = bankApplication;
         this.accountApplication = accountApplication;
         this.transactionApplication = transactionApplication;

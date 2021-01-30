@@ -13,7 +13,7 @@ import de.janbraunsdorff.ase.layer.domain.account.querry.AccountsGetByAcronymQue
 import java.util.HashMap;
 import java.util.List;
 
-public interface AccountApplication {
+public interface AccountIOApplication {
     List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException, AccountNotFoundException;
 
     AccountDTO createAccountByAcronym(AccountCreateCommand command) throws BankNotFoundException, AcronymAlreadyExistsException;

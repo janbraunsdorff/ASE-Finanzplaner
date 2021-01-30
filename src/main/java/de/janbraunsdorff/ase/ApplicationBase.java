@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.account.AccountServiceCrud;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.bank.BankService;
@@ -21,7 +21,7 @@ public abstract class ApplicationBase {
     private AccountRepository accountRepository;
     private TransactionRepository transactionRepository;
 
-    protected AccountApplication accountApplication;
+    protected AccountIOApplication accountApplication;
     protected BankApplication bankApplication;
     protected TransactionApplication transactionApplication;
 
@@ -38,12 +38,12 @@ public abstract class ApplicationBase {
     }
 
     protected void initDomain() {
-        this.accountApplication = new AccountServiceCrud(this.accountRepository, this.transactionRepository, this.bankRepository);
+        this.accountApplication = new AccountIO(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);
     }
 
-    protected void initWithSpring(BankApplication bankApp, AccountApplication accountApp, TransactionApplication transactionApp) {
+    protected void initWithSpring(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp) {
         this.bankApplication = bankApp;
         this.accountApplication = accountApp;
         this.transactionApplication = transactionApp;

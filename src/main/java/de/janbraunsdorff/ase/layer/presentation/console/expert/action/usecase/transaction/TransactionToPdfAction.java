@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.PdfDocument;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.PdfDocumentBuilder;
@@ -17,9 +17,9 @@ import java.time.format.DateTimeFormatter;
 public class TransactionToPdfAction implements UseCase {
 
     private final TransactionApplication service;
-    private final AccountApplication accountService;
+    private final AccountIOApplication accountService;
 
-    public TransactionToPdfAction(TransactionApplication service, AccountApplication accountService) {
+    public TransactionToPdfAction(TransactionApplication service, AccountIOApplication accountService) {
         this.service = service;
         this.accountService = accountService;
     }

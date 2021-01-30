@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountsGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
@@ -31,7 +31,7 @@ public class MonthSummary extends PdfChapter {
     private final PdfPage course;
 
 
-    public MonthSummary(List<String> accounts, LocalDate start, LocalDate end, TransactionApplication service, AccountApplication accountService) throws AccountNotFoundException, BankNotFoundException {
+    public MonthSummary(List<String> accounts, LocalDate start, LocalDate end, TransactionApplication service, AccountIOApplication accountService) throws AccountNotFoundException, BankNotFoundException {
         super(service);
         List<TransactionDTO> transactions = getTransactionInInterval(start, end, accounts);
         Value startValue = getStartValue(start, accounts);

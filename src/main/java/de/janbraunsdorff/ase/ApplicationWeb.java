@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +16,7 @@ public class ApplicationWeb {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(AccountApplication accountApplication, BankApplication bankApplication, TransactionApplication transactionApplication) {
+    public CommandLineRunner commandLineRunner(AccountIOApplication accountApplication, BankApplication bankApplication, TransactionApplication transactionApplication) {
         return args -> {
             new ApplicationConsoleBuilder()
                     .initWithSpringBeans(bankApplication, accountApplication, transactionApplication)

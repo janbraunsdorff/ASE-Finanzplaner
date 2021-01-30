@@ -2,7 +2,7 @@ package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.posting;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.AccountApplication;
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetByAcronymQuery;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class PostingItemsPages implements PdfPart {
     private final static int ITEMS_PER_SITE = 25;
     private final List<TransactionDTO> transactions;
-    private final AccountApplication accountService;
+    private final AccountIOApplication accountService;
 
-    public PostingItemsPages(List<TransactionDTO> transactions, AccountApplication accountService) {
+    public PostingItemsPages(List<TransactionDTO> transactions, AccountIOApplication accountService) {
         this.transactions = transactions;
         this.accountService = accountService;
     }
