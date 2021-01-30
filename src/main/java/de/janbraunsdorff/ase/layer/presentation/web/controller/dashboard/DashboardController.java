@@ -78,13 +78,13 @@ public class DashboardController {
             }
 
             if (bank.type().equals(BankType.Investment)){
-                List<Value> course = accountAnalytics.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountAnalytics.getCourseOfTheLastMonths(new BankCourseCommand(12, bank.acronym()));
                 for (int i = 0; i < course.size(); i++) {
                     Value v = course.get(i);
                     typeValues[1].add(i, typeValues[1].get(i).add(v));
                 }
             }else if (bank.type().equals(BankType.Retail)) {
-                List<Value> course = accountAnalytics.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountAnalytics.getCourseOfTheLastMonths(new BankCourseCommand(12, bank.acronym()));
                 for (int i = 0; i < course.size(); i++) {
                     Value v = course.get(i);
                     typeValues[0].add(i, typeValues[0].get(i).add(v));

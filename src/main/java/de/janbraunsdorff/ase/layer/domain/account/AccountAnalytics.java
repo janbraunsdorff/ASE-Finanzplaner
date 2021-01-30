@@ -21,6 +21,8 @@ import java.util.*;
 
 public class AccountAnalytics implements AccountAnalyticsApplication{
 
+    private final static LocalDate MIN_DATE = LocalDate.of(0,1,1);
+
     private final AccountRepository accountRepo;
     private final TransactionRepository transactionRepo;
     private final AccountIOApplication io;
@@ -31,27 +33,14 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
         this.io = io;
     }
 
-    @Override
-    public List<Value> getCourse(AccountCourseCommand command) {
+    private List<Value> getCourseOfOneMonth(AccountCourseCommand command) {
         LocalDate startInterval = LocalDate.now().minusMonths(command.month());
         List<Value> values = new ArrayList<>();
 
-        List<Transaction> transactions = transactionRepo.getTransactionOfAccount(Arrays.asList(command.accountAcronym()), LocalDate.of(0, 1, 1), LocalDate.now());
-
-        LocalDate finalStartInterval = startInterval;
-        int startAccountValue = transactions.stream()
-                .filter(a -> a.getDate().isBefore(finalStartInterval.plusDays(1)))
-                .map(Transaction::getValue)
-                .reduce(0, Integer::sum);
-
+        var startAccountValue = transactionRepo.getValueOfAccount(MIN_DATE, startInterval, Set.of(command.accountAcronym()));
 
         for (int i = 0; i < command.month(); i++) {
-            LocalDate finalStartInterval1 = startInterval;
-            startAccountValue = transactions.stream()
-                    .filter(a -> a.getDate().isAfter(finalStartInterval1) && a.getDate().isBefore(finalStartInterval1.plusMonths(1).plusDays(1)))
-                    .map(Transaction::getValue)
-                    .reduce(0, Integer::sum) + startAccountValue;
-
+            startAccountValue += transactionRepo.getValueOfAccount(startInterval, startInterval.plusMonths(1), Set.of(command.accountAcronym()));
             values.add(new Value(startAccountValue));
             startInterval = startInterval.plusMonths(1);
         }
@@ -60,9 +49,9 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
     }
 
     @Override
-    public List<Value> getCourse(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException {
+    public List<Value> getCourseOfTheLastMonths(BankCourseCommand command) throws BankNotFoundException, AccountNotFoundException {
         String[] accountAcronyms = this.io.getAccountsOfBank(new AccountGetQuery(command.bankAcronym())).stream().map(AccountDTO::getAcronym).toArray(String[]::new);
-        return this.getCourse(new AccountCourseCommand(command.month(), accountAcronyms));
+        return this.getCourseOfOneMonth(new AccountCourseCommand(command.month(), accountAcronyms));
 
     }
 
@@ -149,7 +138,7 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
                     getPercent(last30, value),
                     new Value(max).getFormatted(),
                     lastPostingDate,
-                    getCourse(query.accountAcronym(), 365)
+                    getCourseOfOneMonth(query.accountAcronym(), 365)
             );
 
         } catch (AccountNotFoundException e) {
@@ -159,13 +148,13 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
         return null;
     }
 
-    private List<Integer> getCourse(String accountAcronym, int days) {
+    private List<Integer> getCourseOfOneMonth(String accountAcronym, int days) {
         List<Integer> values = new ArrayList<>();
         for (int i = 0; i < days/10; i++){
-            values.add(this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
+            values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
         }
 
-        values.add(this.transactionRepo.getValueOfAccount(LocalDate.of(0,1,1), LocalDate.now(), Set.of(accountAcronym)));
+        values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now(), Set.of(accountAcronym)));
 
         return values;
     }
