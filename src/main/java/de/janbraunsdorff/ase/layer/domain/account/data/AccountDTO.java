@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.domain.account;
+package de.janbraunsdorff.ase.layer.domain.account.data;
 
 import de.janbraunsdorff.ase.layer.domain.Value;
 

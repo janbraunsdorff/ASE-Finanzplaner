@@ -3,7 +3,7 @@ package de.janbraunsdorff.ase.layer.persistence.database;
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 import java.util.List;

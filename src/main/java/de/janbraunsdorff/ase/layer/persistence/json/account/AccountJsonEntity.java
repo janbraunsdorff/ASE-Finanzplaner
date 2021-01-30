@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.json.account;
 
 import com.google.gson.annotations.SerializedName;
-import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 
 public class AccountJsonEntity {
     @SerializedName("account_id")

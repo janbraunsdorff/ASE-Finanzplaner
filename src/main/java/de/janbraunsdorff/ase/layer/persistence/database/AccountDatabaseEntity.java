@@ -1,6 +1,6 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
-import de.janbraunsdorff.ase.layer.domain.account.Account;
+import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package de.janbraunsdorff.ase.layer.domain.account;
+package de.janbraunsdorff.ase.layer.domain.account.command;
 
 import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 

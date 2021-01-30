@@ -1,7 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account;
 
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountDTO;
+import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.InformationPrinterInputFactory;
