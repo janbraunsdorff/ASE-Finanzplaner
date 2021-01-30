@@ -1,8 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.web.config;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
-import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.account.AccountIO;
+import de.janbraunsdorff.ase.layer.domain.account.*;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.bank.BankService;
@@ -67,6 +65,11 @@ public class BeanApplication {
     @Bean
     public AccountIOApplication createAccountApplication(BankRepository br, AccountRepository ar, TransactionRepository tr){
         return new AccountIO(ar, tr, br);
+    }
+
+     @Bean
+     public AccountAnalyticsApplication createAccountAnalyticApplication(BankRepository br, AccountRepository ar, TransactionRepository tr, AccountIOApplication ioA){
+        return new AccountAnalytics(ar, tr, br, ioA);
     }
 
     @Bean

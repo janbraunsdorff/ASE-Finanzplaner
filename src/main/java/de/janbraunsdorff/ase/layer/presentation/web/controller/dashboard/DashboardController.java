@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 public class DashboardController {
 
     private final BankApplication bankApplication;
-    private final AccountIOApplication accountApplication;
+    private final AccountAnalyticsApplication accountAnalytics;
     private final TransactionApplication transactionApplication;
 
-    public DashboardController(BankApplication bankApplication, AccountIOApplication accountApplication, TransactionApplication transactionApplication) {
+    public DashboardController(BankApplication bankApplication, AccountAnalyticsApplication accountAnalytics, TransactionApplication transactionApplication) {
         this.bankApplication = bankApplication;
-        this.accountApplication = accountApplication;
+        this.accountAnalytics = accountAnalytics;
         this.transactionApplication = transactionApplication;
     }
 
@@ -78,13 +78,13 @@ public class DashboardController {
             }
 
             if (bank.type().equals(BankType.Investment)){
-                List<Value> course = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountAnalytics.getCourse(new BankCourseCommand(12, bank.acronym()));
                 for (int i = 0; i < course.size(); i++) {
                     Value v = course.get(i);
                     typeValues[1].add(i, typeValues[1].get(i).add(v));
                 }
             }else if (bank.type().equals(BankType.Retail)) {
-                List<Value> course = accountApplication.getCourse(new BankCourseCommand(12, bank.acronym()));
+                List<Value> course = accountAnalytics.getCourse(new BankCourseCommand(12, bank.acronym()));
                 for (int i = 0; i < course.size(); i++) {
                     Value v = course.get(i);
                     typeValues[0].add(i, typeValues[0].get(i).add(v));
@@ -105,7 +105,7 @@ public class DashboardController {
 
     @GetMapping("month")
     public ResponseDashboardMonth month(){
-        AccountMonthDTO month = accountApplication.getMonth(new AccountCategorizeMonthCommand(LocalDate.now()));
+        AccountMonthDTO month = accountAnalytics.getMonth(new AccountCategorizeMonthCommand(LocalDate.now()));
 
         return new ResponseDashboardMonth(
                 month.profit().getFormatted(),
@@ -130,7 +130,7 @@ public class DashboardController {
 
     @GetMapping("last-transactions")
     public List<ResponseDashboardLastTransaction> lastTransactions(){
-        var mapping = accountApplication.getAcronymToNameMapping();
+        var mapping = accountAnalytics.getAcronymToNameMapping();
         return transactionApplication.getLast(new TransactionGetLastQuery(9))
                 .stream()
                 .map(t -> new ResponseDashboardLastTransaction(

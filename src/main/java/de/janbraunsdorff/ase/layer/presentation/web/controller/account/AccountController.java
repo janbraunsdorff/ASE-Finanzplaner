@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase.layer.presentation.web.controller.account;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.account.AccountAnalyticsApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDetailDTO;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetDetailQuery;
@@ -24,10 +25,12 @@ public class AccountController {
 
     private final AccountIOApplication accountService;
     private final BankApplication bankService;
+    private final AccountAnalyticsApplication analyticsApplication;
 
-    public AccountController(AccountIOApplication accountService, BankApplication bankService) {
+    public AccountController(AccountIOApplication accountService, BankApplication bankService, AccountAnalyticsApplication analyticsApplication) {
         this.accountService = accountService;
         this.bankService = bankService;
+        this.analyticsApplication = analyticsApplication;
     }
 
     @GetMapping("overview")
@@ -37,7 +40,7 @@ public class AccountController {
         for (BankDTO b : bankDTOS) {
             var accountDetails = new ArrayList<AccountDetailDTO>();
             this.accountService.getAccountsOfBank(new AccountGetQuery(b.acronym())).forEach(t -> {
-                accountDetails.add(this.accountService.getAccountDetail(new AccountGetDetailQuery(t.getAcronym())));
+                accountDetails.add(this.analyticsApplication.getAccountDetail(new AccountGetDetailQuery(t.getAcronym())));
             });
 
             accountDetails.sort((x, y) -> {
