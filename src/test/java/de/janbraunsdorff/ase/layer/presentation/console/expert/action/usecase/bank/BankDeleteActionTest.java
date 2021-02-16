@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class BankDeleteActionTest {
     @DisplayName("addBank")
     @Test
-    public void addBank() {
+    public void deleteBank() {
         var app = new BankApplicationTestImplementation();
         var action = new BankDeleteAction(app);
         var command = new ExpertCommand("bank delete -a acronym", 2);
@@ -32,7 +32,7 @@ class BankDeleteActionTest {
     @ValueSource(strings = {
             "bank delete",
     })
-    public void missingParameterAddBank(String commandString) throws AcronymAlreadyExistsException {
+    public void missingParameterDeleteBank(String commandString) throws AcronymAlreadyExistsException {
         var app = new BankApplicationTestImplementation();
         var action = new BankDeleteAction(app);
         var command = new ExpertCommand(commandString, 2);
