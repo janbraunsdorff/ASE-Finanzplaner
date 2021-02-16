@@ -4,10 +4,12 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.*;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TransactionApplicationTestImplementation implements TransactionApplication {
     public TransactionCreateCommand transactionCreateCommand;
+    public TransactionGetQuery transactionGetQuery;
 
     @Override
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
@@ -17,7 +19,8 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
 
     @Override
     public List<TransactionDTO> getTransactionsOfMultipleAccounts(TransactionGetQuery query) throws AccountNotFoundException {
-        return null;
+        this.transactionGetQuery = query;
+        return Collections.emptyList();
     }
 
     @Override
