@@ -30,6 +30,6 @@ public class BankApplicationTestImplementation implements BankApplication {
 
     @Override
     public void deleteByAcronym(BankDeleteCommand command) {
-
+        this.acronym = command.acronym();
     }
 }
