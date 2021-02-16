@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
 
+import java.util.Collections;
 import java.util.List;
 
 public class BankApplicationTestImplementation implements BankApplication {
@@ -25,7 +26,7 @@ public class BankApplicationTestImplementation implements BankApplication {
 
     @Override
     public List<BankDTO> get() throws BankNotFoundException {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
