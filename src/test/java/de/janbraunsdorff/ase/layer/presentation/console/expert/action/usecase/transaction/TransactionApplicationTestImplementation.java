@@ -4,12 +4,14 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class TransactionApplicationTestImplementation implements TransactionApplication {
     public TransactionCreateCommand transactionCreateCommand;
     public TransactionGetQuery transactionGetQuery;
+    public TransactionDeleteCommand transactionDeleteCommand;
 
     @Override
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
@@ -29,8 +31,18 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
     }
 
     @Override
-    public List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException {
-        return null;
+    public List<TransactionDTO> deleteTransaction(TransactionDeleteCommand command) throws TransactionNotFoundException {
+        if (command.id()[0].equals("none")){
+            throw new TransactionNotFoundException("none");
+        }
+
+        this.transactionDeleteCommand = command;
+        var  list = new ArrayList<TransactionDTO>();
+        for (String id : command.id()) {
+            list.add(new TransactionDTO(null,null,"", "", false, id, ""));
+        }
+
+        return list;
     }
 
     @Override

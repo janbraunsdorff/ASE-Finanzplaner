@@ -3,12 +3,14 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.t
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDeleteCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionDeleteAction implements UseCase {
 
@@ -20,16 +22,14 @@ public class TransactionDeleteAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        if (!command.areTagsAndValuesPresent("-bankAcronym")){
+        if (!command.areTagsAndValuesPresent("-id")){
             return new TransactionHelpResult();
         }
 
         try {
-            List<TransactionDTO> dto = service.deleteTransaction(command.getParameter("-bankAcronym"));
-            String id = "";
-            if (!dto.isEmpty()){
-                id = dto.get(0).getId();
-            }
+            var cmd = new TransactionDeleteCommand(command.getParameter("-id").split(" "));
+            List<TransactionDTO> dto = service.deleteTransaction(cmd);
+            var id = dto.stream().map(TransactionDTO::getId).collect(Collectors.joining(" | "));
             return new TransactionDeleteResult(id);
 
         } catch (TransactionNotFoundException ex){

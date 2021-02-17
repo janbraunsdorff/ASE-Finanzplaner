@@ -43,9 +43,9 @@ public class TransactionService implements TransactionApplication {
     }
 
     @Override
-    public List<TransactionDTO> deleteTransaction(String... id) throws TransactionNotFoundException {
+    public List<TransactionDTO> deleteTransaction(TransactionDeleteCommand command) throws TransactionNotFoundException {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
-        for (String s : id) {
+        for (String s : command.id()) {
             Optional<Transaction> transaction = this.transactionRepo.deleteTransactionById(s);
             transaction.ifPresent(value -> transactionDTOS.add(new TransactionDTO(value)));
         }
