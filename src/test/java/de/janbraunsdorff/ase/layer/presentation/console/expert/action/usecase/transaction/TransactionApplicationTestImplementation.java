@@ -12,6 +12,7 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
     public TransactionCreateCommand transactionCreateCommand;
     public TransactionGetQuery transactionGetQuery;
     public TransactionDeleteCommand transactionDeleteCommand;
+    public TransactionGroupCommand groupMonthly;
 
     @Override
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
@@ -47,7 +48,8 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
 
     @Override
     public List<TransactionGroupDTO> groupMonthly(TransactionGroupCommand command) {
-        return null;
+        this.groupMonthly = command;
+        return Collections.emptyList();
     }
 
     @Override

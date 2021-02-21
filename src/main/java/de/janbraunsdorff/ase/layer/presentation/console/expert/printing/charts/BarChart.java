@@ -13,7 +13,11 @@ public class BarChart {
 
     public BarChart(ChartData data) {
         this.data = data;
-        this.start = scale(Arrays.stream(this.data.value()).max(Comparator.comparingInt(a -> a)).get(), 100, 10);
+        if(data.value().length == 0) {
+            this.start = 0;
+        }else {
+            this.start = scale(Arrays.stream(this.data.value()).max(Comparator.comparingInt(a -> a)).get(), 100, 10);
+        }
         this.grid = new Grid(data.value().length + 1);
 
         drawScale();
