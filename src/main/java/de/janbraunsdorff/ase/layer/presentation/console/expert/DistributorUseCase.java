@@ -21,14 +21,14 @@ public class DistributorUseCase implements Distributor {
     @Override
     public Result distribute(ExpertCommand command) {
 
-        if (command.getTopLevel() == null) {
+        if (command.getTopLevel().isEmpty()) {
             return this.helpResult;
         }
         String action = command.getSecondLevel();
         try {
             return this.actions.getOrDefault(action, this.defaultAction).act(command);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ErrorResult(e.getMessage());
         }
     }
