@@ -21,6 +21,7 @@ public class AccountIOApplicationTestImplementation implements AccountIOApplicat
     public List<AccountGetByAcronymQuery> accountGetByAcronymQuery;
     public AccountsGetByAcronymQuery accountsGetByAcronymQuery;
     public AccountCreateCommand accountCreateCommand;
+    public AccountGetQuery accountGetQuery;
 
     public AccountIOApplicationTestImplementation() {
         this.accountGetByAcronymQuery = new ArrayList<>();
@@ -28,7 +29,10 @@ public class AccountIOApplicationTestImplementation implements AccountIOApplicat
 
     @Override
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException, AccountNotFoundException {
-        return null;
+        this.accountGetQuery = query;
+        Account a = new Account("bankAc", "name", "", "ac");
+        var aDTO = new AccountDTO(a, 0, 0, "bank");
+        return Collections.singletonList(aDTO);
     }
 
     @Override
