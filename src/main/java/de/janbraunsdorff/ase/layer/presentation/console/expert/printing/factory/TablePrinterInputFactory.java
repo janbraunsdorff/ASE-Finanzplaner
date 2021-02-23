@@ -125,6 +125,6 @@ public class TablePrinterInputFactory extends PrinterInputFactory {
     }
 
     public void addChart(BarChart chart) {
-        this.addText(chart.getPrintable().getStringToPrint());
+        this.addText(chart.getPrintable().output());
     }
 }

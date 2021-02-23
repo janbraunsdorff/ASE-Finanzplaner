@@ -6,7 +6,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 public class Printer {
 
     public void print(Result res) {
-        printList(res.print().getStringToPrint());
+        printList(res.print().output());
     }
 
     private void printList(String s) {
