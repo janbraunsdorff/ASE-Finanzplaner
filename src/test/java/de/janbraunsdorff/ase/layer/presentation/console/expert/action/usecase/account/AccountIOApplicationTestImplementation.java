@@ -22,6 +22,7 @@ public class AccountIOApplicationTestImplementation implements AccountIOApplicat
     public AccountsGetByAcronymQuery accountsGetByAcronymQuery;
     public AccountCreateCommand accountCreateCommand;
     public AccountGetQuery accountGetQuery;
+    public AccountDeleteCommand accountDeleteCommand;
 
     public AccountIOApplicationTestImplementation() {
         this.accountGetByAcronymQuery = new ArrayList<>();
@@ -59,6 +60,7 @@ public class AccountIOApplicationTestImplementation implements AccountIOApplicat
 
     @Override
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
+        this.accountDeleteCommand = command;
 
     }
 }
