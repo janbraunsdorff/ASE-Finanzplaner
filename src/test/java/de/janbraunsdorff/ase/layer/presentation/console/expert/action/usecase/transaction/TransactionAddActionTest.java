@@ -3,6 +3,7 @@ package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.t
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,10 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransactionAddActionTest {
 
+    private TransactionApplicationTestImplementation app;
+    private TransactionAddAction action;
+
+    @BeforeEach
+    public void init(){
+        this.app = new TransactionApplicationTestImplementation();
+        this.action = new TransactionAddAction(app);
+    }
+
     @Test
     public void addTransactionContract() throws Exception {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAddAction(app);
         var command = new ExpertCommand("transaction add -a acronym -val 123,56 -dat 01.01.2020 -thp third party -cat category -con", 2);
 
         Result act = action.act(command);
@@ -37,8 +45,6 @@ class TransactionAddActionTest {
 
     @Test
     public void addTransactionNoneContract() throws Exception {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAddAction(app);
         var command = new ExpertCommand("transaction add -a acronym -val 123,56 -dat 01.01.2020 -thp third party -cat category", 2);
 
         Result act = action.act(command);
@@ -64,9 +70,6 @@ class TransactionAddActionTest {
             "transaction add -val 123,56 -dat 01.01.2020 -thp third party -cat category",
     })
     public void addTransactionMissingArgument(String commandInput) throws Exception {
-
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAddAction(app);
         var command = new ExpertCommand(commandInput, 2);
 
         Result act = action.act(command);
@@ -85,8 +88,6 @@ class TransactionAddActionTest {
             "transaction add -a acronym -val 123,56 -dat 01 2020 -thp third party -cat category",
     })
     public void addTransactionNotMaleFormedDate(String commandInput) throws Exception {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAddAction(app);
         var command = new ExpertCommand(commandInput, 2);
 
         assertThrows(DateTimeParseException.class,  () -> action.act(command));
@@ -97,8 +98,6 @@ class TransactionAddActionTest {
             "transaction add -a acronym -val 123,56€ -dat 01.01.2020 -thp third party -cat category",
     })
     public void addTransactionNotMaleFormedValue(String commandInput) throws Exception {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAddAction(app);
         var command = new ExpertCommand(commandInput, 2);
 
         assertThrows(NumberFormatException.class,  () -> action.act(command));

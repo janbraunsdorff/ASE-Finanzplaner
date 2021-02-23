@@ -4,6 +4,7 @@ import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -13,10 +14,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionAllActionTest {
 
+    private TransactionApplicationTestImplementation app;
+    private TransactionAllAction action;
+
+    @BeforeEach
+    public void init(){
+        this.app = new TransactionApplicationTestImplementation();
+        this.action = new TransactionAllAction(app);
+    }
+
     @Test
     public void allTransactions() throws AccountNotFoundException {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAllAction(app);
         var command = new ExpertCommand("transaction all -a acronym", 2);
 
         Result act = action.act(command);
@@ -29,8 +37,6 @@ class TransactionAllActionTest {
 
     @Test
     public void allTransactionsMissingAccount() throws AccountNotFoundException {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAllAction(app);
         var command = new ExpertCommand("transaction all", 2);
 
         Result act = action.act(command);
@@ -40,8 +46,6 @@ class TransactionAllActionTest {
 
     @Test
     public void allTransactionsWithCount() throws AccountNotFoundException {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAllAction(app);
         var command = new ExpertCommand("transaction all -a acronym -n 10", 2);
 
         Result act = action.act(command);
@@ -54,8 +58,6 @@ class TransactionAllActionTest {
 
     @Test
     public void allTransactionsWithCountNotMaleFormed() {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAllAction(app);
         var command = new ExpertCommand("transaction all -a acronym -n aa", 2);
 
         assertThrows(NumberFormatException.class, () -> action.act(command));
@@ -63,8 +65,6 @@ class TransactionAllActionTest {
 
     @Test
     public void allTransactionsWithId() throws AccountNotFoundException, NoSuchFieldException, IllegalAccessException {
-        var app = new TransactionApplicationTestImplementation();
-        var action = new TransactionAllAction(app);
         var command = new ExpertCommand("transaction all -a acronym -f", 2);
 
         Result act = action.act(command);
