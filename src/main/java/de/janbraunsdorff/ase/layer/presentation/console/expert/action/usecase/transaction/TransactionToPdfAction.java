@@ -41,7 +41,7 @@ public class TransactionToPdfAction implements UseCase {
 
         PdfDocument doc = new PdfDocumentBuilder(name, service, accountService)
                 .addMonthly(start, end, account)
-                .addMonthlySummery(parseDate(command.getParameter("-s")), end, account)
+                .addMonthlySummery(start, end, account)
                 .build();
 
         Path uri = doc.saveTo(name);
