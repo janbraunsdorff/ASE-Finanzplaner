@@ -5,6 +5,7 @@ import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,11 +15,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class BankAddActionTest {
 
+    private BankApplicationTestImplementation app;
+    private BankAddAction action;
+
+    @BeforeEach
+    public void init() {
+        this.app = new BankApplicationTestImplementation();
+        this.action = new BankAddAction(app);
+    }
+
     @DisplayName("addBank")
     @Test
     public void addBank() throws AcronymAlreadyExistsException {
-        var app = new BankApplicationTestImplementation();
-        var action = new BankAddAction(app);
         var command = new ExpertCommand("bank add -a acronym -n name -t type", 2);
 
         Result act = action.act(command);
@@ -39,8 +47,6 @@ class BankAddActionTest {
             "bank add -a acronym -n name"
     })
     public void missingParameterAddBank(String commandString) throws AcronymAlreadyExistsException {
-        var app = new BankApplicationTestImplementation();
-        var action = new BankAddAction(app);
         var command = new ExpertCommand(commandString, 2);
 
         Result act = action.act(command);
