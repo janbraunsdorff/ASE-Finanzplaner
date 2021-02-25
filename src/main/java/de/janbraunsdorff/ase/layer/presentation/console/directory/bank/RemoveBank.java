@@ -10,6 +10,10 @@ public class RemoveBank implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         String bankAcronym = command.getSecondLevel();
-        return new OverlayCommand(new ExpertCommand("bank delete -a " + bankAcronym, 2), StateTransition.STAY);
+        var cmd = "bank";
+        if (!bankAcronym.isEmpty()){
+            cmd += " delete -a " + bankAcronym;
+        }
+        return new OverlayCommand(new ExpertCommand(cmd, 2), StateTransition.STAY);
     }
 }
