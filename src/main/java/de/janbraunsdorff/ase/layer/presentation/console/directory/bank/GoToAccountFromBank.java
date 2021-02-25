@@ -10,6 +10,9 @@ public class GoToAccountFromBank implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         String bankAcronym = command.getSecondLevel();
+        if (bankAcronym.isEmpty()){
+            return new OverlayCommand(new ExpertCommand("bank", 2), StateTransition.STAY);
+        }
         return new OverlayCommand(new ExpertCommand("account all -a " + bankAcronym, 2), StateTransition.DEEPER, bankAcronym);
     }
 }
