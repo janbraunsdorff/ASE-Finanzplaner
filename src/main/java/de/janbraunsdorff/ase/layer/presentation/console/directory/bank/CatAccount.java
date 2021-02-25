@@ -11,7 +11,11 @@ public class CatAccount implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         String bankAcronym = command.getSecondLevel();
-        return new OverlayCommand(new ExpertCommand("account all -a " + bankAcronym, 2), StateTransition.STAY);
+        var cmd = "account";
+        if (!bankAcronym.isEmpty()){
+            cmd += " all -a " + bankAcronym;
+        }
+        return new OverlayCommand(new ExpertCommand(cmd, 2), StateTransition.STAY);
     }
 
 }
