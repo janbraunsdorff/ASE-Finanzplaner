@@ -43,8 +43,15 @@ public class Grid {
         grid[0][21] = String.format("%11s", "");
         for (int i = 1; i < grid.length; i++) {
             grid[i][20] = X.getSymbol();
-            grid[i][21] = String.format(" %s ", key[i - 1]);
+            grid[i][21] = String.format(" %-5s ", padXValue(key[i - 1]));
         }
+    }
+
+    private String padXValue(String s) {
+        if (s.length() > 5) {
+            return s.substring(0, 5);
+        }
+        return s;
     }
 
     public int getHeight() {
