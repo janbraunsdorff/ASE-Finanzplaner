@@ -10,13 +10,13 @@ public class CatTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
         ExpertCommand cmd = command.changeStart(2);
-        String bankAcronym = command.getSecondLevel();
+        String accountAcronym = command.getSecondLevel();
 
+        var number = "";
         if (cmd.areTagsPresent("-n")) {
-            String number = command.getParameter("-n");
-            return new OverlayCommand(new ExpertCommand("transaction all -a " + bankAcronym + " -n " + number, 2), StateTransition.STAY);
-
+            number += " -n " + command.getParameter("-n");
         }
-        return new OverlayCommand(new ExpertCommand("transaction all -a " + bankAcronym, 2), StateTransition.STAY);
+
+        return new OverlayCommand(new ExpertCommand("transaction all -a " + accountAcronym + number, 2), StateTransition.STAY);
     }
 }
