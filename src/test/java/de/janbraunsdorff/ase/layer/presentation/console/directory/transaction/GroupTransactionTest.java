@@ -10,32 +10,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class DeleteTransactionTest {
+class GroupTransactionTest {
     @Test
     public void build(){
-        var builder = new DeleteTransaction();
+        var builder = new GroupTransaction();
         State sate = new State(Hierarchy.TRANSACTION, "bank", "account");
-        ExpertCommand command = new ExpertCommand("delete idOfTransaction", 1);
+        ExpertCommand command = new ExpertCommand("group", 1);
         OverlayCommand res = builder.build(sate, command);
 
-        assertThat(res.command().getInput(), Matchers.is("transaction delete -id idOfTransaction"));
+        assertThat(res.command().getInput(), Matchers.is("transaction group -a account"));
         assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
     }
-
-    @Test
-    public void buildMissingId(){
-        var builder = new DeleteTransaction();
-        State sate = new State(Hierarchy.TRANSACTION, "bank", "account");
-        ExpertCommand command = new ExpertCommand("delete", 1);
-        OverlayCommand res = builder.build(sate, command);
-
-        assertThat(res.command().getInput(), Matchers.is("transaction"));
-        assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
-    }
-
-
-
-
 }

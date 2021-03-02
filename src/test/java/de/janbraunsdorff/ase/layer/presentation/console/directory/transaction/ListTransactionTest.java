@@ -9,33 +9,40 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-class DeleteTransactionTest {
+class ListTransactionTest {
+
     @Test
-    public void build(){
-        var builder = new DeleteTransaction();
+    public void buildNormal(){
+        var builder = new ListTransaction();
         State sate = new State(Hierarchy.TRANSACTION, "bank", "account");
-        ExpertCommand command = new ExpertCommand("delete idOfTransaction", 1);
+        ExpertCommand command = new ExpertCommand("ls", 1);
         OverlayCommand res = builder.build(sate, command);
 
-        assertThat(res.command().getInput(), Matchers.is("transaction delete -id idOfTransaction"));
+        assertThat(res.command().getInput(), Matchers.is("transaction all -a account"));
         assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
     }
 
     @Test
-    public void buildMissingId(){
-        var builder = new DeleteTransaction();
+    public void buildWithMoreElements(){
+        var builder = new ListTransaction();
         State sate = new State(Hierarchy.TRANSACTION, "bank", "account");
-        ExpertCommand command = new ExpertCommand("delete", 1);
+        ExpertCommand command = new ExpertCommand("ls -n 240", 1);
         OverlayCommand res = builder.build(sate, command);
 
-        assertThat(res.command().getInput(), Matchers.is("transaction"));
+        assertThat(res.command().getInput(), Matchers.is("transaction all -a account -n 240"));
         assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
     }
 
+    @Test
+    public void buildWithId(){
+        var builder = new ListTransaction();
+        State sate = new State(Hierarchy.TRANSACTION, "bank", "account");
+        ExpertCommand command = new ExpertCommand("ls -f", 1);
+        OverlayCommand res = builder.build(sate, command);
 
-
-
+        assertThat(res.command().getInput(), Matchers.is("transaction all -a account -f"));
+        assertThat(res.transition(), Matchers.is(StateTransition.STAY));
+    }
 }

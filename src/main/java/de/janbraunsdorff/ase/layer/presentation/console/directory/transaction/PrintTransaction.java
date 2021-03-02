@@ -12,21 +12,28 @@ import java.time.format.DateTimeFormatter;
 public class PrintTransaction implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
+        var cmd = "transaction";
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
 
-        String account = "-a " + state.accountIdent();
-        String[] dates = command.getInput().split(" ");
+            String account = "-a " + state.accountIdent();
+            String[] dates = command.getInput().split(" ");
 
-        String start = " -s " + formatDate(dates[1]).format(dtf);
-        String end = "" ;
+            String start = " -s " + formatDate(dates[1]).format(dtf);
+            String end = "";
 
-        if (dates.length  >= 3){
-            end = " -e " + lastOfMonth(dates[2]).format(dtf);
-        }else {
-            end = " -e " + lastOfMonth(dates[1]).format(dtf);
+            if (dates.length >= 3) {
+                end = " -e " + lastOfMonth(dates[2]).format(dtf);
+            } else {
+                end = " -e " + lastOfMonth(dates[1]).format(dtf);
+            }
+
+            cmd = "transaction print " + account + start + end;
+        }catch (NumberFormatException | ArrayIndexOutOfBoundsException ignored) {
+
         }
+        return new OverlayCommand(new ExpertCommand(cmd, 2), StateTransition.STAY);
 
-        return new OverlayCommand(new ExpertCommand("transaction print "+ account + start + end, 2), StateTransition.STAY);
     }
 
     private LocalDate formatDate(String in){
