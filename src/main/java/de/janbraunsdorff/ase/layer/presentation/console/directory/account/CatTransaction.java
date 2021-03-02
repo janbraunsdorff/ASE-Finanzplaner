@@ -12,6 +12,10 @@ public class CatTransaction implements CommandBuilder {
         ExpertCommand cmd = command.changeStart(2);
         String accountAcronym = command.getSecondLevel();
 
+        if (accountAcronym.isEmpty()){
+            return new OverlayCommand(new ExpertCommand("account", 2), StateTransition.STAY);
+        }
+
         var number = "";
         if (cmd.areTagsPresent("-n")) {
             number += " -n " + command.getParameter("-n");

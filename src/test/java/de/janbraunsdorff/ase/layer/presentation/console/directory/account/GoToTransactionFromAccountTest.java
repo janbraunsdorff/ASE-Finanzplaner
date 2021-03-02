@@ -10,41 +10,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
-class CatTransactionTest {
+class GoToTransactionFromAccountTest {
     @Test
-    public void build() {
-        var builder = new CatTransaction();
-        State sate = new State(Hierarchy.ACCOUNT, "bank", null);
+    public void build(){
+        var builder = new GoToTransactionFromAccount();
+        State sate = new State(Hierarchy.ACCOUNT, "bank", "account");
         ExpertCommand command = new ExpertCommand("cat account", 1);
         OverlayCommand res = builder.build(sate, command);
 
         assertThat(res.command().getInput(), Matchers.is("transaction all -a account"));
-        assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
+        assertThat(res.transition(), Matchers.is(StateTransition.DEEPER));
     }
 
     @Test
-    public void buildWithCount() {
-        var builder = new CatTransaction();
-        State sate = new State(Hierarchy.ACCOUNT, "bank", null);
-        ExpertCommand command = new ExpertCommand("cat account -n 100", 1);
-        OverlayCommand res = builder.build(sate, command);
-
-        assertThat(res.command().getInput(), Matchers.is("transaction all -a account -n 100"));
-        assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
-    }
-
-    @Test
-    public void buildMissingAccount() {
-        var builder = new CatTransaction();
-        State sate = new State(Hierarchy.ACCOUNT, "bank", null);
+    public void buildMissingAccount(){
+        var builder = new GoToTransactionFromAccount();
+        State sate = new State(Hierarchy.ACCOUNT, "bank", "");
         ExpertCommand command = new ExpertCommand("cat", 1);
         OverlayCommand res = builder.build(sate, command);
 
         assertThat(res.command().getInput(), Matchers.is("account"));
         assertThat(res.transition(), Matchers.is(StateTransition.STAY));
-
     }
 }
