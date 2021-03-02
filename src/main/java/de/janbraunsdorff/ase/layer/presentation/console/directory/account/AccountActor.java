@@ -9,10 +9,10 @@ public class AccountActor implements Actor {
     private final HashMap<String, CommandBuilder> builder = new HashMap<>();
 
     public OverlayCommand act(State state, ExpertCommand command) {
+        var cmd = command.getTopLevel();
         if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")) {
-            return this.builder.get("cd ..").build(state, command);
+            cmd += " " + command.getSecondLevel();
         }
-        String cmd = command.getTopLevel();
         return this.builder.getOrDefault(cmd,
                 (state1, command1) -> new OverlayCommand(new ExpertCommand("account", 0), StateTransition.STAY))
                 .build(state, command);
