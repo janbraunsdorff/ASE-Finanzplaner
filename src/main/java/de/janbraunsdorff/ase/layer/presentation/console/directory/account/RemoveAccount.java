@@ -9,7 +9,11 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 public class RemoveAccount implements CommandBuilder {
     @Override
     public OverlayCommand build(State state, ExpertCommand command) {
-        String bankAcronym = command.getSecondLevel();
-        return new OverlayCommand(new ExpertCommand("account delete -a " + bankAcronym, 2), StateTransition.STAY);
+        String accountAcronym = command.getSecondLevel();
+        var cmd = "account delete -a " + accountAcronym;
+        if (accountAcronym.isEmpty()){
+            cmd = "account";
+        }
+        return new OverlayCommand(new ExpertCommand(cmd, 2), StateTransition.STAY);
     }
 }
