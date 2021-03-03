@@ -13,10 +13,11 @@ public class TransactionActor implements Actor {
     private final HashMap<String, CommandBuilder> builder = new HashMap<>();
 
     public OverlayCommand act(State state, ExpertCommand command) {
+        var cmd = command.getTopLevel();
         if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")) {
-            return this.builder.get("cd ..").build(state, command);
+            cmd += " ..";
         }
-        String cmd = command.getTopLevel();
+
         return this.builder.getOrDefault(cmd, (state1, command1) -> new HelpTransaction().build(state1, command1)).build(state, command);
 
 
