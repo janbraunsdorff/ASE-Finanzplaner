@@ -46,7 +46,7 @@ class TransactionActorTest {
 
     @Test
     public void actDefault(){
-        var act = new AccountActor();
+        var act = new TransactionActor();
 
         OverlayCommand res = act.act(new State(Hierarchy.TRANSACTION, "bank", "account"), new ExpertCommand("not found", 1));
 
