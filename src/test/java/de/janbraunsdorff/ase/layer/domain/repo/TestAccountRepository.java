@@ -7,6 +7,7 @@ import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class TestAccountRepository implements AccountRepository {
     private Account account;
 
     public Account createAccount;
-    public String getAccountByAcronym;
+    public List<String> getAccountByAcronym;
     public String getAccountsOfBankByBankAcronym;
     public String getAccountNamesOfBankByBankAcronym;
     public String deleteAccountByAcronym;
@@ -25,9 +26,11 @@ public class TestAccountRepository implements AccountRepository {
 
     public TestAccountRepository(List<Account> accounts) {
         this.accounts = accounts;
+        this.getAccountByAcronym = new ArrayList<>();
     }
 
     public TestAccountRepository(Account account) {
+        this.getAccountByAcronym = new ArrayList<>();
         this.account = account;
     }
 
@@ -38,8 +41,12 @@ public class TestAccountRepository implements AccountRepository {
 
     @Override
     public Account getAccountByAcronym(String acronym) throws AccountNotFoundException {
-        this.getAccountByAcronym = acronym;
-        return this.account;
+        this.getAccountByAcronym.add(acronym);
+        if (this.account!= null) {
+            return account;
+        }
+
+        return accounts.stream().filter(a -> a.getAcronym().equals(acronym)).findFirst().orElseThrow(() -> new AccountNotFoundException(acronym));
     }
 
     @Override

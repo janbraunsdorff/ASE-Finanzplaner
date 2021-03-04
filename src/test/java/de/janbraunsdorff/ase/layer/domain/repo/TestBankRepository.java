@@ -25,6 +25,9 @@ public class TestBankRepository implements BankRepository {
     }
 
 
+    public TestBankRepository() {
+    }
+
     @Override
     public List<Bank> getBank() {
         this.getBankWasCalled = true;
@@ -34,6 +37,11 @@ public class TestBankRepository implements BankRepository {
     @Override
     public Bank getBankByAcronym(String acronym) throws BankNotFoundException {
         this.getBankByAcronym = acronym;
+
+        if (bank == null){
+            throw new BankNotFoundException(acronym);
+        }
+
         return bank;
     }
 

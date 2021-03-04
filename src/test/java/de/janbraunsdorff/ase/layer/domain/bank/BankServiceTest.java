@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 

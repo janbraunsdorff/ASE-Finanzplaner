@@ -33,7 +33,10 @@ public class TestTransactionRepository implements TransactionRepository {
 
     @Override
     public int getValueOfAccount(String accountId) {
-        return 0;
+        return transactions.stream()
+                .filter(a -> accountId.contains(a.getAccountAcronym()))
+                .map(Transaction::getValue)
+                .reduce(0, Integer::sum);
     }
 
     @Override
@@ -53,7 +56,9 @@ public class TestTransactionRepository implements TransactionRepository {
 
     @Override
     public Long count(String acronym) {
-        return null;
+        return transactions.stream()
+                .filter(a -> acronym.equals(a.getAccountAcronym()))
+                .count();
     }
 
     @Override
