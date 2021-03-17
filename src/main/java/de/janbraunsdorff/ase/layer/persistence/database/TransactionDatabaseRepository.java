@@ -6,6 +6,7 @@ import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,12 +24,14 @@ public class TransactionDatabaseRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public void createTransaction(Transaction entity) throws AccountNotFoundException {
         var en = new TransactionDatabaseEntity(entity.getId(), entity.getAccountAcronym(), entity.getValue(), entity.getDate(), entity.getThirdParty(), entity.getCategory(), entity.getContract());
         this.repo.save(en);
     }
 
     @Override
+    @Transactional
     public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
         ArrayList<String> x3 = new ArrayList<>(accountAcronyms);
         List<TransactionDatabaseEntity> byDateBetweenAndAccountAcronymInOrderByDateDesc = this.repo.findInInterval(start, end, x3);
@@ -39,6 +42,7 @@ public class TransactionDatabaseRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public int getValueOfAccount(String accountId) {
        return this.repo.findByAccountAcronymOrderByDateDesc(accountId)
                .stream()
@@ -47,7 +51,11 @@ public class TransactionDatabaseRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public List<Transaction> getTransactionOfAccount(String id, int count) {
+        if (count == -1){
+            count = Integer.MAX_VALUE;
+        }
         Pageable topTen = PageRequest.of(0, count);
         return this.repo.findByAccountAcronymOrderByDateDesc(id, topTen)
                 .stream()
@@ -56,11 +64,13 @@ public class TransactionDatabaseRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public Optional<Transaction> deleteTransactionById(String id) throws TransactionNotFoundException {
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public List<Transaction> getTransactionOfAccount(List<String> account, LocalDate start, LocalDate end) {
         List<Transaction> collect = this.repo.findInInterval(start, end, account)
                 .stream()

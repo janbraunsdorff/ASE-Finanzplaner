@@ -23,8 +23,12 @@ public class AccountAllResult implements TypedResult<AccountDTO> {
 
     @Override
     public PrinterInput print() {
+        var headline = "Accounts der Bank nicht gefunden.";
+        if (!result.isEmpty()) {
+            headline = "Bank: " + result.get(0).getBankName();
+        }
         this.builder
-                .addHeadline("Bank: " + result.get(0).getBankName())
+                .addHeadline(headline)
                 //.addTableHeader(37, "ID")
                 .addTableHeader(lengthName, "Name")
                 .addTableHeader(lengthNumber, "Number")

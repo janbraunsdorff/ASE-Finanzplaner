@@ -63,7 +63,7 @@ public class PdfDocument implements Document{
     }
 
     public Path saveTo(String name) throws IOException {
-       return this.render().saveTo(name + "-" + UUID.randomUUID().toString().substring(24));
+       return this.render().saveTo("/app/output/" + name + "-" + UUID.randomUUID().toString().substring(24));
 
     }
 }

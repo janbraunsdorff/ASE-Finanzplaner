@@ -15,7 +15,7 @@ class TransactionToPdfActionTest {
         var tApp = new TransactionApplicationTestImplementation();
         var aApp = new AccountIOApplicationTestImplementation();
         var action = new TransactionToPdfAction(tApp, aApp);
-        var command = new ExpertCommand("transaciton export -a account -s 01012020 -e 01022020", 2);
+        var command = new ExpertCommand("transaction export -a account -s 01012020 -e 01022020", 2);
 
         Result res = action.act(command);
 

@@ -84,6 +84,14 @@ class BankServiceTest {
                 Collections.emptyList()
         );
 
+        var accRepo = new TestAccountRepository(
+                Collections.emptyList()
+        );
+
+        var transRepo = new TestTransactionRepository(
+                Collections.emptyList()
+        );
+
         var service = new BankService(bankRepo, null, null);
         BankDTO bankDTOS = service.create(new BankCreateCommand("name", "ac", "Investment Bank"));
 
@@ -104,7 +112,15 @@ class BankServiceTest {
                 Collections.emptyList()
         );
 
-        var service = new BankService(bankRepo, null, null);
+        var accRepo = new TestAccountRepository(
+                Collections.emptyList()
+        );
+
+        var transRepo = new TestTransactionRepository(
+                Collections.emptyList()
+        );
+
+        var service = new BankService(bankRepo, accRepo, transRepo);
         service.deleteByAcronym(new BankDeleteCommand("ac"));
 
         assertThat(bankRepo.deleteBankByAcronym, Matchers.is("ac"));

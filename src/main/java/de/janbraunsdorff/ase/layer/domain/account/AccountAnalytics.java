@@ -37,7 +37,7 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
         LocalDate startInterval = LocalDate.now().minusMonths(command.month());
         List<Value> values = new ArrayList<>();
 
-        var startAccountValue = transactionRepo.getValueOfAccount(MIN_DATE, startInterval, Set.of(command.accountAcronym()));
+        var startAccountValue = transactionRepo.getValueOfAccount(MIN_DATE, startInterval.minusDays(1), Set.of(command.accountAcronym()));
 
         for (int i = 0; i < command.month(); i++) {
             startAccountValue += transactionRepo.getValueOfAccount(startInterval, startInterval.plusMonths(1), Set.of(command.accountAcronym()));

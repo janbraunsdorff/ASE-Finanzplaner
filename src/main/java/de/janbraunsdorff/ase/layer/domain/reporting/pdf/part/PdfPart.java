@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public interface PdfPart {
     HtmlObject render();
+
     default HtmlObject getTemplate(String name) {
         InputStream resource = App.class.getClassLoader().getResourceAsStream("html/templates/" + name);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resource));

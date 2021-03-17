@@ -43,6 +43,7 @@ public class AccountIO implements AccountIOApplication {
         return this.getAccount(query.acronym());
     }
 
+    @Override
     public List<AccountDTO> getAccountsOfBank(AccountGetQuery query) throws BankNotFoundException {
         checkIfBankExists(query.bankAcronym());
         var accounts = this.accountRepo.getAccountsOfBankByBankAcronym(query.bankAcronym());
@@ -57,6 +58,7 @@ public class AccountIO implements AccountIOApplication {
         return this.bankRepo.getBankByAcronym(acronym);
     }
 
+    @Override
     public AccountDTO createAccountByAcronym(AccountCreateCommand command) throws AcronymAlreadyExistsException, BankNotFoundException {
         Bank bank = checkIfBankExists(command.bank());
         Account account = new Account(command.bank(), command.name(), command.number(), command.acronym());
@@ -64,6 +66,7 @@ public class AccountIO implements AccountIOApplication {
         return new AccountDTO(account, 0, 0, bank.getName());
     }
 
+    @Override
     public void deleteByAcronym(AccountDeleteCommand command) throws AccountNotFoundException, TransactionNotFoundException {
         for (Transaction t : this.transactionRepo.getTransactionOfAccount(command.accountAcronym(), -1)) {
             this.transactionRepo.deleteTransactionById(t.getId());

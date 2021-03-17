@@ -1,10 +1,13 @@
 package de.janbraunsdorff.ase.layer.domain.bank;
 
 
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
+import de.janbraunsdorff.ase.layer.domain.account.data.Account;
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 
 import java.time.LocalDate;
@@ -50,6 +53,22 @@ public class BankService implements BankApplication {
     }
 
     public void deleteByAcronym(BankDeleteCommand command) {
+        try {
+            this.accountRepo.getAccountsOfBankByBankAcronym(command.acronym())
+                    .stream()
+                    .map(Account::getAcronym)
+                    .forEach(ac -> {
+                        try {
+                            for (Transaction t : this.transactionRepo.getTransactionOfAccount(ac, -1)) {
+                                this.transactionRepo.deleteTransactionById(t.getId());
+                            }
+                            this.accountRepo.deleteAccountByAcronym(ac);
+                        } catch (Exception ignore) {
+                        }
+                    });
+        }catch (BankNotFoundException ignore){
+
+        }
         this.bankRepo.deleteBankByAcronym(command.acronym());
     }
 
