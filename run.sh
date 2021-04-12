@@ -1,7 +1,7 @@
-clear
 ./gradlew test --stacktrace
 ./gradlew build --refresh-dependencies --stacktrace
 
+rm -rf ./app
 mkdir ./app
 mkdir ./app/output
 cp -R ./src/main/resources/resources ./app/output/resources/
