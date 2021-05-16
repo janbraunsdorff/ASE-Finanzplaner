@@ -1,0 +1,38 @@
+<div class="course card">
+    <h2>{{headline}}</h2>
+    <canvas id="courseChart{{id}}" width="" height="100%"></canvas>
+</div>
+
+<script>
+    new Chart(document.getElementById("courseChart{{id}}"), {
+        type: 'line',
+        data: {
+            labels:  [{{lbl}}],
+            datasets: [{
+                data: [{{values}}],
+                lineTension: 0,
+                backgroundColor: [
+                    'rgba(2, 136, 209, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(2, 136, 209, 1)',
+                ]
+            }]
+
+        },
+        options: {
+            legend: false,
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 17,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        fontColor: 'rgba(200,200,200,1)',
+                    }
+                }]
+            }
+        }
+    });
+</script>
