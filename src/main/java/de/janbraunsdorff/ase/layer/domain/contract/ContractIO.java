@@ -14,7 +14,7 @@ public class ContractIO implements ContractIOApplication{
 
 
     @Override
-    public List<ContractDTO> getContractsByAccount(String parameter) {
+    public List<ContractDTO> getContracts() {
         return null;
     }
 }

@@ -20,6 +20,9 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.ba
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankDeleteAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAddAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionDeleteAction;
@@ -55,9 +58,14 @@ public class CommandBaseCli {
                 .addCommand("print", new TransactionToPdfAction(transactionApplication, accountApplication))
                 .build();
 
+        DistributorUseCase contractDistributor = new DistributorUsecaseFactory(new ContractHelpResult(), new ContractHelpAction())
+                .addCommand("all", new ContractAllAction(contractIOApplication))
+                .build();
+
 
         this.controller = new DistributorActionFactory()
                 .addUseCase("bank", bankDistributor)
+                .addUseCase("contract", contractDistributor)
                 .addUseCase("account", accountDistributor)
                 .addUseCase("transaction", transactionDistributor)
                 .addUseCase("exit", new ExitAction())

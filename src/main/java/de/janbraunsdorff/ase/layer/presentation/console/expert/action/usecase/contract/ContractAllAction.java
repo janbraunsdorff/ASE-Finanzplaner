@@ -18,12 +18,7 @@ public class ContractAllAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        if (!command.areTagsAndValuesPresent("-a")){
-            return new ContractHelpResult();
-        }
-
-        List<ContractDTO> contractsByAccount = this.service.getContractsByAccount(command.getParameter("-a"));
-
+        List<ContractDTO> contractsByAccount = this.service.getContracts();
         return new ContractAllResult(contractsByAccount);
     }
 }

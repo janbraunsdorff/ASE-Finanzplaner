@@ -5,5 +5,5 @@ import java.util.List;
 import de.janbraunsdorff.ase.layer.domain.contract.data.ContractDTO;
 
 public interface ContractIOApplication {
-    List<ContractDTO> getContractsByAccount(String parameter);
+    List<ContractDTO> getContracts();
 }

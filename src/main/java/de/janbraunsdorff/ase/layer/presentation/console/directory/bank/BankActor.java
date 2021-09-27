@@ -15,7 +15,10 @@ public class BankActor implements Actor {
     private final HashMap<String, CommandBuilder> builder = new HashMap<>();
 
     public OverlayCommand act(State state, ExpertCommand command) {
-        String cmd = command.getTopLevel();
+        var cmd = command.getTopLevel();
+        if (command.getTopLevel().equals("cd") && command.getSecondLevel().equals("..")) {
+            cmd += " " + command.getSecondLevel();
+        }
         return this.builder.getOrDefault(cmd,
                 (state1, command1) -> new OverlayCommand(new ExpertCommand("bank", 0), StateTransition.STAY))
                 .build(state, command);

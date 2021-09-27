@@ -1,8 +1,6 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.ACCOUNT;
-import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.BANK;
-import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.TRANSACTION;
+import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.*;
 
 public record State(Hierarchy hierarchy, String bankIdent, String accountIdent) {
     public static State createInitState() {
@@ -11,13 +9,15 @@ public record State(Hierarchy hierarchy, String bankIdent, String accountIdent) 
 
     private State goUp() {
         return switch (this.hierarchy) {
-            case BANK, ACCOUNT -> new State(BANK, null, null);
+            case BANK, CONTRACT -> new State(CONTRACT, null, null);
+            case ACCOUNT -> new State(BANK, null, null);
             case TRANSACTION -> new State(ACCOUNT, this.bankIdent, null);
         };
     }
 
     private State goDeep(String ident) {
         return switch (this.hierarchy) {
+            case CONTRACT -> new State(BANK, null, null);
             case BANK -> new State(ACCOUNT, ident, null);
             case ACCOUNT -> new State(TRANSACTION, this.bankIdent, ident);
             case TRANSACTION -> new State(TRANSACTION, this.bankIdent, this.accountIdent);

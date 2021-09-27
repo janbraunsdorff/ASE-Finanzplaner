@@ -13,12 +13,9 @@ import de.janbraunsdorff.ase.layer.presentation.console.directory.account.GoToTr
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.ListAccount;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.RemoveAccount;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.TouchAccount;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.BankActor;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.CatAccount;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.GoToAccountFromBank;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.ListBank;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.RemoveBank;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.TouchBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.ContractActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.ListContract;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.DeleteTransaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GroupTransaction;
@@ -56,6 +53,7 @@ public class CommandOverlay {
                 .addBuilder("cat", new CatAccount())
                 .addBuilder("touch", new TouchBank())
                 .addBuilder("rm", new RemoveBank())
+                .addBuilder("cd ..", new GoToContractFromBank())
                 .build();
 
         AccountActor accountActor = new ActorFactory<>(new AccountActor())
@@ -77,12 +75,17 @@ public class CommandOverlay {
                 .addBuilder("print", new PrintTransaction())
                 .build();
 
+        ContractActor contractActor = new ActorFactory<>(new ContractActor())
+                .addBuilder("ls", new ListContract())
+                .build();
 
-        this.actors = new HashMap<Hierarchy, Actor>() {
+
+        this.actors = new HashMap<>() {
             {
                 put(Hierarchy.BANK, bankActor);
                 put(Hierarchy.ACCOUNT, accountActor);
                 put(Hierarchy.TRANSACTION, transactionActor);
+                put(Hierarchy.CONTRACT, contractActor);
             }
         };
     }
