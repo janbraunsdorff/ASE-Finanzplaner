@@ -1,10 +1,11 @@
 package de.janbraunsdorff.ase.layer.persistence.json.transaction;
 
 
-import com.google.gson.annotations.SerializedName;
-import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-
 import java.time.LocalDate;
+
+import com.google.gson.annotations.SerializedName;
+
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 
 public class TransactionJsonEntity {
     @SerializedName("transaction_id")

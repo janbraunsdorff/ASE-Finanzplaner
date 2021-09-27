@@ -1,13 +1,13 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.HelpResult;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-
-import static org.hamcrest.MatcherAssert.assertThat;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.HelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 
 class DistributorActionTest {
 

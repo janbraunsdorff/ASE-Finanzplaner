@@ -1,9 +1,19 @@
 package de.janbraunsdorff.ase.layer.presentation.web.controller.dashboard;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.account.*;
+import de.janbraunsdorff.ase.layer.domain.account.AccountAnalyticsApplication;
 import de.janbraunsdorff.ase.layer.domain.account.command.AccountCategorizeMonthCommand;
 import de.janbraunsdorff.ase.layer.domain.account.command.BankCourseCommand;
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountMonthDTO;
@@ -12,15 +22,6 @@ import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetLastQuery;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("dashboard")

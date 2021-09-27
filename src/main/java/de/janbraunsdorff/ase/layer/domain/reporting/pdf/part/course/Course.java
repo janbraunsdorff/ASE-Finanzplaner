@@ -1,15 +1,23 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.jetbrains.annotations.NotNull;
+
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-import org.jetbrains.annotations.NotNull;
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class Course implements PdfPart {
     protected final List<TransactionDTO> transactions;

@@ -1,7 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts;
 
 
-import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.*;
+import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.EMPTY;
+import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.FULL;
+import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.HALF;
+import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.X;
+import static de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ComposedChartElements.Y;
 
 public class Grid {
 

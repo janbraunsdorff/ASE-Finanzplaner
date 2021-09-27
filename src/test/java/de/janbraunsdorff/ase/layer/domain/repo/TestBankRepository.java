@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.domain.repo;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
-
-import java.util.List;
 
 public class TestBankRepository implements BankRepository {
     private List<Bank> banks;

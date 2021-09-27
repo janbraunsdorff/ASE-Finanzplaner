@@ -1,21 +1,30 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAddAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAllAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankApplicationTestImplementation;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankDeleteAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.*;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountIOApplicationTestImplementation;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankApplicationTestImplementation;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionApplicationTestImplementation;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionGroupAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionToPdfAction;
 
 class CommandBaseCliTest {
 
@@ -28,7 +37,7 @@ class CommandBaseCliTest {
         var accountApp = new AccountIOApplicationTestImplementation();
         var transactionApp = new TransactionApplicationTestImplementation();
 
-        var cli =  new CommandBaseCli(bankApp, accountApp, transactionApp);
+        var cli =  new CommandBaseCli(bankApp, accountApp, transactionApp, null);
 
         Field f = cli.getClass().getDeclaredField("controller");
         f.setAccessible(true);

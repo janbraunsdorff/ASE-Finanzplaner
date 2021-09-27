@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-
-import java.util.List;
 
 public class TotalMonthlyCourse  extends MonthlyCourse {
     private final Value startValue;

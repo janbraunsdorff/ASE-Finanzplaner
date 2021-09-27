@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 class StateTest {
 

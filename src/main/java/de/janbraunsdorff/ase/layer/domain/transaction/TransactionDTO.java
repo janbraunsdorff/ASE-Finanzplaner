@@ -1,8 +1,8 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.Value;
-
 import java.time.LocalDate;
+
+import de.janbraunsdorff.ase.layer.domain.Value;
 
 public class TransactionDTO {
     private final Value value;

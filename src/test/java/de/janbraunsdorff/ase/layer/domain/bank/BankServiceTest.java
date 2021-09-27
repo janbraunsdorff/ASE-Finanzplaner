@@ -1,19 +1,20 @@
 package de.janbraunsdorff.ase.layer.domain.bank;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 import de.janbraunsdorff.ase.layer.domain.repo.TestAccountRepository;
 import de.janbraunsdorff.ase.layer.domain.repo.TestBankRepository;
 import de.janbraunsdorff.ase.layer.domain.repo.TestTransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 
 class BankServiceTest {

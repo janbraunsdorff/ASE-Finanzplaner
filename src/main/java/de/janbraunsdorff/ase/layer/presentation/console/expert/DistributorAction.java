@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 
 public class DistributorAction {
     private final Map<String, Distributor> useCases;

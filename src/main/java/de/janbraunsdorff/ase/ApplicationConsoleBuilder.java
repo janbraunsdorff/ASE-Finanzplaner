@@ -2,6 +2,7 @@ package de.janbraunsdorff.ase;
 
 import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
+import de.janbraunsdorff.ase.layer.domain.contract.ContractIOApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.CommandOverlay;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.CommandBaseCli;
@@ -24,14 +25,14 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
         return this;
     }
 
-    protected ApplicationConsoleBuilder initWithSpringBeans(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp){
-        super.initWithSpring(bankApp, accountApp, transactionApp);
+    protected ApplicationConsoleBuilder initWithSpringBeans(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp, ContractIOApplication contractIOApp){
+        super.initWithSpring(bankApp, accountApp, transactionApp, contractIOApp);
         return this;
     }
 
     protected CommandBaseCli createCli() {
         System.out.println("Dein Planer steht zur benutzung bereit");
-        return new CommandBaseCli(bankApplication, accountApplication, transactionApplication);
+        return new CommandBaseCli(bankApplication, accountApplication, transactionApplication, contractIOApplication);
     }
 
     protected CommandOverlay createOverlay() {

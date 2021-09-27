@@ -8,5 +8,4 @@ public record BankDTO(
         Value value,
         Integer numberOfAccount,
         BankType type) {
-
 }

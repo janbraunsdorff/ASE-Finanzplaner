@@ -1,15 +1,13 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public interface TransactionSpringRepository extends CrudRepository<TransactionDatabaseEntity, String> {
     // group by Date and Account

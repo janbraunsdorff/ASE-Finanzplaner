@@ -1,14 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank;
 
+import java.util.Collections;
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankCreateCommand;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankDeleteCommand;
-
-import java.util.Collections;
-import java.util.List;
 
 public class BankApplicationTestImplementation implements BankApplication {
     public String name;

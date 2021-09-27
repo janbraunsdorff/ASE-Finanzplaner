@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
-
-import java.util.List;
 
 public interface TransactionApplication {
     TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException;

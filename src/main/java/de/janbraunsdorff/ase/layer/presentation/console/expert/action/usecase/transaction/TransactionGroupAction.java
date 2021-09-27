@@ -1,13 +1,13 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupCommand;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
-
-import java.util.List;
 
 public class TransactionGroupAction implements UseCase {
 

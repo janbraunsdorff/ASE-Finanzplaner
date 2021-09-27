@@ -1,25 +1,39 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
-import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
-import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionGroupAction;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.*;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
+import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
+import de.janbraunsdorff.ase.layer.domain.contract.ContractIOApplication;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ExitAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account.AccountHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAddAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionAllAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionDeleteAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionGroupAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionToPdfAction;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 
 public class CommandBaseCli {
     private final DistributorAction controller;
     private final Printer printer;
 
-    public CommandBaseCli(BankApplication bankApplication, AccountIOApplication accountApplication, TransactionApplication transactionApplication) {
+    public CommandBaseCli(BankApplication bankApplication, AccountIOApplication accountApplication, TransactionApplication transactionApplication, ContractIOApplication contractIOApplication) {
         this.printer = new Printer();
         DistributorUseCase bankDistributor = new DistributorUsecaseFactory(new BankHelpResult(), new BankHelpAction())
                 .addCommand("all", new BankAllAction(bankApplication))

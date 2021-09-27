@@ -1,10 +1,10 @@
 package de.janbraunsdorff.ase.layer.domain.bank;
 
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
-
-import java.util.List;
 
 public interface BankRepository {
     List<Bank> getBank();

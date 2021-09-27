@@ -1,12 +1,12 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.account;
 
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.account.data.AccountDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.TypedResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.TablePrinterInputFactory;
-
-import java.util.List;
 
 public class AccountAllResult implements TypedResult<AccountDTO> {
     private final List<AccountDTO> result;

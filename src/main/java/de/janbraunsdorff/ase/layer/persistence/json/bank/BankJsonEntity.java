@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.persistence.json.bank;
 
 import com.google.gson.annotations.SerializedName;
+
 import de.janbraunsdorff.ase.layer.domain.bank.Bank;
 import de.janbraunsdorff.ase.layer.domain.bank.BankType;
 

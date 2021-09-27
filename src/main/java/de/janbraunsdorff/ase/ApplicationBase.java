@@ -1,11 +1,14 @@
 package de.janbraunsdorff.ase;
 
+import de.janbraunsdorff.ase.layer.domain.account.AccountIO;
 import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
 import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-import de.janbraunsdorff.ase.layer.domain.account.AccountIO;
 import de.janbraunsdorff.ase.layer.domain.bank.BankApplication;
 import de.janbraunsdorff.ase.layer.domain.bank.BankRepository;
 import de.janbraunsdorff.ase.layer.domain.bank.BankService;
+import de.janbraunsdorff.ase.layer.domain.contract.ContractIO;
+import de.janbraunsdorff.ase.layer.domain.contract.ContractIOApplication;
+import de.janbraunsdorff.ase.layer.domain.contract.ContractRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionService;
@@ -24,6 +27,8 @@ public abstract class ApplicationBase {
     protected AccountIOApplication accountApplication;
     protected BankApplication bankApplication;
     protected TransactionApplication transactionApplication;
+    protected ContractIOApplication contractIOApplication;
+    private ContractRepository contractRepository;
 
     protected void intMemoryRepository() {
         this.bankRepository = new BankMemoryRepository();
@@ -41,11 +46,13 @@ public abstract class ApplicationBase {
         this.accountApplication = new AccountIO(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);
+        this.contractIOApplication = new ContractIO(this.contractRepository);
     }
 
-    protected void initWithSpring(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp) {
+    protected void initWithSpring(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp, ContractIOApplication contractIOApplication) {
         this.bankApplication = bankApp;
         this.accountApplication = accountApp;
         this.transactionApplication = transactionApp;
+        this.contractIOApplication = contractIOApplication;
     }
 }

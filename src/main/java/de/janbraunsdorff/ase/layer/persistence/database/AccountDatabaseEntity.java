@@ -1,10 +1,10 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
-import de.janbraunsdorff.ase.layer.domain.account.data.Account;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 
 @Entity
 public class AccountDatabaseEntity {

@@ -1,15 +1,15 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.BarChart;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts.ChartData;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.TablePrinterInputFactory;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransactionGroupResult implements Result {
     private final TablePrinterInputFactory builder;

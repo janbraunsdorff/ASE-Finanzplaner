@@ -1,18 +1,34 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.CatTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.GoToBankFromAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.GoToTransactionFromAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.ListAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.RemoveAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.TouchAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.CatAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.GoToAccountFromBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.ListBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.RemoveBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.TouchBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.DeleteTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GroupTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.HelpTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.ListTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.PrintTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TouchTransaction;
 
 class CommandOverlayTest {
 

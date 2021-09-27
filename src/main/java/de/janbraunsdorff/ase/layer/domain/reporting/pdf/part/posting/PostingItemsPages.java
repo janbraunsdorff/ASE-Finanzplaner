@@ -1,5 +1,10 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.posting;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.AccountIOApplication;
@@ -7,11 +12,6 @@ import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetByAcronymQuer
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PostingItemsPages implements PdfPart {
     private final static int ITEMS_PER_SITE = 25;

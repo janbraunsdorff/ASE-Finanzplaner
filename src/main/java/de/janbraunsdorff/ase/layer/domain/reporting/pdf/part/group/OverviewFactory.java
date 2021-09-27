@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-
-import java.util.List;
 
 public class OverviewFactory {
     private Value totalIncome = new Value(0);

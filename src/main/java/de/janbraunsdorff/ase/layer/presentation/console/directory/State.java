@@ -1,6 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.*;
+import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.ACCOUNT;
+import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.BANK;
+import static de.janbraunsdorff.ase.layer.presentation.console.directory.Hierarchy.TRANSACTION;
 
 public record State(Hierarchy hierarchy, String bankIdent, String accountIdent) {
     public static State createInitState() {

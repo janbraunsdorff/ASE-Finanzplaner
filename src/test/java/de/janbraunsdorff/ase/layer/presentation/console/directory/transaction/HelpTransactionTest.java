@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory.transaction;
 
-import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.StateTransition;
 
 class HelpTransactionTest {
     @Test

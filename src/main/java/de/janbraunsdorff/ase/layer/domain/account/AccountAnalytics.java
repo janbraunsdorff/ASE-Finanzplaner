@@ -1,5 +1,13 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.Value;
@@ -13,11 +21,6 @@ import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetDetailQuery;
 import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
-
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 public class AccountAnalytics implements AccountAnalyticsApplication{
 

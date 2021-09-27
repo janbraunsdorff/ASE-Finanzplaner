@@ -1,16 +1,17 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
 
 
 class TransactionDeleteActionTest {

@@ -3,8 +3,6 @@ package de.janbraunsdorff.ase.layer.domain;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 
 public final class Value {
     private final Integer value;
@@ -20,7 +18,7 @@ public final class Value {
     public String getDecimalString(){
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
         otherSymbols.setDecimalSeparator(',');
-        return new DecimalFormat("0.00", otherSymbols).format(this.value / 100.0);
+        return new DecimalFormat("#,##0.00", otherSymbols).format(this.value / 100.0);
     }
 
     public String getFormatted(){

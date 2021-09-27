@@ -1,9 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank;
 
 
-import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 
 class BankAddActionTest {
 

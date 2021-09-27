@@ -1,11 +1,12 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 
 class TransactionGroupActionTest {
 

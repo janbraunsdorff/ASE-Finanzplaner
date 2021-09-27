@@ -1,14 +1,13 @@
 package de.janbraunsdorff.ase.layer.domain.transaction;
 
-import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
-import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
+import de.janbraunsdorff.ase.layer.domain.account.AccountRepository;
 
 public class TransactionService implements TransactionApplication {
     private final TransactionRepository transactionRepo;

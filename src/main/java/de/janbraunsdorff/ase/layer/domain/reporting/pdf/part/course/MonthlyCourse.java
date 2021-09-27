@@ -1,12 +1,12 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.course;
 
-import de.janbraunsdorff.ase.layer.domain.Value;
-import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
-import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.janbraunsdorff.ase.layer.domain.Value;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.DataPoint;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
 
 public class MonthlyCourse extends Course {
 

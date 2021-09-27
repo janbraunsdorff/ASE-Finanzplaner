@@ -1,10 +1,10 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.group;
 
+import java.util.UUID;
+
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
-
-import java.util.UUID;
 
 public final class Overview implements PdfPart {
     private final Value totalIncome;

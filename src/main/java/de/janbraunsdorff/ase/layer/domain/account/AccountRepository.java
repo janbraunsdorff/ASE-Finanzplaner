@@ -1,13 +1,13 @@
 package de.janbraunsdorff.ase.layer.domain.account;
 
 
+import java.util.List;
+import java.util.Set;
+
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;
 import de.janbraunsdorff.ase.layer.domain.BankNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.account.data.Account;
-
-import java.util.List;
-import java.util.Set;
 
 public interface AccountRepository {
     void createAccount(Account account) throws AcronymAlreadyExistsException;

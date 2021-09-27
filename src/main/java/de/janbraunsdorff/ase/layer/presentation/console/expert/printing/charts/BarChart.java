@@ -1,9 +1,9 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.charts;
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
-
 import java.util.Arrays;
 import java.util.Comparator;
+
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 
 public class BarChart {
 

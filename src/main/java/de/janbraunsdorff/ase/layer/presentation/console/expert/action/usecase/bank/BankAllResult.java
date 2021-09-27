@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank;
 
+import java.util.List;
+
 import de.janbraunsdorff.ase.layer.domain.bank.BankDTO;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.TypedResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory.TablePrinterInputFactory;
-
-import java.util.List;
 
 public class BankAllResult implements TypedResult<BankDTO> {
     private final List<BankDTO> result;
@@ -26,6 +26,7 @@ public class BankAllResult implements TypedResult<BankDTO> {
     @Override
     public PrinterInput print() {
         builder
+                .addHeadline("Banken:")
                 .addTableHeader(length, "Name")
                 .addTableHeader(lengthAcronym, "Abkürzung")
                 .addTableHeader(typeLength, "Typ")
@@ -33,6 +34,7 @@ public class BankAllResult implements TypedResult<BankDTO> {
                 .addTableHeader(15, "Guthaben")
                 .finishFirstLine()
                 .addHorizontalLine();
+
 
         this.result.forEach(this::print);
 

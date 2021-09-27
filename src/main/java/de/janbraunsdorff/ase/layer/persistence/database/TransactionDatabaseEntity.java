@@ -1,12 +1,12 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
-import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDate;
+
+import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 
 @Entity
 public class TransactionDatabaseEntity {

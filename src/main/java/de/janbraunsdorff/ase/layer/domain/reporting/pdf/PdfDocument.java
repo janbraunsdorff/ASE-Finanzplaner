@@ -1,11 +1,6 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf;
 
 
-import de.janbraunsdorff.ase.App;
-import de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter.PdfChapter;
-import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -14,6 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import org.jetbrains.annotations.NotNull;
+
+import de.janbraunsdorff.ase.App;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.chapter.PdfChapter;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.part.PdfPart;
 
 public class PdfDocument implements Document{
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");

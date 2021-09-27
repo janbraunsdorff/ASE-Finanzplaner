@@ -1,5 +1,8 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
@@ -8,9 +11,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransactionDeleteAction implements UseCase {
 

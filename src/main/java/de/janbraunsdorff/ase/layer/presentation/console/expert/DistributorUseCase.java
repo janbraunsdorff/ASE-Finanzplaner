@@ -1,11 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DistributorUseCase implements Distributor {
     private final Map<String, UseCase> actions;

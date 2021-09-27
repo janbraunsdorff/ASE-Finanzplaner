@@ -1,14 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert.printing.factory;
 
 
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.Part;
-import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.NewLine;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Color;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.NewLine;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.Part;
 
 public abstract class PrinterInputFactory {
     protected final List<Part> pieces;

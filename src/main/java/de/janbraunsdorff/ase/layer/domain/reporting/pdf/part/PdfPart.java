@@ -1,12 +1,12 @@
 package de.janbraunsdorff.ase.layer.domain.reporting.pdf.part;
 
-import de.janbraunsdorff.ase.App;
-import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
+
+import de.janbraunsdorff.ase.App;
+import de.janbraunsdorff.ase.layer.domain.reporting.pdf.HtmlObject;
 
 public interface PdfPart {
     HtmlObject render();

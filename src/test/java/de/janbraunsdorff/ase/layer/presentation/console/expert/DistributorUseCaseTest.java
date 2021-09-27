@@ -1,14 +1,14 @@
 package de.janbraunsdorff.ase.layer.presentation.console.expert;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.system.ErrorResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.PrinterInput;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 class DistributorUseCaseTest {
 

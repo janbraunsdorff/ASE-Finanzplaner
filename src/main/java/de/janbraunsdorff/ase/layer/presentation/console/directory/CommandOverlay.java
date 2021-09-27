@@ -1,8 +1,32 @@
 package de.janbraunsdorff.ase.layer.presentation.console.directory;
 
-import de.janbraunsdorff.ase.layer.presentation.console.directory.account.*;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
-import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.AccountActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.CatTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.GoToBankFromAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.GoToTransactionFromAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.ListAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.RemoveAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.account.TouchAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.BankActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.CatAccount;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.GoToAccountFromBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.ListBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.RemoveBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.TouchBank;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.DeleteTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GroupTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.HelpTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.ListTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.PrintTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TouchTransaction;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.TransactionActor;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.DistributorAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.ExpertCommand;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.Result;
@@ -13,12 +37,6 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.ba
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.transaction.TransactionHelpResult;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.Printer;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.printing.part.Command;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommandOverlay {
 
