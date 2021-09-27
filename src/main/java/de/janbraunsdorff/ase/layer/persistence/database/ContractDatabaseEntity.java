@@ -1,12 +1,10 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.contract.data.Contract;
@@ -26,26 +24,41 @@ public class ContractDatabaseEntity {
     @Column(name = "contract_start")
     private LocalDate start;
 
+    @Column(name = "contract_end")
+    private LocalDate end;
+
     @Column(name = "contract_expectedValue")
     private Integer expectedValue;
 
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> transactions;
 
-    public ContractDatabaseEntity(String id, String name, String accountAcronym, LocalDate start, Integer expectedValue, List<String> transactions) {
+    public ContractDatabaseEntity(String id, String name, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions) {
         this.id = id;
         this.name = name;
         this.accountAcronym = accountAcronym;
         this.start = start;
+        this.end = end;
         this.expectedValue = expectedValue;
         this.transactions = transactions;
     }
 
     public ContractDatabaseEntity() {
+        transactions = new ArrayList<>();
+    }
+
+    public ContractDatabaseEntity(Contract contract) {
+        this.id = contract.getId();
+        this.name = contract.getName();
+        this.accountAcronym = contract.getAccountAcronym();
+        this.start = contract.getStart();
+        this.end = contract.getEnd();
+        this.expectedValue = contract.getExpectedValue().getValue();
+        this.transactions = contract.getTransactions();
     }
 
     public Contract toDomain() {
-        return new Contract(id, name,accountAcronym, start, new Value(expectedValue), transactions);
+        return new Contract(id, name,accountAcronym, start, end, new Value(expectedValue), transactions);
     }
 
     public String getId() {

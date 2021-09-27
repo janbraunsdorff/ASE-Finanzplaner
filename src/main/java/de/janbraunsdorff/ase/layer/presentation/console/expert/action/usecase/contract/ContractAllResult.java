@@ -32,9 +32,11 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
                 .addHeadline("Contracts: ")
                 .addTableHeader(nameLength, "Name")
                 .addTableHeader(startLength, "Started")
+                .addTableHeader(startLength, "Ended")
                 .addTableHeader(10, "Expected")
                 .addTableHeader(10, "Average")
-                .addTableHeader(10, "#")
+                .addTableHeader(10, "Transactions")
+                .addTableHeader(10, "Total Expense")
                 .finishFirstLine()
                 .addHorizontalLine();
 
@@ -49,9 +51,11 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
                 .addLine()
                 .addEntry(dto.name())
                 .addEntry(this.dtFormatter.format(dto.start()))
+                .addEntry(this.dtFormatter.format(dto.end()))
                 .addAmount(dto.expectedAmount())
                 .addAmount(dto.averageAmount())
                 .addEntry(String.valueOf(dto.numberOfTransactions()))
+                .addAmount(dto.totalExpense())
                 .addNewLine();
     }
 

@@ -15,7 +15,9 @@ import de.janbraunsdorff.ase.layer.presentation.console.directory.account.Remove
 import de.janbraunsdorff.ase.layer.presentation.console.directory.account.TouchAccount;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.bank.*;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.ContractActor;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.GoToBankFromContract;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.ListContract;
+import de.janbraunsdorff.ase.layer.presentation.console.directory.contract.TouchContract;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.DeleteTransaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GoToAccountFromTransaction;
 import de.janbraunsdorff.ase.layer.presentation.console.directory.transaction.GroupTransaction;
@@ -77,6 +79,8 @@ public class CommandOverlay {
 
         ContractActor contractActor = new ActorFactory<>(new ContractActor())
                 .addBuilder("ls", new ListContract())
+                .addBuilder("touch", new TouchContract())
+                .addBuilder("bank", new GoToBankFromContract())
                 .build();
 
 

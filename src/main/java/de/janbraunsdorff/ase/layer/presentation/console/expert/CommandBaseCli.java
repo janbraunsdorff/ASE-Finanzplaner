@@ -20,6 +20,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.ba
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankDeleteAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.bank.BankHelpResult;
+import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractAddAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractAllAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractHelpAction;
 import de.janbraunsdorff.ase.layer.presentation.console.expert.action.usecase.contract.ContractHelpResult;
@@ -60,6 +61,7 @@ public class CommandBaseCli {
 
         DistributorUseCase contractDistributor = new DistributorUsecaseFactory(new ContractHelpResult(), new ContractHelpAction())
                 .addCommand("all", new ContractAllAction(contractIOApplication))
+                .addCommand("add", new ContractAddAction(contractIOApplication))
                 .build();
 
 

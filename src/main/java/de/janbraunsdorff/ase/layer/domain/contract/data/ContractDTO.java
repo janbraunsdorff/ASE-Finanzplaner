@@ -7,8 +7,10 @@ import de.janbraunsdorff.ase.layer.domain.Value;
 public record ContractDTO(
         String name,
         LocalDate start,
+        LocalDate end,
         int numberOfTransactions,
         Value averageAmount,
-        Value expectedAmount
+        Value expectedAmount,
+        Value totalExpense
 ) {
 }
