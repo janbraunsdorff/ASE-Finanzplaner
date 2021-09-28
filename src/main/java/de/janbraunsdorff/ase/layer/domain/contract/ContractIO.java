@@ -24,14 +24,14 @@ public class ContractIO implements ContractIOApplication{
 
     @Override
     public ContractDTO createContract(ContractCreateCommand command) {
-        var contract = new Contract(command.name(), command.account(), command.start(), command.end(), command.expectedValue());
+        var contract = new Contract(command.name(), command.expected(),  command.account(), command.start(), command.end(), command.expectedValue());
         var contractReturn = contractRepository.save(contract);
         return convertBankToDTO(contractReturn);
     }
 
 
     private ContractDTO convertBankToDTO(Contract c) {
-        return  new ContractDTO(c.getName(), c.getStart(), c.getEnd(), c.getTransactions().size(), new Value(0), c.getExpectedValue(), new Value(0));
+        return  new ContractDTO(c.getName(), c.getExpected(), c.getStart(), c.getEnd(), c.getTransactions().size(), new Value(0), c.getExpectedValue(), new Value(0));
     }
 
 

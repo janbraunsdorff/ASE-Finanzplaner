@@ -18,6 +18,9 @@ public class ContractDatabaseEntity {
     @Column(name = "contract_name")
     private String name;
 
+    @Column(name = "contract_expected")
+    private String expected;
+
     @Column(name = "contract_accountAcronym")
     private String accountAcronym;
 
@@ -33,9 +36,10 @@ public class ContractDatabaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> transactions;
 
-    public ContractDatabaseEntity(String id, String name, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions) {
+    public ContractDatabaseEntity(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions) {
         this.id = id;
         this.name = name;
+        this.expected = expected;
         this.accountAcronym = accountAcronym;
         this.start = start;
         this.end = end;
@@ -55,10 +59,11 @@ public class ContractDatabaseEntity {
         this.end = contract.getEnd();
         this.expectedValue = contract.getExpectedValue().getValue();
         this.transactions = contract.getTransactions();
+        this.expected = contract.getExpected();
     }
 
     public Contract toDomain() {
-        return new Contract(id, name,accountAcronym, start, end, new Value(expectedValue), transactions);
+        return new Contract(id, name, expected, accountAcronym, start, end, new Value(expectedValue), transactions);
     }
 
     public String getId() {

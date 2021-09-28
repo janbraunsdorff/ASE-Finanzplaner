@@ -9,6 +9,7 @@ public record ContractCreateCommand(
         String account,
         LocalDate start,
         LocalDate end,
-        Value expectedValue
+        Value expectedValue,
+        String expected
 ) {
 }

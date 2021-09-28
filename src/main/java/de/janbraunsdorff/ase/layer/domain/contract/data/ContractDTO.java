@@ -6,6 +6,7 @@ import de.janbraunsdorff.ase.layer.domain.Value;
 
 public record ContractDTO(
         String name,
+        String expected,
         LocalDate start,
         LocalDate end,
         int numberOfTransactions,

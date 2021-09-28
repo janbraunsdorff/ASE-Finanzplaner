@@ -4,24 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="add contracts to io">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/GoToBankFromContract.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/TouchContract.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddResult.java" afterDir="false" />
+    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="view Contracts&#10;add Contracts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIOApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIOApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/command/ContractCreateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/command/ContractCreateCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/ContractDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/ContractDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/query/ContractGetQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/query/ContractGetQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/CommandOverlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/CommandOverlay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/CommandBaseCli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/CommandBaseCli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAllResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAllResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/TouchContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/TouchContract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632772702314</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="view Contracts&#10;add Contracts">
+      <created>1632777178634</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1632777178634</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,22 +126,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="eclipse wtf" />
     <MESSAGE value="add contracts to io" />
-    <option name="LAST_COMMIT_MESSAGE" value="add contracts to io" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="view Contracts&#10;add Contracts" />
+    <option name="LAST_COMMIT_MESSAGE" value="view Contracts&#10;add Contracts" />
   </component>
 </project>

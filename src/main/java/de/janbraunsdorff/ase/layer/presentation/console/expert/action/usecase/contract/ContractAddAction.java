@@ -10,7 +10,7 @@ import de.janbraunsdorff.ase.layer.presentation.console.expert.action.UseCase;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//touch -n Miete Bruchsal -acc VB-GK -start 01.07.2021 -end 01.12.2030 -val -XXX,00
+//touch -n Miete Bruchsal -acc VB-GK -start 01.07.2021 -end 01.12.2030 -val -890,00 -exp 01. des Monats
 
 public class ContractAddAction implements UseCase {
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -22,17 +22,18 @@ public class ContractAddAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        if (!command.areTagsAndValuesPresent("-n", "-acc", "-start", "-end", "-val")){
+        if (!command.areTagsAndValuesPresent("-n", "-acc", "-start", "-end", "-val", "-exp")){
             return new ContractHelpResult();
         }
 
         var name = command.getParameter("-n");
         var acc = command.getParameter("-acc");
+        var expected = command.getParameter("-exp");
         var start =  LocalDate.parse(command.getParameter("-start"), dtf);
         var end =  LocalDate.parse(command.getParameter("-end"), dtf);
         var val = Integer.parseInt(command.getParameter("-val").replaceAll("[,.]", ""));
 
-        var cmd = new ContractCreateCommand(name, acc, start, end, new Value(val));
+        var cmd = new ContractCreateCommand(name, acc, start, end, new Value(val), expected);
         var storedContract = this.contractIOApplication.createContract(cmd);
         return new ContractAddResult(storedContract);
     }

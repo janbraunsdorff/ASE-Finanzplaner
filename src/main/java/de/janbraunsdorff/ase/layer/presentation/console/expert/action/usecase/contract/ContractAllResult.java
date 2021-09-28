@@ -14,6 +14,7 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
 
     private final int nameLength;
     private final int startLength;
+    private final int expectedLength;
     private final DateTimeFormatter dtFormatter;
 
     public ContractAllResult(List<ContractDTO> contractsByAccount) {
@@ -21,6 +22,7 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
 
         this.nameLength = getMax(v1 -> v1.name().length(), contractsByAccount);
         this.startLength = getMax(v1 -> v1.start().toString().length(), contractsByAccount);
+        this.expectedLength = getMax(v1 -> v1.expected().length(), contractsByAccount);
 
         this.builder = new TablePrinterInputFactory();
         this.dtFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -31,6 +33,7 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
         this.builder
                 .addHeadline("Contracts: ")
                 .addTableHeader(nameLength, "Name")
+                .addTableHeader(expectedLength, "expected")
                 .addTableHeader(startLength, "Started")
                 .addTableHeader(startLength, "Ended")
                 .addTableHeader(10, "Expected")
@@ -50,6 +53,7 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
         builder
                 .addLine()
                 .addEntry(dto.name())
+                .addEntry(dto.expected())
                 .addEntry(this.dtFormatter.format(dto.start()))
                 .addEntry(this.dtFormatter.format(dto.end()))
                 .addAmount(dto.expectedAmount())
