@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import de.janbraunsdorff.ase.layer.domain.Value;
 import de.janbraunsdorff.ase.layer.domain.contract.data.Contract;
+import de.janbraunsdorff.ase.layer.domain.contract.data.Interval;
 
 @Entity
 public class ContractDatabaseEntity {
@@ -33,10 +34,13 @@ public class ContractDatabaseEntity {
     @Column(name = "contract_expectedValue")
     private Integer expectedValue;
 
+    @Column(name = "contract_interval")
+    private Interval interval;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> transactions;
 
-    public ContractDatabaseEntity(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions) {
+    public ContractDatabaseEntity(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions, Interval interval) {
         this.id = id;
         this.name = name;
         this.expected = expected;
@@ -45,6 +49,7 @@ public class ContractDatabaseEntity {
         this.end = end;
         this.expectedValue = expectedValue;
         this.transactions = transactions;
+        this.interval = interval;
     }
 
     public ContractDatabaseEntity() {
@@ -60,10 +65,11 @@ public class ContractDatabaseEntity {
         this.expectedValue = contract.getExpectedValue().getValue();
         this.transactions = contract.getTransactions();
         this.expected = contract.getExpected();
+        this.interval = contract.getInterval();
     }
 
     public Contract toDomain() {
-        return new Contract(id, name, expected, accountAcronym, start, end, new Value(expectedValue), transactions);
+        return new Contract(id, name, expected, accountAcronym, start, end, new Value(expectedValue), transactions, interval);
     }
 
     public String getId() {
@@ -88,5 +94,17 @@ public class ContractDatabaseEntity {
 
     public List<String> getTransactions() {
         return transactions;
+    }
+
+    public String getExpected() {
+        return expected;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
+    public Interval getInterval() {
+        return interval;
     }
 }

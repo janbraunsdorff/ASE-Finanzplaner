@@ -16,8 +16,9 @@ public class Contract {
     private final LocalDate end;
     private final Value expectedValue;
     private final List<String> transactions;
+    private final Interval interval;
 
-    public Contract(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Value expectedValue, List<String> transactions) {
+    public Contract(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Value expectedValue, List<String> transactions, Interval interval) {
         this.id = id;
         this.name = name;
         this.expected = expected;
@@ -26,12 +27,14 @@ public class Contract {
         this.end = end;
         this.expectedValue = expectedValue;
         this.transactions = transactions;
+        this.interval = interval;
     }
 
-    public Contract(String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Value expectedValue) {
+    public Contract(String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Value expectedValue, Interval interval) {
         this.name = name;
         this.expected = expected;
         this.end = end;
+        this.interval = interval;
         this.id = UUID.randomUUID().toString();
         this.accountAcronym = accountAcronym;
         this.start = start;
@@ -69,5 +72,9 @@ public class Contract {
 
     public String getExpected() {
         return expected;
+    }
+
+    public Interval getInterval() {
+        return interval;
     }
 }

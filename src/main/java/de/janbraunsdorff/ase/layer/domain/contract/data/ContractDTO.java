@@ -12,6 +12,8 @@ public record ContractDTO(
         int numberOfTransactions,
         Value averageAmount,
         Value expectedAmount,
-        Value totalExpense
+        Value totalExpense,
+        Interval interval,
+        String account
 ) {
 }

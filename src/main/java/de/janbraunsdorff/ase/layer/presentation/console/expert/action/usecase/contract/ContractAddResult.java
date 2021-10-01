@@ -19,9 +19,9 @@ public class ContractAddResult implements Result {
     public PrinterInput print() {
         return new InformationPrinterInputFactory()
                 .addHeadline("Ein neuer Vetrag wurde angelegt")
-                .addInformation(String.format("Name: %s | Start am: %s | Endet am: %s | erwarteter Betrag: %s",
+                .addInformation(String.format("Name: %s | Start am: %s | Endet am: %s | erwarteter Betrag: %s | Intervall: %s | Konto: %s",
                         this.storedContract.name(), dateToString(this.storedContract.start()), dateToString(this.storedContract.end()),
-                        this.storedContract.expectedAmount().getFormatted())
+                        this.storedContract.expectedAmount().getFormatted(), this.storedContract.interval(), this.storedContract.account())
                 )
                 .build();
     }

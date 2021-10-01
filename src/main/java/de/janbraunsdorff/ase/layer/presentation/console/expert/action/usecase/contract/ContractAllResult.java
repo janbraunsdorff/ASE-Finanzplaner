@@ -15,6 +15,8 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
     private final int nameLength;
     private final int startLength;
     private final int expectedLength;
+    private final int accountLength;
+    private final int intervalLength;
     private final DateTimeFormatter dtFormatter;
 
     public ContractAllResult(List<ContractDTO> contractsByAccount) {
@@ -23,6 +25,8 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
         this.nameLength = getMax(v1 -> v1.name().length(), contractsByAccount);
         this.startLength = getMax(v1 -> v1.start().toString().length(), contractsByAccount);
         this.expectedLength = getMax(v1 -> v1.expected().length(), contractsByAccount);
+        this.accountLength = getMax(v1 -> v1.account().length(), contractsByAccount);
+        this.intervalLength = getMax(v1 -> v1.interval().toString().length(), contractsByAccount);
 
         this.builder = new TablePrinterInputFactory();
         this.dtFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -33,9 +37,11 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
         this.builder
                 .addHeadline("Contracts: ")
                 .addTableHeader(nameLength, "Name")
+                .addTableHeader(accountLength, "Konto")
                 .addTableHeader(expectedLength, "expected")
                 .addTableHeader(startLength, "Started")
                 .addTableHeader(startLength, "Ended")
+                .addTableHeader(intervalLength, "Ausführung")
                 .addTableHeader(10, "Expected")
                 .addTableHeader(10, "Average")
                 .addTableHeader(10, "Transactions")
@@ -53,9 +59,11 @@ public class ContractAllResult implements TypedResult<ContractDTO> {
         builder
                 .addLine()
                 .addEntry(dto.name())
+                .addEntry(dto.account())
                 .addEntry(dto.expected())
                 .addEntry(this.dtFormatter.format(dto.start()))
                 .addEntry(this.dtFormatter.format(dto.end()))
+                .addEntry(dto.interval().toString())
                 .addAmount(dto.expectedAmount())
                 .addAmount(dto.averageAmount())
                 .addEntry(String.valueOf(dto.numberOfTransactions()))

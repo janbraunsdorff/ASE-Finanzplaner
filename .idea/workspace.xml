@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="view Contracts&#10;add Contracts">
+    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="add expected field to contract">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/Interval.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/ContractIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/command/ContractCreateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/command/ContractCreateCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/Contract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/ContractDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/contract/data/ContractDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/TouchContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/directory/contract/TouchContract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAllResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAllResult.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +32,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -49,6 +55,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -109,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632777178634</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add expected field to contract">
+      <created>1632824567614</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632824567614</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,6 +141,18 @@
     <MESSAGE value="eclipse wtf" />
     <MESSAGE value="add contracts to io" />
     <MESSAGE value="view Contracts&#10;add Contracts" />
-    <option name="LAST_COMMIT_MESSAGE" value="view Contracts&#10;add Contracts" />
+    <MESSAGE value="add expected field to contract" />
+    <option name="LAST_COMMIT_MESSAGE" value="add expected field to contract" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/action/usecase/contract/ContractAddAction.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
