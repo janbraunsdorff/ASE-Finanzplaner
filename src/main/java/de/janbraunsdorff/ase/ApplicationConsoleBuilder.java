@@ -37,7 +37,7 @@ public class ApplicationConsoleBuilder extends ApplicationBase {
 
     protected CommandOverlay createOverlay() {
         DistributorAction controller = this.createCli().getController();
-        System.out.println("Overlay ist aktivirt");
+        System.out.println("Overlay ist aktiviert");
         return new CommandOverlay(controller);
     }
 }

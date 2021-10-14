@@ -1,11 +1,10 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -121,5 +120,11 @@ public class TransactionDatabaseRepository implements TransactionRepository {
         }
 
         return maxValue;
+    }
+
+    @Override
+    public Stream<Transaction> getTransactionByIds(List<String> ids) {
+        var b =  this.repo.findAllById(ids).spliterator();
+        return StreamSupport.stream(b ,false).map(TransactionDatabaseEntity::toDomain).sorted(Comparator.comparing(Transaction::getDate).reversed());
     }
 }

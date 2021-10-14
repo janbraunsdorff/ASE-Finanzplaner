@@ -12,6 +12,8 @@ public record ContractCreateCommand(
         LocalDate end,
         Value expectedValue,
         String expected,
-        Interval interval
+        Interval interval,
+        String thirdParty
 ) {
+
 }

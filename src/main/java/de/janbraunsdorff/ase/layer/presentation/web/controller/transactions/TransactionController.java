@@ -38,8 +38,7 @@ public class TransactionController {
     @PostMapping("account")
     public AllTransactionResponse accounts(@RequestBody AllTransactionRequest request) throws AccountNotFoundException, BankNotFoundException {
         var tranactions = transactionApplication.getTransactionsOfMultipleAccounts(new TransactionGetQuery(request.getAccount(), 150))
-                .stream().map(t -> new TransactionWebDTO(t.getThirdParty(), t.getDate().format(dtf), t.getValue().getFormatted(), t.getCategory(), t.getValue().isPositive(), t.getContract(), request.getAccount(), t.getId())
-            ).collect(Collectors.toList());
+                .stream().map(TransactionWebDTO::new).collect(Collectors.toList());
         var account = accountIOApplication.getAccount(new AccountGetByAcronymQuery(request.getAccount()));
 
         var transactions = transactionApplication.groupMonthly(new TransactionGroupCommand(request.getAccount()));

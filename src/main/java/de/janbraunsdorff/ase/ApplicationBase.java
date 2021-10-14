@@ -46,7 +46,7 @@ public abstract class ApplicationBase {
         this.accountApplication = new AccountIO(this.accountRepository, this.transactionRepository, this.bankRepository);
         this.bankApplication = new BankService(this.bankRepository, this.accountRepository, this.transactionRepository);
         this.transactionApplication = new TransactionService(this.transactionRepository, this.accountRepository);
-        this.contractIOApplication = new ContractIO(this.contractRepository);
+        this.contractIOApplication = new ContractIO(this.contractRepository, transactionRepository);
     }
 
     protected void initWithSpring(BankApplication bankApp, AccountIOApplication accountApp, TransactionApplication transactionApp, ContractIOApplication contractIOApplication) {

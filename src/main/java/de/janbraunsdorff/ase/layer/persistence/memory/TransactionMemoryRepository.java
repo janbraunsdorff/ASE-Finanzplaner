@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.Transaction;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
@@ -75,5 +76,10 @@ public class TransactionMemoryRepository implements TransactionRepository {
     @Override
     public int getMaxValueOfAccount(String accountAcronym) {
         return 0;
+    }
+
+    @Override
+    public Stream<Transaction> getTransactionByIds(List<String> transactions) {
+        return null;
     }
 }

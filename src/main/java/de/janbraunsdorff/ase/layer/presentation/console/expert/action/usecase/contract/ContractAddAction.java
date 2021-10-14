@@ -23,19 +23,20 @@ public class ContractAddAction implements UseCase {
 
     @Override
     public Result act(ExpertCommand command) throws Exception {
-        if (!command.areTagsAndValuesPresent("-n", "-acc", "-start", "-end", "-val", "-exp", "-inter")){
+        if (!command.areTagsAndValuesPresent("-n", "-acc", "-start", "-end", "-val", "-exp", "-inter", "-thp")){
             return new ContractHelpResult();
         }
 
         var name = command.getParameter("-n");
         var acc = command.getParameter("-acc");
         var expected = command.getParameter("-exp");
+        var thp = command.getParameter("-thp");
         var interval = Interval.valueOf(command.getParameter("-inter"));
         var start =  LocalDate.parse(command.getParameter("-start"), dtf);
         var end =  LocalDate.parse(command.getParameter("-end"), dtf);
         var val = Integer.parseInt(command.getParameter("-val").replaceAll("[,.]", ""));
 
-        var cmd = new ContractCreateCommand(name, acc, start, end, new Value(val), expected, interval);
+        var cmd = new ContractCreateCommand(name, acc, start, end, new Value(val), expected, interval, thp);
         var storedContract = this.contractIOApplication.createContract(cmd);
         return new ContractAddResult(storedContract);
     }

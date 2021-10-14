@@ -37,10 +37,13 @@ public class ContractDatabaseEntity {
     @Column(name = "contract_interval")
     private Interval interval;
 
+    @Column(name = "contract_thirdParty")
+    private String thirdParty;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> transactions;
 
-    public ContractDatabaseEntity(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions, Interval interval) {
+    public ContractDatabaseEntity(String id, String name, String expected, String accountAcronym, LocalDate start, LocalDate end, Integer expectedValue, List<String> transactions, Interval interval, String thirdParty) {
         this.id = id;
         this.name = name;
         this.expected = expected;
@@ -50,6 +53,7 @@ public class ContractDatabaseEntity {
         this.expectedValue = expectedValue;
         this.transactions = transactions;
         this.interval = interval;
+        this.thirdParty = thirdParty;
     }
 
     public ContractDatabaseEntity() {
@@ -66,10 +70,11 @@ public class ContractDatabaseEntity {
         this.transactions = contract.getTransactions();
         this.expected = contract.getExpected();
         this.interval = contract.getInterval();
+        this.thirdParty = contract.getThirdParty();
     }
 
     public Contract toDomain() {
-        return new Contract(id, name, expected, accountAcronym, start, end, new Value(expectedValue), transactions, interval);
+        return new Contract(id, name, expected, accountAcronym, start, end, new Value(expectedValue), transactions, interval, thirdParty);
     }
 
     public String getId() {
@@ -106,5 +111,9 @@ public class ContractDatabaseEntity {
 
     public Interval getInterval() {
         return interval;
+    }
+
+    public String getThirdParty() {
+        return thirdParty;
     }
 }

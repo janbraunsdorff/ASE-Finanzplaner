@@ -56,8 +56,8 @@ class CommandBaseCliTest {
 
     @Test
     public void controllerHasDomain(){
-        assertThat(useCases.keySet(), Matchers.containsInAnyOrder("bank", "account", "transaction", "exit"));
-        assertThat(useCases.keySet().size(), Matchers.is(4));
+        assertThat(useCases.keySet(), Matchers.containsInAnyOrder("bank", "account", "transaction", "exit", "contract"));
+        assertThat(useCases.keySet().size(), Matchers.is(5));
     }
 
 

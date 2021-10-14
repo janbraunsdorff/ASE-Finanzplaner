@@ -98,8 +98,8 @@ public class BeanApplication {
     }
 
     @Bean
-    public ContractIOApplication createAccountIoApplication(ContractRepository cr){
-        return new ContractIO(cr);
+    public ContractIOApplication createAccountIoApplication(ContractRepository cr, TransactionRepository tr){
+        return new ContractIO(cr, tr);
     }
 
 }

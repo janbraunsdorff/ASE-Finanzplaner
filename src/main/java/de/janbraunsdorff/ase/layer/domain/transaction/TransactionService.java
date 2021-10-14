@@ -20,7 +20,7 @@ public class TransactionService implements TransactionApplication {
 
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
         checkIfAccountExists(query.accountAcronym());
-        Transaction transaction = new Transaction(query.accountAcronym(), query.value(), query.date(), query.thirdParty(), query.category(), query.isContract());
+        Transaction transaction = new Transaction(query.accountAcronym(), query.value(), query.date(), query.thirdParty(), query.category(), query.isContract(), "");
         transactionRepo.createTransaction(transaction);
         return new TransactionDTO(transaction);
     }

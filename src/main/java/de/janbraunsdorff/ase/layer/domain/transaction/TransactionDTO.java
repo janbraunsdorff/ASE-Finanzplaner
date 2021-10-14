@@ -10,15 +10,17 @@ public class TransactionDTO {
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
+    private final String contractName;
     private final String id;
     private final String account;
 
-    public TransactionDTO(Value value, LocalDate date, String thirdParty, String category, Boolean isContract, String id, String account) {
+    public TransactionDTO(Value value, LocalDate date, String thirdParty, String category, Boolean isContract, String contractName, String id, String account) {
         this.value = value;
         this.date = date;
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
+        this.contractName = contractName;
         this.id = id;
         this.account = account;
     }
@@ -31,6 +33,7 @@ public class TransactionDTO {
         this.isContract = transaction.getContract();
         this.id = transaction.getId();
         this.account = transaction.getAccountAcronym();
+        this.contractName = transaction.getContractName();
     }
 
     public Value getValue() {
@@ -59,5 +62,9 @@ public class TransactionDTO {
 
     public String getAccount() {
         return account;
+    }
+
+    public String getContractName() {
+        return contractName;
     }
 }

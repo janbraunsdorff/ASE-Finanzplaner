@@ -41,7 +41,6 @@ public final class Value {
         return new Value(this.value * -1);
     }
 
-
     public static Value combine (Value v1, Value v2){
         return v1.add(v2);
     }

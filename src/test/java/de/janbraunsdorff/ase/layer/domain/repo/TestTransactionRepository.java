@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
 import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
@@ -74,5 +75,10 @@ public class TestTransactionRepository implements TransactionRepository {
     @Override
     public int getMaxValueOfAccount(String accountAcronym) {
         return 0;
+    }
+
+    @Override
+    public Stream<Transaction> getTransactionByIds(List<String> transactions) {
+        return null;
     }
 }

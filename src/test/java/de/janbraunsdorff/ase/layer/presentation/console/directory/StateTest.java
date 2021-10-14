@@ -19,7 +19,7 @@ class StateTest {
     public void goUpBankToBank(){
         var state = new State(Hierarchy.BANK, "", "");
         state = state.move(new OverlayCommand(null, StateTransition.UP));
-        assertThat(state.getHierarchy(), Matchers.is(Hierarchy.BANK));
+        assertThat(state.getHierarchy(), Matchers.is(Hierarchy.CONTRACT));
     }
 
     @Test

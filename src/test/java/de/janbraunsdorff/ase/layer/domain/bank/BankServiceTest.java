@@ -37,8 +37,8 @@ class BankServiceTest {
 
         var transRepo = new TestTransactionRepository(
                 List.of(
-                        new Transaction("acr1", 10, LocalDate.of(2020, 12, 30), "thp1", "cat", false),
-                        new Transaction("acr1", 50, LocalDate.of(2020, 12, 1), "thp1", "cat", false)
+                        new Transaction("acr1", 10, LocalDate.of(2020, 12, 30), "thp1", "cat", false, "contractName"),
+                        new Transaction("acr1", 50, LocalDate.of(2020, 12, 1), "thp1", "cat", false, "contractName")
                 )
         );
 

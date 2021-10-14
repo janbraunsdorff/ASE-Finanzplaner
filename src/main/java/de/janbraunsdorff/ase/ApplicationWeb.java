@@ -17,6 +17,7 @@ public class ApplicationWeb {
         SpringApplication.run(ApplicationWeb.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner commandLineRunner(AccountIOApplication accountApplication, BankApplication bankApplication, TransactionApplication transactionApplication, ContractIOApplication contractIOApplication) {
         return args -> {
@@ -26,4 +27,6 @@ public class ApplicationWeb {
                     .run();
         };
     }
+
+     */
 }

@@ -44,7 +44,7 @@ public class TransactionJsonEntity {
     }
 
     public Transaction convertToTransaction(){
-        return new Transaction(id, accountAcronym, value, date, thirdParty, category, isContract);
+        return new Transaction(id, accountAcronym, value, date, thirdParty, category, isContract, "");
     }
 
     public String getId() {

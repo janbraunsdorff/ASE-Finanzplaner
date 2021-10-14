@@ -40,7 +40,7 @@ public class TransactionDatabaseEntity {
     }
 
     public Transaction toDomain(){
-        return new Transaction(id, accountAcronym, value, date, thirdParty, category, isContract);
+        return new Transaction(id, accountAcronym, value, date, thirdParty, category, isContract, "");
     }
 
     public String getId() {

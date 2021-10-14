@@ -38,8 +38,8 @@ class AccountIOTest {
 
         var transactionRepo = new TestTransactionRepository(
                 List.of(
-                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false),
-                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false)
+                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false, "contractName"),
+                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false, "contractName")
                 )
         );
 
@@ -76,8 +76,8 @@ class AccountIOTest {
 
         var transactionRepo = new TestTransactionRepository(
                 List.of(
-                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false),
-                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false)
+                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false, "contractName"),
+                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false, "contractName")
                 )
         );
 
@@ -95,8 +95,8 @@ class AccountIOTest {
 
         var transactionRepo = new TestTransactionRepository(
                 List.of(
-                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false),
-                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false)
+                        new Transaction("ac1", 10, LocalDate.now(), "thp", "cat", false, "contractName"),
+                        new Transaction("ac1", 20, LocalDate.now(), "thp", "cat", false, "contractName")
                 )
         );
 

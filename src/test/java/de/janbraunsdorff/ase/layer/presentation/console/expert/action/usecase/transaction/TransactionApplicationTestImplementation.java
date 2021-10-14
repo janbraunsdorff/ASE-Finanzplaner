@@ -32,7 +32,7 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
     @Override
     public TransactionDTO createTransactionByAccountId(TransactionCreateCommand query) throws AccountNotFoundException {
         this.transactionCreateCommand = query;
-        return new TransactionDTO(null, null, "", "", false, "", "");
+        return new TransactionDTO(null, null, "", "", false, "contractName", "", "");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
     @Override
     public List<TransactionDTO> getTransactionsOfMultipleAccounts(TransactionGetInIntervalQuery query) throws AccountNotFoundException {
         this.transactionGetInIntervalQuery.add(query);
-        return Collections.singletonList(new TransactionDTO(new Value(0), LocalDate.of(2020, 1, 1), "", "", false, "", ""));
+        return Collections.singletonList(new TransactionDTO(new Value(0), LocalDate.of(2020, 1, 1), "", "", false, "contractName", "", ""));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TransactionApplicationTestImplementation implements TransactionAppl
         this.transactionDeleteCommand = command;
         var list = new ArrayList<TransactionDTO>();
         for (String id : command.id()) {
-            list.add(new TransactionDTO(null, null, "", "", false, id, ""));
+            list.add(new TransactionDTO(null, null, "", "", false, "contractName", id, ""));
         }
 
         return list;

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -207,6 +208,11 @@ public class TransactionJsonRepository implements TransactionRepository {
         }
 
         return 0;
+    }
+
+    @Override
+    public Stream<Transaction> getTransactionByIds(List<String> transactions) {
+        return null;
     }
 
     private ArrayList<TransactionJsonEntity> readFile() throws IOException {

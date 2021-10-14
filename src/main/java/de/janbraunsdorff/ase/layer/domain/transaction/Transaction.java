@@ -11,8 +11,9 @@ public class Transaction {
     private final String thirdParty;
     private final String category;
     private final Boolean isContract;
+    private final String ContractName;
 
-    public Transaction(String id, String accountAcronym, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
+    public Transaction(String id, String accountAcronym, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, String contractName) {
         this.id = id;
         this.accountAcronym = accountAcronym;
         this.value = value;
@@ -20,9 +21,11 @@ public class Transaction {
         this.thirdParty = thirdParty;
         this.category = category;
         this.isContract = isContract;
+        ContractName = contractName;
     }
 
-    public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract) {
+    public Transaction(String accountId, Integer value, LocalDate date, String thirdParty, String category, Boolean isContract, String contractName) {
+        ContractName = contractName;
         this.id = UUID.randomUUID().toString();
         this.accountAcronym = accountId;
         this.value = value;
@@ -60,4 +63,7 @@ public class Transaction {
         return isContract;
     }
 
+    public String getContractName() {
+        return ContractName;
+    }
 }

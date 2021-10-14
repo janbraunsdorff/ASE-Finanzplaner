@@ -46,8 +46,8 @@ class CommandOverlayTest {
 
     @Test
     public void createActors(){
-        assertThat(this.actors.size(), Matchers.is(3));
-        assertThat(this.actors.keySet(), Matchers.containsInAnyOrder(Hierarchy.BANK, Hierarchy.ACCOUNT, Hierarchy.TRANSACTION));
+        assertThat(this.actors.size(), Matchers.is(4));
+        assertThat(this.actors.keySet(), Matchers.containsInAnyOrder(Hierarchy.BANK, Hierarchy.ACCOUNT, Hierarchy.TRANSACTION, Hierarchy.CONTRACT));
     }
 
     @Test
@@ -58,8 +58,8 @@ class CommandOverlayTest {
         f.setAccessible(true);
         var builder = (HashMap<String, CommandBuilder>) f.get(bankActor);
 
-        assertThat(builder.size(), Matchers.is(5));
-        assertThat(builder.keySet(), Matchers.containsInAnyOrder("ls", "cd", "cat", "touch", "rm"));
+        assertThat(builder.size(), Matchers.is(6));
+        assertThat(builder.keySet(), Matchers.containsInAnyOrder("ls", "cd", "cat", "touch", "rm", "cd .."));
         assertThat(builder.get("ls"), Matchers.instanceOf(ListBank.class));
         assertThat(builder.get("cd"), Matchers.instanceOf(GoToAccountFromBank.class));
         assertThat(builder.get("cat"), Matchers.instanceOf(CatAccount.class));
