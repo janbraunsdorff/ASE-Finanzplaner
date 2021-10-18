@@ -12,13 +12,13 @@ pipeline {
 
         stage ('Run Unit Tests') {
             steps {
-                sh 'RUN gradle test --stacktrace'
+                sh 'gradle test --stacktrace'
             }
         }
 
         stage ('Build Application') {
             steps {
-                sh 'RUN gradle build --refresh-dependencies --stacktrace'
+                sh 'gradle build --refresh-dependencies --stacktrace'
             }
         }
     }
