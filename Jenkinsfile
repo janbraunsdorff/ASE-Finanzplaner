@@ -6,7 +6,19 @@ pipeline {
         stage ('Print Version') {
             steps {
                 sh 'gradle -v'
-                sh 'java -v'
+                sh 'java -version'
+            }
+        }
+
+        stage ('Run Unit Tests') {
+            steps {
+                sh 'RUN gradle test --stacktrace'
+            }
+        }
+
+        stage ('Build Application') {
+            steps {
+                sh 'RUN gradle build --refresh-dependencies --stacktrace'
             }
         }
     }
