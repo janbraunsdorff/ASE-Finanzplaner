@@ -1,9 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'gradle:jdk17' }
+    }
     stages {
         stage ('Print Version') {
             steps {
-                sh 'docker'
                 sh 'gradle -v'
                 sh 'java -v'
             }
