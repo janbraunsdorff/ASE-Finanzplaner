@@ -21,6 +21,14 @@ pipeline {
                 sh 'gradle build --refresh-dependencies --stacktrace'
             }
         }
+
+        stage ('Build Image') {
+            agent any
+            steps {
+                sh 'docker build . -t fipl-backend'
+            }
+        }
+
     }
 }
 
