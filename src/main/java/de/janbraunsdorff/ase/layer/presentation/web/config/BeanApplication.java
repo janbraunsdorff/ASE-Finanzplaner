@@ -59,18 +59,18 @@ public class BeanApplication {
     }
 
     @Bean
-    public AccountRepository createAccountRepository(AccountSpringRepository repo){
-        return new AccountDatabaseRepository(repo);
+    public AccountRepository createAccountRepository(AccountSpringRepository repo, BankSpringRepository bankRepo){
+        return new AccountDatabaseRepository(repo, bankRepo);
     }
 
     @Bean
-    public TransactionRepository createTransactionRepository(TransactionSpringRepository repo){
-        return new TransactionDatabaseRepository(repo);
+    public TransactionRepository createTransactionRepository(TransactionSpringRepository repo, AccountSpringRepository accountRepo){
+        return new TransactionDatabaseRepository(repo, accountRepo);
     }
 
     @Bean
-    public ContractRepository createContractRepository(ContractSpringRepository repo){
-        return new ContractDatabaseRepository(repo);
+    public ContractRepository createContractRepository(ContractSpringRepository repo, AccountSpringRepository accountRepo){
+        return new ContractDatabaseRepository(repo, accountRepo);
     }
 
 

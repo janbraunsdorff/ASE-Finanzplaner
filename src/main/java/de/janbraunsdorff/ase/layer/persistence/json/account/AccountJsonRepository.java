@@ -85,7 +85,7 @@ public class AccountJsonRepository implements AccountRepository {
     }
 
     @Override
-    public Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException {
+    public Set<String> getAccountIdsOfBankByBankAcronym(String bank) throws BankNotFoundException {
         try {
             return readFile()
                     .stream()

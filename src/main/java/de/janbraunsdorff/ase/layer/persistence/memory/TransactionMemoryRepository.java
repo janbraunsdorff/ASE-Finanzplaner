@@ -24,16 +24,17 @@ public class TransactionMemoryRepository implements TransactionRepository {
     }
 
     @Override
-    public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
-        return 0;
+    public Long getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
+        return 0L;
     }
 
     @Override
-    public int getValueOfAccount(String accountId) {
+    public Long getValueOfAccount(String accountId) {
         return this.getTransactionOfAccount(accountId, -1)
                 .stream()
                 .map(Transaction::getValue)
-                .reduce(0, Integer::sum);
+                .map(Integer::longValue)
+                .reduce(0L, Long::sum);
     }
 
     @Override

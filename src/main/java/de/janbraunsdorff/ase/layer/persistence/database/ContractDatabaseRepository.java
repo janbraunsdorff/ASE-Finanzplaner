@@ -1,18 +1,19 @@
 package de.janbraunsdorff.ase.layer.persistence.database;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import de.janbraunsdorff.ase.layer.domain.contract.ContractRepository;
 import de.janbraunsdorff.ase.layer.domain.contract.data.Contract;
+import de.janbraunsdorff.ase.layer.persistence.database.entity.ContractDatabaseEntity;
 
 public class ContractDatabaseRepository implements ContractRepository {
 
     private final ContractSpringRepository repo;
-    public ContractDatabaseRepository(ContractSpringRepository repo) {
+    private final AccountSpringRepository accountRepo;
+    public ContractDatabaseRepository(ContractSpringRepository repo, AccountSpringRepository accountRepo) {
         this.repo = repo;
+        this.accountRepo = accountRepo;
     }
 
     @Override
@@ -23,6 +24,7 @@ public class ContractDatabaseRepository implements ContractRepository {
 
     @Override
     public Contract save(Contract contract) {
-        return repo.save(new ContractDatabaseEntity(contract)).toDomain();
+        var account = this.accountRepo.findByAcronym(contract.getAccountAcronym());
+        return repo.save(new ContractDatabaseEntity(contract, account)).toDomain();
     }
 }

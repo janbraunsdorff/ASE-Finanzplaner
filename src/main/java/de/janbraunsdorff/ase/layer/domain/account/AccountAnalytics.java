@@ -44,7 +44,7 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
 
         for (int i = 0; i < command.month(); i++) {
             startAccountValue += transactionRepo.getValueOfAccount(startInterval, startInterval.plusMonths(1), Set.of(command.accountAcronym()));
-            values.add(new Value(startAccountValue));
+            values.add(new Value(startAccountValue.intValue()));
             startInterval = startInterval.plusMonths(1);
         }
 
@@ -125,9 +125,9 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
     public AccountDetailDTO getAccountDetail(AccountGetDetailQuery query) {
         try {
             var accountByAcronym = this.accountRepo.getAccountByAcronym(query.accountAcronym());
-            var value = this.transactionRepo.getValueOfAccount(query.accountAcronym());
-            var last7 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(7), Set.of(query.accountAcronym()));
-            var last30 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(30), Set.of(query.accountAcronym()));
+            var value = this.transactionRepo.getValueOfAccount(accountByAcronym.getId()).intValue();
+            var last7 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(7), Set.of(accountByAcronym.getId())).intValue();
+            var last30 =  this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(30), Set.of(accountByAcronym.getId())).intValue();
             var max = this.transactionRepo.getMaxValueOfAccount(query.accountAcronym());
             var lastPostingDate = "01.01.0001";
             if (!this.transactionRepo.getTransactionOfAccount(query.accountAcronym(), 1).isEmpty()){
@@ -143,7 +143,7 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
                     getPercent(last30, value),
                     new Value(max).getFormatted(),
                     lastPostingDate,
-                    getCourseOfOneMonth(query.accountAcronym(), 365)
+                    getCourseOfOneMonth(accountByAcronym.getId(), 365)
             );
 
         } catch (AccountNotFoundException e) {
@@ -156,10 +156,10 @@ public class AccountAnalytics implements AccountAnalyticsApplication{
     private List<Integer> getCourseOfOneMonth(String accountAcronym, int days) {
         List<Integer> values = new ArrayList<>();
         for (int i = 0; i < days/10; i++){
-            values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)));
+            values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now().minusDays(days - (i*10)), Set.of(accountAcronym)).intValue());
         }
 
-        values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now(), Set.of(accountAcronym)));
+        values.add(this.transactionRepo.getValueOfAccount(MIN_DATE, LocalDate.now(), Set.of(accountAcronym)).intValue());
 
         return values;
     }

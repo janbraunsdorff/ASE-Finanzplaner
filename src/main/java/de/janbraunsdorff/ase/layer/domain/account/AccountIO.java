@@ -88,6 +88,6 @@ public class AccountIO implements AccountIOApplication {
     private AccountDTO getAccount(Account a) throws BankNotFoundException {
         int numberOfTransactions = Math.toIntExact(transactionRepo.count(a.getAcronym()));
         String bankName = bankRepo.getBankByAcronym(a.getBankAcronym()).getName();
-        return new AccountDTO(a, numberOfTransactions, transactionRepo.getValueOfAccount(a.getAcronym()), bankName);
+        return new AccountDTO(a, numberOfTransactions, transactionRepo.getValueOfAccount(a.getAcronym()).intValue(), bankName);
     }
 }

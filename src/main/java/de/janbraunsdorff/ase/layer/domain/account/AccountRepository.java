@@ -15,7 +15,7 @@ public interface AccountRepository {
     Account getAccountByAcronym(String acronym) throws AccountNotFoundException;
 
     List<Account> getAccountsOfBankByBankAcronym(String bank) throws BankNotFoundException;
-    Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException;
+    Set<String> getAccountIdsOfBankByBankAcronym(String bank) throws BankNotFoundException;
 
     void deleteAccountByAcronym(String acronym) throws AccountNotFoundException;
 

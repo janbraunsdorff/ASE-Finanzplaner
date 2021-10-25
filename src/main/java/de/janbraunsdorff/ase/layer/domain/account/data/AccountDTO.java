@@ -9,6 +9,7 @@ public class AccountDTO {
     private final String acronym;
     private final Value value;
     private final String bankName;
+    private final String id;
 
     public AccountDTO(Account a, int numberOfTransactions, int valueOfAccount, String bankName){
         this.name = a.getName();
@@ -17,6 +18,7 @@ public class AccountDTO {
         this.acronym = a.getAcronym();
         this.value = new Value(valueOfAccount);
         this.bankName = bankName;
+        this.id = a.getId();
     }
 
     public String getBankName() {
@@ -41,5 +43,9 @@ public class AccountDTO {
 
     public Value getValue() {
         return this.value;
+    }
+
+    public String getId() {
+        return this.id;
     }
 }

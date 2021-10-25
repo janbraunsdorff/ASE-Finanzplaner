@@ -25,19 +25,21 @@ public class TestTransactionRepository implements TransactionRepository {
     }
 
     @Override
-    public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
+    public Long getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
         return transactions.stream()
                 .filter(a -> accountAcronyms.contains(a.getAccountAcronym()))
                 .map(Transaction::getValue)
-                .reduce(0, Integer::sum);
+                .map(Integer::longValue)
+                .reduce(0L, Long::sum);
     }
 
     @Override
-    public int getValueOfAccount(String accountId) {
+    public Long getValueOfAccount(String accountId) {
         return transactions.stream()
                 .filter(a -> accountId.contains(a.getAccountAcronym()))
                 .map(Transaction::getValue)
-                .reduce(0, Integer::sum);
+                .map(Integer::longValue)
+                .reduce(0L, Long::sum);
     }
 
     @Override

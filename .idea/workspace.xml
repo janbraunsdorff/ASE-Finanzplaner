@@ -4,18 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="add Jenkinsfile">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/GroupTranactionWebDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/GroupTransactionsRequest.java" afterDir="false" />
+    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="update grouping">
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy-datasource.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.jpb/jpb-settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/entity/AccountDatabaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/entity/BankDatabaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/entity/ContractDatabaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/entity/TransactionDatabaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/parse.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/parse.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/ApplicationWeb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/ApplicationWeb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/TransactionWebDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/TransactionWebDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountAnalytics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountAnalytics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/data/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/account/data/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/bank/BankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/bank/BankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/transaction/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/domain/transaction/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/AccountDatabaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/AccountDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/AccountDatabaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/AccountSpringRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/AccountSpringRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/BankDatabaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/BankDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/BankDatabaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/BankSpringRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/BankSpringRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractDatabaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractSpringRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/ContractSpringRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/TransactionDatabaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/TransactionDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/TransactionDatabaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/TransactionSpringRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/database/TransactionSpringRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/json/account/AccountJsonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/json/account/AccountJsonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/json/transaction/TransactionJsonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/json/transaction/TransactionJsonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/memory/AccountMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/memory/AccountMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/memory/TransactionMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/persistence/memory/TransactionMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/DistributorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/console/expert/DistributorUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/BeanApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/BeanApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/de/janbraunsdorff/ase/layer/domain/repo/TestTransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/de/janbraunsdorff/ase/layer/domain/repo/TestTransactionRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,10 +87,16 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JpaEntity" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -80,16 +110,23 @@
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
         <entry key="JPA Structure" value="true" />
       </map>
     </option>
     <option name="myId2Visible">
       <map>
+        <entry key="JPA Inspector" value="false" />
+        <entry key="JPA Palette" value="false" />
         <entry key="JPA Structure" value="false" />
       </map>
     </option>
   </component>
   <component name="ProjectId" id="1yUbY4L7S1Brypq93Q8vgBcOU4R" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -102,7 +139,7 @@
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="jpb.dbDrivers" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -323,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634668912952</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="update grouping">
+      <created>1635153222086</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1635153222086</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -345,7 +389,8 @@
     <MESSAGE value="add expected field to contract" />
     <MESSAGE value="add interval" />
     <MESSAGE value="add Jenkinsfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Jenkinsfile" />
+    <MESSAGE value="update grouping" />
+    <option name="LAST_COMMIT_MESSAGE" value="update grouping" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

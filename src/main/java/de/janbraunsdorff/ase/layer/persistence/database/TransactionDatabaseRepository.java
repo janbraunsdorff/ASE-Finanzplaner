@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import de.janbraunsdorff.ase.layer.persistence.database.entity.TransactionDatabaseEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,36 +19,39 @@ import de.janbraunsdorff.ase.layer.domain.transaction.TransactionRepository;
 public class TransactionDatabaseRepository implements TransactionRepository {
 
     private final TransactionSpringRepository repo;
+    private final AccountSpringRepository accountRepo;
 
-    public TransactionDatabaseRepository(TransactionSpringRepository repo){
+    public TransactionDatabaseRepository(TransactionSpringRepository repo, AccountSpringRepository accountRepo){
         this.repo = repo;
+        this.accountRepo = accountRepo;
     }
 
     @Override
     @Transactional
     public void createTransaction(Transaction entity) throws AccountNotFoundException {
-        var en = new TransactionDatabaseEntity(entity.getId(), entity.getAccountAcronym(), entity.getValue(), entity.getDate(), entity.getThirdParty(), entity.getCategory(), entity.getContract());
+        var account = accountRepo.findByAcronym(entity.getAccountAcronym());
+        var en = new TransactionDatabaseEntity(entity.getId(), account, entity.getValue(), entity.getDate(), entity.getThirdParty(), entity.getCategory(), null);
         this.repo.save(en);
     }
 
     @Override
     @Transactional
-    public int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
+    public Long getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms) {
         ArrayList<String> x3 = new ArrayList<>(accountAcronyms);
         List<TransactionDatabaseEntity> byDateBetweenAndAccountAcronymInOrderByDateDesc = this.repo.findInInterval(start, end, x3);
         return byDateBetweenAndAccountAcronymInOrderByDateDesc
                 .stream()
                 .map(TransactionDatabaseEntity::getValue)
-                .reduce(0, Integer::sum);
+                .reduce(0L, Long::sum);
     }
 
     @Override
     @Transactional
-    public int getValueOfAccount(String accountId) {
-       return this.repo.findByAccountAcronymOrderByDateDesc(accountId)
+    public Long getValueOfAccount(String accountId) {
+       return this.repo.findByAccountAcronymOrderByValuteDesc(accountId)
                .stream()
                .map(TransactionDatabaseEntity::getValue)
-               .reduce(0, Integer::sum);
+               .reduce(0L, Long::sum);
     }
 
     @Override
@@ -57,7 +61,7 @@ public class TransactionDatabaseRepository implements TransactionRepository {
             count = Integer.MAX_VALUE;
         }
         Pageable topTen = PageRequest.of(0, count);
-        return this.repo.findByAccountAcronymOrderByDateDesc(id, topTen)
+        return this.repo.findByAccountAcronymOrderByValuteDesc(id, topTen)
                 .stream()
                 .map(TransactionDatabaseEntity::toDomain)
                 .collect(Collectors.toList());
@@ -86,13 +90,13 @@ public class TransactionDatabaseRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getTransactions(LocalDate start, LocalDate end) {
-        return this.repo.findByDateBetweenOrderByDateDesc(start, end).stream().map(TransactionDatabaseEntity::toDomain).collect(Collectors.toList());
+        return this.repo.findByValuteBetweenOrderByValuteDesc(start, end).stream().map(TransactionDatabaseEntity::toDomain).collect(Collectors.toList());
     }
 
     @Override
     public List<Transaction> getLastTransactions(int number) {
         Pageable topTen = PageRequest.of(0, number);
-        return this.repo.findAllByOrderByDateDesc(topTen)
+        return this.repo.findAllByOrderByValuteDesc(topTen)
                 .stream()
                 .map(TransactionDatabaseEntity::toDomain)
                 .collect(Collectors.toList());
@@ -108,7 +112,7 @@ public class TransactionDatabaseRepository implements TransactionRepository {
         for (int i = 0; i < collect.size(); i++) {
             var t = collect.get(i);
             accountValue += t.getValue();
-            if (i+1 < collect.size() && t.getDate().isEqual(collect.get(i+1).getDate())) {
+            if (i+1 < collect.size() && t.getValute().isEqual(collect.get(i+1).getValute())) {
                 continue;
             }
 

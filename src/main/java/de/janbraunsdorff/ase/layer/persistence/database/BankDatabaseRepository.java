@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import de.janbraunsdorff.ase.layer.persistence.database.entity.BankDatabaseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.janbraunsdorff.ase.layer.domain.AcronymAlreadyExistsException;

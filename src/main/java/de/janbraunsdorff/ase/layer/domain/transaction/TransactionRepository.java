@@ -12,9 +12,9 @@ import de.janbraunsdorff.ase.layer.domain.TransactionNotFoundException;
 public interface TransactionRepository {
     void createTransaction(Transaction entity) throws AccountNotFoundException;
 
-    int getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms);
+    Long getValueOfAccount(LocalDate start, LocalDate end, Set<String> accountAcronyms);
 
-    int getValueOfAccount(String accountId);
+    Long getValueOfAccount(String accountId);
 
     List<Transaction> getTransactionOfAccount(String id, int count);
 

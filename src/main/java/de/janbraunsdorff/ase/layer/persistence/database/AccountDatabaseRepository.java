@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import de.janbraunsdorff.ase.layer.persistence.database.entity.AccountDatabaseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.janbraunsdorff.ase.layer.domain.AccountNotFoundException;
@@ -16,15 +17,18 @@ import de.janbraunsdorff.ase.layer.domain.account.data.Account;
 public class AccountDatabaseRepository  implements AccountRepository {
 
     private final AccountSpringRepository repo;
+    private final BankSpringRepository bankSpringRepository;
 
-    public AccountDatabaseRepository(AccountSpringRepository repo){
+    public AccountDatabaseRepository(AccountSpringRepository repo, BankSpringRepository bankSpringRepository){
         this.repo = repo;
+        this.bankSpringRepository = bankSpringRepository;
     }
 
     @Override
     @Transactional
     public void createAccount(Account account) throws AcronymAlreadyExistsException {
-        var entity = new AccountDatabaseEntity(account.getId(), account.getBankAcronym(), account.getName(), account.getNumber(), account.getAcronym());
+        var bank = bankSpringRepository.findByAcronym(account.getAcronym());
+        var entity = new AccountDatabaseEntity(account.getId(), bank, account.getName(), account.getNumber(), account.getAcronym());
         this.repo.save(entity);
     }
 
@@ -42,8 +46,8 @@ public class AccountDatabaseRepository  implements AccountRepository {
 
     @Override
     @Transactional
-    public Set<String> getAccountNamesOfBankByBankAcronym(String bank) throws BankNotFoundException {
-        return this.getAccountsOfBankByBankAcronym(bank).stream().map(Account::getAcronym).collect(Collectors.toSet());
+    public Set<String> getAccountIdsOfBankByBankAcronym(String bank) throws BankNotFoundException {
+        return this.getAccountsOfBankByBankAcronym(bank).stream().map(Account::getId).collect(Collectors.toSet());
     }
 
     @Override
