@@ -8,6 +8,7 @@ RUN gradle build --refresh-dependencies --stacktrace
 
 FROM openjdk:17-slim
 
+RUN pwd
 COPY --from=builder /home/gradle/src/build/libs/ASE-Finanzplaner-1.0-SNAPSHOT.jar ./app.jar
 COPY ./repository ./repository
 

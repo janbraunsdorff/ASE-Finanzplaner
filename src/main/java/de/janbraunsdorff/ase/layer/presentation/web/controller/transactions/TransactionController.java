@@ -1,8 +1,11 @@
 package de.janbraunsdorff.ase.layer.presentation.web.controller.transactions;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import de.janbraunsdorff.ase.layer.presentation.web.controller.transactions.date.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +19,9 @@ import de.janbraunsdorff.ase.layer.domain.account.querry.AccountGetByAcronymQuer
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionApplication;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGetQuery;
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupCommand;
-import de.janbraunsdorff.ase.layer.presentation.web.controller.transactions.date.AllTransactionRequest;
-import de.janbraunsdorff.ase.layer.presentation.web.controller.transactions.date.AllTransactionResponse;
-import de.janbraunsdorff.ase.layer.presentation.web.controller.transactions.date.TransactionWebDTO;
 
 @RestController
-@RequestMapping("transactions")
+@RequestMapping("transaction")
 public class TransactionController {
 
     private final TransactionApplication transactionApplication;
@@ -47,5 +47,14 @@ public class TransactionController {
 
 
         return new AllTransactionResponse(tranactions, account.getName(), account.getValue().getFormatted(), amounts, labels);
+    }
+
+    @PostMapping("group")
+    public List<GroupTranactionWebDTO> grouping(@RequestBody GroupTransactionsRequest request) {
+        if (request.getAccounts().isEmpty()){
+            return Collections.emptyList();
+        }
+        return transactionApplication.groupMonthly(new TransactionGroupCommand(request.getAccounts().get(0)))
+                .stream().map(GroupTranactionWebDTO::new).toList();
     }
 }

@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="add interval">
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="473f8692-a973-4e16-9da2-d6db9ad59479" name="Changes" comment="add Jenkinsfile">
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/GroupTranactionWebDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/GroupTransactionsRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/parse.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/parse.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/ApplicationWeb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/ApplicationWeb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/TransactionWebDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/janbraunsdorff/ase/layer/presentation/web/controller/transactions/date/TransactionWebDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +102,7 @@
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -109,7 +112,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.Dockerfile">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.janbraunsdorff.ase.App" />
       <module name="ASE-Finanzplaner.main" />
@@ -264,7 +267,63 @@
       <option name="project" value="LOCAL" />
       <updated>1633088323566</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add Jenkinsfile">
+      <created>1634584826942</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1634584826942</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add Jenkinsfile">
+      <created>1634584998299</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1634584998299</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add Jenkinsfile">
+      <created>1634588309238</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1634588309238</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add Jenkinsfile">
+      <created>1634588411895</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1634588411895</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add Jenkinsfile">
+      <created>1634590754719</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1634590754719</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add Jenkinsfile">
+      <created>1634591106056</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1634591106056</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add Jenkinsfile">
+      <created>1634591285462</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1634591285462</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add Jenkinsfile">
+      <created>1634668912952</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1634668912952</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +344,8 @@
     <MESSAGE value="view Contracts&#10;add Contracts" />
     <MESSAGE value="add expected field to contract" />
     <MESSAGE value="add interval" />
-    <option name="LAST_COMMIT_MESSAGE" value="add interval" />
+    <MESSAGE value="add Jenkinsfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Jenkinsfile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

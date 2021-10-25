@@ -1,6 +1,7 @@
 package de.janbraunsdorff.ase.layer.presentation.web.controller.transactions.date;
 
 import de.janbraunsdorff.ase.layer.domain.transaction.TransactionDTO;
+import de.janbraunsdorff.ase.layer.domain.transaction.TransactionGroupDTO;
 
 import java.time.format.DateTimeFormatter;
 

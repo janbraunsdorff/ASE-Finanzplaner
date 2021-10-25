@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    container_name: fipl-backend
+    restart: always
+    ports:
+      - "4100:8080"
+    volumes:
+      - "/Users/janbraunsdorff/projects/fipl/ASE-Finanzplaner/repository/:/repository"
